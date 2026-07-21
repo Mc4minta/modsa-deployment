@@ -1,0 +1,1072 @@
+{
+    "academic_calendar": {
+        "exact_duplicates": [
+            {
+                "kept": {
+                    "question": "ข้อความนี้ระบุว่าเป็นปฏิทินการศึกษาประจำปีการศึกษาใด?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0030",
+                    "answer_must_contain": [
+                        "ปฏิทินการศึกษา",
+                        "2569"
+                    ],
+                    "answerable": true
+                },
+                "duplicate": {
+                    "question": "ข้อความนี้ระบุว่าเป็นปฏิทินการศึกษาประจำปีการศึกษาใด?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0042",
+                    "answer_must_contain": [
+                        "ปฏิทินการศึกษา",
+                        "ปีการศึกษา 2569"
+                    ],
+                    "answerable": true
+                }
+            }
+        ],
+        "paraphrase_groups": {
+            "AcademicCalendar2026-2569TH2#0037": [
+                {
+                    "question": "วันที่ 1 ของปีการศึกษา 2569 คือวันที่เท่าใด และมีวันหยุดอะไรในวันนั้น?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0037",
+                    "answer_must_contain": [
+                        "31 พ.ค. 2569",
+                        "วันวิสาขบูชา"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "วันที่ 1 มิ.ย. 2569 เป็นวันชดเชยวันหยุดใด?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0037",
+                    "answer_must_contain": [
+                        "1 มิ.ย. 2569",
+                        "วันชดเชย วันวิสาขบูชา"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "AcademicCalendar2026-2569TH2#0030": [
+                {
+                    "question": "ปีการศึกษา 2569 เริ่มต้นเมื่อใด?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0030",
+                    "answer_must_contain": [
+                        "2569",
+                        "ปีการศึกษา"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "ข้อความนี้ระบุว่าเป็นปฏิทินการศึกษาประจำปีการศึกษาใด?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0030",
+                    "answer_must_contain": [
+                        "ปฏิทินการศึกษา",
+                        "2569"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "AcademicCalendar2026-2569TH2#0001": [
+                {
+                    "question": "มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี จัดทำปฏิทินการศึกษา ประจำปีการศึกษา 2569 สำหรับนักศึกษาระดับใดบ้าง?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0001",
+                    "answer_must_contain": [
+                        "ปริญญาตรี",
+                        "บัณฑิตศึกษา"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี ได้จัดทำปฏิทินการศึกษาสำหรับนักศึกษาระดับปริญญาตรีและระดับบัณฑิตศึกษา ประจำปีการศึกษา 2569 หรือไม่?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0001",
+                    "answer_must_contain": [
+                        "มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี",
+                        "ปฏิทินการศึกษา ประจำปีการศึกษา 2569",
+                        "นักศึกษาระดับปริญญาตรี",
+                        "ระดับบัณฑิตศึกษา"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "AcademicCalendar2026-2569TH2#0039": [
+                {
+                    "question": "วันที่เริ่มต้นการลงทะเบียนเรียนในภาคการศึกษาที่ 2/2569 คือวันใด?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0039",
+                    "answer_must_contain": [
+                        "11 ม.ค. 2570",
+                        "จ.11 ม.ค. 2570"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "วันที่ 11 ม.ค. 2570 เป็นวันลงทะเบียนเรียนหรือไม่?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0039",
+                    "answer_must_contain": [
+                        "11 ม.ค. 2570",
+                        "ลงทะเบียนเรียน"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "AcademicCalendar2026-2569TH2#0004": [
+                {
+                    "question": "วันสุดท้ายของการชำระเงินค่าลงทะเบียนและค่าลงทะเบียนรักษาสถานภาพการเป็นนักศึกษา ภาคการศึกษาที่ 1/2569 คือวันใด?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0004",
+                    "answer_must_contain": [
+                        "พฤ.23 ก.ค. 2569",
+                        "วันสุดท้ายของการชำระเงินค่าลงทะเบียน"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "วันสุดท้ายของการชำระเงินค่าลงทะเบียน และค่าลงทะเบียนรักษาสถานภาพการเป็นนักศึกษา ภาคการศึกษาที่ 1/2569 คือวันที่เท่าใด?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0004",
+                    "answer_must_contain": [
+                        "พฤ.23 ก.ค. 2569",
+                        "วันสุดท้ายของการชำระเงินค่าลงทะเบียน"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "AcademicCalendar2026-2569TH2#0032": [
+                {
+                    "question": "ช่วงเวลาการเรียนการสอนในปีการศึกษา 2569 สำหรับนักศึกษาระดับบัณฑิตศึกษา ถูกจัดเป็นกี่ช่วง และมีการหยุดการเรียนการสอนในช่วงใดบ้างเพื่อการประเมินผลลัพธ์การเรียนรู้?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0032",
+                    "answer_must_contain": [
+                        "2 ช่วงเวลา",
+                        "สัปดาห์ที่ 11-12",
+                        "สัปดาห์ที่ 18-19"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "การจัดการเรียนการสอนในช่วงเวลาใดของปีการศึกษา 2569 ที่มีการหยุดการเรียนการสอนเพื่อประเมินผลลัพธ์การเรียนรู้ในสัปดาห์ที่ 11-12 และ 18-19?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0032",
+                    "answer_must_contain": [
+                        "สัปดาห์ที่ 11-12",
+                        "สัปดาห์ที่ 18-19"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "AcademicCalendar2026-2569TH2#0014": [
+                {
+                    "question": "วันประกาศผลสอบ ภาคการศึกษาที่ 1/2569 คือวันใด?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0014",
+                    "answer_must_contain": [
+                        "29 ธ.ค. 2569",
+                        "วันประกาศผลสอบ"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "วันประกาศผลสอบ ภาคการศึกษาที่ 1/2569 คือวันที่เท่าใด?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0014",
+                    "answer_must_contain": [
+                        "29 ธ.ค. 2569"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "AcademicCalendar2026-2569TH2#0023": [
+                {
+                    "question": "วันที่นักศึกษาสามารถแจ้งความประสงค์ขอเปิดรายวิชาภาคการศึกษาพิเศษ 2569 ได้คือวันใด?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0023",
+                    "answer_must_contain": [
+                        "อ.23 ก.พ. 2570",
+                        "วันแจ้งความประสงค์ขอเปิดรายวิชาภาคการศึกษาพิเศษ 2569"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "วันที่เริ่มต้นของช่วงวันลดรายวิชาโมดูล 5 สัปดาห์ ช่วงที่ 2 คือวันใด?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0023",
+                    "answer_must_contain": [
+                        "จ.15 ก.พ. 2570",
+                        "วันลดรายวิชาโมดูล 5 สัปดาห์ ช่วงที่ 2"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "AcademicCalendar2026-2569TH2#0040": [
+                {
+                    "question": "วันหยุดราชการในภาคการศึกษาที่ 2/2569 ที่ระบุในปฏิทินการศึกษา 2569 มีวันใดบ้าง?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0040",
+                    "answer_must_contain": [
+                        "วันพระราชพิธีพืชมงคลจรดพระนังคัลแรกนาขวัญ",
+                        "วันวิสาขบูชา"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "วันพระราชพิธีพืชมงคลจรดพระนังคัลแรกนาขวัญในปีการศึกษา 2569 ถูกกำหนดให้เป็นวันหยุดในวันที่ใด?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0040",
+                    "answer_must_contain": [
+                        "วันที่ 15 พ.ค. 2570",
+                        "วันพระราชพิธีพืชมงคลจรดพระนังคัลแรกนาขวัญ"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "AcademicCalendar2026-2569TH2#0019": [
+                {
+                    "question": "นักศึกษาที่ได้รับการอนุมัติให้ลาพักการศึกษาล่าช้าต้องชำระค่าปรับวันละเท่าใด และมีกำหนดชำระเงินภายในกี่วันหลังจากได้รับการอนุมัติ?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0019",
+                    "answer_must_contain": [
+                        "50 บาท",
+                        "2 วัน"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "นักศึกษาที่ได้รับการอนุมัติให้ลาพักการศึกษาล่าช้าต้องชำระค่าปรับวันละเท่าไร ตั้งแต่วันที่เท่าใดจนถึงวันที่เท่าใด และต้องชำระภายในกี่วันหลังจากได้รับการอนุมัติ?",
+                    "category": "academic_calendar",
+                    "gold_doc": "AcademicCalendar2026-2569TH2",
+                    "gold_chunk": "AcademicCalendar2026-2569TH2#0019",
+                    "answer_must_contain": [
+                        "ค่าปรับวันละ 50 บาท",
+                        "พ.13 ม.ค. 2570",
+                        "ชำระเงินไม่เกิน 2 วัน หลังจากได้รับการอนุมัติ"
+                    ],
+                    "answerable": true
+                }
+            ]
+        }
+    },
+    "academic_rules": {
+        "exact_duplicates": [
+            {
+                "kept": {
+                    "question": "นักศึกษาและผู้เรียนรู้ต้องพกบัตรประจำตัวเพื่อแสดงตนเมื่อใดบ้าง?",
+                    "category": "academic_rules",
+                    "gold_doc": "discipline2566",
+                    "gold_chunk": "discipline2566#0005",
+                    "answer_must_contain": [
+                        "พกบัตรประจำตัว",
+                        "แสดงตน",
+                        "ติดต่อขอรับบริการ",
+                        "อาจารย์หรือเจ้าหน้าที่ขอตรวจสอบ"
+                    ],
+                    "answerable": true
+                },
+                "duplicate": {
+                    "question": "นักศึกษาและผู้เรียนรู้ต้องพกบัตรประจำตัวเพื่อแสดงตนเมื่อใดบ้าง?",
+                    "category": "academic_rules",
+                    "gold_doc": "discipline2566",
+                    "gold_chunk": "discipline2566#0005",
+                    "answer_must_contain": [
+                        "พกบัตรประจำตัว",
+                        "แสดงตน",
+                        "เมื่ออาจารย์หรือเจ้าหน้าที่มหาวิทยาลัยขอตรวจสอบ"
+                    ],
+                    "answerable": true
+                }
+            },
+            {
+                "kept": {
+                    "question": "คณะกรรมการวินัยนักศึกษาและผู้เรียนรู้ ระดับหน่วยงาน ประกอบด้วยกี่คน และใครเป็นประธานกรรมการ?",
+                    "category": "academic_rules",
+                    "gold_doc": "discipline2566",
+                    "gold_chunk": "discipline2566#0014",
+                    "answer_must_contain": [
+                        "5 คน",
+                        "รองหัวหน้าหน่วยงาน/ผู้ช่วย หรือผู้แทน"
+                    ],
+                    "answerable": true
+                },
+                "duplicate": {
+                    "question": "คณะกรรมการวินัยนักศึกษาและผู้เรียนรู้ ระดับหน่วยงาน ประกอบด้วยกี่คน และใครเป็นประธานกรรมการ?",
+                    "category": "academic_rules",
+                    "gold_doc": "discipline2566",
+                    "gold_chunk": "discipline2566#0014",
+                    "answer_must_contain": [
+                        "5 คน",
+                        "รองหัวหน้าหน่วยงาน/ผู้ช่วย หรือผู้แทน"
+                    ],
+                    "answerable": true
+                }
+            }
+        ],
+        "paraphrase_groups": {
+            "discipline2566#0022": [
+                {
+                    "question": "นักศึกษาที่ถูกสั่งลงโทษตามข้อบังคับนี้มีสิทธิอุทธรณ์ได้ภายในกี่วันนับจากวันทราบคำสั่งลงโทษ?",
+                    "category": "academic_rules",
+                    "gold_doc": "discipline2566",
+                    "gold_chunk": "discipline2566#0022",
+                    "answer_must_contain": [
+                        "30 วัน",
+                        "นับแต่วันทราบคำสั่งลงโทษ"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "นักศึกษาหรือผู้เรียนรู้ที่ถูกสั่งลงโทษตามข้อบังคับนี้มีสิทธิอุทธรณ์คำสั่งลงโทษได้ภายในกี่วันนับแต่วันทราบคำสั่งลงโทษ?",
+                    "category": "academic_rules",
+                    "gold_doc": "discipline2566",
+                    "gold_chunk": "discipline2566#0022",
+                    "answer_must_contain": [
+                        "30 วัน",
+                        "นับแต่วันทราบคำสั่งลงโทษ"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "discipline2566#0014": [
+                {
+                    "question": "คณะกรรมการวินัยนักศึกษาและผู้เรียนรู้ ระดับหน่วยงาน ประกอบด้วยกี่คน และใครเป็นประธานกรรมการ?",
+                    "category": "academic_rules",
+                    "gold_doc": "discipline2566",
+                    "gold_chunk": "discipline2566#0014",
+                    "answer_must_contain": [
+                        "5 คน",
+                        "รองหัวหน้าหน่วยงาน/ผู้ช่วย หรือผู้แทน"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "คณะกรรมการวินัยนักศึกษาและผู้เรียนรู้ ระดับหน่วยงาน ประกอบด้วยกี่คน และใครเป็นประธานกรรมการ?",
+                    "category": "academic_rules",
+                    "gold_doc": "discipline2566",
+                    "gold_chunk": "discipline2566#0014",
+                    "answer_must_contain": [
+                        "5 คน",
+                        "รองหัวหน้าหน่วยงาน/ผู้ช่วย หรือผู้แทน"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "discipline2566#0016": [
+                {
+                    "question": "คณะกรรมการวินัยนักศึกษาและผู้เรียนรู้ ระดับมหาวิทยาลัย ต้องดำเนินการสอบสวนและพิจารณาลงโทษให้แล้วเสร็จภายในกี่วัน นับแต่วันที่ได้รับเรื่องหรือได้รับรายงานสอบสวนจากคณะกรรมการวินัยนักศึกษาและผู้เรียนรู้ ระดับหน่วยงาน?",
+                    "category": "academic_rules",
+                    "gold_doc": "discipline2566",
+                    "gold_chunk": "discipline2566#0016",
+                    "answer_must_contain": [
+                        "30 วัน",
+                        "นับแต่วันที่ได้รับเรื่อง"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "คณะกรรมการวินัยนักศึกษาและผู้เรียนรู้ ระดับมหาวิทยาลัย ต้องดำเนินการสอบสวนและพิจารณาลงโทษให้แล้วเสร็จภายในกี่วัน นับแต่วันที่ได้รับเรื่องหรือได้รับรายงานสอบสวนจากคณะกรรมการวินัยนักศึกษาและผู้เรียนรู้ ระดับหน่วยงาน แล้วแต่กรณี?",
+                    "category": "academic_rules",
+                    "gold_doc": "discipline2566",
+                    "gold_chunk": "discipline2566#0016",
+                    "answer_must_contain": [
+                        "30 วัน",
+                        "คณะกรรมการวินัยนักศึกษาและผู้เรียนรู้ ระดับมหาวิทยาลัย"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "discipline2566#0004": [
+                {
+                    "question": "นักศึกษาและผู้เรียนรู้ต้องไม่กระทำสิ่งใดที่ขัดต่อความสงบเรียบร้อยของมหาวิทยาลัย ตามข้อบังคับใดในหมวด 1 วินัยและการรักษาวินัย?",
+                    "category": "academic_rules",
+                    "gold_doc": "discipline2566",
+                    "gold_chunk": "discipline2566#0004",
+                    "answer_must_contain": [
+                        "ข้อ 9",
+                        "ความสงบเรียบร้อย"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "นักศึกษาและผู้เรียนรู้ต้องไม่กระทำความผิดตามประมวลกฎหมายอาญา กฎหมายแพ่ง กฎหมายอื่นที่รัฐกำหนดไว้ หรือกระทำการทุจริตใดๆ อันเป็นการเสื่อมเสียแก่มหาวิทยาลัย ตามข้อบังคับใดในระเบียบวินัยของมหาวิทยาลัย?",
+                    "category": "academic_rules",
+                    "gold_doc": "discipline2566",
+                    "gold_chunk": "discipline2566#0004",
+                    "answer_must_contain": [
+                        "ข้อ 11",
+                        "ประมวลกฎหมายอาญา",
+                        "กฎหมายแพ่ง",
+                        "กฎหมายอื่นที่รัฐกำหนดไว้",
+                        "กระทำการทุจริต"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "rule_exam2560#0008": [
+                {
+                    "question": "คณะกรรมการกลางพิจารณาลงโทษนักศึกษาที่ทำการทุจริตในการสอบมีวาระการดำรงตำแหน่งกี่ปี และใครเป็นประธานกรรมการ?",
+                    "category": "academic_rules",
+                    "gold_doc": "rule_exam2560",
+                    "gold_chunk": "rule_exam2560#0008",
+                    "answer_must_contain": [
+                        "4 ปี",
+                        "รองอธิการบดีฝ่ายพัฒนานักศึกษา"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "คณะกรรมการกลางพิจารณาลงโทษนักศึกษาที่ทำการทุจริตในการสอบมีวาระการดำรงตำแหน่งกี่ปี?",
+                    "category": "academic_rules",
+                    "gold_doc": "rule_exam2560",
+                    "gold_chunk": "rule_exam2560#0008",
+                    "answer_must_contain": [
+                        "คณะกรรมการกลาง",
+                        "วาระการดำรงตำแหน่งสี่ปี"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "discipline2566#0021": [
+                {
+                    "question": "ในกรณีที่นักศึกษาหรือผู้เรียนรู้กระทำผิดวินัยอย่างร้ายแรง แต่คณะกรรมการวินัยพิจารณาเห็นว่ามีเหตุอันควรปรานี สามารถลดหย่อนโทษได้ตามข้อ 39 อย่างไรบ้าง?",
+                    "category": "academic_rules",
+                    "gold_doc": "discipline2566",
+                    "gold_chunk": "discipline2566#0021",
+                    "answer_must_contain": [
+                        "ลดหย่อนโทษ",
+                        "ตัดสิทธิเข้าสอบ",
+                        "ตัดคะแนนความประพฤติ",
+                        "ทำกิจกรรมที่เป็นประโยชน์ต่อมหาวิทยาลัยหรือสังคมส่วนรวม"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "ในกรณีที่นักศึกษาหรือผู้เรียนรู้กระทำผิดวินัยอย่างร้ายแรง แต่คณะกรรมการวินัยพิจารณาเห็นว่ามีเหตุอันควรปรานี อาจพิจารณาลดหย่อนโทษได้ในรูปแบบใดบ้างตามระเบียบ 2566 หมวด 4 ข้อ 39?",
+                    "category": "academic_rules",
+                    "gold_doc": "discipline2566",
+                    "gold_chunk": "discipline2566#0021",
+                    "answer_must_contain": [
+                        "ลดหย่อนโทษ",
+                        "ตัดสิทธิเข้าสอบ",
+                        "พักการศึกษา",
+                        "ยับยั้งการอนุมัติให้ปริญญา",
+                        "ทำกิจกรรมที่เป็นประโยชน์ต่อมหาวิทยาลัยหรือสังคมส่วนรวม"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "discipline2566#0005": [
+                {
+                    "question": "นักศึกษาและผู้เรียนรู้ต้องพกบัตรประจำตัวเพื่อแสดงตนเมื่อใดบ้าง?",
+                    "category": "academic_rules",
+                    "gold_doc": "discipline2566",
+                    "gold_chunk": "discipline2566#0005",
+                    "answer_must_contain": [
+                        "พกบัตรประจำตัว",
+                        "แสดงตน",
+                        "ติดต่อขอรับบริการ",
+                        "อาจารย์หรือเจ้าหน้าที่ขอตรวจสอบ"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "นักศึกษาและผู้เรียนรู้ต้องพกบัตรประจำตัวเพื่อแสดงตนเมื่อใดบ้าง?",
+                    "category": "academic_rules",
+                    "gold_doc": "discipline2566",
+                    "gold_chunk": "discipline2566#0005",
+                    "answer_must_contain": [
+                        "พกบัตรประจำตัว",
+                        "แสดงตน",
+                        "เมื่ออาจารย์หรือเจ้าหน้าที่มหาวิทยาลัยขอตรวจสอบ"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "discipline2566#0008": [
+                {
+                    "question": "นักศึกษาหรือผู้เรียนรู้ที่กระทำผิดวินัยอย่างร้ายแรงตามข้อ 24 ข้อใดที่ถือว่ามีโทษจำคุกหรือโทษที่หนักกว่าจำคุกโดยไม่คำนึงถึงการรอลงโทษหรือรอการกำหนดโทษ?",
+                    "category": "academic_rules",
+                    "gold_doc": "discipline2566",
+                    "gold_chunk": "discipline2566#0008",
+                    "answer_must_contain": [
+                        "ข้อ 24.6",
+                        "โทษจำคุก"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "ข้อ 24.1 ของระเบียบวินัยการรักษาวินัย ระบุว่าการกระทำใดที่ถือว่าเป็นการกระทำผิดวินัยอย่างร้ายแรง?",
+                    "category": "academic_rules",
+                    "gold_doc": "discipline2566",
+                    "gold_chunk": "discipline2566#0008",
+                    "answer_must_contain": [
+                        "กระทำการใดๆ โดยจงใจ หรือเจตนาทำให้ทรัพย์สินมหาวิทยาลัยหรือของผู้อื่นเสียหาย"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "discipline2566#0012": [
+                {
+                    "question": "คณะกรรมการวินัยนักศึกษาและผู้เรียนรู้ ระดับมหาวิทยาลัย ประกอบด้วยใครบ้าง?",
+                    "category": "academic_rules",
+                    "gold_doc": "discipline2566",
+                    "gold_chunk": "discipline2566#0012",
+                    "answer_must_contain": [
+                        "รองอธิการบดีฝ่ายพัฒนานักศึกษาและผู้เรียนรู้",
+                        "รองคณบดีที่รับผิดชอบด้านพัฒนานักศึกษา",
+                        "ผู้อำนวยการสำนักงานทะเบียนนักศึกษา",
+                        "นายกองค์การนักศึกษาหรือผู้แทน",
+                        "ประธานสภานักศึกษาหรือผู้แทน",
+                        "ผู้อำนวยการสำนักงานกิจการนักศึกษา",
+                        "หัวหน้ากลุ่มงานพัฒนาคุณภาพชีวิต",
+                        "เจ้าหน้าที่สำนักงานกิจการนักศึกษาที่ได้รับมอบหมาย"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "คณะกรรมการวินัยนักศึกษาและผู้เรียนรู้ ระดับมหาวิทยาลัย ประกอบด้วยประธานกรรมการ คือใคร?",
+                    "category": "academic_rules",
+                    "gold_doc": "discipline2566",
+                    "gold_chunk": "discipline2566#0012",
+                    "answer_must_contain": [
+                        "รองอธิการบดีฝ่ายพัฒนานักศึกษาและผู้เรียนรู้"
+                    ],
+                    "answerable": true
+                }
+            ]
+        }
+    },
+    "fees": {
+        "exact_duplicates": [],
+        "paraphrase_groups": {
+            "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0011": [
+                {
+                    "question": "ค่าใช้จ่ายตลอดหลักสูตรปริญญาตรีในสาขาวิศวกรรมไฟฟ้า-วิชาโทวิศวกรรมคอมพิวเตอร์ คือเท่าใด?",
+                    "category": "fees",
+                    "gold_doc": "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69",
+                    "gold_chunk": "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0011",
+                    "answer_must_contain": [
+                        "282,700",
+                        "ค่าใช้จ่ายตลอดหลักสูตร"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "ค่าใช้จ่ายตลอดหลักสูตรของนักศึกษาที่เรียนในสาขาวิชาวิศวกรรมไฟฟ้า-วิชาโทวิศวกรรมคอมพิวเตอร์ คือเท่าใด?",
+                    "category": "fees",
+                    "gold_doc": "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69",
+                    "gold_chunk": "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0011",
+                    "answer_must_contain": [
+                        "282,700",
+                        "ค่าใช้จ่ายตลอดหลักสูตร"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "ปริญญาเอก-ข้อมูลค่ายืนยันสิทธิ-และค่าใช้จ่ายตลอดหลักสูตร-2568#0030": [
+                {
+                    "question": "ค่าใช้จ่ายรวมทั้งหมดสำหรับการศึกษาในหลักสูตรปริญญาเอก แบบ 1.1 ที่สถาบันวิทยาการหุ่นยนต์ภาคสนาม สำหรับผู้จบการศึกษาระดับปริญญาโท คือเท่าใด?",
+                    "category": "fees",
+                    "gold_doc": "ปริญญาเอก-ข้อมูลค่ายืนยันสิทธิ-และค่าใช้จ่ายตลอดหลักสูตร-2568",
+                    "gold_chunk": "ปริญญาเอก-ข้อมูลค่ายืนยันสิทธิ-และค่าใช้จ่ายตลอดหลักสูตร-2568#0030",
+                    "answer_must_contain": [
+                        "43,000",
+                        "ค่าบำรุงการศึกษา/ภาคการศึกษา",
+                        "ค่าหน่วยกิต/หน่วย",
+                        "จำนวนหน่วยกิตภาคแรก"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "ค่าใช้จ่ายทั้งหมดในการศึกษาปริญญาเอก แบบวิทยานิพนธ์ 48 หน่วยกิต สำหรับผู้จบการศึกษาระดับปริญญาโท ที่สถาบันวิทยาการหุ่นยนต์ภาคสนาม คือเท่าใด?",
+                    "category": "fees",
+                    "gold_doc": "ปริญญาเอก-ข้อมูลค่ายืนยันสิทธิ-และค่าใช้จ่ายตลอดหลักสูตร-2568",
+                    "gold_chunk": "ปริญญาเอก-ข้อมูลค่ายืนยันสิทธิ-และค่าใช้จ่ายตลอดหลักสูตร-2568#0030",
+                    "answer_must_contain": [
+                        "ค่าบำรุงการศึกษา 25,000 บาท/ภาคการศึกษา",
+                        "ค่าหน่วยกิต 3000 บาท/หน่วย"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0022": [
+                {
+                    "question": "ค่าใช้จ่ายตลอดหลักสูตรปริญญาตรีในสาขาวิชาการออกแบบดิจิทัล (หลักสูตรนานาชาติ) วิชาเอกการออกแบบและการสร้างเกม คือเท่าใด?",
+                    "category": "fees",
+                    "gold_doc": "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69",
+                    "gold_chunk": "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0022",
+                    "answer_must_contain": [
+                        "1,030,000",
+                        "1,050,001"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "ค่าใช้จ่ายตลอดหลักสูตรของวิศวกรรมระบบปัญญาประดิษฐ์ (พื้นที่ศึกษาราชบุรี) คือเท่าใด?",
+                    "category": "fees",
+                    "gold_doc": "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69",
+                    "gold_chunk": "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0022",
+                    "answer_must_contain": [
+                        "209,600",
+                        "ค่าใช้จ่ายตลอดหลักสูตร"
+                    ],
+                    "answerable": true
+                }
+            ]
+        }
+    },
+    "others": {
+        "exact_duplicates": [],
+        "paraphrase_groups": {
+            "Manual-แนะนำบริการสารสนเทศ_ver2024#0010": [
+                {
+                    "question": "นักศึกษาสามารถดาวน์โหลดซอฟต์แวร์ลิขสิทธิ์ของ Microsoft ได้จากที่ใด?",
+                    "category": "others",
+                    "gold_doc": "Manual-แนะนำบริการสารสนเทศ ver2024",
+                    "gold_chunk": "Manual-แนะนำบริการสารสนเทศ_ver2024#0010",
+                    "answer_must_contain": [
+                        "เว็บไซต์",
+                        "cc.kmutt.ac.th/AzureDev.html",
+                        "KMUTT Account"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "นักศึกษามหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรีสามารถดาวน์โหลดซอฟต์แวร์ลิขสิทธิ์ของ Microsoft ได้ผ่านทางเว็บไซต์ใด?",
+                    "category": "others",
+                    "gold_doc": "Manual-แนะนำบริการสารสนเทศ ver2024",
+                    "gold_chunk": "Manual-แนะนำบริการสารสนเทศ_ver2024#0010",
+                    "answer_must_contain": [
+                        "https://cc.kmutt.ac.th/AzureDev.html",
+                        "KMUTT Account"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "MODsa-proposal_students#0004": [
+                {
+                    "question": "ข้อเสนอโครงการ MOD-SA ต้องการให้จัดทำเอกสารและรายงานผลโครงการเมื่อใด?",
+                    "category": "others",
+                    "gold_doc": "MODsa-proposal_students",
+                    "gold_chunk": "MODsa-proposal_students#0004",
+                    "answer_must_contain": [
+                        "ข้อเสนอโครงการ MOD-SA",
+                        "จัดทำเอกสารและรายงานผลโครงการ",
+                        "หลังการทดสอบและประเมินผล"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "ขั้นตอนที่ 1 ของโครงการ MOD-SA คือการวิเคราะห์ความต้องการ (Requirement Analysis) และประเภทคำถามที่พบบ่อยหรือไม่?",
+                    "category": "others",
+                    "gold_doc": "MODsa-proposal_students",
+                    "gold_chunk": "MODsa-proposal_students#0004",
+                    "answer_must_contain": [
+                        "ขั้นตอนที่ 1",
+                        "วิเคราะห์ความต้องการ",
+                        "ประเภทคำถามที่พบบ่อย"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "ขั้นตอนการทำบัตรนักศึกษา#0001": [
+                {
+                    "question": "ขั้นตอนการทำบัตรนักศึกษาของมหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรีมีขั้นตอนอย่างไรบ้าง?",
+                    "category": "others",
+                    "gold_doc": "ขั้นตอนการทำบัตรนักศึกษา",
+                    "gold_chunk": "ขั้นตอนการทำบัตรนักศึกษา#0001",
+                    "answer_must_contain": [
+                        "https://regis.kmutt.ac.th/web/std_card",
+                        "ขั้นตอนการทำบัตรนักศึกษา"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "ขั้นตอนการทำบัตรนักศึกษาของมหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรีสามารถดูได้ที่เว็บไซต์ใด?",
+                    "category": "others",
+                    "gold_doc": "ขั้นตอนการทำบัตรนักศึกษา",
+                    "gold_chunk": "ขั้นตอนการทำบัตรนักศึกษา#0001",
+                    "answer_must_contain": [
+                        "มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี",
+                        "https://regis.kmutt.ac.th/web/std_card"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "MODsa-proposal_students#0006": [
+                {
+                    "question": "แชทบอทสามารถให้บริการตอบคำถามแก่ผู้ใช้งานได้ตลอด 24 ชั่วโมง ไม่จำกัดวันและเวลาราชการ ทำให้นักศึกษาและผู้ปกครองสามารถเข้าถึงข้อมูลด้านเรียน การลงทะเบียน ระเบียบข้อบังคับ และบริการต่าง ๆ ของมหาวิทยาลัยได้อย่างสะดวก รวดเร็ว และทันท่วงที เพิ่มประสิทธิภาพในการเข้าถึงข้อมูลและลดข้อจำกัดด้านเวลาในการติดต่อหน่วยงาน แชทบอทช่วยลดภาระงานของเจ้าหน้าที่ผู้ให้บริการ โดยเฉพาะการตอบคำถามที่มีลักษณะซ้ำซ้อนหรือเป็นคำถามที่พบบ่อย (Frequently Asked Questions) เช่น ขั้นตอนการลงทะเบียน เงื่อนไขทางการศึกษา การขอทุนและประเภททุน หรือกำหนดการสำคัญเช่นการเพิ่ม ลด ถอน รายวิชา ส่งผลให้เจ้าหน้าที่สามารถนำเวลาและทรัพยากรไปปฏิบัติงานที่มีความซับซ้อนหรือจำเป็นต้องใช้ดุลยพินิจมากขึ้น ช่วยเพิ่มประสิทธิภาพโดยรวมของการให้บริการ",
+                    "category": "others",
+                    "gold_doc": "MODsa-proposal_students",
+                    "gold_chunk": "MODsa-proposal_students#0006",
+                    "answer_must_contain": [
+                        "24 ชั่วโมง",
+                        "ไม่จำกัดวันและเวลาราชการ",
+                        "ขั้นตอนการลงทะเบียน",
+                        "เงื่อนไขทางการศึกษา",
+                        "การขอทุนและประเภททุน",
+                        "กำหนดการสำคัญ"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "แชทบอทสามารถให้บริการตอบคำถามแก่ผู้ใช้งานได้ตลอด 24 ชั่วโมง ไม่จำกัดวันและเวลาราชการ ใช่หรือไม่?",
+                    "category": "others",
+                    "gold_doc": "MODsa-proposal_students",
+                    "gold_chunk": "MODsa-proposal_students#0006",
+                    "answer_must_contain": [
+                        "แชทบอท",
+                        "ให้บริการตอบคำถาม",
+                        "ตลอด 24 ชั่วโมง",
+                        "ไม่จำกัดวันและเวลาราชการ"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "ติดต่อสำนักงานทะเบียน#0001": [
+                {
+                    "question": "นักศึกษาสามารถติดต่อสำนักงานทะเบียนได้ที่เบอร์โทรศัพท์ใดบ้างเมื่อต้องการลงทะเบียนเรียนหรือตรวจสอบตารางเรียน-ตารางสอบ?",
+                    "category": "others",
+                    "gold_doc": "ติดต่อสำนักงานทะเบียน",
+                    "gold_chunk": "ติดต่อสำนักงานทะเบียน#0001",
+                    "answer_must_contain": [
+                        "0-2470-8154",
+                        "0-2470-8340",
+                        "0-2470-8350"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "สำนักงานทะเบียนนักศึกษา มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี ตั้งอยู่ที่ใด?",
+                    "category": "others",
+                    "gold_doc": "ติดต่อสำนักงานทะเบียน",
+                    "gold_chunk": "ติดต่อสำนักงานทะเบียน#0001",
+                    "answer_must_contain": [
+                        "126 ถ. ประชาอุทิศ แขวงบางมด เขตทุ่งครุ กรุงเทพมหานคร 10140"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "บัตรนักศึกษา-Digital-มจธ#0002": [
+                {
+                    "question": "บัตรเดบิต Be1st Digital แบบพลาสติกมีเลขบัตร 16 หลัก วันหมดอายุ และรหัส CVC อย่างไร?",
+                    "category": "others",
+                    "gold_doc": "บัตรนักศึกษา-Digital-มจธ",
+                    "gold_chunk": "บัตรนักศึกษา-Digital-มจธ#0002",
+                    "answer_must_contain": [
+                        "เลขบัตร 16 หลัก",
+                        "วันหมดอายุ",
+                        "รหัส CVC"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "บัตรเดบิต Be1st Digital ประกอบด้วยกี่รูปแบบ และแต่ละรูปแบบใช้งานอย่างไร?",
+                    "category": "others",
+                    "gold_doc": "บัตรนักศึกษา-Digital-มจธ",
+                    "gold_chunk": "บัตรนักศึกษา-Digital-มจธ#0002",
+                    "answer_must_contain": [
+                        "บัตรรูปแบบ Virtual Card",
+                        "ใช้ชำระค่าสินค้า/บริการ ณ ร้านค้าออนไลน์",
+                        "บัตรรูปแบบพลาสติก",
+                        "ใช้กดเงินและชำระค่าสินค้า/บริการที่ร้านค้าที่มีเครื่องหมายรองรับ"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "Manual-แนะนำบริการสารสนเทศ_ver2024#0005": [
+                {
+                    "question": "นักศึกษาที่จบการศึกษาแล้วสามารถใช้งานอีเมลของมหาวิทยาลัยได้หรือไม่ และใช้งานได้ผ่านช่องทางใด?",
+                    "category": "others",
+                    "gold_doc": "Manual-แนะนำบริการสารสนเทศ ver2024",
+                    "gold_chunk": "Manual-แนะนำบริการสารสนเทศ_ver2024#0005",
+                    "answer_must_contain": [
+                        "ใช้งานได้",
+                        "หลังจบการศึกษา",
+                        "Microsoft Outlook",
+                        "https://outlook.office.com"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "e-Mail Account ของนักศึกษาที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรีมีรูปแบบอย่างไร?",
+                    "category": "others",
+                    "gold_doc": "Manual-แนะนำบริการสารสนเทศ ver2024",
+                    "gold_chunk": "Manual-แนะนำบริการสารสนเทศ_ver2024#0005",
+                    "answer_must_contain": [
+                        "name.surname@kmutt.ac.th",
+                        "4 ตำแหน่งแรกของนามสกุล"
+                    ],
+                    "answerable": true
+                }
+            ]
+        }
+    },
+    "registration": {
+        "exact_duplicates": [
+            {
+                "kept": {
+                    "question": "เมื่อนักศึกษายืนยันการลงทะเบียนแล้ว ระบบจะล็อคไม่ให้แก้ไขรายการลงทะเบียนนี้จนกว่าจะมีการชำระเงินหรือไม่?",
+                    "category": "registration",
+                    "gold_doc": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา",
+                    "gold_chunk": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0070",
+                    "answer_must_contain": [
+                        "เมื่อยืนยันการลงทะเบียนแล้ว",
+                        "นักศึกษาต้องเลือกช่องวิธีการชำระเงิน",
+                        "ระบบจะล็อคไม่ให้แก้ไขรายการลงทะเบียนนี้"
+                    ],
+                    "answerable": true
+                },
+                "duplicate": {
+                    "question": "เมื่อนักศึกษายืนยันการลงทะเบียนแล้ว ระบบจะล็อคไม่ให้แก้ไขรายการลงทะเบียนนี้จนกว่าจะมีการชำระเงินหรือไม่?",
+                    "category": "registration",
+                    "gold_doc": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา",
+                    "gold_chunk": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0029",
+                    "answer_must_contain": [
+                        "ยืนยันการลงทะเบียน",
+                        "ล็อคไม่ให้แก้ไข",
+                        "การชำระเงิน"
+                    ],
+                    "answerable": true
+                }
+            }
+        ],
+        "paraphrase_groups": {
+            "คู่มือบันทึกระเบียนประวัตินักศึกษา#0014": [
+                {
+                    "question": "นักศึกษาต้องแนบไฟล์เอกสารใดบ้างในการลงทะเบียนเรียน และมีข้อกำหนดเรื่องขนาดไฟล์อย่างไร?",
+                    "category": "registration",
+                    "gold_doc": "คู่มือบันทึกระเบียนประวัตินักศึกษา",
+                    "gold_chunk": "คู่มือบันทึกระเบียนประวัตินักศึกษา#0014",
+                    "answer_must_contain": [
+                        "รูปถ่าย",
+                        "สำเนาทะเบียนบ้าน",
+                        "สำเนาบัตรประจำตัวประชาชน",
+                        "สำเนาระเบียนแสดงผลการเรียน",
+                        "ขนาดไฟล์ 1024",
+                        "ขนาดไฟล์ 15024",
+                        "ขนาดไฟล์ 15000"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "นักศึกษาที่ไม่สามารถแนบไฟล์เอกสารทางการศึกษาได้ ต้องส่งสำเนาหลักฐานทางไปรษณีย์ก่อนวันขึ้นทะเบียนนักศึกษาใหม่หรือไม่?",
+                    "category": "registration",
+                    "gold_doc": "คู่มือบันทึกระเบียนประวัตินักศึกษา",
+                    "gold_chunk": "คู่มือบันทึกระเบียนประวัตินักศึกษา#0014",
+                    "answer_must_contain": [
+                        "นักศึกษาที่ไม่สามารถแนบไฟล์เอกสารทางการศึกษาได้",
+                        "ต้องส่งสำเนาหลักฐานทางไปรษณีย์",
+                        "ก่อนวันขึ้นทะเบียนนักศึกษาใหม่"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "The_Student’s_Internet_Registration_Manual_(fixed)#0048": [
+                {
+                    "question": "จำนวนเงินที่ต้องชำระในการลงทะเบียนเรียนปกติคือเท่าใด?",
+                    "category": "registration",
+                    "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+                    "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0048",
+                    "answer_must_contain": [
+                        "7,700.00",
+                        "7,700 บาท"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "ขั้นตอนที่ 1 ของการลงทะเบียนเรียนปกติคืออะไร?",
+                    "category": "registration",
+                    "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+                    "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0048",
+                    "answer_must_contain": [
+                        "เลือกวิชาและเลือก Section",
+                        "Step 1"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "The_Student’s_Internet_Registration_Manual_(fixed)#0010": [
+                {
+                    "question": "นักศึกษาต้องทำขั้นตอนใดก่อนจะสามารถยืนยันการลงทะเบียนเรียนได้?",
+                    "category": "registration",
+                    "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+                    "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0010",
+                    "answer_must_contain": [
+                        "เลือกวิชาและเลือก Section",
+                        "ยืนยันการลงทะเบียน"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "ในขั้นตอนการลงทะเบียนเรียนผ่านระบบอินเทอร์เน็ต ระบบจะแสดงข้อมูลกลุ่ม วิชา และหน่วยกิตหลังจากที่ผู้ใช้เลือกส่วนเรียนที่ไม่ทับซ้อนกันหรือไม่?",
+                    "category": "registration",
+                    "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+                    "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0010",
+                    "answer_must_contain": [
+                        "ระบบจะแสดง",
+                        "กลุ่ม วิชา และหน่วยกิต",
+                        "หลังจากเลือกส่วนเรียนที่ไม่ทับซ้อนกัน"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)#0009": [
+                {
+                    "question": "นักศึกษาต้องทำอย่างไรเพื่อยืนยันการลงทะเบียนลาพักการศึกษาและสั่งพิมพ์ใบแจ้งชำระเงินผ่านระบบ?",
+                    "category": "registration",
+                    "gold_doc": "วิธียื่นคำขอลาพักการศึกษา_การ_Drop (fixed)",
+                    "gold_chunk": "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)#0009",
+                    "answer_must_contain": [
+                        "ยืนยันการลงทะเบียนลาพักการศึกษา",
+                        "สั่งพิมพ์ใบแจ้งชำระเงินผ่านระบบ",
+                        "เลือกหัวข้อ > เลือกลงทะเบียนรายวิชา > เลือกลงทะเบียนรักษาสถานภาพ > เลือกยืนยันการลงทะเบียนลาพัก"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "ขั้นตอนการยืนยันการลงทะเบียนลาพักการศึกษาคืออะไร?",
+                    "category": "registration",
+                    "gold_doc": "วิธียื่นคำขอลาพักการศึกษา_การ_Drop (fixed)",
+                    "gold_chunk": "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)#0009",
+                    "answer_must_contain": [
+                        "ยืนยันการลงทะเบียนลาพัก",
+                        "สั่งพิมพ์ใบแจ้งชำระเงินผ่านระบบ",
+                        "เลือกหัวข้อ",
+                        "เลือกลงทะเบียนรายวิชา",
+                        "เลือกลงทะเบียนรักษาสถานภาพ"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0039": [
+                {
+                    "question": "นักศึกษาสามารถเลือกธนาคารใดได้บ้างเมื่อต้องการชำระเงินผ่านระบบหักบัญชีธนาคาร?",
+                    "category": "registration",
+                    "gold_doc": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา",
+                    "gold_chunk": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0039",
+                    "answer_must_contain": [
+                        "ธนาคารที่ปรากฏในหน้าจอ",
+                        "ต้องเปิดบัญชีกับธนาคารนั้นไว้แล้ว"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "นักศึกษาสามารถเลือกวิธีการชำระเงินได้กี่แบบในการลงทะเบียนผ่านระบบ Internet และวิธีการชำระเงินแบบใดที่ระบบตั้งค่าเริ่มต้นให้?",
+                    "category": "registration",
+                    "gold_doc": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา",
+                    "gold_chunk": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0039",
+                    "answer_must_contain": [
+                        "2 แบบ",
+                        "หักบัญชีธนาคาร"
+                    ],
+                    "answerable": true
+                }
+            ]
+        }
+    },
+    "scholarship": {
+        "exact_duplicates": [
+            {
+                "kept": {
+                    "question": "เกณฑ์การรับสมัครทุนการศึกษาเพรชฯ-69 กำหนดให้ผู้สมัครต้องมีเกรดเฉลี่ยรวม (GPAX) อย่างน้อยเท่าใด?",
+                    "category": "scholarship",
+                    "gold_doc": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69",
+                    "gold_chunk": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0027",
+                    "answer_must_contain": [
+                        "3.50",
+                        "GPAX"
+                    ],
+                    "answerable": true
+                },
+                "duplicate": {
+                    "question": "เกณฑ์การรับสมัครทุนการศึกษาเพรชฯ-69 กำหนดให้ผู้สมัครต้องมีเกรดเฉลี่ยรวม (GPAX) อย่างน้อยเท่าใด?",
+                    "category": "scholarship",
+                    "gold_doc": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69",
+                    "gold_chunk": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0027",
+                    "answer_must_contain": [
+                        "เกณฑ์การรับสมัคร",
+                        "GPAX",
+                        "3.50"
+                    ],
+                    "answerable": true
+                }
+            }
+        ],
+        "paraphrase_groups": {
+            "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0029": [
+                {
+                    "question": "ทุนการศึกษาเพรชฯ-69 กำหนดให้ผู้สมัครต้องมีหน่วยกิตรวมของกลุ่มสาระการเรียนรู้คณิตศาสตร์อย่างน้อยกี่หน่วยกิต?",
+                    "category": "scholarship",
+                    "gold_doc": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69",
+                    "gold_chunk": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0029",
+                    "answer_must_contain": [
+                        "8",
+                        "คณิตศาสตร์"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "ทุนการศึกษา R1-เกณฑ์การรับ-ทุนเพรชฯ-69 กำหนดให้ผู้สมัครต้องมีผลการเรียนเฉลี่ยใน 5 ถึง 6 ภาคการศึกษาอย่างไร?",
+                    "category": "scholarship",
+                    "gold_doc": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69",
+                    "gold_chunk": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0029",
+                    "answer_must_contain": [
+                        "ทุนการศึกษา R1-เกณฑ์การรับ-ทุนเพรชฯ-69",
+                        "ผลการเรียน 5 - 6 ภาคการศึกษา"
+                    ],
+                    "answerable": true
+                }
+            ],
+            "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0027": [
+                {
+                    "question": "เกณฑ์การรับสมัครทุนการศึกษาเพรชฯ-69 กำหนดให้ผู้สมัครต้องมีเกรดเฉลี่ยรวม (GPAX) อย่างน้อยเท่าใด?",
+                    "category": "scholarship",
+                    "gold_doc": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69",
+                    "gold_chunk": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0027",
+                    "answer_must_contain": [
+                        "3.50",
+                        "GPAX"
+                    ],
+                    "answerable": true
+                },
+                {
+                    "question": "เกณฑ์การรับสมัครทุนการศึกษาเพรชฯ-69 กำหนดให้ผู้สมัครต้องมีเกรดเฉลี่ยรวม (GPAX) อย่างน้อยเท่าใด?",
+                    "category": "scholarship",
+                    "gold_doc": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69",
+                    "gold_chunk": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0027",
+                    "answer_must_contain": [
+                        "เกณฑ์การรับสมัคร",
+                        "GPAX",
+                        "3.50"
+                    ],
+                    "answerable": true
+                }
+            ]
+        }
+    }
+}

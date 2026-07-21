@@ -1,0 +1,274 @@
+[
+    {
+        "question_id": "academic_rules-q001",
+        "question": "นักศึกษาที่ถูกสั่งลงโทษตามข้อบังคับนี้มีสิทธิอุทธรณ์ได้ภายในกี่วันนับจากวันทราบคำสั่งลงโทษ?",
+        "category": "academic_rules",
+        "gold_doc": "discipline2566",
+        "gold_chunk": "discipline2566#0022",
+        "answer_must_contain": [
+            "30 วัน",
+            "นับแต่วันทราบคำสั่งลงโทษ"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_rules-q002",
+        "question": "คณะกรรมการวินัยนักศึกษาและผู้เรียนรู้ ระดับหน่วยงาน ประกอบด้วยกี่คน และใครเป็นประธานกรรมการ?",
+        "category": "academic_rules",
+        "gold_doc": "discipline2566",
+        "gold_chunk": "discipline2566#0014",
+        "answer_must_contain": [
+            "5 คน",
+            "รองหัวหน้าหน่วยงาน/ผู้ช่วย หรือผู้แทน"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_rules-q003",
+        "question": "คณะกรรมการกลางมีอำนาจหน้าที่ใดบ้างในการพิจารณาลงโทษนักศึกษาที่ทุจริตในการสอบ?",
+        "category": "academic_rules",
+        "gold_doc": "rule_exam2560",
+        "gold_chunk": "rule_exam2560#0009",
+        "answer_must_contain": [
+            "ไต่สวนและแสวงหาข้อเท็จจริง",
+            "เชิญอาจารย์ผู้สอนหรือเจ้าของรายวิชา",
+            "เรียกตรวจและรวบรวมพยานหลักฐาน",
+            "รายงานต่ออธิการบดี",
+            "ปฏิบัติหน้าที่อื่นๆตามที่อธิการบดีมอบหมาย"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_rules-q004",
+        "question": "ระเบียบมหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี ว่าด้วย การสอบของนักศึกษา พ.ศ. 2560 ใช้บังคับตั้งแต่วันใด?",
+        "category": "academic_rules",
+        "gold_doc": "rule_exam2560",
+        "gold_chunk": "rule_exam2560#0002",
+        "answer_must_contain": [
+            "วันถัดจากวันประกาศ",
+            "พ.ศ. 2560"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_rules-q005",
+        "question": "คณะกรรมการวินัยนักศึกษาและผู้เรียนรู้ ระดับหน่วยงาน มีอำนาจหน้าที่อะไรบ้างในการพิจารณาสอบสวนนักศึกษาที่ถูกกล่าวหาว่ากระทำผิดวินัย?",
+        "category": "academic_rules",
+        "gold_doc": "discipline2566",
+        "gold_chunk": "discipline2566#0015",
+        "answer_must_contain": [
+            "พิจารณาสอบสวน",
+            "รวบรวมข้อเท็จจริง",
+            "เรียกพยานหลักฐาน",
+            "เรียกผู้ถูกกล่าวหา",
+            "แจ้งข้อกล่าวหา",
+            "จัดทำรายงานผลการสอบสวน"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_rules-q006",
+        "question": "นักศึกษาที่กระทำผิดวินัยจะได้รับโทษใดบ้างตามระเบียบวินัยนักศึกษา 2566?",
+        "category": "academic_rules",
+        "gold_doc": "discipline2566",
+        "gold_chunk": "discipline2566#0018",
+        "answer_must_contain": [
+            "7 สถาน",
+            "ตักเตือนด้วยวาจาหรือลายลักษณ์อักษร",
+            "ตัดคะแนนความประพฤติ",
+            "บำเพ็ญประโยชน์",
+            "ภาคทัณฑ์",
+            "ตัดสิทธิเข้าสอบในทุกรายวิชาหรือบางรายวิชา",
+            "ให้พักการศึกษาหรือยับยั้งการอนุมัติให้ปริญญา",
+            "ให้พ้นสภาพการเป็นนักศึกษา"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_rules-q007",
+        "question": "คณะกรรมการวินัยนักศึกษาและผู้เรียนรู้ ระดับมหาวิทยาลัย ต้องดำเนินการสอบสวนและพิจารณาลงโทษให้แล้วเสร็จภายในกี่วัน นับแต่วันที่ได้รับเรื่องหรือได้รับรายงานสอบสวนจากคณะกรรมการวินัยนักศึกษาและผู้เรียนรู้ ระดับหน่วยงาน?",
+        "category": "academic_rules",
+        "gold_doc": "discipline2566",
+        "gold_chunk": "discipline2566#0016",
+        "answer_must_contain": [
+            "30 วัน",
+            "นับแต่วันที่ได้รับเรื่อง"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_rules-q008",
+        "question": "นักศึกษาที่กระทำผิดข้อ 24.7 ต้องถูกลงโทษอย่างไร?",
+        "category": "academic_rules",
+        "gold_doc": "discipline2566",
+        "gold_chunk": "discipline2566#0009",
+        "answer_must_contain": [
+            "วินัย",
+            "มหาวิทยาลัย",
+            "ความวุ่นวาย",
+            "ทะเลาะวิวาท"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_rules-q009",
+        "question": "นักศึกษาและผู้เรียนรู้ต้องไม่กระทำสิ่งใดที่ขัดต่อความสงบเรียบร้อยของมหาวิทยาลัย ตามข้อบังคับใดในหมวด 1 วินัยและการรักษาวินัย?",
+        "category": "academic_rules",
+        "gold_doc": "discipline2566",
+        "gold_chunk": "discipline2566#0004",
+        "answer_must_contain": [
+            "ข้อ 9",
+            "ความสงบเรียบร้อย"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_rules-q010",
+        "question": "คณะกรรมการกลางพิจารณาลงโทษนักศึกษาที่ทำการทุจริตในการสอบมีวาระการดำรงตำแหน่งกี่ปี และใครเป็นประธานกรรมการ?",
+        "category": "academic_rules",
+        "gold_doc": "rule_exam2560",
+        "gold_chunk": "rule_exam2560#0008",
+        "answer_must_contain": [
+            "4 ปี",
+            "รองอธิการบดีฝ่ายพัฒนานักศึกษา"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_rules-q011",
+        "question": "นักศึกษาต้องทำอย่างไรเมื่อเข้าห้องสอบตามข้อบังคับการสอบ (พ.ศ. 2560)?",
+        "category": "academic_rules",
+        "gold_doc": "rule_exam2560",
+        "gold_chunk": "rule_exam2560#0004",
+        "answer_must_contain": [
+            "แต่งกายด้วยชุดนักศึกษาที่ถูกต้อง",
+            "นำบัตรนักศึกษาหรือใบแทนบัตรวางบนโต๊ะหรือแสดงต่อกรรมการคุมสอบ",
+            "ห้ามเปิดเครื่องมือสื่อสารและอุปกรณ์อิเล็กทรอนิกส์ในห้องสอบ",
+            "ห้ามนำเอกสารหรืออุปกรณ์ที่มีสูตรเข้าห้องสอบ"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_rules-q012",
+        "question": "นักศึกษาและผู้เรียนรู้ต้องแจ้งต่ออาจารย์ที่ปรึกษาหรือสำนักงานกิจการนักศึกษาทันทีเมื่อใด?",
+        "category": "academic_rules",
+        "gold_doc": "discipline2566",
+        "gold_chunk": "discipline2566#0007",
+        "answer_must_contain": [
+            "ก่อหรือมีส่วนเกี่ยวข้องเป็นคดี",
+            "เจ้าพนักงานฝ่ายปกครอง หรือตำรวจ",
+            "รีบแจ้ง"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_rules-q013",
+        "question": "คณะกรรมการอุทธรณ์มีจำนวนกี่คน และมีตำแหน่งใดบ้างที่เป็นกรรมการและเลขานุการ?",
+        "category": "academic_rules",
+        "gold_doc": "rule_exam2560",
+        "gold_chunk": "rule_exam2560#0015",
+        "answer_must_contain": [
+            "5 คน",
+            "รองอธิการบดี 1 คน",
+            "รองคณบดี 3 คน",
+            "นิติกร 1 คน"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_rules-q014",
+        "question": "การกระทำใดที่ถือว่าเป็นการกระทำผิดวินัยอย่างร้ายแรงตามข้อ 24.21 ของระเบียบวินัย 2566?",
+        "category": "academic_rules",
+        "gold_doc": "discipline2566",
+        "gold_chunk": "discipline2566#0011",
+        "answer_must_contain": [
+            "การกระทำใดๆ ที่นำมาซึ่งความเสื่อมเสียแก่เกียรติศักดิ์ความเป็นนักศึกษาและผู้เรียนรู้ของมหาวิทยาลัย",
+            "เป็นเหตุให้เสื่อมเสียแก่มหาวิทยาลัยอย่างร้ายแรง"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_rules-q015",
+        "question": "ในกรณีที่นักศึกษาหรือผู้เรียนรู้กระทำผิดวินัยอย่างร้ายแรง แต่คณะกรรมการวินัยพิจารณาเห็นว่ามีเหตุอันควรปรานี สามารถลดหย่อนโทษได้ตามข้อ 39 อย่างไรบ้าง?",
+        "category": "academic_rules",
+        "gold_doc": "discipline2566",
+        "gold_chunk": "discipline2566#0021",
+        "answer_must_contain": [
+            "ลดหย่อนโทษ",
+            "ตัดสิทธิเข้าสอบ",
+            "ตัดคะแนนความประพฤติ",
+            "ทำกิจกรรมที่เป็นประโยชน์ต่อมหาวิทยาลัยหรือสังคมส่วนรวม"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_rules-q016",
+        "question": "นักศึกษาที่ทุจริตในการสอบจะถูกพิจารณาโทษอย่างไรบ้างตามระเบียบการสอบ (พ.ศ. 2560)?",
+        "category": "academic_rules",
+        "gold_doc": "rule_exam2560",
+        "gold_chunk": "rule_exam2560#0011",
+        "answer_must_contain": [
+            "ปรับตกในรายวิชาที่กระทำการทุจริต (F)",
+            "เพิกถอนรายวิชาอื่น (ติด W) ที่ลงทะเบียนในภาคการศึกษาที่กระทำการทุจริตทุกรายวิชา",
+            "พักการเรียนหนึ่งภาคการศึกษา",
+            "พ้นสภาพการเป็นนักศึกษา"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_rules-q017",
+        "question": "นักศึกษาและผู้เรียนรู้ต้องพกบัตรประจำตัวเพื่อแสดงตนเมื่อใดบ้าง?",
+        "category": "academic_rules",
+        "gold_doc": "discipline2566",
+        "gold_chunk": "discipline2566#0005",
+        "answer_must_contain": [
+            "พกบัตรประจำตัว",
+            "แสดงตน",
+            "ติดต่อขอรับบริการ",
+            "อาจารย์หรือเจ้าหน้าที่ขอตรวจสอบ"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_rules-q018",
+        "question": "ข้อบังคับมหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี ว่าด้วย วินัยนักศึกษาและผู้เรียนรู้ พ.ศ. 2566 ใช้บังคับตั้งแต่วันใด?",
+        "category": "academic_rules",
+        "gold_doc": "discipline2566",
+        "gold_chunk": "discipline2566#0001",
+        "answer_must_contain": [
+            "วันถัดจากวันประกาศ",
+            "พ.ศ. 2566"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_rules-q019",
+        "question": "นักศึกษาหรือผู้เรียนรู้ที่กระทำผิดวินัยอย่างร้ายแรงตามข้อ 24 ข้อใดที่ถือว่ามีโทษจำคุกหรือโทษที่หนักกว่าจำคุกโดยไม่คำนึงถึงการรอลงโทษหรือรอการกำหนดโทษ?",
+        "category": "academic_rules",
+        "gold_doc": "discipline2566",
+        "gold_chunk": "discipline2566#0008",
+        "answer_must_contain": [
+            "ข้อ 24.6",
+            "โทษจำคุก"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_rules-q020",
+        "question": "คณะกรรมการวินัยนักศึกษาและผู้เรียนรู้ ระดับมหาวิทยาลัย ประกอบด้วยใครบ้าง?",
+        "category": "academic_rules",
+        "gold_doc": "discipline2566",
+        "gold_chunk": "discipline2566#0012",
+        "answer_must_contain": [
+            "รองอธิการบดีฝ่ายพัฒนานักศึกษาและผู้เรียนรู้",
+            "รองคณบดีที่รับผิดชอบด้านพัฒนานักศึกษา",
+            "ผู้อำนวยการสำนักงานทะเบียนนักศึกษา",
+            "นายกองค์การนักศึกษาหรือผู้แทน",
+            "ประธานสภานักศึกษาหรือผู้แทน",
+            "ผู้อำนวยการสำนักงานกิจการนักศึกษา",
+            "หัวหน้ากลุ่มงานพัฒนาคุณภาพชีวิต",
+            "เจ้าหน้าที่สำนักงานกิจการนักศึกษาที่ได้รับมอบหมาย"
+        ],
+        "answerable": true
+    }
+]

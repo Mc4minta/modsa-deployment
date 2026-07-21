@@ -1,0 +1,395 @@
+[
+    {
+        "question_id": "others-q001",
+        "question": "โครงการ MOD-SA ใช้เทคนิคใดร่วมกับ LLMs-RAG เพื่อพัฒนาแชทบอทอัจฉริยะสำหรับบริการนักศึกษาและผู้สนใจเข้าศึกษาต่อ?",
+        "category": "others",
+        "gold_doc": "MODsa-proposal_students",
+        "gold_chunk": "MODsa-proposal_students#0001",
+        "answer_must_contain": [
+            "เทคนิค Large Language Models",
+            "Retrieval-Augmented Generation (LLMs-RAG)"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q002",
+        "question": "ระบบแชทบอทนี้ใช้เทคโนโลยีใดร่วมกับเทคนิค Retrieval-Augmented Generation (RAG) เพื่อช่วยลดปัญหาการสร้างข้อมูลผิดพลาด (hallucination)?",
+        "category": "others",
+        "gold_doc": "MODsa-proposal_students",
+        "gold_chunk": "MODsa-proposal_students#0002",
+        "answer_must_contain": [
+            "Large Language Models (LLMs)",
+            "Retrieval-Augmented Generation (RAG)"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q003",
+        "question": "ขั้นตอนที่ 1 ของโครงการ MOD-SA คือการวิเคราะห์ความต้องการ (Requirement Analysis) และประเภทคำถามที่พบบ่อยหรือไม่?",
+        "category": "others",
+        "gold_doc": "MODsa-proposal_students",
+        "gold_chunk": "MODsa-proposal_students#0004",
+        "answer_must_contain": [
+            "ขั้นตอนที่ 1",
+            "วิเคราะห์ความต้องการ",
+            "ประเภทคำถามที่พบบ่อย"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q004",
+        "question": "ข้อเสนอโครงการ MOD-SA ต้องการให้จัดทำเอกสารและรายงานผลโครงการเมื่อใด?",
+        "category": "others",
+        "gold_doc": "MODsa-proposal_students",
+        "gold_chunk": "MODsa-proposal_students#0004",
+        "answer_must_contain": [
+            "ข้อเสนอโครงการ MOD-SA",
+            "จัดทำเอกสารและรายงานผลโครงการ",
+            "หลังการทดสอบและประเมินผล"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q005",
+        "question": "Large Language Models (LLMs) ทำหน้าที่อะไรในระบบแชทบอท?",
+        "category": "others",
+        "gold_doc": "MODsa-proposal_students",
+        "gold_chunk": "MODsa-proposal_students#0005",
+        "answer_must_contain": [
+            "เข้าใจและประมวลผลภาษามนุษย์",
+            "ตอบคำถามได้อย่างถูกต้อง เป็นธรรมชาติ และสอดคล้องกับบริบท"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q006",
+        "question": "แชทบอทสามารถให้บริการตอบคำถามแก่ผู้ใช้งานได้ตลอด 24 ชั่วโมง ไม่จำกัดวันและเวลาราชการ ทำให้นักศึกษาและผู้ปกครองสามารถเข้าถึงข้อมูลด้านเรียน การลงทะเบียน ระเบียบข้อบังคับ และบริการต่าง ๆ ของมหาวิทยาลัยได้อย่างสะดวก รวดเร็ว และทันท่วงที เพิ่มประสิทธิภาพในการเข้าถึงข้อมูลและลดข้อจำกัดด้านเวลาในการติดต่อหน่วยงาน แชทบอทช่วยลดภาระงานของเจ้าหน้าที่ผู้ให้บริการ โดยเฉพาะการตอบคำถามที่มีลักษณะซ้ำซ้อนหรือเป็นคำถามที่พบบ่อย (Frequently Asked Questions) เช่น ขั้นตอนการลงทะเบียน เงื่อนไขทางการศึกษา การขอทุนและประเภททุน หรือกำหนดการสำคัญเช่นการเพิ่ม ลด ถอน รายวิชา ส่งผลให้เจ้าหน้าที่สามารถนำเวลาและทรัพยากรไปปฏิบัติงานที่มีความซับซ้อนหรือจำเป็นต้องใช้ดุลยพินิจมากขึ้น ช่วยเพิ่มประสิทธิภาพโดยรวมของการให้บริการ",
+        "category": "others",
+        "gold_doc": "MODsa-proposal_students",
+        "gold_chunk": "MODsa-proposal_students#0006",
+        "answer_must_contain": [
+            "24 ชั่วโมง",
+            "ไม่จำกัดวันและเวลาราชการ",
+            "ขั้นตอนการลงทะเบียน",
+            "เงื่อนไขทางการศึกษา",
+            "การขอทุนและประเภททุน",
+            "กำหนดการสำคัญ"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q007",
+        "question": "แชทบอทสามารถให้บริการตอบคำถามแก่ผู้ใช้งานได้ตลอด 24 ชั่วโมง ไม่จำกัดวันและเวลาราชการ ใช่หรือไม่?",
+        "category": "others",
+        "gold_doc": "MODsa-proposal_students",
+        "gold_chunk": "MODsa-proposal_students#0006",
+        "answer_must_contain": [
+            "แชทบอท",
+            "ให้บริการตอบคำถาม",
+            "ตลอด 24 ชั่วโมง",
+            "ไม่จำกัดวันและเวลาราชการ"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q008",
+        "question": "ระบบแชทบอทที่พัฒนาด้วยเทคนิค Large Language Models ร่วมกับ Retrieval-Augmented Generation ช่วยลดความคลาดเคลื่อนของข้อมูลจากการถ่ายทอดระหว่างบุคคลอย่างไร?",
+        "category": "others",
+        "gold_doc": "MODsa-proposal_students",
+        "gold_chunk": "MODsa-proposal_students#0007",
+        "answer_must_contain": [
+            "ลดความคลาดเคลื่อนของข้อมูล",
+            "การถ่ายทอดระหว่างบุคคล"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q009",
+        "question": "ในขั้นตอนที่ 3 ของโครงการ MOD-SA ระบุว่ามีกิจกรรมใดบ้างที่ต้องดำเนินการในช่วงเวลาใด?",
+        "category": "others",
+        "gold_doc": "MODsa-proposal_students",
+        "gold_chunk": "MODsa-proposal_students#0008",
+        "answer_must_contain": [
+            "แปลงฐานข้อมูล",
+            "พัฒนาโมเดล",
+            "เชื่อมต่อแชทบอท (RAG)"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q010",
+        "question": "โครงการพัฒนาแชทบอทอัจฉริยะสำหรับนักศึกษาจธ. ด้วยเทคนิค LLMs-RAG มีงบประมาณหลักแบ่งออกเป็นกี่ส่วน?",
+        "category": "others",
+        "gold_doc": "MODsa-proposal_students",
+        "gold_chunk": "MODsa-proposal_students#0009",
+        "answer_must_contain": [
+            "งบประมาณหลัก",
+            "3 ส่วน"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q011",
+        "question": "บริการใดในระบบสารสนเทศของมหาวิทยาลัยที่นักศึกษาสามารถใช้เพื่อเข้าถึงอินเทอร์เน็ตได้ทั้งในและนอกมหาวิทยาลัย?",
+        "category": "others",
+        "gold_doc": "Manual-แนะนำบริการสารสนเทศ ver2024",
+        "gold_chunk": "Manual-แนะนำบริการสารสนเทศ_ver2024#0002",
+        "answer_must_contain": [
+            "eduroam",
+            "KMUTT Wi-Fi",
+            "KMUTT VPN"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q012",
+        "question": "e-Mail Account ของนักศึกษาที่มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรีมีรูปแบบอย่างไร?",
+        "category": "others",
+        "gold_doc": "Manual-แนะนำบริการสารสนเทศ ver2024",
+        "gold_chunk": "Manual-แนะนำบริการสารสนเทศ_ver2024#0005",
+        "answer_must_contain": [
+            "name.surname@kmutt.ac.th",
+            "4 ตำแหน่งแรกของนามสกุล"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q013",
+        "question": "นักศึกษาที่จบการศึกษาแล้วสามารถใช้งานอีเมลของมหาวิทยาลัยได้หรือไม่ และใช้งานได้ผ่านช่องทางใด?",
+        "category": "others",
+        "gold_doc": "Manual-แนะนำบริการสารสนเทศ ver2024",
+        "gold_chunk": "Manual-แนะนำบริการสารสนเทศ_ver2024#0005",
+        "answer_must_contain": [
+            "ใช้งานได้",
+            "หลังจบการศึกษา",
+            "Microsoft Outlook",
+            "https://outlook.office.com"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q014",
+        "question": "พื้นที่เก็บข้อมูลใน Mailbox ของนักศึกษา มจธ. คือเท่าใด?",
+        "category": "others",
+        "gold_doc": "Manual-แนะนำบริการสารสนเทศ ver2024",
+        "gold_chunk": "Manual-แนะนำบริการสารสนเทศ_ver2024#0006",
+        "answer_must_contain": [
+            "พื้นที่เก็บข้อมูลใน Mailbox",
+            "จำนวน 10 GB"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q015",
+        "question": "นักศึกษาของมหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรีที่ไปปฏิบัติภารกิจในสถาบันการศึกษาอื่นที่เป็นสมาชิกสามารถใช้งานอินเทอร์เน็ตผ่านบริการเครือข่ายไร้สายชื่อ eduroam ได้หรือไม่?",
+        "category": "others",
+        "gold_doc": "Manual-แนะนำบริการสารสนเทศ ver2024",
+        "gold_chunk": "Manual-แนะนำบริการสารสนเทศ_ver2024#0007",
+        "answer_must_contain": [
+            "นักศึกษาของมหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี",
+            "eduroam",
+            "สถาบันการศึกษาอื่นที่เป็นสมาชิก",
+            "สามารถใช้ได้"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q016",
+        "question": "นักศึกษาสามารถใช้งาน Microsoft 365 ได้ผ่านช่องทางใดบ้าง?",
+        "category": "others",
+        "gold_doc": "Manual-แนะนำบริการสารสนเทศ ver2024",
+        "gold_chunk": "Manual-แนะนำบริการสารสนเทศ_ver2024#0008",
+        "answer_must_contain": [
+            "PC",
+            "Mac",
+            "Tablet",
+            "Smartphone"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q017",
+        "question": "นักศึกษามหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรีสามารถดาวน์โหลดซอฟต์แวร์ลิขสิทธิ์ของ Microsoft ได้ผ่านทางเว็บไซต์ใด?",
+        "category": "others",
+        "gold_doc": "Manual-แนะนำบริการสารสนเทศ ver2024",
+        "gold_chunk": "Manual-แนะนำบริการสารสนเทศ_ver2024#0010",
+        "answer_must_contain": [
+            "https://cc.kmutt.ac.th/AzureDev.html",
+            "KMUTT Account"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q018",
+        "question": "นักศึกษาสามารถดาวน์โหลดซอฟต์แวร์ลิขสิทธิ์ของ Microsoft ได้จากที่ใด?",
+        "category": "others",
+        "gold_doc": "Manual-แนะนำบริการสารสนเทศ ver2024",
+        "gold_chunk": "Manual-แนะนำบริการสารสนเทศ_ver2024#0010",
+        "answer_must_contain": [
+            "เว็บไซต์",
+            "cc.kmutt.ac.th/AzureDev.html",
+            "KMUTT Account"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q019",
+        "question": "MATLAB เป็นแพลตฟอร์มการเขียนโปรแกรมที่ออกแบบมาเฉพาะสำหรับวิศวกรและนักวิทยาศาสตร์ โดยใช้เมทริกซ์เป็นหัวใจหลักในการคำนวณทางคณิตศาสตร์อย่างเป็นธรรมชาติที่สุด นักศึกษาสามารถศึกษารายละเอียดการใช้งานได้ที่เว็บไซต์ใด?",
+        "category": "others",
+        "gold_doc": "Manual-แนะนำบริการสารสนเทศ ver2024",
+        "gold_chunk": "Manual-แนะนำบริการสารสนเทศ_ver2024#0011",
+        "answer_must_contain": [
+            "MATLAB",
+            "แพลตฟอร์มการเขียนโปรแกรม",
+            "วิศวกรและนักวิทยาศาสตร์",
+            "เมทริกซ์",
+            "คำนวณทางคณิตศาสตร์",
+            "https://cc.kmutt.ac.th/MATLAB.html"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q020",
+        "question": "นักศึกษาของมหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรีสามารถเข้าใช้งานบริการ Google ได้ด้วยบัญชีผู้ใช้งานในรูปแบบใด?",
+        "category": "others",
+        "gold_doc": "Manual-แนะนำบริการสารสนเทศ ver2024",
+        "gold_chunk": "Manual-แนะนำบริการสารสนเทศ_ver2024#0012",
+        "answer_must_contain": [
+            "name.surname@mail.kmutt.ac.th",
+            "รหัสผ่านเดียวกับ KMUTT Account"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q021",
+        "question": "ขั้นตอนการทำบัตรนักศึกษาของมหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรีมีขั้นตอนอย่างไรบ้าง?",
+        "category": "others",
+        "gold_doc": "ขั้นตอนการทำบัตรนักศึกษา",
+        "gold_chunk": "ขั้นตอนการทำบัตรนักศึกษา#0001",
+        "answer_must_contain": [
+            "https://regis.kmutt.ac.th/web/std_card",
+            "ขั้นตอนการทำบัตรนักศึกษา"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q022",
+        "question": "ขั้นตอนการทำบัตรนักศึกษาของมหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรีสามารถดูได้ที่เว็บไซต์ใด?",
+        "category": "others",
+        "gold_doc": "ขั้นตอนการทำบัตรนักศึกษา",
+        "gold_chunk": "ขั้นตอนการทำบัตรนักศึกษา#0001",
+        "answer_must_contain": [
+            "มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี",
+            "https://regis.kmutt.ac.th/web/std_card"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q023",
+        "question": "นักศึกษาสามารถติดต่อสำนักงานทะเบียนได้ที่เบอร์โทรศัพท์ใดบ้างเมื่อต้องการลงทะเบียนเรียนหรือตรวจสอบตารางเรียน-ตารางสอบ?",
+        "category": "others",
+        "gold_doc": "ติดต่อสำนักงานทะเบียน",
+        "gold_chunk": "ติดต่อสำนักงานทะเบียน#0001",
+        "answer_must_contain": [
+            "0-2470-8154",
+            "0-2470-8340",
+            "0-2470-8350"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q024",
+        "question": "สำนักงานทะเบียนนักศึกษา มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี ตั้งอยู่ที่ใด?",
+        "category": "others",
+        "gold_doc": "ติดต่อสำนักงานทะเบียน",
+        "gold_chunk": "ติดต่อสำนักงานทะเบียน#0001",
+        "answer_must_contain": [
+            "126 ถ. ประชาอุทิศ แขวงบางมด เขตทุ่งครุ กรุงเทพมหานคร 10140"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q025",
+        "question": "สำนักงานทะเบียนนักศึกษา มจธ. ตั้งอยู่ที่ใด?",
+        "category": "others",
+        "gold_doc": "ติดต่อสำนักงานทะเบียน",
+        "gold_chunk": "ติดต่อสำนักงานทะเบียน#0002",
+        "answer_must_contain": [
+            "126 Pracha Uthit Rd",
+            "Bang Mod, Thung Khru, Bangkok 10140 Thailand"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q026",
+        "question": "บัตรเดบิต Be1st Digital ประกอบด้วยกี่รูปแบบ และแต่ละรูปแบบใช้งานอย่างไร?",
+        "category": "others",
+        "gold_doc": "บัตรนักศึกษา-Digital-มจธ",
+        "gold_chunk": "บัตรนักศึกษา-Digital-มจธ#0002",
+        "answer_must_contain": [
+            "บัตรรูปแบบ Virtual Card",
+            "ใช้ชำระค่าสินค้า/บริการ ณ ร้านค้าออนไลน์",
+            "บัตรรูปแบบพลาสติก",
+            "ใช้กดเงินและชำระค่าสินค้า/บริการที่ร้านค้าที่มีเครื่องหมายรองรับ"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q027",
+        "question": "บัตรเดบิต Be1st Digital แบบพลาสติกมีเลขบัตร 16 หลัก วันหมดอายุ และรหัส CVC อย่างไร?",
+        "category": "others",
+        "gold_doc": "บัตรนักศึกษา-Digital-มจธ",
+        "gold_chunk": "บัตรนักศึกษา-Digital-มจธ#0002",
+        "answer_must_contain": [
+            "เลขบัตร 16 หลัก",
+            "วันหมดอายุ",
+            "รหัส CVC"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q028",
+        "question": "นักศึกษาที่มีบัตร Be1st Smart อยู่แล้ว ต้องทำอย่างไรเพื่อขอรับบัตรนักศึกษาแบบ Digital รูปแบบ Virtual Card?",
+        "category": "others",
+        "gold_doc": "บัตรนักศึกษา-Digital-มจธ",
+        "gold_chunk": "บัตรนักศึกษา-Digital-มจธ#0003",
+        "answer_must_contain": [
+            "เข้าแอป MOD LINK",
+            "เลือกเมนู บริการอื่นๆ",
+            "เลือกสมัครผลิตภัณฑ์ บัตรเดบิต",
+            "เลือกบัญชีที่ต้องการ",
+            "เลือก บีเฟิสต์ ดิจิทัล นักศึกษา มจธ.",
+            "ทำตามขั้นตอนจนเสร็จสิ้น"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q029",
+        "question": "นักศึกษาที่บัตรนักศึกษาหายหรือชำรุดต้องดำเนินการอย่างไรเพื่อขอรับบัตรนักศึกษาใหม่ในรูปแบบดิจิทัลและพลาสติกคู่กัน?",
+        "category": "others",
+        "gold_doc": "บัตรนักศึกษา-Digital-มจธ",
+        "gold_chunk": "บัตรนักศึกษา-Digital-มจธ#0004",
+        "answer_must_contain": [
+            "อายัด/ยกเลิกบัตรนักศึกษาใบเดิม",
+            "สมัครบัตร Be1st Digital รูปแบบ Virtual Card",
+            "เข้าแอป MOD LINK",
+            "เลือกเมนู 'บริการจากธนาคารกรุงเทพ'",
+            "เลือก 'ขอออกบัตรนักศึกษาใหม่'"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "others-q030",
+        "question": "นักศึกษาสามารถติดต่อสอบถามข้อมูลเพิ่มเติมเกี่ยวกับบัตรนักศึกษาดิจิทัลได้ที่ช่องทางใดบ้าง?",
+        "category": "others",
+        "gold_doc": "บัตรนักศึกษา-Digital-มจธ",
+        "gold_chunk": "บัตรนักศึกษา-Digital-มจธ#0006",
+        "answer_must_contain": [
+            "ธนาคารกรุงเทพ",
+            "สำนักงานทะเบียนนักศึกษา",
+            "0 2470 8147",
+            "0 2427 8675-7"
+        ],
+        "answerable": true
+    }
+]

@@ -1,0 +1,265 @@
+[
+    {
+        "question_id": "registration-q001",
+        "question": "ขั้นตอนการเข้าสู่ระบบเพื่อลงทะเบียนเรียนในระบบ KMUTT Academic Information System คืออะไร?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0004",
+        "answer_must_contain": [
+            "เข้าสู่เว็บไซต์มหาวิทยาลัย",
+            "คลิกที่ 'Current Students'",
+            "คลิกที่ 'Information System New ACIS'",
+            "กรอกชื่อผู้ใช้และรหัสผ่าน",
+            "คลิก 'Enter the System'"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q002",
+        "question": "นักศึกษาต้องแนบไฟล์เอกสารใดบ้างในการลงทะเบียนเรียน และมีข้อกำหนดเรื่องขนาดไฟล์อย่างไร?",
+        "category": "registration",
+        "gold_doc": "คู่มือบันทึกระเบียนประวัตินักศึกษา",
+        "gold_chunk": "คู่มือบันทึกระเบียนประวัตินักศึกษา#0014",
+        "answer_must_contain": [
+            "รูปถ่าย",
+            "สำเนาทะเบียนบ้าน",
+            "สำเนาบัตรประจำตัวประชาชน",
+            "สำเนาระเบียนแสดงผลการเรียน",
+            "ขนาดไฟล์ 1024",
+            "ขนาดไฟล์ 15024",
+            "ขนาดไฟล์ 15000"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q003",
+        "question": "ช่วงรายได้ที่นักศึกษาเลือกคือเท่าใด?",
+        "category": "registration",
+        "gold_doc": "คู่มือบันทึกระเบียนประวัตินักศึกษา",
+        "gold_chunk": "คู่มือบันทึกระเบียนประวัตินักศึกษา#0025",
+        "answer_must_contain": [
+            "25,001 - 35,000",
+            "30,000.00 บาท"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q004",
+        "question": "นักศึกษาจะสามารถดำเนินการในขั้นตอนที่ 4 ได้เมื่อใด?",
+        "category": "registration",
+        "gold_doc": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา",
+        "gold_chunk": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0033",
+        "answer_must_contain": [
+            "อาจารย์ที่ปรึกษาอนุมัติการลงทะเบียน",
+            "ข้อความแสดงความคิดเห็นจากอาจารย์ที่ปรึกษา"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q005",
+        "question": "นักศึกษาที่ลงทะเบียนเรียนในระบบ Internet ต้องผ่านขั้นตอนใดบ้างก่อนจะได้รับการยืนยันการลงทะเบียน?",
+        "category": "registration",
+        "gold_doc": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา",
+        "gold_chunk": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0022",
+        "answer_must_contain": [
+            "เลือกวิชาและเลือก Section",
+            "ยืนยันการลงทะเบียน",
+            "พบอาจารย์ที่ปรึกษา",
+            "รับทราบผลการลงทะเบียน"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q006",
+        "question": "เว็บไซต์ที่อนุญาตให้แสดง Pop-up ได้สำหรับนักศึกษาคืออะไร?",
+        "category": "registration",
+        "gold_doc": "pop-up-blocker-disable",
+        "gold_chunk": "pop-up-blocker-disable#0003",
+        "answer_must_contain": [
+            "https://sinfo.kmutt.ac.th/NewAcis",
+            "นักศึกษา"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q007",
+        "question": "จำนวนเงินที่ต้องชำระในการลงทะเบียนเรียนปกติคือเท่าใด?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0048",
+        "answer_must_contain": [
+            "7,700.00",
+            "7,700 บาท"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q008",
+        "question": "นักศึกษาต้องทำขั้นตอนใดก่อนจะสามารถยืนยันการลงทะเบียนเรียนได้?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0010",
+        "answer_must_contain": [
+            "เลือกวิชาและเลือก Section",
+            "ยืนยันการลงทะเบียน"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q009",
+        "question": "ค่าใช้จ่ายทั้งหมดที่ต้องชำระสำหรับการลงทะเบียนเรียนในภาคการศึกษาที่ 1/2555 ของนางสาววจิศา จอมวรรงศ์ คือเท่าใด?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0045",
+        "answer_must_contain": [
+            "22,500.00",
+            "25,000.00",
+            "200.00",
+            "72,700.00"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q010",
+        "question": "ขั้นตอนการลงทะเบียนเรียนปกติมีกี่ขั้นตอน และขั้นตอนที่ 3 คืออะไร?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0014",
+        "answer_must_contain": [
+            "5",
+            "พบอาจารย์ที่ปรึกษา"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q011",
+        "question": "ขั้นตอนที่ 3 ของการลงทะเบียนเรียนคืออะไร และมีเงื่อนไขใดที่ทำให้ต้องเข้าสู่ขั้นตอนนี้?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0027",
+        "answer_must_contain": [
+            "พบอาจารย์ที่ปรึกษา",
+            "นักศึกษาที่อยู่ในสถานะ probation",
+            "อาจารย์ที่ปรึกษาขอให้พบ"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q012",
+        "question": "ขั้นตอนการยืนยันการลงทะเบียนเรียนในระบบออนไลน์มีกี่ขั้นตอน และขั้นตอนสุดท้ายคืออะไร?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0059",
+        "answer_must_contain": [
+            "ยืนยันการลงทะเบียน",
+            "ชำระเงิน"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q013",
+        "question": "นักศึกษาต้องทำอย่างไรเพื่อยืนยันการลงทะเบียนลาพักการศึกษาและสั่งพิมพ์ใบแจ้งชำระเงินผ่านระบบ?",
+        "category": "registration",
+        "gold_doc": "วิธียื่นคำขอลาพักการศึกษา_การ_Drop (fixed)",
+        "gold_chunk": "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)#0009",
+        "answer_must_contain": [
+            "ยืนยันการลงทะเบียนลาพักการศึกษา",
+            "สั่งพิมพ์ใบแจ้งชำระเงินผ่านระบบ",
+            "เลือกหัวข้อ > เลือกลงทะเบียนรายวิชา > เลือกลงทะเบียนรักษาสถานภาพ > เลือกยืนยันการลงทะเบียนลาพัก"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q014",
+        "question": "นักศึกษาที่มีรหัสนักศึกษา 54270022 ต้องชำระเงินจำนวนเท่าใดในการลงทะเบียนเรียนผ่านระบบ Internet สำหรับภาคการศึกษา 1/2555?",
+        "category": "registration",
+        "gold_doc": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา",
+        "gold_chunk": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0038",
+        "answer_must_contain": [
+            "52,200.00",
+            "ห้าหมื่นสองพันสองร้อยบาทถ้วน"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q015",
+        "question": "วิชาใดในตารางการลงทะเบียนที่มีหน่วยกิต 3 หน่วยกิต และอยู่ในกลุ่ม 1?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0054",
+        "answer_must_contain": [
+            "CVE221",
+            "SURVEYING",
+            "3 หน่วยกิต",
+            "กลุ่ม 1"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q016",
+        "question": "วิชาใดในตารางการลงทะเบียนมีหน่วยกิต 3 หน่วยกิต และอยู่ในกลุ่ม 1?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0030",
+        "answer_must_contain": [
+            "CVE221",
+            "CVE223",
+            "CVE233",
+            "MTH201"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q017",
+        "question": "นักศึกษาต้องชำระเงินจำนวนเท่าใดสำหรับการลงทะเบียนเรียนในครั้งนี้?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0025",
+        "answer_must_contain": [
+            "52,200",
+            "52,200.00",
+            "52,200 บาท"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q018",
+        "question": "นักศึกษาสามารถเลือกธนาคารใดได้บ้างเมื่อต้องการชำระเงินผ่านระบบหักบัญชีธนาคาร?",
+        "category": "registration",
+        "gold_doc": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา",
+        "gold_chunk": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0039",
+        "answer_must_contain": [
+            "ธนาคารที่ปรากฏในหน้าจอ",
+            "ต้องเปิดบัญชีกับธนาคารนั้นไว้แล้ว"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q019",
+        "question": "เมื่อจำนวนที่นั่งในกลุ่มหรือ Section ที่นักศึกษาต้องการลงทะเบียนเรียนเต็ม ระบบจะแสดงข้อความใดเพื่อแจ้งเตือนนักศึกษา?",
+        "category": "registration",
+        "gold_doc": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา",
+        "gold_chunk": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0007",
+        "answer_must_contain": [
+            "จำนวนที่นั่งคงเหลือไม่พอ",
+            "ตกลง"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q020",
+        "question": "นักศึกษาที่มีรหัสนักศึกษา 54270031 ลงทะเบียนเรียนวิชาใดบ้างในภาคการศึกษา 1/2555?",
+        "category": "registration",
+        "gold_doc": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา",
+        "gold_chunk": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0057",
+        "answer_must_contain": [
+            "CVE221",
+            "CVE223",
+            "CVE233",
+            "CVE236",
+            "LNG104",
+            "MTH201"
+        ],
+        "answerable": true
+    }
+]

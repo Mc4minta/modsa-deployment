@@ -1,0 +1,533 @@
+[
+    {
+        "question_id": "registration-q001",
+        "question": "การลงทะเบียนเรียนผ่านระบบ Internet สำหรับนักศึกษาที่มหาวิทยาลัย KMUTT สามารถชำระเงินได้ผ่านช่องทางใดบ้าง?",
+        "category": "registration",
+        "gold_doc": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา",
+        "gold_chunk": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0044",
+        "answer_must_contain": [
+            "การลงทะเบียนเรียนผ่านระบบ Internet",
+            "มหาวิทยาลัย KMUTT",
+            "ชำระเงินได้ผ่านช่องทางใดบ้าง"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q002",
+        "question": "เมื่อนักศึกษายืนยันการลงทะเบียนแล้ว ระบบจะล็อคไม่ให้แก้ไขรายการลงทะเบียนนี้จนกว่าจะมีการชำระเงินหรือไม่?",
+        "category": "registration",
+        "gold_doc": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา",
+        "gold_chunk": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0070",
+        "answer_must_contain": [
+            "เมื่อยืนยันการลงทะเบียนแล้ว",
+            "นักศึกษาต้องเลือกช่องวิธีการชำระเงิน",
+            "ระบบจะล็อคไม่ให้แก้ไขรายการลงทะเบียนนี้"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q003",
+        "question": "เมื่อใดที่นักศึกษาต้องเลือกช่องวิธีการชำระเงินในระบบลงทะเบียนออนไลน์?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0050",
+        "answer_must_contain": [
+            "เมื่อยืนยันการลงทะเบียนแล้ว",
+            "ระบบจะล็อคไม่ให้แก้ไขรายการลงทะเบียนนี้ จนกว่าจะมีการชำระเงิน"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q004",
+        "question": "หากนักศึกษาไม่สามารถระบุที่อยู่ปัจจุบันได้ ต้องทำอย่างไรในการลงทะเบียนเรียน?",
+        "category": "registration",
+        "gold_doc": "คู่มือบันทึกระเบียนประวัตินักศึกษา",
+        "gold_chunk": "คู่มือบันทึกระเบียนประวัตินักศึกษา#0019",
+        "answer_must_contain": [
+            "ใช้ที่อยู่ตามทะเบียนบ้าน",
+            "ติ๊กเครื่องหมาย [v] ลงในช่อง \"ใช้ที่อยู่เดียวกับที่อยู่ตามทะเบียนบ้านของนักศึกษา\""
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q005",
+        "question": "ระบบการลงทะเบียนออนไลน์ของนักศึกษา KMUTT สามารถเข้าถึงได้ผ่านช่องทางใดบนเว็บไซต์ของมหาวิทยาลัย?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0001",
+        "answer_must_contain": [
+            "Internet Registration",
+            "university website"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q006",
+        "question": "นักศึกษาสามารถเลือกวิธีการชำระเงินได้กี่แบบในการลงทะเบียนผ่านระบบ Internet และวิธีการชำระเงินแบบใดที่ระบบตั้งค่าเริ่มต้นให้?",
+        "category": "registration",
+        "gold_doc": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา",
+        "gold_chunk": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0039",
+        "answer_must_contain": [
+            "2 แบบ",
+            "หักบัญชีธนาคาร"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q007",
+        "question": "นักศึกษาที่เคยเป็นนักศึกษาของมหาวิทยาลัยอื่นมาก่อน ต้องระบุข้อมูลใดบ้างเมื่อลงทะเบียนเรียนที่ มจธ.",
+        "category": "registration",
+        "gold_doc": "คู่มือบันทึกระเบียนประวัตินักศึกษา",
+        "gold_chunk": "คู่มือบันทึกระเบียนประวัตินักศึกษา#0022",
+        "answer_must_contain": [
+            "เคยเป็นนักศึกษามหาวิทยาลัย/สถาบันการศึกษาอื่น",
+            "ชื่อมหาวิทยาลัย",
+            "ชื่อคณะ",
+            "สาขาวิชา"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q008",
+        "question": "ขั้นตอนการลงทะเบียนเรียนปกติมีกี่ขั้นตอน และขั้นตอนที่ 1 คืออะไร?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0021",
+        "answer_must_contain": [
+            "ขั้นตอนการลงทะเบียนเรียนปกติ",
+            "เลือกวิชาและเลือก Section"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q009",
+        "question": "นักศึกษาที่ลงทะเบียนเรียนต้องกรอกข้อมูลชื่อ-นามสกุลภาษาอังกฤษอย่างไร?",
+        "category": "registration",
+        "gold_doc": "คู่มือบันทึกระเบียนประวัตินักศึกษา",
+        "gold_chunk": "คู่มือบันทึกระเบียนประวัตินักศึกษา#0013",
+        "answer_must_contain": [
+            "ชื่อ(อ.)*",
+            "นามสกุล(อ.)*",
+            "ตัวพิมพ์ใหญ่"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q010",
+        "question": "นักศึกษาต้องชำระเงินตามใบเรียกเก็บเงินที่พิมพ์จากระบบภายในกำหนดเวลาที่ระบุไว้ในใบเรียกเก็บเงินหรือไม่?",
+        "category": "registration",
+        "gold_doc": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา",
+        "gold_chunk": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0041",
+        "answer_must_contain": [
+            "ชำระเงิน",
+            "ใบเรียกเก็บเงิน",
+            "กำหนดเวลา"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q011",
+        "question": "เมื่อผู้ใช้ต้องการบันทึกข้อมูลการลงทะเบียนเรียน ต้องทำอย่างไรหลังจากเลือกกลุ่มเรียนแล้ว?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0007",
+        "answer_must_contain": [
+            "click on the radio button",
+            "click \"Record\"",
+            "the system will show the result"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q012",
+        "question": "นักศึกษาที่ทำงานในหน่วยราชการหรือรัฐวิสาหกิจที่ต้องการลาศึกษาต่อ ต้องส่งหนังสือส่งตัวพร้อมสแกนเอกสารอนุญาตอัพโหลดเข้าในระบบระเบียนประวัติหรือไม่?",
+        "category": "registration",
+        "gold_doc": "คู่มือบันทึกระเบียนประวัตินักศึกษา",
+        "gold_chunk": "คู่มือบันทึกระเบียนประวัตินักศึกษา#0028",
+        "answer_must_contain": [
+            "หน่วยราชการ",
+            "รัฐวิสาหกิจ",
+            "หนังสือส่งตัว",
+            "สแกนเอกสารอนุญาต",
+            "อัพโหลดเข้าในระบบระเบียนประวัติ"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q013",
+        "question": "การลงทะเบียนเรียนปกติมีกี่ขั้นตอน และขั้นตอนที่ 1 คืออะไร?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0041",
+        "answer_must_contain": [
+            "การลงทะเบียนเรียนปกติ",
+            "ขั้นตอนที่ 1"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q014",
+        "question": "ขั้นตอนที่ 1 ของการบันทึกประวัตินักศึกษาคืออะไร?",
+        "category": "registration",
+        "gold_doc": "คู่มือบันทึกระเบียนประวัตินักศึกษา",
+        "gold_chunk": "คู่มือบันทึกระเบียนประวัตินักศึกษา#0002",
+        "answer_must_contain": [
+            "เข้าสู่ระบบ",
+            "บันทึกข้อมูล"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q015",
+        "question": "ขั้นตอนที่ 3 ยืนยันการลงทะเบียน ต้องทำเมื่อใดหลังจากลงทะเบียนวิชาเรียน?",
+        "category": "registration",
+        "gold_doc": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา",
+        "gold_chunk": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0003",
+        "answer_must_contain": [
+            "ขั้นตอนที่ 3",
+            "ยืนยันการลงทะเบียน",
+            "หลังจากลงทะเบียนวิชาเรียน"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q016",
+        "question": "เมื่อผู้เรียนเลือกหลักสูตรแล้ว ระบบจะแสดงกลุ่มหรือส่วนที่มีอยู่หรือไม่?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0013",
+        "answer_must_contain": [
+            "ระบบจะแสดงกลุ่มหรือส่วนที่มีอยู่",
+            "หลังจากเลือกหลักสูตร"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q017",
+        "question": "ขั้นตอนที่ 1 ของการลงทะเบียนเรียนผ่านระบบ Internet สำหรับนักศึกษาคืออะไร?",
+        "category": "registration",
+        "gold_doc": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา",
+        "gold_chunk": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0025",
+        "answer_must_contain": [
+            "เลือกวิชาและเลือก Section",
+            "Step 1"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q018",
+        "question": "ขั้นตอนที่ 1 ของการลงทะเบียนเรียนปกติคืออะไร?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0048",
+        "answer_must_contain": [
+            "เลือกวิชาและเลือก Section",
+            "Step 1"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q019",
+        "question": "นักศึกษาที่ลาพักการศึกษาต้องได้รับอนุมัติจากใคร?",
+        "category": "registration",
+        "gold_doc": "วิธียื่นคำขอลาพักการศึกษา_การ_Drop (fixed)",
+        "gold_chunk": "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)#0021",
+        "answer_must_contain": [
+            "คณะ"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q020",
+        "question": "ขั้นตอนที่ 5 ของการลงทะเบียนเรียนผ่านระบบอินเทอร์เน็ตคืออะไร และเมื่ออาจารย์ที่ปรึกษาอนุมัติการลงทะเบียนแล้ว นักศึกษาจะต้องทำอะไรต่อไป?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0028",
+        "answer_must_contain": [
+            "ขั้นตอนที่ 5",
+            "Registration Result",
+            "อาจารย์ที่ปรึกษาอนุมัติ",
+            "ทำรายการชำระเงิน"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q021",
+        "question": "ขั้นตอนที่ 1 ของการบันทึกประวัตินักศึกษา คือการตรวจสอบความถูกต้องของอะไรบ้าง?",
+        "category": "registration",
+        "gold_doc": "คู่มือบันทึกระเบียนประวัตินักศึกษา",
+        "gold_chunk": "คู่มือบันทึกระเบียนประวัตินักศึกษา#0008",
+        "answer_must_contain": [
+            "รหัสประจำตัวนักศึกษา",
+            "ชื่อ-นามสกุล",
+            "หลักสูตรการศึกษา"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q022",
+        "question": "วุฒิการศึกษาที่ใช้ในการสมัครในระดับปริญญาตรี ได้แก่ อะไรบ้าง?",
+        "category": "registration",
+        "gold_doc": "คู่มือบันทึกระเบียนประวัตินักศึกษา",
+        "gold_chunk": "คู่มือบันทึกระเบียนประวัตินักศึกษา#0021",
+        "answer_must_contain": [
+            "มัธยมศึกษาตอนปลาย",
+            "ประกาศนียบัตรวิชาชีพ (ปวช.)",
+            "ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.)"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q023",
+        "question": "เมื่อผู้ใช้เลือกวิชาเรียนและกลุ่มเรียนแล้วพบว่าเวลาเรียนและเวลาสอบซ้ำซ้อนกัน ระบบจะแสดงข้อความเตือนอะไร?",
+        "category": "registration",
+        "gold_doc": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา",
+        "gold_chunk": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0008",
+        "answer_must_contain": [
+            "ระบบจะแสดงข้อความเตือน",
+            "เวลาเรียนตามตารางสอนซ้ำกับวิชาที่ลงไปแล้ว"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q024",
+        "question": "การลงทะเบียนเรียนที่มหาวิทยาลัย KMUTT สามารถชำระเงินได้ที่ใดบ้าง?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0047",
+        "answer_must_contain": [
+            "การลงทะเบียนเรียน",
+            "มหาวิทยาลัย KMUTT",
+            "ชำระเงิน"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q025",
+        "question": "นักศึกษาสามารถแก้ไขข้อมูลในประวัตินักศึกษาได้เองหรือไม่ หากพบข้อมูลที่ผิดพลาด?",
+        "category": "registration",
+        "gold_doc": "คู่มือบันทึกระเบียนประวัตินักศึกษา",
+        "gold_chunk": "คู่มือบันทึกระเบียนประวัตินักศึกษา#0005",
+        "answer_must_contain": [
+            "นักศึกษา",
+            "แก้ไขข้อมูล",
+            "ประวัตินักศึกษา",
+            "กดปุ่ม \"ถัดไป\""
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q026",
+        "question": "นักศึกษาใหม่ทุกระดับการศึกษาต้องเข้าไปบันทึกประวัติส่วนตัวในระบบสารสนเทศเพื่อการบริหารการศึกษาที่เว็บไซต์ใด?",
+        "category": "registration",
+        "gold_doc": "คู่มือบันทึกระเบียนประวัตินักศึกษา",
+        "gold_chunk": "คู่มือบันทึกระเบียนประวัตินักศึกษา#0001",
+        "answer_must_contain": [
+            "http://sinfo.kmutt.ac.th/NewAcis/loginNewStudent.jsf",
+            "นักศึกษาใหม่"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q027",
+        "question": "หากนักศึกษาได้ลงทะเบียนเรียนปกติและชำระเงินค่าลงทะเบียนเรียบร้อยแล้ว แล้วต่อมาได้ยื่นคำร้องขอลาพักการศึกษาและได้รับการอนุมัติ นักศึกษาจะต้องชำระเงินค่าลงทะเบียนรักษาสถานภาพหรือไม่?",
+        "category": "registration",
+        "gold_doc": "วิธียื่นคำขอลาพักการศึกษา_การ_Drop (fixed)",
+        "gold_chunk": "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)#0017",
+        "answer_must_contain": [
+            "ไม่ต้องชำระเงินค่าลงทะเบียนรักษาสถานภาพ",
+            "ระบบจะยืนยันข้อมูลให้โดยอัตโนมัติ"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q028",
+        "question": "ขั้นตอนการถอนรายวิชา (W) ผ่านระบบ New ACIS ต้องทำผ่านช่องทางใดในระบบสารสนเทศเพื่อการบริหารการศึกษาของมหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี?",
+        "category": "registration",
+        "gold_doc": "ขั้นตอนการถอนใน_New_ACIS",
+        "gold_chunk": "ขั้นตอนการถอนใน_New_ACIS#0001",
+        "answer_must_contain": [
+            "ขั้นตอนการถอนรายวิชา",
+            "ระบบ New ACIS",
+            "มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q029",
+        "question": "ในขั้นตอนการลงทะเบียนเรียนผ่านระบบอินเทอร์เน็ต ระบบจะแสดงรายวิชาที่กำหนดไว้ตามแผนการศึกษาของแต่ละภาควิชาในแต่ละภาคการศึกษาหรือไม่?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0005",
+        "answer_must_contain": [
+            "ระบบจะแสดงรายวิชาที่กำหนดไว้ตามแผนการศึกษา",
+            "แต่ละภาควิชาในแต่ละภาคการศึกษา"
+        ],
+        "answerable": true
+    }, 
+    {
+        "question_id": "registration-q030",
+        "question": "นักศึกษาที่ไม่สามารถแนบไฟล์เอกสารทางการศึกษาได้ ต้องส่งสำเนาหลักฐานทางไปรษณีย์ก่อนวันขึ้นทะเบียนนักศึกษาใหม่หรือไม่?",
+        "category": "registration",
+        "gold_doc": "คู่มือบันทึกระเบียนประวัตินักศึกษา",
+        "gold_chunk": "คู่มือบันทึกระเบียนประวัตินักศึกษา#0014",
+        "answer_must_contain": [
+            "นักศึกษาที่ไม่สามารถแนบไฟล์เอกสารทางการศึกษาได้",
+            "ต้องส่งสำเนาหลักฐานทางไปรษณีย์",
+            "ก่อนวันขึ้นทะเบียนนักศึกษาใหม่"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q031",
+        "question": "จำนวนหน่วยกิตทั้งหมดที่นักศึกษาต้องลงทะเบียนเรียนคือเท่าใด?",
+        "category": "registration",
+        "gold_doc": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา",
+        "gold_chunk": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0028",
+        "answer_must_contain": [
+            "แล้วแต่ภาควิชา"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q032",
+        "question": "เมื่อนักศึกษายืนยันการลงทะเบียนแล้ว ระบบจะล็อคไม่ให้แก้ไขรายการลงทะเบียนนี้จนกว่าจะมีการชำระเงินหรือไม่?",
+        "category": "registration",
+        "gold_doc": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา",
+        "gold_chunk": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0029",
+        "answer_must_contain": [
+            "ยืนยันการลงทะเบียน",
+            "ล็อคไม่ให้แก้ไข",
+            "การชำระเงิน"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q033",
+        "question": "นักศึกษาที่ไม่ชำระเงินค่าลงทะเบียนให้เรียบร้อยภายในระยะเวลาที่กำหนด จะถูกพ้นสภาพการเป็นนักศึกษาหรือไม่?",
+        "category": "registration",
+        "gold_doc": "วิธียื่นคำขอลาพักการศึกษา_การ_Drop (fixed)",
+        "gold_chunk": "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)#0013",
+        "answer_must_contain": [
+            "ไม่ดำเนินการชำระเงินค่าลงทะเบียนให้เรียบร้อย",
+            "ข้อมูลการลงทะเบียนจะถูกยกเลิก",
+            "ถูกพ้นสภาพการเป็นนักศึกษาตามระเบียบมหาวิทยาลัยฯ"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q034",
+        "question": "หากต้องการย้อนกลับไปแก้ไขข้อมูลก่อนหน้านี้ ต้องกดปุ่มใดในหน้าจอบันทึก?",
+        "category": "registration",
+        "gold_doc": "คู่มือบันทึกระเบียนประวัตินักศึกษา",
+        "gold_chunk": "คู่มือบันทึกระเบียนประวัตินักศึกษา#0018",
+        "answer_must_contain": [
+            "ปุ่ม <<ย้อนกลับ",
+            "ระบบจะถาม คุณต้องการย้อนกลับไปก่อนหน้านี้?"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q035",
+        "question": "เมื่อต้องการลบรายวิชาออกจากตาราง 'รายวิชาที่ลงทะเบียน' นักศึกษาต้องทำอย่างไร?",
+        "category": "registration",
+        "gold_doc": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา",
+        "gold_chunk": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0011",
+        "answer_must_contain": [
+            "คลิกที่วิชาที่ต้องการลบ",
+            "คลิกปุ่ม 'ลบวิชา'",
+            "ระบบจะแสดงข้อความเพื่อยืนยันการลบข้อมูล"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q036",
+        "question": "วิธีชำระเงินที่ระบุในคู่มือการลงทะเบียนเรียนมีกี่วิธี และมีวิธีใดบ้าง?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0034",
+        "answer_must_contain": [
+            "วิธีชำระเงิน",
+            "หักบัญชีธนาคาร",
+            "Bill Payment"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q037",
+        "question": "ค่ารักษาสถานภาพนักศึกษาในระดับบัณฑิตศึกษาคือเท่าใดต่อภาคการศึกษา?",
+        "category": "registration",
+        "gold_doc": "วิธียื่นคำขอลาพักการศึกษา_การ_Drop (fixed)",
+        "gold_chunk": "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)#0018",
+        "answer_must_contain": [
+            "ค่ารักษาสถานภาพนักศึกษา",
+            "ระดับบัณฑิตศึกษา",
+            "1,600 บาท"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q038",
+        "question": "ในขั้นตอนการลงทะเบียนเรียนผ่านระบบอินเทอร์เน็ต ระบบจะแสดงข้อมูลกลุ่ม วิชา และหน่วยกิตหลังจากที่ผู้ใช้เลือกส่วนเรียนที่ไม่ทับซ้อนกันหรือไม่?",
+        "category": "registration",
+        "gold_doc": "The_Student’s_Internet_Registration_Manual (fixed)",
+        "gold_chunk": "The_Student’s_Internet_Registration_Manual_(fixed)#0010",
+        "answer_must_contain": [
+            "ระบบจะแสดง",
+            "กลุ่ม วิชา และหน่วยกิต",
+            "หลังจากเลือกส่วนเรียนที่ไม่ทับซ้อนกัน"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q039",
+        "question": "เมื่อนักศึกษาได้รับทุนการศึกษา ระบบจะถือว่าการลงทะเบียนครั้งสุดท้ายที่สัมฤทธิ์ผลหรือไม่?",
+        "category": "registration",
+        "gold_doc": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา",
+        "gold_chunk": "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0058",
+        "answer_must_contain": [
+            "มหาวิทยาลัยจะถือว่าการลงทะเบียนครั้งสุดท้ายที่สัมฤทธิ์ผล",
+            "ได้รับทุนการศึกษา"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q040",
+        "question": "ขั้นตอนการยืนยันการลงทะเบียนลาพักการศึกษาคืออะไร?",
+        "category": "registration",
+        "gold_doc": "วิธียื่นคำขอลาพักการศึกษา_การ_Drop (fixed)",
+        "gold_chunk": "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)#0009",
+        "answer_must_contain": [
+            "ยืนยันการลงทะเบียนลาพัก",
+            "สั่งพิมพ์ใบแจ้งชำระเงินผ่านระบบ",
+            "เลือกหัวข้อ",
+            "เลือกลงทะเบียนรายวิชา",
+            "เลือกลงทะเบียนรักษาสถานภาพ"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q041",
+        "question": "ควรใส่เว็บไซต์ใดในช่องที่อนุญาตให้เปิด Pop-up ได้?",
+        "category": "registration",
+        "gold_doc": "pop-up-blocker-disable",
+        "gold_chunk": "pop-up-blocker-disable#0006",
+        "answer_must_contain": [
+            "https://sinfo.kmutt.ac.th/NewAcis",
+            "นักศึกษา"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "registration-q042",
+        "question": "นักศึกษาต้องทำอย่างไรเมื่อต้องการยื่นคำขอลาพักการศึกษาหรือการ Drop วิชาในระบบลงทะเบียนเรียน?",
+        "category": "registration",
+        "gold_doc": "วิธียื่นคำขอลาพักการศึกษา_การ_Drop (fixed)",
+        "gold_chunk": "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)#0003",
+        "answer_must_contain": [
+            "เลือก ภาคการศึกษา และปีการศึกษาให้ถูกต้อง",
+            "ตรวจสอบเบอร์โทรศัพท์และอีเมลให้เป็นข้อมูลปัจจุบัน"
+        ],
+        "answerable": true
+    }
+]

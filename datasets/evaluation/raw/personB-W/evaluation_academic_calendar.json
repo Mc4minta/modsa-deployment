@@ -1,0 +1,250 @@
+[
+    {
+        "question_id": "academic_calendar-q001",
+        "question": "วันสุดท้ายของการชำระเงินค่าลงทะเบียน และค่าลงทะเบียนรักษาสถานภาพการเป็นนักศึกษา ภาคการศึกษาที่ 1/2569 คือวันที่เท่าใด?",
+        "category": "academic_calendar",
+        "gold_doc": "AcademicCalendar2026-2569TH2",
+        "gold_chunk": "AcademicCalendar2026-2569TH2#0004",
+        "answer_must_contain": [
+            "พฤ.23 ก.ค. 2569",
+            "วันสุดท้ายของการชำระเงินค่าลงทะเบียน"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_calendar-q002",
+        "question": "การจัดการเรียนการสอนในช่วงเวลาใดของปีการศึกษา 2569 ที่มีการหยุดการเรียนการสอนเพื่อประเมินผลลัพธ์การเรียนรู้ในสัปดาห์ที่ 11-12 และ 18-19?",
+        "category": "academic_calendar",
+        "gold_doc": "AcademicCalendar2026-2569TH2",
+        "gold_chunk": "AcademicCalendar2026-2569TH2#0032",
+        "answer_must_contain": [
+            "สัปดาห์ที่ 11-12",
+            "สัปดาห์ที่ 18-19"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_calendar-q003",
+        "question": "นักศึกษาที่มีสภาพวิทยาทัณฑ์ต้องได้รับการอนุญาตจากใครก่อนจึงจะสามารถลงทะเบียนจนถึงขั้นตอนสุดท้ายได้?",
+        "category": "academic_calendar",
+        "gold_doc": "AcademicCalendar2026-2569TH2",
+        "gold_chunk": "AcademicCalendar2026-2569TH2#0034",
+        "answer_must_contain": [
+            "อาจารย์ที่ปรึกษา",
+            "สภาพวิทยาทัณฑ์"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_calendar-q004",
+        "question": "วันสุดท้ายของการยื่นคำร้องขอสอบโดยไม่เข้าเรียน ภาคการศึกษาที่ 1/2569 คือวันใด?",
+        "category": "academic_calendar",
+        "gold_doc": "AcademicCalendar2026-2569TH2",
+        "gold_chunk": "AcademicCalendar2026-2569TH2#0007",
+        "answer_must_contain": [
+            "ศ.14 ส.ค. 2569",
+            "วันสุดท้ายของการยื่นคำร้องขอสอบโดยไม่เข้าเรียน"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_calendar-q005",
+        "question": "วันสุดท้ายที่นักศึกษาสามารถยื่นคำร้องขอเทียบโอนรายวิชา/เทียบโอนหน่วยกิต ที่เรียนสะสมล่วงหน้า/เทียบความรู้ทักษะ เพื่อยกเว้นการลงทะเบียนเรียน (ก่อนลงทะเบียนเรียน) คือวันใดในปีการศึกษา 2569?",
+        "category": "academic_calendar",
+        "gold_doc": "AcademicCalendar2026-2569TH2",
+        "gold_chunk": "AcademicCalendar2026-2569TH2#0016",
+        "answer_must_contain": [
+            "30 ธ.ค. 2569",
+            "ยื่นคำร้องขอเทียบโอนรายวิชา/เทียบโอนหน่วยกิต",
+            "เรียนสะสมล่วงหน้า",
+            "เทียบความรู้ทักษะ",
+            "ยกเว้นการลงทะเบียนเรียน"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_calendar-q006",
+        "question": "วันที่ 12 กุมภาพันธ์ 2570 เป็นวันพ้นสภาพนักศึกษากรณีขาดการลงทะเบียนเรียน และไม่ได้ลงทะเบียนรักษาสถานภาพการเป็นนักศึกษาหรือไม่?",
+        "category": "academic_calendar",
+        "gold_doc": "AcademicCalendar2026-2569TH2",
+        "gold_chunk": "AcademicCalendar2026-2569TH2#0022",
+        "answer_must_contain": [
+            "12 กุมภาพันธ์ 2570",
+            "พ้นสภาพนักศึกษา",
+            "ขาดการลงทะเบียนเรียน",
+            "ไม่ได้ลงทะเบียนรักษาสถานภาพการเป็นนักศึกษา"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_calendar-q007",
+        "question": "วันสุดท้ายของการส่งผลสอบวิชาทฤษฎี วิชาภาคปฏิบัติ วิชาโครงงาน การค้นคว้าอิสระ และวิทยานิพนธ์ ภาคการศึกษาที่ 2/2569 คือวันใด?",
+        "category": "academic_calendar",
+        "gold_doc": "AcademicCalendar2026-2569TH2",
+        "gold_chunk": "AcademicCalendar2026-2569TH2#0027",
+        "answer_must_contain": [
+            "14 มิ.ย. 2570",
+            "วันสุดท้ายของการส่งผลสอบวิชาทฤษฎี วิชาภาคปฏิบัติ วิชาโครงงาน การค้นคว้าอิสระ และวิทยานิพนธ์ ภาคการศึกษาที่ 2/2569"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_calendar-q008",
+        "question": "วันพระราชพิธีพืชมงคลจรดพระนังคัลแรกนาขวัญในปีการศึกษา 2569 ถูกกำหนดให้เป็นวันหยุดในวันที่ใด?",
+        "category": "academic_calendar",
+        "gold_doc": "AcademicCalendar2026-2569TH2",
+        "gold_chunk": "AcademicCalendar2026-2569TH2#0040",
+        "answer_must_contain": [
+            "วันที่ 15 พ.ค. 2570",
+            "วันพระราชพิธีพืชมงคลจรดพระนังคัลแรกนาขวัญ"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_calendar-q009",
+        "question": "วันที่ 11 ม.ค. 2570 เป็นวันลงทะเบียนเรียนหรือไม่?",
+        "category": "academic_calendar",
+        "gold_doc": "AcademicCalendar2026-2569TH2",
+        "gold_chunk": "AcademicCalendar2026-2569TH2#0039",
+        "answer_must_contain": [
+            "11 ม.ค. 2570",
+            "ลงทะเบียนเรียน"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_calendar-q010",
+        "question": "วันที่ 1 มิ.ย. 2569 เป็นวันชดเชยวันหยุดใด?",
+        "category": "academic_calendar",
+        "gold_doc": "AcademicCalendar2026-2569TH2",
+        "gold_chunk": "AcademicCalendar2026-2569TH2#0037",
+        "answer_must_contain": [
+            "1 มิ.ย. 2569",
+            "วันชดเชย วันวิสาขบูชา"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_calendar-q011",
+        "question": "มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี ได้จัดทำปฏิทินการศึกษาสำหรับนักศึกษาระดับปริญญาตรีและระดับบัณฑิตศึกษา ประจำปีการศึกษา 2569 หรือไม่?",
+        "category": "academic_calendar",
+        "gold_doc": "AcademicCalendar2026-2569TH2",
+        "gold_chunk": "AcademicCalendar2026-2569TH2#0001",
+        "answer_must_contain": [
+            "มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี",
+            "ปฏิทินการศึกษา ประจำปีการศึกษา 2569",
+            "นักศึกษาระดับปริญญาตรี",
+            "ระดับบัณฑิตศึกษา"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_calendar-q012",
+        "question": "ในภาคการศึกษาที่ 1/2569 วันลงทะเบียนเรียนล่าช้าผ่านระบบ New ACIS มีค่าปรับวันละเท่าใด และต้องชำระเงินค่าลงทะเบียนไม่เกินกี่วันหลังจากยืนยันการลงทะเบียน?",
+        "category": "academic_calendar",
+        "gold_doc": "AcademicCalendar2026-2569TH2",
+        "gold_chunk": "AcademicCalendar2026-2569TH2#0005",
+        "answer_must_contain": [
+            "ค่าปรับวันละ 50 บาท",
+            "ไม่เกิน 1 วัน"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_calendar-q013",
+        "question": "นักศึกษาที่ได้รับการอนุมัติให้ลาพักการศึกษาล่าช้าต้องชำระค่าปรับวันละเท่าไร ตั้งแต่วันที่เท่าใดจนถึงวันที่เท่าใด และต้องชำระภายในกี่วันหลังจากได้รับการอนุมัติ?",
+        "category": "academic_calendar",
+        "gold_doc": "AcademicCalendar2026-2569TH2",
+        "gold_chunk": "AcademicCalendar2026-2569TH2#0019",
+        "answer_must_contain": [
+            "ค่าปรับวันละ 50 บาท",
+            "พ.13 ม.ค. 2570",
+            "ชำระเงินไม่เกิน 2 วัน หลังจากได้รับการอนุมัติ"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_calendar-q014",
+        "question": "ข้อความนี้ระบุว่าเป็นปฏิทินการศึกษาประจำปีการศึกษาใด?",
+        "category": "academic_calendar",
+        "gold_doc": "AcademicCalendar2026-2569TH2",
+        "gold_chunk": "AcademicCalendar2026-2569TH2#0030",
+        "answer_must_contain": [
+            "ปฏิทินการศึกษา",
+            "2569"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_calendar-q015",
+        "question": "วันสุดท้ายในการรับคำร้องขอคืนสภาพการเป็นนักศึกษา ที่ได้รับอนุมัติจากคณะ สำหรับนักศึกษาที่ต้องการลงทะเบียนเรียนในภาคการศึกษาที่ 1/2569 คือวันใด?",
+        "category": "academic_calendar",
+        "gold_doc": "AcademicCalendar2026-2569TH2",
+        "gold_chunk": "AcademicCalendar2026-2569TH2#0006",
+        "answer_must_contain": [
+            "ศ.7 ส.ค. 2569",
+            "วันสุดท้าย"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_calendar-q016",
+        "question": "วันที่เริ่มต้นของช่วงวันลดรายวิชาโมดูล 5 สัปดาห์ ช่วงที่ 2 คือวันใด?",
+        "category": "academic_calendar",
+        "gold_doc": "AcademicCalendar2026-2569TH2",
+        "gold_chunk": "AcademicCalendar2026-2569TH2#0023",
+        "answer_must_contain": [
+            "จ.15 ก.พ. 2570",
+            "วันลดรายวิชาโมดูล 5 สัปดาห์ ช่วงที่ 2"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_calendar-q017",
+        "question": "วันสุดท้ายของการยื่นคำร้องขอเทียบโอนรายวิชา/เทียบโอนหน่วยกิต ที่เรียนสะสมล่วงหน้า/เทียบความรู้ทักษะ เพื่อยกเว้นการลงทะเบียนเรียน (ก่อนลงทะเบียนเรียน) คือวันใดในปีการศึกษา 2569?",
+        "category": "academic_calendar",
+        "gold_doc": "AcademicCalendar2026-2569TH2",
+        "gold_chunk": "AcademicCalendar2026-2569TH2#0028",
+        "answer_must_contain": [
+            "วันสุดท้ายของการยื่นคำร้องขอเทียบโอนรายวิชา",
+            "ศ.28 พ.ค. 2570"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_calendar-q018",
+        "question": "วันสุดท้ายของการยื่นคำร้องขอเพิ่มรายวิชาที่มีชั่วโมงเรียนซ้อนกัน (เฉพาะระดับบัณฑิตศึกษา) คือวันใดในปีการศึกษา 2569?",
+        "category": "academic_calendar",
+        "gold_doc": "AcademicCalendar2026-2569TH2",
+        "gold_chunk": "AcademicCalendar2026-2569TH2#0031",
+        "answer_must_contain": [
+            "วันสุดท้ายของการยื่นคำร้องขอเพิ่มรายวิชาที่มีชั่วโมงเรียนซ้อนกัน",
+            "เฉพาะระดับบัณฑิตศึกษา",
+            "ส.12 - จ.14 มิ.ย. 2570"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_calendar-q019",
+        "question": "ข้อความนี้ระบุว่าเป็นปฏิทินการศึกษาประจำปีการศึกษาใด?",
+        "category": "academic_calendar",
+        "gold_doc": "AcademicCalendar2026-2569TH2",
+        "gold_chunk": "AcademicCalendar2026-2569TH2#0042",
+        "answer_must_contain": [
+            "ปฏิทินการศึกษา",
+            "ปีการศึกษา 2569"
+        ],
+        "answerable": true
+    },
+    {
+        "question_id": "academic_calendar-q020",
+        "question": "วันประกาศผลสอบ ภาคการศึกษาที่ 1/2569 คือวันที่เท่าใด?",
+        "category": "academic_calendar",
+        "gold_doc": "AcademicCalendar2026-2569TH2",
+        "gold_chunk": "AcademicCalendar2026-2569TH2#0014",
+        "answer_must_contain": [
+            "29 ธ.ค. 2569"
+        ],
+        "answerable": true
+    }
+]
