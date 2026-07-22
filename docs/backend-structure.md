@@ -2,56 +2,55 @@
 
 ## Overview
 
-MOD-SA is a FastAPI-based RAG chatbot backend designed for KMUTT Student Affairs knowledge retrieval.
+MOD-SA is a FastAPI RAG chatbot backend for KMUTT Student Affairs knowledge retrieval.
 
-The system converts university documents into searchable embeddings and generates answers using retrieved context.
+Active implementation: **`backend_new/`**.  
+Legacy reference + prepared chunks: **`backend_old/`** (especially `backend_old/chunks/`).
+
+Stack: FastAPI, LangChain, ChromaDB, OpenAI-compatible LLM/embeddings (including Ollama).
 
 ---
 
 # Directory Structure
 
 ```
-backend/
-
-├── main.py
-├── config.py
-
+backend_new/
+├── main.py                      # App entry, CORS, lifespan ingest
+├── config.py                    # pydantic-settings from .env
+├── requirements.txt
+├── Dockerfile
+├── .dockerignore
+├── .env.example
+│
 ├── api/
-│   ├── chat.py
-│   ├── health.py
-│   └── admin.py
-
+│   ├── chat.py                  # POST /chat/ask
+│   ├── health.py                # GET /health
+│   └── admin.py                 # POST /admin/reindex
+│
 ├── core/
-│   ├── llm.py
-│   ├── embeddings.py
-│   └── vectorstore.py
-
+│   ├── llm.py                   # ChatOpenAI client
+│   ├── embeddings.py            # OpenAI or Ollama embeddings
+│   └── vectorstore.py           # Chroma wrapper
+│
 ├── services/
-│   ├── rag_service.py
-│   ├── ingestion_service.py
-│   └── retrieval_service.py
-
+│   ├── rag_service.py           # Retrieve → prompt → LLM → sources
+│   └── ingestion_service.py     # Discover → load → chunk → embed → Chroma
+│
 ├── pipeline/
-│   ├── loaders.py
-│   ├── chunking.py
-│   └── manifest.py
-
+│   ├── loaders.py               # File discovery + document loaders
+│   ├── chunking.py              # Split non-prechunked docs
+│   └── manifest.py              # Source fingerprint skip-if-unchanged
+│
 ├── prompts/
-│   └── rag_prompt.py
-
-├── schemas/
-│   └── chat.py
-
-├── database/
-│   └── chroma.py
-
-├── models/
-│   └── document.py
-
-├── storage/
-│   ├── chunks/
-│   └── chroma/
+│   └── rag_prompt.py            # SYSTEM_PROMPT
+│
+└── schemas/
+    └── chat.py                  # AskRequest / AskResponse
 ```
+
+Not used (do not recreate unless needed): `utils/`, `database/`, `models/`, `retrieval_service.py`.
+
+Repo-level Docker: root `docker-compose.yml` builds `backend_new`, mounts `backend_old/chunks` read-only, persists Chroma volume.
 
 ---
 
@@ -59,69 +58,46 @@ backend/
 
 ## main.py
 
-Application entry point.
-
-Responsibilities:
-
-* Create FastAPI instance.
-* Register routers.
-* Configure application lifecycle.
-
----
+* Create FastAPI app
+* CORS from `CORS_ORIGINS`
+* Lifespan: run `ingest_sources` on startup (errors recorded, app still starts)
+* Register routers
 
 ## API
 
-Handles HTTP communication.
+HTTP only. No LLM/Chroma/prompt logic.
 
-Example:
-
-```
-POST /ask
-POST /reindex
-GET /health
-```
-
-No business logic should exist here.
-
----
+| Method | Path | Body / headers | Response |
+|--------|------|----------------|----------|
+| GET | `/health` | — | `{ "status": "ok", "ingestion": {...} }` |
+| POST | `/chat/ask` | `{ "question": "..." }` | `{ "answer", "sources" }` |
+| POST | `/admin/reindex` | optional `X-Admin-Key` | ingest result dict |
 
 ## Services
 
-Contains application workflows.
-
-### RAG Service
-
-Flow:
+### RAG (`rag_service.py`)
 
 ```
-Question
- ↓
-Retrieve documents
- ↓
-Build prompt
- ↓
-Call LLM
- ↓
-Return answer + sources
+Question → similarity_search → format context → SYSTEM_PROMPT → LLM → answer + sources
 ```
 
----
+Empty retrieval → Thai/English no-verified-info message, `sources: []`.
 
-### Ingestion Service
-
-Flow:
+### Ingestion (`ingestion_service.py`)
 
 ```
-Source files
- ↓
-Load documents
- ↓
-Chunk documents
- ↓
-Generate embeddings
- ↓
-Store in Chroma
+RAG_SOURCE_PATHS → loaders → chunking → batched Chroma add → save manifest
 ```
+
+Skips rebuild when source fingerprints unchanged (unless `force=True`).
+
+## Core
+
+Reusable clients: LLM, embeddings, Chroma. No HTTP.
+
+## Pipeline
+
+Data preparation only. Supports `.json` (MOD-SA chunk schema), `.pdf`, `.txt`, `.md`.
 
 ---
 
@@ -130,63 +106,59 @@ Store in Chroma
 ## Indexing
 
 ```
-Documents
-   |
-   v
-Loader
-   |
-   v
-Chunking
-   |
-   v
-Embedding Model
-   |
-   v
-Chroma Vector Database
+Source files (chunks JSON / PDF / text)
+        |
+        v
+   pipeline/loaders
+        |
+        v
+   pipeline/chunking   (skip if _prechunked)
+        |
+        v
+   embeddings (batched)
+        |
+        v
+   Chroma (CHROMA_DIR / CHROMA_COLLECTION)
 ```
-
----
 
 ## Question Answering
 
 ```
-User Question
+POST /chat/ask
       |
       v
-Retriever
+services/rag_service
+      |
+      +--> core/vectorstore (retrieve)
+      |
+      +--> prompts/rag_prompt + core/llm
       |
       v
-Relevant Chunks
-      |
-      v
-Prompt Builder
-      |
-      v
-LLM
-      |
-      v
-Answer + Sources
+{ answer, sources }
 ```
+
+---
+
+# Configuration
+
+Driven by environment (see `backend_new/.env.example`):
+
+| Variable | Role |
+|----------|------|
+| `LLM_*` | Chat model (OpenAI-compatible) |
+| `EMBEDDING_*` | Embedding model; Ollama auto if host:11434 |
+| `CHROMA_DIR`, `CHROMA_COLLECTION` | Vector persistence |
+| `RAG_SOURCE_PATHS` | Comma-separated source dirs/files |
+| `CHUNK_SIZE`, `CHUNK_OVERLAP`, `RETRIEVAL_K` | Chunk/retrieve params |
+| `CORS_ORIGINS` | Browser frontend origins |
+| `ADMIN_API_KEY` | Optional lock on `/admin/reindex` |
 
 ---
 
 # Design Principles
 
-## Single Responsibility
-
-Each module should have one reason to change.
-
-## Dependency Direction
-
-Higher-level logic depends on lower-level utilities.
-
-Infrastructure should not control application logic.
-
-## Configuration Driven
-
-Environment variables control:
-
-* LLM provider.
-* Embedding provider.
-* Chroma location.
-* Retrieval parameters.
+* Single responsibility per module
+* Dependency direction: API → services → core/pipeline
+* Configuration-driven providers and paths
+* Prefer completing current layers over new abstractions
+* Preserve grounded RAG behavior (context-only answers + sources)

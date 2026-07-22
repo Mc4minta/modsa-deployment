@@ -75,7 +75,16 @@ def ingest_sources(settings: Settings, force: bool = False) -> dict[str, object]
 
     chunks = split_documents(settings, documents)
     vector_store = get_vector_store(settings)
-    vector_store.add_documents(chunks)
+    # Batch embeds — large single calls can trip local Ollama.
+    batch_size = 32
+    for start in range(0, len(chunks), batch_size):
+        vector_store.add_documents(chunks[start : start + batch_size])
+        logger.info(
+            "Indexed chunks %s-%s / %s",
+            start + 1,
+            min(start + batch_size, len(chunks)),
+            len(chunks),
+        )
     save_manifest(settings, current_manifest)
 
     return {

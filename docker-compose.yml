@@ -1,0 +1,25 @@
+services:
+  backend:
+    build:
+      context: ./backend_new
+      dockerfile: Dockerfile
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    env_file:
+      - .env
+    environment:
+      CHROMA_DIR: /app/chroma_db
+      RAG_SOURCE_PATHS: /app/storage/chunks
+      APP_HOST: 0.0.0.0
+      # Inside Docker, host Ollama is reachable via host.docker.internal on Desktop
+      LLM_BASE_URL: ${LLM_BASE_URL:-http://host.docker.internal:11434/v1}
+      EMBEDDING_BASE_URL: ${EMBEDDING_BASE_URL:-http://host.docker.internal:11434/v1}
+    volumes:
+      - chroma_data:/app/chroma_db
+      - ./backend_old/chunks:/app/storage/chunks:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+volumes:
+  chroma_data:
