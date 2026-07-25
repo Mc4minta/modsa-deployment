@@ -4,12 +4,8 @@ services:
     runtime: docker
     dockerfilePath: ./backend/Dockerfile
     dockerContext: .
-    plan: starter
+    plan: free
     healthCheckPath: /health
-    disk:
-      name: chroma-data
-      mountPath: /app/chroma_db
-      sizeGB: 1
     envVars:
       - key: CHROMA_DIR
         value: /app/chroma_db

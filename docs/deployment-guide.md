@@ -14,14 +14,23 @@ Repo root now has [`render.yaml`](../render.yaml) — a Blueprint spec. It sets 
 
 1. Push repo to GitHub (Render deploys from a git repo).
 2. Render dashboard → New → Blueprint → connect repo → Render detects `render.yaml` at root and proposes the `modsa-backend` service.
-3. Apply. Render provisions the service, disk, and health check exactly as declared in `render.yaml` — plan `starter`, disk mounted at `/app/chroma_db`, `healthCheckPath: /health`.
+3. Apply. Render provisions the service and health check exactly as declared in `render.yaml` — plan `free`, `healthCheckPath: /health`.
 4. Fill in the `sync: false` secrets Render prompts for (§1.3) — these are intentionally not committed to the repo.
 
-No need to manually set Root Directory / Environment / Plan / Disk in the dashboard — the Blueprint owns all of that. If you ever edit `render.yaml`, push and re-sync the Blueprint in the dashboard to apply changes.
+No need to manually set Root Directory / Environment / Plan in the dashboard — the Blueprint owns all of that. If you ever edit `render.yaml`, push and re-sync the Blueprint in the dashboard to apply changes.
 
-### 1.2 Persistent Disk
+### 1.2 No persistent disk (free plan constraint)
 
-Already declared in `render.yaml` (`disk: chroma-data`, 1GB, mounted at `/app/chroma_db`) — provisioned automatically on Blueprint apply. 1GB is plenty at current corpus scale (29 docs, ~1.5MB chunked JSON).
+Render's free plan doesn't support persistent disks, so `render.yaml` has no `disk` block — filesystem is ephemeral, wiped on every deploy and restart.
+
+This is fine here: `datasets/chunks` (git-tracked, baked into the image at build) is the real source of truth, not Chroma's on-disk index. `backend/main.py`'s `lifespan` hook already runs `ingest_sources` at startup, rebuilding Chroma from `datasets/chunks` into a fresh in-container path every boot — corpus is tiny (29 docs, ~1.5MB), so this rebuild is fast.
+
+**Tradeoffs of free plan vs. paid Starter:**
+- Cold starts: free plan spins down after ~15min idle, 30-60s wake-up delay on the next request. Acceptable for a low-traffic demo, not for a live-expectation chatbot.
+- Every restart/redeploy re-runs full ingestion (cheap at this corpus size, but real embedding-API cost each time if traffic causes frequent restarts).
+- No horizontal reliability — single ephemeral instance, no disk-based state carried between restarts (by design here, not a gap).
+
+If cold starts or reindex-on-every-restart become a problem, switch `plan: free` → `plan: starter` in `render.yaml` and re-add a `disk` block (see git history / [deployment-audit.md](deployment-audit.md) §3.1 for the paid-tier version of this config) — one-line change, re-sync Blueprint.
 
 ### 1.3 Environment variables
 
@@ -72,11 +81,11 @@ Confirm `/chat/ask` returns grounded answer + sources for a known topic, and the
 
 ## 3. Post-deploy checklist
 
-- [ ] `render.yaml` Blueprint applied on Render (starter plan, disk, health check all declared — §1.1)
+- [ ] `render.yaml` Blueprint applied on Render (free plan, health check declared — §1.1)
 - [ ] `sync: false` secrets filled in on Render: `LLM_API_KEY`, `EMBEDDING_API_KEY`, `CORS_ORIGINS`, `ADMIN_API_KEY`
-- [ ] `datasets/chunks` reachable inside the container at `RAG_SOURCE_PATHS` (confirm via `/admin/reindex` — baked in at build via Dockerfile, §1.3)
-- [ ] `/health` returns `status: ok`
-- [ ] `/admin/reindex` succeeds against deployed `datasets/chunks`
+- [ ] `datasets/chunks` reachable inside the container at `RAG_SOURCE_PATHS` (confirm via `/health` — baked in at build via Dockerfile, auto-ingested at startup, §1.2)
+- [ ] `/health` returns `status: ok` (confirms startup ingestion succeeded, since no disk persists between deploys)
+- [ ] `/admin/reindex` succeeds against deployed `datasets/chunks` (still useful for forcing a rebuild without a redeploy)
 - [ ] `/chat/ask` returns grounded answers + correct no-verified-info fallback
 - [ ] `CORS_ORIGINS` on Render matches live Vercel domain
 - [ ] Vercel `VITE_API_URL` points at Render backend URL, redeployed after setting
@@ -84,10 +93,10 @@ Confirm `/chat/ask` returns grounded answer + sources for a known topic, and the
 
 ## 4. Recovery runbook
 
-Chroma disk is not the backup — `datasets/chunks` (git-tracked) is. If the disk is lost or corrupted:
-1. Redeploy the Render service (fresh disk auto-attached).
-2. `curl -X POST .../admin/reindex -H "X-Admin-Key: ..."`.
-3. Verify `/health` and a known `/chat/ask` question.
+No disk to lose — free plan is stateless by design, `datasets/chunks` (git-tracked, baked into image) is the only source of truth. Every restart/redeploy already rebuilds Chroma from scratch via startup ingestion (§1.2). If `/chat/ask` ever returns the no-verified-info fallback unexpectedly:
+1. Check `/health` — confirms whether startup ingestion actually succeeded.
+2. If ingestion failed, check Render logs for the failure reason (bad `EMBEDDING_API_KEY`, provider timeout, etc.) — not a data-loss scenario, a config/connectivity one.
+3. `curl -X POST .../admin/reindex -H "X-Admin-Key: ..."` to force a retry without a full redeploy.
 
 ## 5. Open questions before you deploy
 
