@@ -26,12 +26,14 @@ Deploy `backend/` (FastAPI) on Render **Free** plan, `frontend/` (Vite + React) 
 3. Under "Connect a repository", find and click your repo. If not listed, click **Configure account**, grant Render access on GitHub, come back and select it.
 4. Fill in the config form:
    - **Name**: `modsa-backend`
-   - **Region**: nearest to your users (e.g. Singapore)
+   - **Project** / **Environment**: leave unset (optional, not needed for this deploy)
+   - **Language**: change from default **Python 3** to **Docker** — this is the field that unlocks the Dockerfile fields below; without it Render tries to auto-detect a Python buildpack instead
    - **Branch**: your deploy branch (e.g. `main`)
+   - **Region**: nearest to your users (e.g. Singapore)
    - **Root Directory**: leave **blank**
-   - **Runtime**: **Docker**
-   - **Dockerfile Path**: `backend/Dockerfile`
-   - **Docker Build Context Directory**: `.`
+   - **Dockerfile Path** (appears after selecting Docker): `backend/Dockerfile`
+   - **Docker Build Context Directory** (appears after selecting Docker): `.`
+   - Ignore **Build Command** / **Start Command** — those are for non-Docker languages, they disappear or go unused once Language is set to Docker
 5. Scroll to **Instance Type** → select **Free**.
 6. Scroll to **Environment Variables** → click **Add Environment Variable**, add each of these one at a time:
 
