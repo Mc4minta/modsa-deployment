@@ -19,6 +19,6 @@ chroma_db/
 
 data_old/
 
-docs/
+# docs/
 
 .env*
