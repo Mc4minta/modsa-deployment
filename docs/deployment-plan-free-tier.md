@@ -57,6 +57,10 @@ Deploy `backend/` (FastAPI) on Render **Free** plan, `frontend/` (Vite + React) 
    EMBEDDING_MODEL=BAAI/bge-m3
    EMBEDDING_TIMEOUT=30
    EMBEDDING_MAX_RETRIES=2
+   # Alternative: self-hosted bge-m3 via Cloudflare Tunnel instead of HF Inference API — see §4b
+   # EMBEDDING_PROVIDER=ollama
+   # EMBEDDING_BASE_URL=https://embeddings.yourdomain.com
+   # EMBEDDING_MODEL=bge-m3
 
    CORS_ORIGINS=<leave blank for now, come back after §3>
    ADMIN_API_KEY=<generate a random string, e.g. via `openssl rand -hex 32`>
@@ -102,6 +106,28 @@ Local dev uses Ollama for embeddings (no real key needed — Ollama Cloud doesn'
 6. Paste it into Render's `EMBEDDING_API_KEY` env var (§2, step 6).
 
 Note: the first embedding call after the model has been idle can take ~20s to warm up, or briefly return a 503 — the configured `EMBEDDING_MAX_RETRIES=2` absorbs this.
+
+---
+
+## 4b. Alternative: self-hosted bge-m3 via Cloudflare Tunnel
+
+Instead of HF Inference API, run bge-m3 locally (Ollama) and expose it to Render through a Cloudflare Tunnel. Trades HF dependency for a home-PC-uptime dependency — only use this if your machine stays on and networked whenever Render needs it.
+
+Full step-by-step: [cloudflare-guide.md](cloudflare-guide.md) and [ollama-bgem3-cloudflare-tunnel-guide.md](ollama-bgem3-cloudflare-tunnel-guide.md).
+
+Summary:
+1. Run bge-m3 locally via Ollama, bound to `127.0.0.1:11434`.
+2. Install `cloudflared`, create a named tunnel, route a hostname to it.
+3. Install as an auto-restarting service so it survives reboots.
+4. On Render, set (§2 step 6 has these commented out):
+   ```
+   EMBEDDING_PROVIDER=ollama
+   EMBEDDING_BASE_URL=https://embeddings.yourdomain.com
+   EMBEDDING_MODEL=bge-m3
+   ```
+5. Skip §4 (no HF token needed) when using this path.
+
+Research/tradeoffs behind this choice: [bge-m3-tunnel-research-2026-07-26.md](bge-m3-tunnel-research-2026-07-26.md).
 
 ---
 
