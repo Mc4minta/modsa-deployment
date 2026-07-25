@@ -16,3 +16,7 @@ chroma_db/
 # data/processed/
 
 .DS_Store
+
+data_old/
+
+docs/
