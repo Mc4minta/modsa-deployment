@@ -6,18 +6,27 @@ Target: `frontend/` (Vite + React) on **Vercel**, `backend/` (FastAPI) on **Rend
 
 ## 1. Backend on Render
 
-### 1.1 Create the service via render.yaml (Blueprint)
+### 1.1 Create the service manually (no Blueprint)
 
-Repo root now has [`render.yaml`](../render.yaml) — a Blueprint spec. It sets the Docker build context to the repo root (`dockerContext: .`, `dockerfilePath: ./backend/Dockerfile`) so `datasets/chunks` gets baked into the image alongside `backend/` at build time — no manual copy step, no drift.
+`render.yaml` exists in repo root but manual setup skips it entirely — every field below normally comes from `render.yaml` gets set by hand in the dashboard instead. `backend/Dockerfile` still expects a **repo-root** build context (`COPY backend/requirements.txt .`, `COPY backend/ .`, `COPY datasets/chunks ./datasets/chunks`) — this matters at step 6, don't skip it.
 
-`backend/Dockerfile` was adjusted to match: `COPY backend/requirements.txt .`, `COPY backend/ .`, `COPY datasets/chunks ./datasets/chunks` (previously `COPY . .` assumed a `backend/`-scoped context).
-
-1. Push repo to GitHub (Render deploys from a git repo).
-2. Render dashboard → New → Blueprint → connect repo → Render detects `render.yaml` at root and proposes the `modsa-backend` service.
-3. Apply. Render provisions the service and health check exactly as declared in `render.yaml` — plan `free`, `healthCheckPath: /health`.
-4. Fill in the `sync: false` secrets Render prompts for (§1.3) — these are intentionally not committed to the repo.
-
-No need to manually set Root Directory / Environment / Plan in the dashboard — the Blueprint owns all of that. If you ever edit `render.yaml`, push and re-sync the Blueprint in the dashboard to apply changes.
+1. Push repo to GitHub — Render deploys from a connected git repo.
+2. Go to [dashboard.render.com](https://dashboard.render.com), log in.
+3. Click **New +** (top right) → select **Web Service**.
+4. Under "Connect a repository", find and click your repo (`modsa-deployment`). If not listed, click **Configure account**, grant Render access on GitHub, come back.
+5. On the config form:
+   - **Name**: `modsa-backend`
+   - **Region**: pick nearest to your users (e.g. Singapore)
+   - **Branch**: `main` (or `min`, whichever you deploy from)
+   - **Root Directory**: leave **blank** — build context must stay at repo root, not `backend/` (needed so `datasets/chunks` is reachable by the Dockerfile's `COPY`)
+   - **Runtime**: select **Docker**
+   - **Dockerfile Path**: `backend/Dockerfile`
+   - **Docker Build Context Directory**: `.` (repo root — this is the field that replaces `render.yaml`'s `dockerContext: .`)
+6. Scroll to **Instance Type** → select **Free**.
+7. Scroll to **Environment Variables** → click **Add Environment Variable** and add each one from §1.3 by hand (both the plain values and the four secrets) — nothing is pre-filled without `render.yaml`.
+8. Scroll to **Health Check Path** → enter `/health`.
+9. Click **Create Web Service**. Render builds the Docker image and boots it — first build takes a few minutes, watch progress on the **Logs** tab that opens automatically.
+10. Once live, copy the service URL from the top of the service page (`https://modsa-backend-xxxx.onrender.com`) — needed for frontend env vars (§2) and for setting `CORS_ORIGINS` back on this service once the frontend exists.
 
 ### 1.2 No persistent disk (free plan constraint)
 
@@ -31,6 +40,23 @@ This is fine here: `datasets/chunks` (git-tracked, baked into the image at build
 - No horizontal reliability — single ephemeral instance, no disk-based state carried between restarts (by design here, not a gap).
 
 If cold starts or reindex-on-every-restart become a problem, switch `plan: free` → `plan: starter` in `render.yaml` and re-add a `disk` block (see git history / [deployment-audit.md](deployment-audit.md) §3.1 for the paid-tier version of this config) — one-line change, re-sync Blueprint.
+
+**Steps — dashboard walkthrough, confirm no disk + verify startup ingestion:**
+
+1. In Render dashboard, click your `modsa-backend` service → left sidebar → **Disks** tab. Confirm it's empty ("No disks attached") — matches `render.yaml` having no `disk:` block. If you see a disk here, someone added one manually outside the Blueprint; remove it or it'll silently start costing money once the free disk allowance is exceeded.
+2. Left sidebar → **Settings** tab → scroll to **Instance Type**. Confirm it reads **Free**. (This is where you'd flip to Starter later per §1.2 fallback note above.)
+3. Left sidebar → **Logs** tab. Trigger a fresh boot if the service is idle by opening the service URL once in a browser tab, then watch logs stream in.
+4. In the log stream, look for the ingestion line (from `ingest_sources`, triggered by `lifespan` in `main.py`) reporting how many source files it found under `/app/datasets/chunks`. `0 files` or a path-not-found error here means the Dockerfile's `COPY datasets/chunks ./datasets/chunks` step didn't land — go back and check the build logs (same Logs tab, filter to the build phase) for a COPY failure.
+5. Open a terminal, hit `/health`:
+   ```bash
+   curl https://<your-render-service>.onrender.com/health
+   ```
+   `status: ok` confirms ingestion succeeded this boot. Anything else (503/degraded) — go back to the Logs tab, find the actual error (bad `EMBEDDING_API_KEY`, provider timeout, etc.).
+6. Free plan spins down after ~15min idle. Wait for that (or just come back later), then open the service URL again to force a cold boot, and repeat step 5 — confirms the wake-up cycle also ingests cleanly, not just the first deploy.
+7. If ingestion ever fails on a wake-up and you don't want to wait for another cold boot cycle, force a manual retry:
+   ```bash
+   curl -X POST https://<your-render-service>.onrender.com/admin/reindex -H "X-Admin-Key: <ADMIN_API_KEY>"
+   ```
 
 ### 1.3 Environment variables
 
