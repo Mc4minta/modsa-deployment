@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from functools import lru_cache
 from pathlib import Path
+from typing import Literal
 from urllib.parse import urlparse
 
 from dotenv import load_dotenv
@@ -27,7 +28,13 @@ class Settings(BaseSettings):
         validation_alias=AliasChoices("LLM_API_KEY", "OPENAI_API_KEY"),
     )
     llm_model: str = Field(default="gpt-4o-mini", alias="LLM_MODEL")
+    llm_timeout: float = Field(default=30.0, alias="LLM_TIMEOUT")
+    llm_max_retries: int = Field(default=2, alias="LLM_MAX_RETRIES")
 
+    embedding_provider: Literal["ollama", "huggingface", "openai"] = Field(
+        default="ollama",
+        alias="EMBEDDING_PROVIDER",
+    )
     embedding_base_url: str = Field(
         default="https://api.openai.com/v1",
         alias="EMBEDDING_BASE_URL",
@@ -40,6 +47,8 @@ class Settings(BaseSettings):
         default="text-embedding-3-small",
         alias="EMBEDDING_MODEL",
     )
+    embedding_timeout: float = Field(default=30.0, alias="EMBEDDING_TIMEOUT")
+    embedding_max_retries: int = Field(default=2, alias="EMBEDDING_MAX_RETRIES")
 
     chroma_dir: Path = Field(default=Path("chroma_db"), alias="CHROMA_DIR")
     chroma_collection: str = Field(default="modsa_kmutt", alias="CHROMA_COLLECTION")
@@ -78,6 +87,11 @@ class Settings(BaseSettings):
 
     @property
     def resolved_embedding_api_key(self) -> str:
+        if self.embedding_provider == "huggingface" and not self.embedding_api_key:
+            raise ValueError(
+                "EMBEDDING_PROVIDER=huggingface requires EMBEDDING_API_KEY "
+                "(a Hugging Face access token) — refusing to fall back to a placeholder key."
+            )
         return (
             self.embedding_api_key
             or self.llm_api_key
@@ -85,14 +99,8 @@ class Settings(BaseSettings):
         )
 
     @property
-    def embedding_uses_ollama(self) -> bool:
-        parsed = urlparse(self.embedding_base_url)
-        host = (parsed.hostname or "").lower()
-        return host in {"localhost", "127.0.0.1", "::1"} and parsed.port == 11434
-
-    @property
     def resolved_embedding_base_url(self) -> str:
-        if self.embedding_uses_ollama:
+        if self.embedding_provider == "ollama":
             parsed = urlparse(self.embedding_base_url)
             return f"{parsed.scheme}://{parsed.hostname}:{parsed.port}"
         return self.embedding_base_url

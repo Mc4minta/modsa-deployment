@@ -6,7 +6,7 @@ import chromadb
 from chromadb.errors import NotFoundError
 
 from config import Settings
-from core.vectorstore import get_vector_store
+from core.vectorstore import get_vector_store, reset_vector_store_cache
 from pipeline.chunking import split_documents
 from pipeline.loaders import discover_source_files, load_documents
 from pipeline.manifest import build_manifest, load_manifest, save_manifest
@@ -30,6 +30,10 @@ def reset_collection(settings: Settings) -> None:
         client.delete_collection(settings.chroma_collection)
     except (ValueError, NotFoundError):
         pass
+    # The cached Chroma wrapper (core.vectorstore) holds a reference to the
+    # now-deleted collection — drop it so the next get_vector_store() call
+    # reconnects to the freshly (re)created collection.
+    reset_vector_store_cache()
 
 
 def ingest_sources(settings: Settings, force: bool = False) -> dict[str, object]:

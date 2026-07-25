@@ -2,7 +2,7 @@
 name: modsa-backend
 description: >-
   Architecture and coding rules for the MOD-SA FastAPI RAG backend
-  (backend_new). Use when changing API routes, RAG/ingestion services,
+  (backend). Use when changing API routes, RAG/ingestion services,
   Chroma indexing, prompts, config, Docker, or KMUTT Student Affairs
   chat retrieval behavior.
 ---
@@ -13,8 +13,8 @@ description: >-
 
 Development rules and architectural constraints for the MOD-SA RAG backend.
 
-Active code lives in `backend_new/`. `backend_old/` is legacy reference plus
-prepared knowledge under `backend_old/chunks/`.
+Active code lives in `backend/`. `backend_old/` is legacy reference only
+(no new logic there). Prepared knowledge lives under `datasets/chunks/`.
 
 The backend is a Retrieval-Augmented Generation chatbot for KMUTT Student Affairs.
 
@@ -22,7 +22,7 @@ The backend is a Retrieval-Augmented Generation chatbot for KMUTT Student Affair
 
 Stack:
 
-* FastAPI (`backend_new/main.py`)
+* FastAPI (`backend/main.py`)
 * LangChain orchestration
 * ChromaDB vector store
 * OpenAI-compatible LLM (Typhoon / OpenAI / Ollama `/v1`)
@@ -41,7 +41,7 @@ Responsibilities:
 # Current Layout
 
 ```
-backend_new/
+backend/
 ├── main.py                 # FastAPI app, CORS, lifespan ingest
 ├── config.py               # Settings from env
 ├── requirements.txt
@@ -136,12 +136,12 @@ Centralize in `config.py` / env. Important keys:
 * `LLM_BASE_URL`, `LLM_API_KEY`, `LLM_MODEL`
 * `EMBEDDING_BASE_URL`, `EMBEDDING_API_KEY`, `EMBEDDING_MODEL`
 * `CHROMA_DIR`, `CHROMA_COLLECTION`
-* `RAG_SOURCE_PATHS` (comma-separated; local default often `../backend_old/chunks`)
+* `RAG_SOURCE_PATHS` (comma-separated; local default often `../datasets/chunks`)
 * `CHUNK_SIZE`, `CHUNK_OVERLAP`, `RETRIEVAL_K`
 * `CORS_ORIGINS`
-* `ADMIN_API_KEY` (optional)
+* `ADMIN_API_KEY` (**required** — `/admin/reindex` returns 500 if unset)
 
-Ollama embeddings auto-detect when embedding host is localhost/`127.0.0.1` port `11434`.
+`EMBEDDING_PROVIDER` (`ollama` / `huggingface` / `openai`) selects the embedding backend explicitly — dev uses `ollama` (local `bge-m3`), production uses `huggingface` (Hugging Face Inference API, `EMBEDDING_MODEL=BAAI/bge-m3`, requires `EMBEDDING_API_KEY`).
 
 ---
 
@@ -180,7 +180,7 @@ Do not introduce Redis/auth frameworks/extra services before demo needs them.
 
 After changes:
 
-* `python -c "import main"` succeeds from `backend_new/`
+* `python -c "import main"` succeeds from `backend/`
 * `GET /health` returns `status: ok`
 * Startup or `POST /admin/reindex` indexes sources
 * `POST /chat/ask` returns answer + sources for a known topic

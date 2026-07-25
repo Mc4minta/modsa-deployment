@@ -4,8 +4,9 @@
 
 MOD-SA is a FastAPI RAG chatbot backend for KMUTT Student Affairs knowledge retrieval.
 
-Active implementation: **`backend_new/`**.  
-Legacy reference + prepared chunks: **`backend_old/`** (especially `backend_old/chunks/`).
+Active implementation: **`backend/`**.  
+Legacy reference: **`backend_old/`** (no new logic there).  
+Prepared chunks (ingestion source): **`datasets/chunks/`**.
 
 Stack: FastAPI, LangChain, ChromaDB, OpenAI-compatible LLM/embeddings (including Ollama).
 
@@ -14,7 +15,7 @@ Stack: FastAPI, LangChain, ChromaDB, OpenAI-compatible LLM/embeddings (including
 # Directory Structure
 
 ```
-backend_new/
+backend/
 ├── main.py                      # App entry, CORS, lifespan ingest
 ├── config.py                    # pydantic-settings from .env
 ├── requirements.txt
@@ -50,7 +51,7 @@ backend_new/
 
 Not used (do not recreate unless needed): `utils/`, `database/`, `models/`, `retrieval_service.py`.
 
-Repo-level Docker: root `docker-compose.yml` builds `backend_new`, mounts `backend_old/chunks` read-only, persists Chroma volume.
+Repo-level Docker: root `docker-compose.yml` builds `backend`, mounts `datasets/chunks` read-only, persists Chroma volume.
 
 ---
 
@@ -141,7 +142,7 @@ services/rag_service
 
 # Configuration
 
-Driven by environment (see `backend_new/.env.example`):
+Driven by environment (see `backend/.env.example`):
 
 | Variable | Role |
 |----------|------|

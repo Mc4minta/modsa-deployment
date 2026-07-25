@@ -46,7 +46,7 @@ EMBEDDING_MODEL=bge-m3:latest
 
 CHROMA_DIR=chroma_db
 CHROMA_COLLECTION=modsa_kmutt
-RAG_SOURCE_PATHS=../backend_old/chunks
+RAG_SOURCE_PATHS=../datasets/chunks
 CHUNK_SIZE=1000
 CHUNK_OVERLAP=150
 RETRIEVAL_K=4
@@ -54,13 +54,13 @@ RETRIEVAL_K=4
 APP_HOST=127.0.0.1
 APP_PORT=8000
 CORS_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
-# ADMIN_API_KEY=change-me
+ADMIN_API_KEY=change-me   # required — /admin/reindex refuses to run without it
 ```
 
 Notes:
 
-* Local default sources point at prepared JSON under `backend_old/chunks`.
-* Ollama embeddings are used automatically when embedding URL host is localhost/`127.0.0.1` and port `11434`.
+* Local default sources point at prepared JSON under `datasets/chunks`.
+* `EMBEDDING_PROVIDER` selects the embedding backend explicitly (`ollama` local dev / `huggingface` production / `openai`).
 * Large index runs embed in batches; first startup may take minutes.
 
 ---
@@ -74,7 +74,7 @@ cp .env.example .env
 docker compose up --build
 ```
 
-Compose mounts `backend_old/chunks` → `/app/storage/chunks` and persists Chroma in volume `chroma_data`. Host Ollama is reached via `host.docker.internal`.
+Compose mounts `datasets/chunks` → `/app/storage/chunks` and persists Chroma in volume `chroma_data`. Host Ollama is reached via `host.docker.internal`.
 
 ---
 
@@ -87,7 +87,7 @@ Raw Documents
 Chunk preparation (external data pipeline)
       |
       v
-backend_old/chunks   (or path in RAG_SOURCE_PATHS)
+datasets/chunks      (or path in RAG_SOURCE_PATHS)
       |
       v
 POST /admin/reindex   (or restart API for lifespan ingest)
