@@ -88,6 +88,17 @@ def format_context(docs):
 
 
 
+def compute_confidence(docs):
+    """Derive confidence level from retrieval quality."""
+    count = len(docs) if docs else 0
+    if count >= 3:
+        return "high"
+    if count == 2:
+        return "medium"
+    return "low"
+
+
+
 def source_summary(docs):
 
     seen = set()
@@ -159,7 +170,8 @@ def answer_question(settings, question):
 
         return {
             "answer": no_verified_info_response(question),
-            "sources": []
+            "sources": [],
+            "confidence": "low"
         }
 
 
@@ -190,5 +202,6 @@ def answer_question(settings, question):
 
     return {
         "answer": response.content,
-        "sources": source_summary(docs)
+        "sources": source_summary(docs),
+        "confidence": compute_confidence(docs)
     }
