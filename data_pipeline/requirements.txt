@@ -1,0 +1,7 @@
+# Extra deps for the data-preparation pipeline (separate from the app)
+pymupdf>=1.24
+python-dotenv>=1.0
+typhoon-ocr
+
+markitdown[all]
+# pythainlp>=5.0  # (ทางเลือก) ตัดประโยคไทยใน fallback ของ chunk.py — ไม่ติดตั้งก็ทำงานได้ (ตัดที่ช่องว่างแทน)

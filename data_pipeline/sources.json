@@ -1,0 +1,269 @@
+{
+  "_README": "Human-edited metadata sidecar for nicer citations. pipeline/chunk.py reads the 'docs' map (keyed by doc_id = file stem) and merges these fields into each chunk's metadata. ฝ่าย data เติม title/department/source_url/contact ที่นี่ (ไม่ต้องแก้ใน chunks/*.json เพราะถูก generate ทับทุกครั้ง). ค่า department บางตัวเป็นการคาดเดา — ตรวจสอบแล้วตั้ง verified=true.",
+  "docs": {
+    "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69": {
+      "title": "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69",
+      "category": "fees",
+      "department": "",
+      "source_url": "https://www.kmutt.ac.th/wp-content/plugins/algori-pdf-viewer/dist/web/viewer.html?file=https://www.kmutt.ac.th/wp-content/uploads/2026/03/20Mar69-%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B9%83%E0%B8%8A%E0%B9%89%E0%B8%88%E0%B9%88%E0%B8%B2%E0%B8%A2%E0%B8%95%E0%B8%A5%E0%B8%AD%E0%B8%94%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%81%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B8%9B%E0%B8%95%E0%B8%A3%E0%B8%B5-69.pdf",
+      "contact": "",
+      "verified": false
+    },
+    "AcademicCalendar2026-2569TH2": {
+      "title": "ปฏิทินการศึกษา ประจำปีการศึกษา 2569",
+      "category": "academic_calendar",
+      "department": "สำนักงานทะเบียนนักศึกษา",
+      "source_url": "https://regis.kmutt.ac.th/calendar/AcademicCalendar2026-2569TH2.pdf",
+      "contact": "",
+      "verified": false
+    },
+    "KMUTT-Scholarship-2558": {
+      "title": "KMUTT-Scholarship-2558",
+      "category": "scholarship",
+      "department": "",
+      "source_url": "https://www.kmutt.ac.th/sfa/list-scholarships/",
+      "contact": "",
+      "verified": false
+    },
+    "MODsa-proposal_students": {
+      "title": "ข้อเสนอโครงการ MOD-SA",
+      "category": "others",
+      "department": "",
+      "source_url": "",
+      "contact": "",
+      "verified": false
+    },
+    "Manual-แนะนำบริการสารสนเทศ_ver2024": {
+      "title": "Manual-แนะนำบริการสารสนเทศ ver2024",
+      "category": "others",
+      "department": "",
+      "source_url": "https://cc.kmutt.ac.th/Files/Manual-%E0%B9%81%E0%B8%99%E0%B8%B0%E0%B8%99%E0%B8%B3%E0%B8%9A%E0%B8%A3%E0%B8%B4%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AA%E0%B8%B2%E0%B8%A3%E0%B8%AA%E0%B8%99%E0%B9%80%E0%B8%97%E0%B8%A8%20ver2024.pdf",
+      "contact": "",
+      "verified": false
+    },
+    "R1-เกณฑ์การรับ-ทุนเพรชฯ-69": {
+      "title": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69",
+      "category": "scholarship",
+      "department": "",
+      "source_url": "",
+      "contact": "",
+      "verified": false
+    },
+    "R1_petch_scholarship_criteria_2569": {
+      "title": "เกณฑ์การรับสมัครทุนเพชรพระจอมเกล้า ปีการศึกษา 2569",
+      "category": "scholarship",
+      "department": "กลุ่มงานช่วยเหลือทางการเงินแก่นักศึกษา",
+      "source_url": "",
+      "contact": "",
+      "verified": false
+    },
+    "The_Student’s_Internet_Registration_Manual_(fixed)": {
+      "title": "The Student’s Internet Registration Manual (fixed)",
+      "category": "registration",
+      "department": "",
+      "source_url": "https://regis.kmutt.ac.th/staff/regisstudent%20en.pdf",
+      "contact": "",
+      "verified": false
+    },
+    "discipline2566": {
+      "title": "discipline2566",
+      "category": "academic_rules",
+      "department": "",
+      "source_url": "https://regis.kmutt.ac.th/order/discipline2566.pdf",
+      "contact": "",
+      "verified": false
+    },
+    "pop-up-blocker-disable": {
+      "title": "pop-up-blocker-disable",
+      "category": "registration",
+      "department": "",
+      "source_url": "https://cc.kmutt.ac.th/Files/pop-up%20blocker%20disable.pdf",
+      "contact": "",
+      "verified": false
+    },
+    "rule_exam2560": {
+      "title": "ระเบียบ/ข้อบังคับการสอบ (พ.ศ. 2560)",
+      "category": "academic_rules",
+      "department": "",
+      "source_url": "https://regis.kmutt.ac.th/pstudent/rule_exam2560.pdf",
+      "contact": "",
+      "verified": false
+    },
+    "student_housing": {
+      "title": "ข้อมูลหอพักนักศึกษา",
+      "category": "dormitory",
+      "department": "งานหอพักนักศึกษา",
+      "source_url": "https://www.kmutt.ac.th/kmutt-education/%E0%B8%AB%E0%B8%AD%E0%B8%9E%E0%B8%B1%E0%B8%81%E0%B8%99%E0%B8%B1%E0%B8%81%E0%B8%A8%E0%B8%B6%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%9A%E0%B8%A3%E0%B8%B4%E0%B8%81%E0%B8%B2%E0%B8%A3/",
+      "contact": "",
+      "verified": false
+    },
+    "student_online_registration_guide": {
+      "title": "คู่มือการลงทะเบียนเรียนผ่านระบบออนไลน์ (New ACIS)",
+      "category": "registration",
+      "department": "สำนักงานทะเบียนนักศึกษา",
+      "source_url": "https://regis.kmutt.ac.th/staff/regisstudent%20en.pdf",
+      "contact": "",
+      "verified": false
+    },
+    "undergraduate_program_fees_2569": {
+      "title": "ค่าใช้จ่ายตลอดหลักสูตร ระดับปริญญาตรี ปีการศึกษา 2569",
+      "category": "fees",
+      "department": "สำนักงานทะเบียนนักศึกษา",
+      "source_url": "https://www.kmutt.ac.th/wp-content/plugins/algori-pdf-viewer/dist/web/viewer.html?file=https://www.kmutt.ac.th/wp-content/uploads/2026/03/20Mar69-%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B9%83%E0%B8%8A%E0%B9%89%E0%B8%88%E0%B9%88%E0%B8%B2%E0%B8%A2%E0%B8%95%E0%B8%A5%E0%B8%AD%E0%B8%94%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%81%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B8%9B%E0%B8%95%E0%B8%A3%E0%B8%B5-69.pdf",
+      "contact": "",
+      "verified": false
+    },
+    "กยศ68": {
+      "title": "กยศ68",
+      "category": "scholarship",
+      "department": "",
+      "source_url": "",
+      "contact": "",
+      "verified": false
+    },
+    "ขั้นตอนการถอนใน_New_ACIS": {
+      "title": "ขั้นตอนการถอนใน New ACIS",
+      "category": "registration",
+      "department": "",
+      "source_url": "https://regis.kmutt.ac.th/newsall/W_TH_161.pdf",
+      "contact": "",
+      "verified": false
+    },
+    "ขั้นตอนการทำบัตรนักศึกษา": {
+      "title": "ขั้นตอนการทำบัตรนักศึกษา",
+      "category": "others",
+      "department": "",
+      "source_url": "https://regis.kmutt.ac.th/web/std_card/",
+      "contact": "",
+      "verified": false
+    },
+    "ขั้นตอนการพิมพ์ใบเสร็จรับเงินค่าลงทะเบียนเรียน-(แบบออนไลน์)-ระบบสารสนเทศเพื่อการบริหารการศึกษา-(New_ACIS)": {
+      "title": "ขั้นตอนการพิมพ์ใบเสร็จรับเงินค่าลงทะเบียนเรียน-(แบบออนไลน์)-ระบบสารสนเทศเพื่อการบริหารการศึกษา-(New ACIS)",
+      "category": "fees",
+      "department": "",
+      "source_url": "https://regis.kmutt.ac.th/order/std_handbook/financial_doc/fee2562.pdf",
+      "contact": "",
+      "verified": false
+    },
+    "คำถามต้องการกู้ยืมเงินกยศ": {
+      "title": "คำถามต้องการกู้ยืมเงินกยศ",
+      "category": "scholarship",
+      "department": "",
+      "source_url": "",
+      "contact": "",
+      "verified": false
+    },
+    "คู่มือนศ.ทุนเพชรพระจอมเกล้าป.ตรี": {
+      "title": "คู่มือนศ.ทุนเพชรพระจอมเกล้าป.ตรี",
+      "category": "scholarship",
+      "department": "",
+      "source_url": "https://www.kmutt.ac.th/sfa/wp-content/uploads/sites/8/2025/05/%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A8%E0%B8%97%E0%B8%B8%E0%B8%99%E0%B9%80%E0%B8%9E%E0%B8%8A%E0%B8%A3%E0%B8%AF%E0%B8%9B.%E0%B8%95%E0%B8%A3%E0%B8%B5-%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B9%80%E0%B8%87%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%99%E0%B9%84%E0%B8%82-68.pdf",
+      "contact": "",
+      "verified": false
+    },
+    "คู่มือบันทึกระเบียนประวัตินักศึกษา": {
+      "title": "คู่มือบันทึกระเบียนประวัตินักศึกษา",
+      "category": "registration",
+      "department": "",
+      "source_url": "https://regis.kmutt.ac.th/nstudent/HB-REG59.pdf",
+      "contact": "",
+      "verified": false
+    },
+    "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา": {
+      "title": "คู่มือลงทะเบียน ผ่านระบบ Internet สำหรับนักศึกษา",
+      "category": "registration",
+      "department": "",
+      "source_url": "https://regis.kmutt.ac.th/staff/regisstudent.pdf",
+      "contact": "",
+      "verified": false
+    },
+    "ติดต่อสำนักงานทะเบียน": {
+      "title": "ติดต่อสำนักงานทะเบียน",
+      "category": "others",
+      "department": "",
+      "source_url": "",
+      "contact": "",
+      "verified": false
+    },
+    "ทุนการศึกษา_Active_Recruitment": {
+      "title": "ทุนการศึกษา Active Recruitment",
+      "category": "scholarship",
+      "department": "",
+      "source_url": "",
+      "contact": "",
+      "verified": false
+    },
+    "ทุนการศึกษาสำหรับนักศึกษาปัจจุบัน": {
+      "title": "ทุนการศึกษาสำหรับนักศึกษาปัจจุบัน",
+      "category": "scholarship",
+      "department": "",
+      "source_url": "",
+      "contact": "",
+      "verified": false
+    },
+    "ทุนนักศึกษาสำหรับนักศึกษานานาชาติ": {
+      "title": "ทุนนักศึกษาสำหรับนักศึกษานานาชาติ",
+      "category": "scholarship",
+      "department": "",
+      "source_url": "",
+      "contact": "",
+      "verified": false
+    },
+    "บัตรนักศึกษา-Digital-มจธ": {
+      "title": "บัตรนักศึกษา-Digital-มจธ",
+      "category": "others",
+      "department": "",
+      "source_url": "",
+      "contact": "",
+      "verified": false
+    },
+    "ประกาศทุนรุกขพิทยพัฒน์-ระดับมหาบัณฑิต-2566DS": {
+      "title": "ประกาศทุนรุกขพิทยพัฒน์-ระดับมหาบัณฑิต-2566DS",
+      "category": "scholarship",
+      "department": "",
+      "source_url": "",
+      "contact": "",
+      "verified": false
+    },
+    "ประกาศทุนเพชรฯป.ตรี-และเงื่อนไข-68": {
+      "title": "ประกาศทุนเพชรฯป.ตรี-และเงื่อนไข-68",
+      "category": "scholarship",
+      "department": "",
+      "source_url": "",
+      "contact": "",
+      "verified": false
+    },
+    "ปริญญาเอก-ข้อมูลค่ายืนยันสิทธิ-และค่าใช้จ่ายตลอดหลักสูตร-2568": {
+      "title": "ปริญญาเอก-ข้อมูลค่ายืนยันสิทธิ-และค่าใช้จ่ายตลอดหลักสูตร-2568",
+      "category": "fees",
+      "department": "",
+      "source_url": "",
+      "contact": "",
+      "verified": false
+    },
+    "ปริญญาโท-ข้อมูลค่ายืนยันสิทธิ-และค่าใช้จ่ายตลอดหลักสูตร-2568": {
+      "title": "ปริญญาโท-ข้อมูลค่ายืนยันสิทธิ-และค่าใช้จ่ายตลอดหลักสูตร-2568",
+      "category": "fees",
+      "department": "",
+      "source_url": "",
+      "contact": "",
+      "verified": false
+    },
+    "ระเบียบมหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี-ว่าด้วย-การศึกษาระดับบัณฑิตศึกษา-(ฉบับที่_2)": {
+      "title": "ระเบียบมหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี-ว่าด้วย-การศึกษาระดับบัณฑิตศึกษา-(ฉบับที่ 2)",
+      "category": "academic_rules",
+      "department": "",
+      "source_url": "",
+      "contact": "",
+      "verified": false
+    },
+    "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)": {
+      "title": "วิธียื่นคำขอลาพักการศึกษา การ Drop (fixed)",
+      "category": "registration",
+      "department": "",
+      "source_url": "",
+      "contact": "",
+      "verified": false
+    }
+  }
+}
