@@ -25,7 +25,7 @@ Follow these steps to run the complete project on your local machine. You will n
 
 ### Prerequisites
 1. **Python 3.10+**: For running the backend.
-2. **Node.js (v18+)**: For running the frontend.
+2. **Node.js (v20.19+)**: For running the production-oriented frontend.
 3. **Ollama**: Installed and running on your machine (for AI models).
 
 ### Step 1: Prepare the AI Models (Ollama)
@@ -70,10 +70,10 @@ copy .env.example .env
 The frontend provides the premium chat interface for users on port `5173`.
 
 ```bash
-cd frontend
+cd frontend/1.2tongtong
 
 # 1. Install dependencies
-npm install
+npm ci
 
 # 2. Setup environment variables
 # On Windows:
@@ -93,6 +93,7 @@ Open your web browser and navigate to: **http://localhost:5173**
 ## 📁 Project Structure
 
 - `backend_new/`: FastAPI backend containing RAG logic, ChromaDB setup, and API endpoints.
-- `frontend/`: React UI code, components, CSS design system, and multi-language settings.
+- `frontend/1.1wolf/`: Preserved frontend imported from branch `wolf`.
+- `frontend/1.2tongtong/`: Production-oriented React UI, tests, and deployment configuration.
 - `backend_old/chunks/`: Prepared JSON document chunks used as the knowledge base for RAG.
 - `docs/`: Architecture and development guides.
