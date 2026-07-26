@@ -49,14 +49,6 @@
       "contact": "",
       "verified": false
     },
-    "R1_petch_scholarship_criteria_2569": {
-      "title": "เกณฑ์การรับสมัครทุนเพชรพระจอมเกล้า ปีการศึกษา 2569",
-      "category": "scholarship",
-      "department": "กลุ่มงานช่วยเหลือทางการเงินแก่นักศึกษา",
-      "source_url": "",
-      "contact": "",
-      "verified": false
-    },
     "The_Student’s_Internet_Registration_Manual_(fixed)": {
       "title": "The Student’s Internet Registration Manual (fixed)",
       "category": "registration",
@@ -89,30 +81,6 @@
       "contact": "",
       "verified": false
     },
-    "student_housing": {
-      "title": "ข้อมูลหอพักนักศึกษา",
-      "category": "dormitory",
-      "department": "งานหอพักนักศึกษา",
-      "source_url": "https://www.kmutt.ac.th/kmutt-education/%E0%B8%AB%E0%B8%AD%E0%B8%9E%E0%B8%B1%E0%B8%81%E0%B8%99%E0%B8%B1%E0%B8%81%E0%B8%A8%E0%B8%B6%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%9A%E0%B8%A3%E0%B8%B4%E0%B8%81%E0%B8%B2%E0%B8%A3/",
-      "contact": "",
-      "verified": false
-    },
-    "student_online_registration_guide": {
-      "title": "คู่มือการลงทะเบียนเรียนผ่านระบบออนไลน์ (New ACIS)",
-      "category": "registration",
-      "department": "สำนักงานทะเบียนนักศึกษา",
-      "source_url": "https://regis.kmutt.ac.th/staff/regisstudent%20en.pdf",
-      "contact": "",
-      "verified": false
-    },
-    "undergraduate_program_fees_2569": {
-      "title": "ค่าใช้จ่ายตลอดหลักสูตร ระดับปริญญาตรี ปีการศึกษา 2569",
-      "category": "fees",
-      "department": "สำนักงานทะเบียนนักศึกษา",
-      "source_url": "https://www.kmutt.ac.th/wp-content/plugins/algori-pdf-viewer/dist/web/viewer.html?file=https://www.kmutt.ac.th/wp-content/uploads/2026/03/20Mar69-%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B9%83%E0%B8%8A%E0%B9%89%E0%B8%88%E0%B9%88%E0%B8%B2%E0%B8%A2%E0%B8%95%E0%B8%A5%E0%B8%AD%E0%B8%94%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%81%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B8%9B%E0%B8%95%E0%B8%A3%E0%B8%B5-69.pdf",
-      "contact": "",
-      "verified": false
-    },
     "กยศ68": {
       "title": "กยศ68",
       "category": "scholarship",
@@ -137,11 +105,11 @@
       "contact": "",
       "verified": false
     },
-    "ขั้นตอนการพิมพ์ใบเสร็จรับเงินค่าลงทะเบียนเรียน-(แบบออนไลน์)-ระบบสารสนเทศเพื่อการบริหารการศึกษา-(New_ACIS)": {
-      "title": "ขั้นตอนการพิมพ์ใบเสร็จรับเงินค่าลงทะเบียนเรียน-(แบบออนไลน์)-ระบบสารสนเทศเพื่อการบริหารการศึกษา-(New ACIS)",
+    "ขั้นตอนการพิมพ์ใบเสร็จรับเงินค่าลงทะเบียนเรียนระบบNewACIS": {
+      "title": "ขั้นตอนการพิมพ์ใบเสร็จรับเงินค่าลงทะเบียนเรียนระบบNewACIS",
       "category": "fees",
       "department": "",
-      "source_url": "https://regis.kmutt.ac.th/order/std_handbook/financial_doc/fee2562.pdf",
+      "source_url": "",
       "contact": "",
       "verified": false
     },
@@ -249,8 +217,8 @@
       "contact": "",
       "verified": false
     },
-    "ระเบียบมหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี-ว่าด้วย-การศึกษาระดับบัณฑิตศึกษา-(ฉบับที่_2)": {
-      "title": "ระเบียบมหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี-ว่าด้วย-การศึกษาระดับบัณฑิตศึกษา-(ฉบับที่ 2)",
+    "ระเบียบมหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรีว่าด้วยการศึกษาระดับบัณฑิตศึกษา": {
+      "title": "ระเบียบมหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรีว่าด้วยการศึกษาระดับบัณฑิตศึกษา",
       "category": "academic_rules",
       "department": "",
       "source_url": "",
