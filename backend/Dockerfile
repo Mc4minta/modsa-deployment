@@ -13,7 +13,7 @@ COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY backend/ .
-COPY datasets/chunks ./datasets/chunks
+COPY data/chunks ./data/chunks
 
 RUN useradd --create-home appuser \
     && mkdir -p /app/chroma_db \
