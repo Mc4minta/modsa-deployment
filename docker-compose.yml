@@ -17,7 +17,7 @@ services:
       EMBEDDING_BASE_URL: ${EMBEDDING_BASE_URL:-http://host.docker.internal:11434/v1}
     volumes:
       - chroma_data:/app/chroma_db
-      - ./datasets/chunks:/app/storage/chunks:ro
+      - ./data/chunks:/app/storage/chunks:ro
     extra_hosts:
       - "host.docker.internal:host-gateway"
     restart: unless-stopped

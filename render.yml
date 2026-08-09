@@ -12,7 +12,7 @@ services:
       - key: CHROMA_COLLECTION
         value: modsa_kmutt
       - key: RAG_SOURCE_PATHS
-        value: /app/datasets/chunks
+        value: /app/data/chunks
       - key: CHUNK_SIZE
         value: "1000"
       - key: CHUNK_OVERLAP
