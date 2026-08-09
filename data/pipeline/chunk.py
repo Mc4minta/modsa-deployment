@@ -46,7 +46,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 PROCESSED_DIR = ROOT / "data" / "processed"
-OUTPUT_DIR = ROOT / "chunks"
+OUTPUT_DIR = ROOT / "data" / "chunks"
 SOURCES_FILE = ROOT / "data" / "sources.json"
 
 CHUNK_SIZE = 1000   # เป้าหมายต่อ chunk (ตัวอักษร ~ 350-500 token ของ bge-m3)

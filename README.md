@@ -4,8 +4,9 @@ KMUTT Student Affairs RAG chatbot.
 
 ## Structure
 
-- `backend_new/`: FastAPI RAG backend (active)
-- `backend_old/`: previous monolithic backend + prepared `chunks/`
+- `backend/`: FastAPI RAG backend (active)
+- `backend_old/`: previous monolithic backend, reference only
+- `datasets/chunks/`: prepared knowledge source consumed by `backend/`
 - `frontend/`: Web client
 - `docs/`: Architecture + development guides (`backend-structure.md`, `development-guide.md`)
 - `.agents/skills/modsa-backend/`: Agent skill for backend work
@@ -13,7 +14,7 @@ KMUTT Student Affairs RAG chatbot.
 ## Quick Start (local)
 
 ```bash
-cd backend_new
+cd backend
 python -m venv .venv
 # Windows: .venv\Scripts\activate
 # macOS/Linux: source .venv/bin/activate
@@ -26,9 +27,9 @@ API:
 
 - `GET /health`
 - `POST /chat/ask` — body `{"question":"..."}`
-- `POST /admin/reindex` — optional header `X-Admin-Key` when `ADMIN_API_KEY` is set
+- `POST /admin/reindex` — requires header `X-Admin-Key` matching `ADMIN_API_KEY`
 
-Default `RAG_SOURCE_PATHS` points at `../backend_old/chunks`.
+Default `RAG_SOURCE_PATHS` points at `../datasets/chunks`.
 
 ## Docker
 
@@ -39,4 +40,4 @@ cp .env.example .env
 docker compose up --build
 ```
 
-Chroma persists in the `chroma_data` volume. Chunks mount from `backend_old/chunks`.
+Chroma persists in the `chroma_data` volume. Chunks mount from `datasets/chunks`.
