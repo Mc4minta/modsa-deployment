@@ -6,16 +6,19 @@ import {
   normalizeSource,
 } from "../services/api";
 
-function jsonResponse(body, status = 200) {
+function jsonResponse(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
     headers: { "content-type": "application/json" },
   });
 }
 
+let fetchMock: ReturnType<typeof vi.fn>;
+
 describe("chat API contract", () => {
   beforeEach(() => {
-    vi.stubGlobal("fetch", vi.fn());
+    fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
   });
 
   afterEach(() => {
@@ -69,11 +72,11 @@ describe("chat API contract", () => {
     [422, "VALIDATION"],
     [429, "RATE_LIMIT"],
     [500, "SERVER"],
-  ])("maps HTTP %s to a typed error", async (status, code) => {
-    fetch.mockResolvedValue(jsonResponse({ detail: `error-${status}` }, status));
+  ])("maps HTTP %s to a typed error", async (status: number, code: string) => {
+    fetchMock.mockResolvedValue(jsonResponse({ detail: `error-${status}` }, status));
 
     await expect(askQuestion("question")).rejects.toMatchObject({ code, status });
-    expect(fetch).toHaveBeenCalledWith(
+    expect(fetchMock).toHaveBeenCalledWith(
       expect.stringContaining("/chat/ask"),
       expect.objectContaining({
         method: "POST",
@@ -83,7 +86,7 @@ describe("chat API contract", () => {
   });
 
   it("maps caller cancellation to ABORT and timeout to TIMEOUT", async () => {
-    fetch.mockImplementation((_, options) => new Promise((resolve, reject) => {
+    fetchMock.mockImplementation((_: RequestInfo | URL, options: RequestInit & { signal: AbortSignal }) => new Promise((resolve, reject) => {
       options.signal.addEventListener("abort", () => {
         reject(Object.assign(new Error("aborted"), { name: "AbortError" }));
       });

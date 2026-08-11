@@ -2,12 +2,20 @@ import { describe, expect, it } from "vitest";
 import { render } from "@testing-library/react";
 import { LanguageProvider } from "../i18n/LanguageContext";
 import MessageBubble from "./MessageBubble";
+import type { Source } from "../types";
 
-function renderAssistant(content, sources = []) {
+function renderAssistant(content: string, sources: Source[] = []) {
   return render(
     <LanguageProvider>
       <MessageBubble
-        message={{ id: "render-test", role: "assistant", content, sources }}
+        message={{
+          id: "render-test",
+          role: "assistant",
+          content,
+          sources,
+          status: "success",
+          timestamp: Date.now(),
+        }}
       />
     </LanguageProvider>
   );

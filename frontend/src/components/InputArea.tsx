@@ -1,14 +1,23 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { useLanguage } from "../i18n/LanguageContext";
 import { MAX_QUESTION_LENGTH, validateQuestion } from "../utils/guards";
 
-export default function InputArea({ onSend, isLoading, onStop, sessionId, draft = "", onDraftChange = () => {} }) {
+interface InputAreaProps {
+  onSend: (text: string) => void;
+  isLoading: boolean;
+  onStop: () => void;
+  sessionId: string;
+  draft?: string;
+  onDraftChange?: (draft: string) => void;
+}
+
+export default function InputArea({ onSend, isLoading, onStop, sessionId, draft = "", onDraftChange = () => {} }: InputAreaProps) {
   const { lang, t } = useLanguage();
   const [text, setText] = useState("");
   const [validationError, setValidationError] = useState("");
   const [isRecording, setIsRecording] = useState(false);
-  const textareaRef = useRef(null);
-  const recognitionRef = useRef(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
   const draftRef = useRef(draft);
   draftRef.current = draft;
 
@@ -61,11 +70,11 @@ export default function InputArea({ onSend, isLoading, onStop, sessionId, draft 
     if (textareaRef.current) textareaRef.current.style.height = "auto";
   }, [isLoading, onDraftChange, onSend, t, text]);
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
     if (
       event.key === "Enter" &&
       !event.shiftKey &&
-      !event.isComposing &&
+      !event.nativeEvent.isComposing &&
       event.keyCode !== 229
     ) {
       event.preventDefault();
@@ -84,9 +93,12 @@ export default function InputArea({ onSend, isLoading, onStop, sessionId, draft 
       return;
     }
 
-    const SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
-    const recognition = new SpeechRecognition();
+    const SpeechRecognitionCtor = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognitionCtor) {
+      setValidationError(t("voiceNotSupported"));
+      return;
+    }
+    const recognition = new SpeechRecognitionCtor();
     recognition.continuous = false;
     recognition.interimResults = false;
     recognition.lang = lang === "th" ? "th-TH" : "en-US";
@@ -103,7 +115,14 @@ export default function InputArea({ onSend, isLoading, onStop, sessionId, draft 
       setIsRecording(false);
       recognitionRef.current = null;
     };
-    recognition.onerror = () => {
+    recognition.onerror = (event) => {
+      if (event.error === "not-allowed" || event.error === "permission-denied") {
+        setValidationError(t("voicePermissionDenied"));
+      } else if (event.error === "no-speech" || event.error === "aborted") {
+        // benign — user simply stopped talking or cancelled, no message needed
+      } else {
+        setValidationError(t("voiceNotSupported"));
+      }
       setIsRecording(false);
       recognitionRef.current = null;
     };

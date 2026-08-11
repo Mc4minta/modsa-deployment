@@ -1,3 +1,5 @@
+import type { ChatMetadata, ChatRecord, ChatListItem, Message, Source, StorageErrorInfo, StorageResult } from "../types";
+
 const STORAGE_KEY = "modsa-chats";
 export const STORAGE_VERSION = 1;
 export const STORAGE_LIMITS = Object.freeze({
@@ -9,13 +11,13 @@ export const STORAGE_LIMITS = Object.freeze({
 
 const VALID_ROLES = new Set(["user", "assistant"]);
 const VALID_STATUSES = new Set(["pending", "success", "error", "stopped"]);
-let lastStorageError = null;
+let lastStorageError: StorageErrorInfo | null = null;
 
-function setStorageError(code, message) {
+function setStorageError(code: string, message: string): void {
   lastStorageError = { code, message, at: Date.now() };
 }
 
-function getStorage() {
+function getStorage(): Storage | null {
   try {
     return typeof window !== "undefined" ? window.localStorage : null;
   } catch {
@@ -24,25 +26,27 @@ function getStorage() {
   }
 }
 
-function isPlainObject(value) {
+function isPlainObject(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 
-function safeTimestamp(value, fallback = Date.now()) {
-  return Number.isFinite(value) && value > 0 ? value : fallback;
+function safeTimestamp(value: unknown, fallback: number = Date.now()): number {
+  return typeof value === "number" && Number.isFinite(value) && value > 0 ? value : fallback;
 }
 
-function sanitizeMessage(message) {
-  if (!isPlainObject(message) || !VALID_ROLES.has(message.role)) return null;
+function sanitizeMessage(message: unknown): Message | null {
+  if (!isPlainObject(message) || !VALID_ROLES.has(message.role as string)) return null;
   if (typeof message.content !== "string") return null;
 
-  const status = VALID_STATUSES.has(message.status) ? message.status : "success";
+  const status = VALID_STATUSES.has(message.status as string)
+    ? (message.status as Message["status"])
+    : "success";
   return {
     id:
       typeof message.id === "string" && message.id.length <= 160
         ? message.id
         : generateId(),
-    role: message.role,
+    role: message.role as Message["role"],
     content: message.content.slice(0, STORAGE_LIMITS.maxMessageChars),
     timestamp: safeTimestamp(message.timestamp),
     status,
@@ -53,12 +57,12 @@ function sanitizeMessage(message) {
       ? { errorCode: message.errorCode.slice(0, 80) }
       : {}),
     ...(Array.isArray(message.sources)
-      ? { sources: message.sources.map(sanitizeSource).filter(Boolean).slice(0, 100) }
+      ? { sources: message.sources.map(sanitizeSource).filter((s): s is Source => s !== null).slice(0, 100) }
       : {}),
   };
 }
 
-function sanitizeSource(source) {
+function sanitizeSource(source: unknown): Source | null {
   if (!isPlainObject(source)) return null;
   const rawUrl = typeof source.url === "string" ? source.url.trim().slice(0, 2_000) : "";
   const url = /^(?:https?:|#)/iu.test(rawUrl) ? rawUrl : "";
@@ -76,16 +80,16 @@ function sanitizeSource(source) {
   };
 }
 
-function sanitizeMessages(messages) {
+function sanitizeMessages(messages: unknown): Message[] {
   if (!Array.isArray(messages)) return [];
   return messages
     .map(sanitizeMessage)
-    .filter(Boolean)
+    .filter((message): message is Message => message !== null)
     .filter((message) => message.status !== "pending")
     .slice(-STORAGE_LIMITS.maxMessagesPerChat);
 }
 
-function sanitizeRecord(id, record) {
+function sanitizeRecord(id: unknown, record: unknown): ChatRecord | null {
   if (!isPlainObject(record) || typeof id !== "string" || !id) return null;
   const messages = sanitizeMessages(record.messages);
   const firstUser = messages.find((message) => message.role === "user");
@@ -110,11 +114,11 @@ function sanitizeRecord(id, record) {
   };
 }
 
-function readAll() {
+function readAll(): Record<string, ChatRecord> {
   const storage = getStorage();
   if (!storage) return {};
 
-  let parsed;
+  let parsed: unknown;
   try {
     const raw = storage.getItem(STORAGE_KEY);
     if (!raw) return {};
@@ -137,8 +141,8 @@ function readAll() {
     }
     return Object.fromEntries(
       Object.entries(parsed.chats)
-        .map(([id, record]) => [id, sanitizeRecord(id, record)])
-        .filter(([, record]) => record)
+        .map(([id, record]) => [id, sanitizeRecord(id, record)] as const)
+        .filter((entry): entry is [string, ChatRecord] => entry[1] !== null)
     );
   }
 
@@ -146,8 +150,8 @@ function readAll() {
   if (isPlainObject(parsed)) {
     return Object.fromEntries(
       Object.entries(parsed)
-        .map(([id, record]) => [id, sanitizeRecord(id, record)])
-        .filter(([, record]) => record)
+        .map(([id, record]) => [id, sanitizeRecord(id, record)] as const)
+        .filter((entry): entry is [string, ChatRecord] => entry[1] !== null)
     );
   }
 
@@ -155,17 +159,17 @@ function readAll() {
   return {};
 }
 
-function boundedChats(chats) {
+function boundedChats(chats: Record<string, ChatRecord>): Record<string, ChatRecord> {
   const sorted = Object.values(chats)
     .filter(Boolean)
     .sort((a, b) => b.updatedAt - a.updatedAt)
     .slice(0, STORAGE_LIMITS.maxChats);
   let totalChars = 0;
-  const result = {};
+  const result: Record<string, ChatRecord> = {};
 
   // Keep the most recent chats and messages under a deterministic total cap.
   for (const chat of sorted) {
-    const messages = [];
+    const messages: Message[] = [];
     for (const message of [...chat.messages].reverse()) {
       const chars = message.content.length;
       if (totalChars + chars > STORAGE_LIMITS.maxTotalChars) break;
@@ -184,7 +188,7 @@ function boundedChats(chats) {
   return result;
 }
 
-function writeAll(chats) {
+function writeAll(chats: Record<string, ChatRecord>): StorageResult {
   const storage = getStorage();
   if (!storage) return { ok: false, error: lastStorageError };
 
@@ -202,11 +206,17 @@ function writeAll(chats) {
   }
 }
 
-export function generateId() {
+export function generateId(): string {
   return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
 }
 
-export function saveChat(sessionId, messages, metadata = {}) {
+/**
+ * Persists a single chat. Reads the full stored map once, patches only this
+ * chat's entry, and writes the full map back once — one read + one write per
+ * call, not one per chat in memory (callers must only invoke this for chats
+ * that actually changed).
+ */
+export function saveChat(sessionId: string, messages: Message[], metadata: ChatMetadata = {}): StorageResult {
   if (typeof sessionId !== "string" || !sessionId || !Array.isArray(messages)) {
     setStorageError("INVALID", "Chat history was not saved because it was invalid.");
     return { ok: false, error: lastStorageError };
@@ -214,7 +224,7 @@ export function saveChat(sessionId, messages, metadata = {}) {
 
   const all = readAll();
   const cleanMessages = sanitizeMessages(messages);
-  const existing = all[sessionId] || {};
+  const existing = all[sessionId] || ({} as Partial<ChatRecord>);
   const firstUser = cleanMessages.find((message) => message.role === "user");
   const result = writeAll({
     ...all,
@@ -230,33 +240,33 @@ export function saveChat(sessionId, messages, metadata = {}) {
         [...cleanMessages].reverse().find((message) => message.role === "assistant")?.content ||
         ""
       ).slice(0, 160),
-    }),
+    })!,
   });
   return result;
 }
 
-export function loadChat(sessionId) {
+export function loadChat(sessionId: string): Message[] {
   const record = readAll()[sessionId];
   return record ? record.messages : [];
 }
 
-export function loadChats() {
+export function loadChats(): Record<string, ChatRecord> {
   return readAll();
 }
 
-export function deleteChat(sessionId) {
+export function deleteChat(sessionId: string): StorageResult {
   const all = readAll();
   if (Object.prototype.hasOwnProperty.call(all, sessionId)) delete all[sessionId];
   return writeAll(all);
 }
 
-export function getChatList() {
+export function getChatList(): ChatListItem[] {
   return Object.values(readAll())
     .sort((a, b) => b.updatedAt - a.updatedAt)
     .map(({ id, title, updatedAt, preview }) => ({ id, title, updatedAt, preview }));
 }
 
-export function clearAllChats() {
+export function clearAllChats(): StorageResult {
   const storage = getStorage();
   if (!storage) return { ok: false, error: lastStorageError };
   try {
@@ -269,11 +279,11 @@ export function clearAllChats() {
   }
 }
 
-export function getStorageStatus() {
+export function getStorageStatus(): StorageErrorInfo | null {
   return lastStorageError ? { ...lastStorageError } : null;
 }
 
-export function resetStorageStatus() {
+export function resetStorageStatus(): void {
   lastStorageError = null;
 }
 

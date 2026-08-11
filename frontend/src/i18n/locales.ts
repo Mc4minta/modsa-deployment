@@ -1,4 +1,6 @@
-const locales = {
+export type Lang = "en" | "th";
+
+const locales: Record<Lang, Record<string, string>> = {
   en: {
     // Sidebar
     appName: "MOD-SA",
@@ -55,6 +57,9 @@ const locales = {
     evidenceCoverage: "Evidence coverage",
     evidenceDisclaimer:
       "Sources show retrieved evidence; they do not guarantee that every answer is correct.",
+    sourceUnit: "source",
+    sourcesUnit: "sources",
+    opensNewTab: "opens in new tab",
 
     // Input
     voiceInput: "Voice input",
@@ -66,7 +71,10 @@ const locales = {
       "For your safety, do not include passwords, API keys, national ID numbers, or other sensitive personal data.",
     invalidQuestion: "Please check your question and try again.",
     voiceNotSupported: "Voice input is not supported by this browser.",
+    voicePermissionDenied: "Microphone access was denied. Allow it in your browser settings to use voice input.",
+    newResponse: "New response",
     storageWarning: "Chat history could not be saved.",
+    skipToInput: "Skip to message input",
 
     // Announcements
     announcementsTitle: "Announcements",
@@ -75,9 +83,6 @@ const locales = {
     // Settings
     settingsTitle: "Settings",
     language: "Language",
-    theme: "Theme",
-    lightMode: "Light",
-    darkMode: "Dark",
 
     // General
     close: "Close",
@@ -144,6 +149,9 @@ const locales = {
     page: "หน้า",
     department: "หน่วยงาน",
     noSources: "ไม่มีแหล่งข้อมูล",
+    sourceUnit: "แหล่งข้อมูล",
+    sourcesUnit: "แหล่งข้อมูล",
+    opensNewTab: "เปิดในแท็บใหม่",
 
     // Input
     voiceInput: "อินพุตด้วยเสียง",
@@ -155,6 +163,9 @@ const locales = {
       "เพื่อความปลอดภัย กรุณาอย่าใส่รหัสผ่าน API key เลขบัตรประชาชน หรือข้อมูลส่วนบุคคลที่ละเอียดอ่อน",
     invalidQuestion: "กรุณาตรวจสอบคำถามแล้วลองอีกครั้ง",
     voiceNotSupported: "เบราว์เซอร์นี้ไม่รองรับการรับเสียง",
+    voicePermissionDenied: "ไม่ได้รับอนุญาตให้ใช้ไมโครโฟน กรุณาอนุญาตในการตั้งค่าเบราว์เซอร์เพื่อใช้อินพุตด้วยเสียง",
+    newResponse: "มีคำตอบใหม่",
+    skipToInput: "ข้ามไปยังช่องพิมพ์ข้อความ",
 
     // Announcements
     announcementsTitle: "ประกาศ",
@@ -163,9 +174,6 @@ const locales = {
     // Settings
     settingsTitle: "ตั้งค่า",
     language: "ภาษา",
-    theme: "ธีม",
-    lightMode: "สว่าง",
-    darkMode: "มืด",
 
     // General
     close: "ปิด",

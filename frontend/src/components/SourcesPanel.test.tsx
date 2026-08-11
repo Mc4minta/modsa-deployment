@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { LanguageProvider } from "../i18n/LanguageContext";
 import SourcesPanel, { safeSourceUrl } from "./SourcesPanel";
 
-function renderSources(sources) {
+function renderSources(sources: unknown) {
   return render(
     <LanguageProvider>
       <SourcesPanel sources={sources} messageId="source-test" />

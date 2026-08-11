@@ -14,11 +14,21 @@ const THAI_SENSITIVE_TERMS =
 
 const NATIONAL_ID_PATTERN = /(?:\d[\s-]*){13}/u;
 
-export function normalizeQuestion(value) {
+export type QuestionErrorCode = "empty" | "too_long" | "sensitive";
+
+export type ValidateQuestionResult =
+  | { valid: true; value: string }
+  | { valid: false; errorCode: QuestionErrorCode; maxLength?: number };
+
+export interface ValidateQuestionOptions {
+  maxLength?: number;
+}
+
+export function normalizeQuestion(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
-export function containsSensitiveInput(value) {
+export function containsSensitiveInput(value: unknown): boolean {
   const question = normalizeQuestion(value);
   if (SECRET_PATTERNS.some((pattern) => pattern.test(question))) return true;
   if (THAI_SENSITIVE_TERMS.test(question)) return true;
@@ -27,7 +37,10 @@ export function containsSensitiveInput(value) {
   return NATIONAL_ID_PATTERN.test(question) && /^(?:\d){13}$/.test(digits);
 }
 
-export function validateQuestion(value, options = {}) {
+export function validateQuestion(
+  value: unknown,
+  options: ValidateQuestionOptions = {}
+): ValidateQuestionResult {
   const maxLength = options.maxLength ?? MAX_QUESTION_LENGTH;
   const question = normalizeQuestion(value);
 

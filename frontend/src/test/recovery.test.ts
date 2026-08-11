@@ -7,16 +7,19 @@ import {
   saveChat,
 } from "../utils/storage";
 
-function response(body, status = 200) {
+function response(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
     headers: { "content-type": "application/json" },
   });
 }
 
+let fetchMock: ReturnType<typeof vi.fn>;
+
 describe("request and persistence recovery", () => {
   beforeEach(() => {
-    vi.stubGlobal("fetch", vi.fn());
+    fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
     window.localStorage.clear();
     resetStorageStatus();
   });
@@ -28,7 +31,7 @@ describe("request and persistence recovery", () => {
   });
 
   it("supports retrying a failed request with a fresh API call", async () => {
-    fetch
+    fetchMock
       .mockResolvedValueOnce(response({ detail: "temporary outage" }, 500))
       .mockResolvedValueOnce(response({ answer: "Recovered", sources: [] }));
 
@@ -37,12 +40,12 @@ describe("request and persistence recovery", () => {
       answer: "Recovered",
       sources: [],
     });
-    expect(fetch).toHaveBeenCalledTimes(2);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 
   it("maps timeout to a recoverable error and permits a later success", async () => {
     vi.useFakeTimers();
-    fetch.mockImplementationOnce((_, options) => new Promise((resolve, reject) => {
+    fetchMock.mockImplementationOnce((_: RequestInfo | URL, options: RequestInit & { signal: AbortSignal }) => new Promise((resolve, reject) => {
       options.signal.addEventListener("abort", () => {
         reject(Object.assign(new Error("aborted"), { name: "AbortError" }));
       });
@@ -55,7 +58,7 @@ describe("request and persistence recovery", () => {
     await vi.advanceTimersByTimeAsync(11);
     await timedOut;
 
-    fetch.mockResolvedValueOnce(response({ answer: "Fast answer", sources: [] }));
+    fetchMock.mockResolvedValueOnce(response({ answer: "Fast answer", sources: [] }));
     await expect(askQuestion("slow")).resolves.toMatchObject({ answer: "Fast answer" });
   });
 

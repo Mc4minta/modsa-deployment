@@ -48,3 +48,40 @@ select:focus-visible {
 #root {
   height: 100dvh;
 }
+
+.error-boundary {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+  padding: 24px;
+}
+
+.error-boundary button {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary, #F97316);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 8px;
+  z-index: 100;
+  padding: 8px 14px;
+  background: var(--primary, #F97316);
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 8px;
+}

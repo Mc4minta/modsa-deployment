@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
-import ReactMarkdown from "react-markdown";
+import { useEffect, useState, type ComponentPropsWithoutRef } from "react";
+import ReactMarkdown, { type Components } from "react-markdown";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import { useLanguage } from "../i18n/LanguageContext";
 import SourcesPanel from "./SourcesPanel";
+import type { Message } from "../types";
 
 /**
  * Only allow links which can be safely opened by the chat renderer.
  * ReactMarkdown still receives the URL, but an empty result is rendered as
  * text by the link component below instead of as a clickable element.
  */
-export function safeMarkdownUrl(value) {
+export function safeMarkdownUrl(value: unknown): string {
   if (typeof value !== "string") return "";
 
   const url = value.trim();
@@ -26,7 +27,9 @@ export function safeMarkdownUrl(value) {
   }
 }
 
-const markdownComponents = {
+type CodeProps = ComponentPropsWithoutRef<"code"> & { node?: unknown; inline?: boolean };
+
+const markdownComponents: Components = {
   p: ({ node: _node, ...props }) => <p className="md-p" {...props} />,
   h1: ({ node: _node, ...props }) => <h2 className="md-h2" {...props} />,
   h2: ({ node: _node, ...props }) => <h3 className="md-h3" {...props} />,
@@ -36,7 +39,7 @@ const markdownComponents = {
   ol: ({ node: _node, ...props }) => <ol className="md-ol" {...props} />,
   li: ({ node: _node, ...props }) => <li className="md-li" {...props} />,
   pre: ({ node: _node, ...props }) => <pre className="md-code-block" {...props} />,
-  code: ({ node: _node, inline, className, children, ...props }) => {
+  code: ({ node: _node, inline, className, children, ...props }: CodeProps) => {
     const languageClass = className || "";
     return (
       <code
@@ -74,13 +77,17 @@ const markdownComponents = {
   },
 };
 
-export default function MessageBubble({ message, onRetry }) {
+interface MessageBubbleProps {
+  message: Message;
+  onRetry?: (question: string) => void;
+}
+
+export default function MessageBubble({ message, onRetry }: MessageBubbleProps) {
   const { t } = useLanguage();
   const [copied, setCopied] = useState(false);
-  const safeMessage = message && typeof message === "object" ? message : {};
-  const content = typeof safeMessage.content === "string" ? safeMessage.content : "";
-  const isUser = safeMessage.role === "user";
-  const isRecoverable = safeMessage.status === "error" || safeMessage.status === "stopped";
+  const content = message.content;
+  const isUser = message.role === "user";
+  const isRecoverable = message.status === "error" || message.status === "stopped";
 
   useEffect(() => {
     if (!copied) return undefined;
@@ -97,8 +104,8 @@ export default function MessageBubble({ message, onRetry }) {
     }
   };
 
-  const timeStr = safeMessage.timestamp
-    ? new Date(safeMessage.timestamp).toLocaleTimeString([], {
+  const timeStr = message.timestamp
+    ? new Date(message.timestamp).toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
       })
@@ -107,7 +114,7 @@ export default function MessageBubble({ message, onRetry }) {
   return (
     <div
       className={`message-row ${isUser ? "message-user" : "message-ai"}`}
-      id={`message-${safeMessage.id || "unknown"}`}
+      id={`message-${message.id || "unknown"}`}
     >
       {!isUser && (
         <div className="avatar avatar-ai" aria-hidden="true">
@@ -150,7 +157,7 @@ export default function MessageBubble({ message, onRetry }) {
               className="copy-btn"
               onClick={handleCopy}
               title={t("copyMessage")}
-              id={`copy-btn-${safeMessage.id || "unknown"}`}
+              id={`copy-btn-${message.id || "unknown"}`}
             >
               {copied ? (
                 <>
@@ -188,21 +195,21 @@ export default function MessageBubble({ message, onRetry }) {
               )}
             </button>
           )}
-          {!isUser && isRecoverable && safeMessage.originalQuestion && onRetry && (
+          {!isUser && isRecoverable && message.originalQuestion && onRetry && (
             <button
               type="button"
               className="retry-button"
-              onClick={() => onRetry(safeMessage.originalQuestion)}
+              onClick={() => onRetry(message.originalQuestion!)}
             >
               {t("retryMessage")}
             </button>
           )}
         </div>
 
-        {!isUser && !isRecoverable && safeMessage.status !== "pending" && (
+        {!isUser && !isRecoverable && message.status !== "pending" && (
           <SourcesPanel
-            sources={safeMessage.sources}
-            messageId={safeMessage.id}
+            sources={message.sources}
+            messageId={message.id}
           />
         )}
       </div>

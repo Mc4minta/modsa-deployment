@@ -2,12 +2,17 @@ import { useEffect, useRef } from "react";
 import { useLanguage } from "../i18n/LanguageContext";
 import LanguageSwitcher from "./LanguageSwitcher";
 import logoSvg from "../assets/logo.svg";
+import type { ChatListItem } from "../types";
 
-function groupChatsByDate(chatList) {
+function groupChatsByDate(chatList: ChatListItem[]) {
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
   const yesterday = today - 86400000;
-  const groups = { today: [], yesterday: [], older: [] };
+  const groups: { today: ChatListItem[]; yesterday: ChatListItem[]; older: ChatListItem[] } = {
+    today: [],
+    yesterday: [],
+    older: [],
+  };
   chatList.forEach((chat) => {
     if (chat.updatedAt >= today) groups.today.push(chat);
     else if (chat.updatedAt >= yesterday) groups.yesterday.push(chat);
@@ -16,26 +21,46 @@ function groupChatsByDate(chatList) {
   return groups;
 }
 
+interface SidebarProps {
+  isOpen: boolean;
+  onToggle: () => void;
+  chatList: ChatListItem[];
+  loadingChatIds: string[];
+  unseenChatIds: string[];
+  activeSessionId: string;
+  onNewChat: () => void;
+  onSelectChat: (chatId: string) => void;
+  onDeleteChat: (chatId: string) => void;
+  onClearHistory: () => void;
+}
+
 export default function Sidebar({
   isOpen,
   onToggle,
   chatList,
+  loadingChatIds,
+  unseenChatIds,
   activeSessionId,
   onNewChat,
   onSelectChat,
   onDeleteChat,
   onClearHistory,
-}) {
+}: SidebarProps) {
   const { t } = useLanguage();
-  const sidebarRef = useRef(null);
-  const closeButtonRef = useRef(null);
-  const newChatButtonRef = useRef(null);
-  const previousFocusRef = useRef(null);
+  const sidebarRef = useRef<HTMLElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const newChatButtonRef = useRef<HTMLButtonElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
   const wasOpenRef = useRef(false);
 
+  const isMobileViewport = () =>
+    typeof window !== "undefined" && window.matchMedia?.("(max-width: 768px)").matches;
+
   useEffect(() => {
+    if (!isMobileViewport()) return undefined;
+
     if (isOpen) {
-      previousFocusRef.current = document.activeElement;
+      previousFocusRef.current = document.activeElement as HTMLElement | null;
       wasOpenRef.current = true;
       const focusInitialControl = () => {
         if (!wasOpenRef.current) return;
@@ -61,16 +86,16 @@ export default function Sidebar({
   useEffect(() => {
     if (!isOpen) return undefined;
 
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && isMobileViewport()) {
         event.preventDefault();
         onToggle();
         return;
       }
-      if (event.key !== "Tab" || !sidebarRef.current) return;
+      if (event.key !== "Tab" || !sidebarRef.current || !isMobileViewport()) return;
 
       const focusable = Array.from(
-        sidebarRef.current.querySelectorAll(
+        sidebarRef.current.querySelectorAll<HTMLElement>(
           'button:not([disabled]), [href], input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
         )
       ).filter((element) => element.offsetParent !== null);
@@ -91,8 +116,10 @@ export default function Sidebar({
   }, [isOpen, onToggle]);
 
   const groups = groupChatsByDate(chatList);
+  const loadingSet = new Set(loadingChatIds);
+  const unseenSet = new Set(unseenChatIds);
 
-  const renderGroup = (groupKey, label, chats) => {
+  const renderGroup = (groupKey: string, label: string, chats: ChatListItem[]) => {
     if (chats.length === 0) return null;
     const groupId = `history-group-${groupKey}`;
     return (
@@ -118,6 +145,13 @@ export default function Sidebar({
                 <span className="history-preview">{chat.preview}</span>
               </span>
             </button>
+            {loadingSet.has(chat.id) ? (
+              <span className="history-item-spinner" aria-label={t("loading")} title={t("loading")} />
+            ) : (
+              unseenSet.has(chat.id) && (
+                <span className="history-item-unseen-dot" aria-label={t("newResponse")} title={t("newResponse")} />
+              )
+            )}
             <button
               type="button"
               className="history-delete"

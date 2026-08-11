@@ -3,11 +3,19 @@ import { useLanguage } from "../i18n/LanguageContext";
 import MessageBubble from "./MessageBubble";
 import StarterQuestions from "./StarterQuestions";
 import logoSvg from "../assets/logo.svg";
+import type { Message } from "../types";
 
-export default function ChatPanel({ messages, isLoading, onStarterSelect, onRetry }) {
+interface ChatPanelProps {
+  messages: Message[];
+  isLoading: boolean;
+  onStarterSelect: (question: string) => void;
+  onRetry: (question: string) => void;
+}
+
+export default function ChatPanel({ messages, isLoading, onStarterSelect, onRetry }: ChatPanelProps) {
   const { t } = useLanguage();
-  const chatPanelRef = useRef(null);
-  const bottomRef = useRef(null);
+  const chatPanelRef = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
   const isNearBottomRef = useRef(true);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => (
     typeof window !== "undefined" && typeof window.matchMedia === "function"
@@ -18,7 +26,7 @@ export default function ChatPanel({ messages, isLoading, onStarterSelect, onRetr
   useEffect(() => {
     if (typeof window === "undefined" || typeof window.matchMedia !== "function") return undefined;
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const handleChange = (event) => setPrefersReducedMotion(event.matches);
+    const handleChange = (event: MediaQueryListEvent) => setPrefersReducedMotion(event.matches);
     mediaQuery.addEventListener?.("change", handleChange);
     return () => mediaQuery.removeEventListener?.("change", handleChange);
   }, []);
@@ -46,7 +54,6 @@ export default function ChatPanel({ messages, isLoading, onStarterSelect, onRetr
       className="chat-panel"
       id="chat-panel"
       onScroll={handleScroll}
-      tabIndex={-1}
       aria-label={t("appName")}
     >
       {isEmpty ? (

@@ -1,7 +1,8 @@
 import { useId, useState } from "react";
 import { useLanguage } from "../i18n/LanguageContext";
+import type { Source } from "../types";
 
-export function safeSourceUrl(value) {
+export function safeSourceUrl(value: unknown): string {
   if (typeof value !== "string") return "";
 
   const url = value.trim();
@@ -17,30 +18,66 @@ export function safeSourceUrl(value) {
   }
 }
 
-function normalizeSources(sources) {
+function normalizeSources(sources: unknown): Source[] {
   if (!Array.isArray(sources)) return [];
 
-  return sources.filter((source) => source && typeof source === "object");
+  return sources.filter((source): source is Source => Boolean(source) && typeof source === "object");
 }
 
-function sourceKey(source, index) {
+function sourceKey(source: Source, index: number): string {
   const stablePart = source.id || source.url || source.source || source.title;
   return `${stablePart || "source"}-${index}`;
 }
 
-function getEvidenceLabel(t) {
+interface GroupedSource extends Source {
+  pages: (string | number)[];
+}
+
+function hasPage(source: Source): boolean {
+  return source.page !== undefined && source.page !== null && source.page !== "";
+}
+
+function groupSourcesByDocument(sources: Source[]): GroupedSource[] {
+  const order: string[] = [];
+  const groups = new Map<string, GroupedSource>();
+
+  sources.forEach((source) => {
+    const identity = source.source || source.url || source.title || "";
+    const key = identity || `__ungrouped-${groups.size}`;
+    const existing = groups.get(key);
+    if (existing) {
+      if (hasPage(source) && !existing.pages.includes(source.page)) existing.pages.push(source.page);
+      return;
+    }
+    order.push(key);
+    groups.set(key, { ...source, pages: hasPage(source) ? [source.page] : [] });
+  });
+
+  return order.map((key) => groups.get(key)!);
+}
+
+function isPdfUrl(url: string): boolean {
+  return /\.pdf(?:$|[?#])/i.test(url);
+}
+
+function getEvidenceLabel(t: (key: string) => string): string {
   const translated = t("evidenceCoverage");
   return translated === "evidenceCoverage" ? "Evidence coverage" : translated;
 }
 
-function getEvidenceDisclaimer(t) {
+function getEvidenceDisclaimer(t: (key: string) => string): string {
   const translated = t("evidenceDisclaimer");
   return translated === "evidenceDisclaimer"
     ? "Sources show retrieved evidence; they do not guarantee answer correctness."
     : translated;
 }
 
-export default function SourcesPanel({ sources, messageId }) {
+interface SourcesPanelProps {
+  sources: unknown;
+  messageId?: string;
+}
+
+export default function SourcesPanel({ sources, messageId }: SourcesPanelProps) {
   const { t } = useLanguage();
   const [expanded, setExpanded] = useState(false);
   const panelId = useId().replace(/:/g, "");
@@ -54,15 +91,19 @@ export default function SourcesPanel({ sources, messageId }) {
     return (
       <div className="sources-panel evidence-none" id={`sources-panel-${scopedId}`} role="status">
         <div className="evidence-empty-label">
-          <span className="evidence-icon" aria-hidden="true">
-            •
-          </span>
+          <svg className="evidence-icon" width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M3 1.5H8.5L11 4V12.5H3V1.5Z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round" />
+            <path d="M4.5 3.5L2.5 1.5M2.5 3.5L4.5 1.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+          </svg>
           <span>{t("noSources")}</span>
         </div>
         <p className="evidence-disclaimer">{disclaimer}</p>
       </div>
     );
   }
+
+  const groupedSources = groupSourcesByDocument(normalizedSources);
+  const countLabel = `${normalizedSources.length} ${normalizedSources.length === 1 ? t("sourceUnit") : t("sourcesUnit")}`;
 
   return (
     <section
@@ -80,14 +121,12 @@ export default function SourcesPanel({ sources, messageId }) {
       >
         <span className="sources-toggle-left">
           <span className="evidence-badge">
-            <span className="evidence-icon" aria-hidden="true">
-              •
-            </span>
+            <svg className="evidence-icon" width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
             {evidenceLabel}
           </span>
-          <span className="sources-count">
-            {normalizedSources.length} {t("sources").toLowerCase()}
-          </span>
+          <span className="sources-count">{countLabel}</span>
         </span>
         <svg
           className={`chevron-icon ${expanded ? "expanded" : ""}`}
@@ -111,10 +150,13 @@ export default function SourcesPanel({ sources, messageId }) {
 
       {expanded && (
         <div className="sources-list" id={`sources-list-${scopedId}`}>
-          {normalizedSources.map((src, i) => {
+          {groupedSources.map((src, i) => {
             const title = src.title || src.source || `Source ${i + 1}`;
             const sourceUrl = safeSourceUrl(src.url);
             const isAnchor = sourceUrl.startsWith("#");
+            const isExternal = sourceUrl && !isAnchor;
+            const viewLabel = isPdfUrl(sourceUrl) ? t("viewDocument") : t("viewSource");
+            const pageLabel = src.pages.length > 0 ? src.pages.join(", ") : "";
 
             return (
               <article className="source-card" key={sourceKey(src, i)}>
@@ -149,9 +191,9 @@ export default function SourcesPanel({ sources, messageId }) {
                       {t("department")}: {src.department}
                     </span>
                   )}
-                  {src.page && (
+                  {pageLabel && (
                     <span className="source-page">
-                      {t("page")} {src.page}
+                      {t("page")} {pageLabel}
                     </span>
                   )}
                 </div>
@@ -182,7 +224,8 @@ export default function SourcesPanel({ sources, messageId }) {
                           strokeLinejoin="round"
                         />
                       </svg>
-                      {t("viewSource")}
+                      {viewLabel}
+                      {isExternal && <span className="sr-only"> ({t("opensNewTab")})</span>}
                     </a>
                   </div>
                 )}

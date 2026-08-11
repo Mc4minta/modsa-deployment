@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useLanguage } from "./i18n/LanguageContext";
 import Sidebar from "./components/Sidebar";
 import ChatPanel from "./components/ChatPanel";
@@ -6,15 +6,29 @@ import InputArea from "./components/InputArea";
 import { useChatController } from "./hooks/useChatController";
 import "./App.css";
 
+function readInitialSidebarOpen(): boolean {
+  const isDesktop = typeof window !== "undefined" && window.matchMedia?.("(min-width: 769px)").matches;
+  if (!isDesktop) return false;
+  try {
+    const stored = localStorage.getItem("modsa-sidebar-open");
+    return stored === null ? true : stored === "true";
+  } catch {
+    return true;
+  }
+}
+
 export default function App() {
   const { t } = useLanguage();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [draftsByChat, setDraftsByChat] = useState({});
+  const [sidebarOpen, setSidebarOpen] = useState(readInitialSidebarOpen);
+  const [draftsByChat, setDraftsByChat] = useState<Record<string, string>>({});
+  const [storageWarningDismissed, setStorageWarningDismissed] = useState(false);
   const {
     messages,
     isLoading,
     activeSessionId,
     chatList,
+    loadingChatIds,
+    unseenChatIds,
     storageError,
     handleNewChat: controllerNewChat,
     handleSelectChat: controllerSelectChat,
@@ -28,15 +42,30 @@ export default function App() {
     stoppedMessage: t("requestStopped"),
   });
 
-  const toggleSidebar = useCallback(() => setSidebarOpen((current) => !current), []);
+  const closeSidebarOnMobile = useCallback(() => {
+    const isMobile = typeof window !== "undefined" && window.matchMedia?.("(max-width: 768px)").matches;
+    if (isMobile) setSidebarOpen(false);
+  }, []);
+
+  const toggleSidebar = useCallback(() => {
+    setSidebarOpen((current) => {
+      const next = !current;
+      try {
+        localStorage.setItem("modsa-sidebar-open", String(next));
+      } catch {
+        /* ignore */
+      }
+      return next;
+    });
+  }, []);
 
   const handleNewChat = useCallback(() => {
     controllerNewChat();
-    setSidebarOpen(false);
-  }, [controllerNewChat]);
+    closeSidebarOnMobile();
+  }, [controllerNewChat, closeSidebarOnMobile]);
 
   const handleDraftChange = useCallback(
-    (draft) => {
+    (draft: string) => {
       setDraftsByChat((current) => ({ ...current, [activeSessionId]: draft }));
     },
     [activeSessionId]
@@ -49,15 +78,15 @@ export default function App() {
   }, [controllerClearHistory]);
 
   const handleSelectChat = useCallback(
-    (id) => {
+    (id: string) => {
       controllerSelectChat(id);
-      setSidebarOpen(false);
+      closeSidebarOnMobile();
     },
-    [controllerSelectChat]
+    [controllerSelectChat, closeSidebarOnMobile]
   );
 
   const handleDeleteChat = useCallback(
-    (id) => {
+    (id: string) => {
       controllerDeleteChat(id);
       setDraftsByChat((current) => {
         if (!(id in current)) return current;
@@ -65,24 +94,33 @@ export default function App() {
         delete next[id];
         return next;
       });
-      setSidebarOpen(false);
+      closeSidebarOnMobile();
     },
-    [controllerDeleteChat]
+    [controllerDeleteChat, closeSidebarOnMobile]
   );
 
   const handleStarterSelect = useCallback(
-    (question) => {
+    (question: string) => {
       handleSend(question);
     },
     [handleSend]
   );
 
+  useEffect(() => {
+    if (storageError) setStorageWarningDismissed(false);
+  }, [storageError]);
+
   return (
     <div className="app-layout" id="app-layout">
+      <a href="#chat-input" className="skip-link">
+        {t("skipToInput")}
+      </a>
       <Sidebar
         isOpen={sidebarOpen}
         onToggle={toggleSidebar}
         chatList={chatList}
+        loadingChatIds={loadingChatIds}
+        unseenChatIds={unseenChatIds}
         activeSessionId={activeSessionId}
         onNewChat={handleNewChat}
         onSelectChat={handleSelectChat}
@@ -128,9 +166,20 @@ export default function App() {
           </button>
         </header>
 
-        {storageError && (
+        {storageError && !storageWarningDismissed && (
           <div className="storage-warning" role="status">
-            {t("storageWarning")}
+            <span>{t("storageWarning")}</span>
+            <button
+              type="button"
+              className="storage-warning-dismiss"
+              onClick={() => setStorageWarningDismissed(true)}
+              aria-label={t("close")}
+              title={t("close")}
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            </button>
           </div>
         )}
 

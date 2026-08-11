@@ -8,8 +8,9 @@ import {
   resetStorageStatus,
   saveChat,
 } from "../utils/storage";
+import type { Message } from "../types";
 
-function message(id, content = `message ${id}`, role = "assistant") {
+function message(id: string, content = `message ${id}`, role: Message["role"] = "assistant"): Message {
   return {
     id,
     role,
@@ -60,7 +61,7 @@ describe("versioned chat storage", () => {
 
   it("bounds persisted chats and message content", () => {
     const longText = "x".repeat(STORAGE_LIMITS.maxMessageChars + 500);
-    const chats = {};
+    const chats: Record<string, unknown> = {};
     for (let index = 0; index < STORAGE_LIMITS.maxChats + 3; index += 1) {
       const id = `chat-${index}`;
       chats[id] = {
