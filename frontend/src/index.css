@@ -24,6 +24,49 @@ body {
   height: 100dvh;
 }
 
+button:focus-visible,
+a:focus-visible,
+textarea:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 #root {
   height: 100dvh;
 }
+
+.error-boundary {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+  padding: 24px;
+}
+
+.error-boundary button {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary, #F97316);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
