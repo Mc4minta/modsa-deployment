@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { LanguageProvider } from "../i18n/LanguageContext";
 import SourcesPanel, { safeSourceUrl } from "./SourcesPanel";
 
@@ -27,9 +27,18 @@ describe("SourcesPanel evidence presentation", () => {
     ]);
 
     expect(screen.getByText("Evidence coverage")).not.toBeNull();
-    fireEvent.click(screen.getByRole("button", { name: /Evidence coverage/i }));
     expect(container.querySelector('a[href="https://example.com/handbook"]')).not.toBeNull();
     expect(container.querySelector('a[href^="javascript:"]')).toBeNull();
+  });
+
+  it("groups multiple chunks from the same document into one card", () => {
+    const { container } = renderSources([
+      { title: "Handbook", source: "handbook.pdf", page: 1 },
+      { title: "Handbook", source: "handbook.pdf", page: 2 },
+    ]);
+
+    expect(container.querySelectorAll(".source-card")).toHaveLength(1);
+    expect(screen.getByText("Page 1, 2")).not.toBeNull();
   });
 });
 

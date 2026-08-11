@@ -10,9 +10,10 @@ interface ChatPanelProps {
   isLoading: boolean;
   onStarterSelect: (question: string) => void;
   onRetry: (question: string) => void;
+  onViewSources: (message: Message) => void;
 }
 
-export default function ChatPanel({ messages, isLoading, onStarterSelect, onRetry }: ChatPanelProps) {
+export default function ChatPanel({ messages, isLoading, onStarterSelect, onRetry, onViewSources }: ChatPanelProps) {
   const { t } = useLanguage();
   const chatPanelRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -78,7 +79,7 @@ export default function ChatPanel({ messages, isLoading, onStarterSelect, onRetr
           {messages
             .filter((msg) => msg.status !== "pending")
             .map((msg) => (
-              <MessageBubble key={msg.id} message={msg} onRetry={onRetry} />
+              <MessageBubble key={msg.id} message={msg} onRetry={onRetry} onViewSources={onViewSources} />
             ))}
           {isLoading && (
             <div className="message-row message-ai" role="status" aria-live="polite">

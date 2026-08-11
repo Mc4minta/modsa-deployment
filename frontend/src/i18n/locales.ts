@@ -60,6 +60,8 @@ const locales: Record<Lang, Record<string, string>> = {
     sourceUnit: "source",
     sourcesUnit: "sources",
     opensNewTab: "opens in new tab",
+    moreActions: "More actions",
+    viewSources: "View sources",
 
     // Input
     voiceInput: "Voice input",
@@ -152,6 +154,8 @@ const locales: Record<Lang, Record<string, string>> = {
     sourceUnit: "แหล่งข้อมูล",
     sourcesUnit: "แหล่งข้อมูล",
     opensNewTab: "เปิดในแท็บใหม่",
+    moreActions: "ตัวเลือกเพิ่มเติม",
+    viewSources: "ดูแหล่งข้อมูล",
 
     // Input
     voiceInput: "อินพุตด้วยเสียง",

@@ -3,7 +3,9 @@ import { useLanguage } from "./i18n/LanguageContext";
 import Sidebar from "./components/Sidebar";
 import ChatPanel from "./components/ChatPanel";
 import InputArea from "./components/InputArea";
+import SourcesSidePanel from "./components/SourcesSidePanel";
 import { useChatController } from "./hooks/useChatController";
+import type { Message } from "./types";
 import "./App.css";
 
 function readInitialSidebarOpen(): boolean {
@@ -22,6 +24,7 @@ export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(readInitialSidebarOpen);
   const [draftsByChat, setDraftsByChat] = useState<Record<string, string>>({});
   const [storageWarningDismissed, setStorageWarningDismissed] = useState(false);
+  const [sourcesMessage, setSourcesMessage] = useState<Message | null>(null);
   const {
     messages,
     isLoading,
@@ -188,6 +191,7 @@ export default function App() {
           isLoading={isLoading}
           onStarterSelect={handleStarterSelect}
           onRetry={handleRetry}
+          onViewSources={setSourcesMessage}
         />
 
         <InputArea
@@ -199,6 +203,8 @@ export default function App() {
           onDraftChange={handleDraftChange}
         />
       </main>
+
+      <SourcesSidePanel message={sourcesMessage} onClose={() => setSourcesMessage(null)} />
     </div>
   );
 }

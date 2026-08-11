@@ -1,4 +1,4 @@
-import { useId, useState } from "react";
+import { useId } from "react";
 import { useLanguage } from "../i18n/LanguageContext";
 import type { Source } from "../types";
 
@@ -18,7 +18,7 @@ export function safeSourceUrl(value: unknown): string {
   }
 }
 
-function normalizeSources(sources: unknown): Source[] {
+export function normalizeSources(sources: unknown): Source[] {
   if (!Array.isArray(sources)) return [];
 
   return sources.filter((source): source is Source => Boolean(source) && typeof source === "object");
@@ -79,7 +79,6 @@ interface SourcesPanelProps {
 
 export default function SourcesPanel({ sources, messageId }: SourcesPanelProps) {
   const { t } = useLanguage();
-  const [expanded, setExpanded] = useState(false);
   const panelId = useId().replace(/:/g, "");
   const normalizedSources = normalizeSources(sources);
   const hasSources = normalizedSources.length > 0;
@@ -111,45 +110,19 @@ export default function SourcesPanel({ sources, messageId }: SourcesPanelProps) 
       id={`sources-panel-${scopedId}`}
       aria-label={evidenceLabel}
     >
-      <button
-        className="sources-toggle"
-        onClick={() => setExpanded((current) => !current)}
-        id={`sources-toggle-${scopedId}`}
-        aria-expanded={expanded}
-        aria-controls={`sources-list-${scopedId}`}
-        type="button"
-      >
-        <span className="sources-toggle-left">
-          <span className="evidence-badge">
-            <svg className="evidence-icon" width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            {evidenceLabel}
-          </span>
-          <span className="sources-count">{countLabel}</span>
+      <div className="sources-summary">
+        <span className="evidence-badge">
+          <svg className="evidence-icon" width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          {evidenceLabel}
         </span>
-        <svg
-          className={`chevron-icon ${expanded ? "expanded" : ""}`}
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          aria-hidden="true"
-        >
-          <path
-            d="M4 6L8 10L12 6"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </button>
+        <span className="sources-count">{countLabel}</span>
+      </div>
 
       <p className="evidence-disclaimer">{disclaimer}</p>
 
-      {expanded && (
-        <div className="sources-list" id={`sources-list-${scopedId}`}>
+      <div className="sources-list" id={`sources-list-${scopedId}`}>
           {groupedSources.map((src, i) => {
             const title = src.title || src.source || `Source ${i + 1}`;
             const sourceUrl = safeSourceUrl(src.url);
@@ -232,8 +205,7 @@ export default function SourcesPanel({ sources, messageId }: SourcesPanelProps) 
               </article>
             );
           })}
-        </div>
-      )}
+      </div>
     </section>
   );
 }

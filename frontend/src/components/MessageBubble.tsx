@@ -1,9 +1,9 @@
-import { useEffect, useState, type ComponentPropsWithoutRef } from "react";
+import { useEffect, useRef, useState, type ComponentPropsWithoutRef } from "react";
 import ReactMarkdown, { type Components } from "react-markdown";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import { useLanguage } from "../i18n/LanguageContext";
-import SourcesPanel from "./SourcesPanel";
+import { normalizeSources } from "./SourcesPanel";
 import type { Message } from "../types";
 
 /**
@@ -80,20 +80,40 @@ const markdownComponents: Components = {
 interface MessageBubbleProps {
   message: Message;
   onRetry?: (question: string) => void;
+  onViewSources?: (message: Message) => void;
 }
 
-export default function MessageBubble({ message, onRetry }: MessageBubbleProps) {
+export default function MessageBubble({ message, onRetry, onViewSources }: MessageBubbleProps) {
   const { t } = useLanguage();
   const [copied, setCopied] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
   const content = message.content;
   const isUser = message.role === "user";
   const isRecoverable = message.status === "error" || message.status === "stopped";
+  const sourceCount = normalizeSources(message.sources).length;
 
   useEffect(() => {
     if (!copied) return undefined;
     const timeoutId = window.setTimeout(() => setCopied(false), 2000);
     return () => window.clearTimeout(timeoutId);
   }, [copied]);
+
+  useEffect(() => {
+    if (!menuOpen) return undefined;
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) setMenuOpen(false);
+    };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [menuOpen]);
 
   const handleCopy = async () => {
     try {
@@ -204,14 +224,41 @@ export default function MessageBubble({ message, onRetry }: MessageBubbleProps) 
               {t("retryMessage")}
             </button>
           )}
+          {!isUser && !isRecoverable && message.status !== "pending" && onViewSources && (
+            <div className="message-actions-wrap" ref={menuRef}>
+              <button
+                type="button"
+                className="message-actions-btn"
+                onClick={() => setMenuOpen((current) => !current)}
+                aria-haspopup="menu"
+                aria-expanded={menuOpen}
+                aria-label={t("moreActions")}
+                title={t("moreActions")}
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <circle cx="8" cy="3.2" r="1.2" fill="currentColor" />
+                  <circle cx="8" cy="8" r="1.2" fill="currentColor" />
+                  <circle cx="8" cy="12.8" r="1.2" fill="currentColor" />
+                </svg>
+              </button>
+              {menuOpen && (
+                <div className="message-actions-menu" role="menu">
+                  <button
+                    type="button"
+                    role="menuitem"
+                    className="message-actions-menu-item"
+                    onClick={() => {
+                      setMenuOpen(false);
+                      onViewSources(message);
+                    }}
+                  >
+                    {t("viewSources")} ({sourceCount})
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
-
-        {!isUser && !isRecoverable && message.status !== "pending" && (
-          <SourcesPanel
-            sources={message.sources}
-            messageId={message.id}
-          />
-        )}
       </div>
 
       {isUser && (
