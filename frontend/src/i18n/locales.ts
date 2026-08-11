@@ -85,6 +85,8 @@ const locales: Record<Lang, Record<string, string>> = {
     // Settings
     settingsTitle: "Settings",
     language: "Language",
+    switchToDark: "Switch to dark mode",
+    switchToLight: "Switch to light mode",
 
     // General
     close: "Close",
@@ -178,6 +180,8 @@ const locales: Record<Lang, Record<string, string>> = {
     // Settings
     settingsTitle: "ตั้งค่า",
     language: "ภาษา",
+    switchToDark: "เปลี่ยนเป็นโหมดมืด",
+    switchToLight: "เปลี่ยนเป็นโหมดสว่าง",
 
     // General
     close: "ปิด",

@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { useLanguage } from "../i18n/LanguageContext";
-import LanguageSwitcher from "./LanguageSwitcher";
 import logoSvg from "../assets/logo.svg";
 import type { ChatListItem } from "../types";
 
@@ -232,7 +231,6 @@ export default function Sidebar({
         </div>
 
         <div className="sidebar-footer">
-          <LanguageSwitcher />
           {chatList.length > 0 && (
             <button
               type="button"

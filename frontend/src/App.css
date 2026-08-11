@@ -31,6 +31,34 @@
   --conf-low: #DC2626;
   --conf-low-bg: #FEF2F2;
   --font-heading: "Outfit", "Inter", sans-serif;
+  --surface-translucent: rgba(255,255,255,0.8);
+  --surface-translucent-strong: rgba(255,255,255,0.92);
+}
+
+:root[data-theme="dark"] {
+  --surface-translucent: rgba(30,32,36,0.8);
+  --surface-translucent-strong: rgba(30,32,36,0.92);
+  --primary: hsl(25, 95%, 58%);
+  --primary-light: hsl(25, 60%, 18%);
+  --primary-hover: hsl(25, 95%, 65%);
+  --primary-gradient: linear-gradient(135deg, hsl(25, 95%, 55%), hsl(25, 85%, 42%));
+  --bg: #16171A;
+  --surface: #1E2024;
+  --surface-hover: #292B30;
+  --text: #F2F2F0;
+  --text-secondary: #A3A6AD;
+  --text-muted: #6B6E76;
+  --border: #34363C;
+  --border-light: #2A2C31;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.35);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.45);
+  --conf-high: #34D399;
+  --conf-high-bg: #0B2E22;
+  --conf-med: #FBBF24;
+  --conf-med-bg: #332405;
+  --conf-low: #F87171;
+  --conf-low-bg: #341313;
 }
 
 /* =============================================
@@ -60,7 +88,7 @@
   align-items: center;
   height: var(--topbar-h);
   padding: 0 16px;
-  background: rgba(255,255,255,0.8);
+  background: var(--surface-translucent);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-light);
   flex-shrink: 0;
@@ -95,13 +123,38 @@
   color: var(--text);
 }
 
+.top-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.theme-toggle:hover {
+  background: var(--surface-hover);
+  color: var(--primary);
+}
+
 /* =============================================
    Sidebar
    ============================================= */
 .sidebar {
   width: var(--sidebar-w);
   height: 100dvh;
-  background: rgba(255,255,255,0.92);
+  background: var(--surface-translucent-strong);
   backdrop-filter: blur(16px);
   border-right: 1px solid var(--border-light);
   display: flex;
@@ -1262,6 +1315,10 @@
   .message-content-wrapper { max-width: 85%; }
   .starter-grid { grid-template-columns: 1fr; }
   .welcome-title { font-size: 1.4rem; }
+  .top-bar { padding: 0 8px; gap: 4px; }
+  .top-bar-title { font-size: 0.92rem; }
+  .top-bar-actions { gap: 4px; }
+  .lang-btn { padding: 5px 10px; }
 }
 
 @media (min-width: 769px) {
