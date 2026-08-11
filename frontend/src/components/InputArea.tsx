@@ -137,6 +137,9 @@ export default function InputArea({ onSend, isLoading, onStop, sessionId, draft 
 
   const characterCount = Array.from(text).length;
   const canSend = characterCount > 0 && characterCount <= MAX_QUESTION_LENGTH && !isLoading;
+  const charWarningThreshold = Math.round(MAX_QUESTION_LENGTH * 0.87);
+  const showCharCounter = characterCount >= charWarningThreshold;
+  const charCounterClass = characterCount >= MAX_QUESTION_LENGTH ? "limit" : characterCount >= charWarningThreshold ? "warning" : "";
 
   return (
     <div className="input-area" id="input-area">
@@ -183,6 +186,12 @@ export default function InputArea({ onSend, isLoading, onStop, sessionId, draft 
           id="chat-input"
         />
 
+        {showCharCounter && (
+          <span className={`char-counter-badge ${charCounterClass}`}>
+            {characterCount}/{MAX_QUESTION_LENGTH}
+          </span>
+        )}
+
         <button
           className={isLoading ? "send-btn stop-btn" : "send-btn"}
           onClick={isLoading ? onStop : handleSend}
@@ -204,7 +213,7 @@ export default function InputArea({ onSend, isLoading, onStop, sessionId, draft 
         </button>
       </div>
       <div id="input-status" className="input-status" aria-live="polite">
-        {validationError || `${characterCount}/${MAX_QUESTION_LENGTH} ${t("charCount")}`}
+        {validationError}
       </div>
     </div>
   );
