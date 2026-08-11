@@ -70,18 +70,3 @@ select:focus-visible {
   cursor: pointer;
 }
 
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 8px;
-  z-index: 100;
-  padding: 8px 14px;
-  background: var(--primary, #F97316);
-  color: white;
-  border-radius: 6px;
-  text-decoration: none;
-}
-
-.skip-link:focus {
-  top: 8px;
-}

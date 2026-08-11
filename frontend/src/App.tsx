@@ -117,9 +117,6 @@ export default function App() {
 
   return (
     <div className="app-layout" id="app-layout">
-      <a href="#chat-input" className="skip-link">
-        {t("skipToInput")}
-      </a>
       <Sidebar
         isOpen={sidebarOpen}
         onToggle={toggleSidebar}
