@@ -176,13 +176,16 @@ function boundedChats(chats: Record<string, ChatRecord>): Record<string, ChatRec
       messages.unshift(message);
       totalChars += chars;
     }
+    const hasAssistantMessage = messages.some((message) => message.role === "assistant");
     result[chat.id] = {
       ...chat,
       messages,
-      preview: (
-        [...messages].reverse().find((message) => message.role === "assistant")
-          ?.content || ""
-      ).slice(0, 160),
+      preview: hasAssistantMessage
+        ? chat.preview
+        : (
+            [...messages].reverse().find((message) => message.role === "assistant")
+              ?.content || ""
+          ).slice(0, 160),
     };
   }
   return result;
