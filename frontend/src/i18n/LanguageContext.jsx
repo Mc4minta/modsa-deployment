@@ -1,18 +1,27 @@
-import { createContext, useContext, useState, useCallback } from "react";
+import { createContext, useContext, useEffect, useState, useCallback } from "react";
 import locales from "./locales";
 
 const LanguageContext = createContext();
+const SUPPORTED_LANGUAGES = new Set(["en", "th"]);
+
+function readStoredLanguage() {
+  try {
+    const storedLanguage = localStorage.getItem("modsa-lang");
+    return SUPPORTED_LANGUAGES.has(storedLanguage) ? storedLanguage : "en";
+  } catch {
+    return "en";
+  }
+}
 
 export function LanguageProvider({ children }) {
-  const [lang, setLang] = useState(() => {
-    try {
-      return localStorage.getItem("modsa-lang") || "en";
-    } catch {
-      return "en";
-    }
-  });
+  const [lang, setLang] = useState(readStoredLanguage);
+
+  useEffect(() => {
+    if (typeof document !== "undefined") document.documentElement.lang = lang;
+  }, [lang]);
 
   const switchLanguage = useCallback((newLang) => {
+    if (!SUPPORTED_LANGUAGES.has(newLang)) return;
     setLang(newLang);
     try {
       localStorage.setItem("modsa-lang", newLang);

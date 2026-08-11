@@ -6,7 +6,7 @@ from langchain_core.messages import (
 from core.llm import build_llm
 from core.vectorstore import get_vector_store
 
-from prompts.rag_prompt import SYSTEM_PROMPT
+from prompts.rag_prompt import SYSTEM_PROMPT, escape_retrieved_context
 
 
 
@@ -164,7 +164,7 @@ def answer_question(settings, question):
 
 
 
-    context = format_context(docs)
+    context = escape_retrieved_context(format_context(docs))
 
 
     prompt = SYSTEM_PROMPT.format(

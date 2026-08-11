@@ -10,6 +10,7 @@ const locales = {
     settings: "Settings",
     noHistory: "No conversations yet",
     deleteChat: "Delete",
+    clearHistory: "Clear history",
     today: "Today",
     yesterday: "Yesterday",
     older: "Older",
@@ -41,27 +42,31 @@ const locales = {
     thinking: "MOD-SA is thinking",
     errorMessage: "Sorry, something went wrong. Please try again.",
     retryMessage: "Retry",
+    requestStopped: "Request stopped.",
 
     // Sources
     sources: "Sources",
     viewSource: "View Source",
     viewDocument: "View Document",
-    confidenceHigh: "High Confidence",
-    confidenceMedium: "Medium Confidence",
-    confidenceLow: "Low Confidence",
     snippetsUsed: "Retrieved snippets",
     page: "Page",
     department: "Department",
     noSources: "No sources available",
+    evidenceCoverage: "Evidence coverage",
+    evidenceDisclaimer:
+      "Sources show retrieved evidence; they do not guarantee that every answer is correct.",
 
     // Input
-    attachFile: "Attach file (image or PDF)",
     voiceInput: "Voice input",
     recording: "Recording...",
-    fileAttached: "file attached",
-    filesAttached: "files attached",
-    removeFile: "Remove file",
     charCount: "characters",
+    questionRequired: "Enter a question before sending.",
+    questionTooLong: "Questions must be 1,500 characters or fewer.",
+    sensitiveInput:
+      "For your safety, do not include passwords, API keys, national ID numbers, or other sensitive personal data.",
+    invalidQuestion: "Please check your question and try again.",
+    voiceNotSupported: "Voice input is not supported by this browser.",
+    storageWarning: "Chat history could not be saved.",
 
     // Announcements
     announcementsTitle: "Announcements",
@@ -83,6 +88,12 @@ const locales = {
   },
 
   th: {
+    clearHistory: "ล้างประวัติแชท",
+    requestStopped: "หยุดคำขอแล้ว",
+    evidenceCoverage: "ความครอบคลุมของหลักฐาน",
+    evidenceDisclaimer:
+      "แหล่งข้อมูลแสดงหลักฐานที่ค้นพบ แต่ไม่ได้รับประกันว่าคำตอบถูกต้องเสมอไป",
+    storageWarning: "ไม่สามารถบันทึกประวัติการสนทนาได้",
     // Sidebar
     appName: "MOD-SA",
     appTagline: "ผู้ช่วย AI กิจการนักศึกษา มจธ.",
@@ -129,22 +140,21 @@ const locales = {
     sources: "แหล่งข้อมูล",
     viewSource: "ดูแหล่งข้อมูล",
     viewDocument: "ดูเอกสาร",
-    confidenceHigh: "ความมั่นใจสูง",
-    confidenceMedium: "ความมั่นใจปานกลาง",
-    confidenceLow: "ความมั่นใจต่ำ",
     snippetsUsed: "ข้อมูลที่ดึงมา",
     page: "หน้า",
     department: "หน่วยงาน",
     noSources: "ไม่มีแหล่งข้อมูล",
 
     // Input
-    attachFile: "แนบไฟล์ (รูปภาพหรือ PDF)",
     voiceInput: "อินพุตด้วยเสียง",
     recording: "กำลังบันทึก...",
-    fileAttached: "ไฟล์ที่แนบ",
-    filesAttached: "ไฟล์ที่แนบ",
-    removeFile: "ลบไฟล์",
     charCount: "ตัวอักษร",
+    questionRequired: "กรุณาพิมพ์คำถามก่อนส่ง",
+    questionTooLong: "คำถามต้องมีความยาวไม่เกิน 1,500 ตัวอักษร",
+    sensitiveInput:
+      "เพื่อความปลอดภัย กรุณาอย่าใส่รหัสผ่าน API key เลขบัตรประชาชน หรือข้อมูลส่วนบุคคลที่ละเอียดอ่อน",
+    invalidQuestion: "กรุณาตรวจสอบคำถามแล้วลองอีกครั้ง",
+    voiceNotSupported: "เบราว์เซอร์นี้ไม่รองรับการรับเสียง",
 
     // Announcements
     announcementsTitle: "ประกาศ",

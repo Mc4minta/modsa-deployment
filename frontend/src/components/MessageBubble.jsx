@@ -1,25 +1,104 @@
-import { useState } from "react";
-import { renderMarkdown } from "../utils/markdown";
+import { useEffect, useState } from "react";
+import ReactMarkdown from "react-markdown";
+import rehypeSanitize from "rehype-sanitize";
+import remarkGfm from "remark-gfm";
 import { useLanguage } from "../i18n/LanguageContext";
 import SourcesPanel from "./SourcesPanel";
 
-export default function MessageBubble({ message }) {
+/**
+ * Only allow links which can be safely opened by the chat renderer.
+ * ReactMarkdown still receives the URL, but an empty result is rendered as
+ * text by the link component below instead of as a clickable element.
+ */
+export function safeMarkdownUrl(value) {
+  if (typeof value !== "string") return "";
+
+  const url = value.trim();
+  if (url.startsWith("#")) return url;
+
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === "http:" || parsed.protocol === "https:"
+      ? parsed.toString()
+      : "";
+  } catch {
+    return "";
+  }
+}
+
+const markdownComponents = {
+  p: ({ node: _node, ...props }) => <p className="md-p" {...props} />,
+  h1: ({ node: _node, ...props }) => <h2 className="md-h2" {...props} />,
+  h2: ({ node: _node, ...props }) => <h3 className="md-h3" {...props} />,
+  h3: ({ node: _node, ...props }) => <h4 className="md-h4" {...props} />,
+  h4: ({ node: _node, ...props }) => <h4 className="md-h4" {...props} />,
+  ul: ({ node: _node, ...props }) => <ul className="md-ul" {...props} />,
+  ol: ({ node: _node, ...props }) => <ol className="md-ol" {...props} />,
+  li: ({ node: _node, ...props }) => <li className="md-li" {...props} />,
+  pre: ({ node: _node, ...props }) => <pre className="md-code-block" {...props} />,
+  code: ({ node: _node, inline, className, children, ...props }) => {
+    const languageClass = className || "";
+    return (
+      <code
+        className={inline ? "md-inline-code" : `md-code-block-code ${languageClass}`.trim()}
+        {...props}
+      >
+        {children}
+      </code>
+    );
+  },
+  blockquote: ({ node: _node, ...props }) => <blockquote className="md-blockquote" {...props} />,
+  table: ({ node: _node, ...props }) => (
+    <div className="md-table-wrapper">
+      <table className="md-table" {...props} />
+    </div>
+  ),
+  a: ({ node: _node, href, children, ...props }) => {
+    const safeHref = safeMarkdownUrl(href);
+    if (!safeHref) {
+      return <span className="md-link md-link-invalid">{children}</span>;
+    }
+
+    const isAnchor = safeHref.startsWith("#");
+    return (
+      <a
+        {...props}
+        href={safeHref}
+        className="md-link"
+        target={isAnchor ? undefined : "_blank"}
+        rel={isAnchor ? undefined : "noopener noreferrer"}
+      >
+        {children}
+      </a>
+    );
+  },
+};
+
+export default function MessageBubble({ message, onRetry }) {
   const { t } = useLanguage();
   const [copied, setCopied] = useState(false);
-  const isUser = message.role === "user";
+  const safeMessage = message && typeof message === "object" ? message : {};
+  const content = typeof safeMessage.content === "string" ? safeMessage.content : "";
+  const isUser = safeMessage.role === "user";
+  const isRecoverable = safeMessage.status === "error" || safeMessage.status === "stopped";
+
+  useEffect(() => {
+    if (!copied) return undefined;
+    const timeoutId = window.setTimeout(() => setCopied(false), 2000);
+    return () => window.clearTimeout(timeoutId);
+  }, [copied]);
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(message.content);
+      await navigator.clipboard.writeText(content);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
     } catch {
       /* clipboard not available */
     }
   };
 
-  const timeStr = message.timestamp
-    ? new Date(message.timestamp).toLocaleTimeString([], {
+  const timeStr = safeMessage.timestamp
+    ? new Date(safeMessage.timestamp).toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
       })
@@ -28,7 +107,7 @@ export default function MessageBubble({ message }) {
   return (
     <div
       className={`message-row ${isUser ? "message-user" : "message-ai"}`}
-      id={`message-${message.id || "unknown"}`}
+      id={`message-${safeMessage.id || "unknown"}`}
     >
       {!isUser && (
         <div className="avatar avatar-ai" aria-hidden="true">
@@ -44,25 +123,34 @@ export default function MessageBubble({ message }) {
       <div className="message-content-wrapper">
         <div className={`message-bubble ${isUser ? "bubble-user" : "bubble-ai"}`}>
           {isUser ? (
-            <p className="message-text">{message.content}</p>
+            <p className="message-text">{content}</p>
+          ) : isRecoverable ? (
+            <p className="message-text message-error" role="alert">
+              {content}
+            </p>
           ) : (
-            <div
-              className="message-text message-markdown"
-              dangerouslySetInnerHTML={{
-                __html: renderMarkdown(message.content),
-              }}
-            />
+            <div className="message-text message-markdown">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeSanitize]}
+                urlTransform={safeMarkdownUrl}
+                components={markdownComponents}
+              >
+                {content}
+              </ReactMarkdown>
+            </div>
           )}
         </div>
 
         <div className="message-meta">
           {timeStr && <span className="message-time">{timeStr}</span>}
-          {!isUser && (
+          {!isUser && !isRecoverable && (
             <button
+              type="button"
               className="copy-btn"
               onClick={handleCopy}
               title={t("copyMessage")}
-              id={`copy-btn-${message.id || "unknown"}`}
+              id={`copy-btn-${safeMessage.id || "unknown"}`}
             >
               {copied ? (
                 <>
@@ -100,12 +188,21 @@ export default function MessageBubble({ message }) {
               )}
             </button>
           )}
+          {!isUser && isRecoverable && safeMessage.originalQuestion && onRetry && (
+            <button
+              type="button"
+              className="retry-button"
+              onClick={() => onRetry(safeMessage.originalQuestion)}
+            >
+              {t("retryMessage")}
+            </button>
+          )}
         </div>
 
-        {!isUser && message.sources && (
+        {!isUser && !isRecoverable && safeMessage.status !== "pending" && (
           <SourcesPanel
-            sources={message.sources}
-            confidence={message.confidence}
+            sources={safeMessage.sources}
+            messageId={safeMessage.id}
           />
         )}
       </div>
