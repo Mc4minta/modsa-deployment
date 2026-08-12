@@ -1,0 +1,39 @@
+{
+  "doc_id": "popup_blocker_setup_guide",
+  "metadata": {
+    "title": "popup blocker setup guide",
+    "category": "registration",
+    "department": "",
+    "source_url": "",
+    "contact": "",
+    "source_name": "popup_blocker_setup_guide",
+    "language": "th",
+    "last_updated": "2026-08-06",
+    "verified": false
+  },
+  "chunks": [
+    {
+      "chunk_id": "popup_blocker_setup_guide#0001",
+      "content": "[การลงทะเบียนเรียน | popup blocker setup guide]\nการเข้าใช้งานระบบ NewAcis นั้นระบบจะเปิด Pop up เพื่อใช้งาน ดังนั้นจึงต้องเพิ่มเว็บไซต์เข้า Block Pop up ก่อนการใช้งาน ระบบ ซึ่งจะขึ้นอยู่กับ Web Browser ตัวอย่างการ set up เพื่อปิด Block Pop up มีดังต่อไปนี้\n\n**-Microsoft Edge**\n**-Google Chrome**\n**-Firefox**",
+      "page": 1
+    },
+    {
+      "chunk_id": "popup_blocker_setup_guide#0002",
+      "content": "[การลงทะเบียนเรียน | popup blocker setup guide | Microsoft Edge]\n## Microsoft Edge\n\n1. เข้า Microsoft Edge เลือก ... ที่มุมขวาบนแล้ว\n2. เลือก Setting\n\n*   **สำหรับผู้ใช้ Windows:** คลิกที่ไอคอน \"Settings\" ในแถบเมนูหลัก หรือเข้าสู่เมนู \"Settings\" ทางด้านขวา\n*   **สำหรับผู้ใช้ Mac:** คลิกที่ไอคอน \"Settings\" ในแถบเมนูหลัก หรือเข้าสู่เมนู \"Settings\" ทางด้านขวา\n\n**หมายเหตุ:** ข้อความ \"Settings\" เป็นคำภาษาอังกฤษ อาจไม่ปรากฏในภาษาไทยที่แปลว่า \"ตั้งค่า\" ตามปกติ แต่มักจะหมายถึง \"ตั้งค่า\" หรือ \"การตั้งค่า\" ในบริบทของโปรแกรม\n\n---\n\n3.ในช่องค้นหา ค้นหาคำว่า “Pop-ups”\n\n4.เลื่อนหาตัวเลือกที่ถูกไฮไลท์อยู่ดังรูปและคลิกเข้าไป Pop-ups and redirects\n\n5.เข้ามาที่หน้า Pop-ups and redirects แล้วเลือก Add ที่ตัวเลือก Allow\n\n---\n\n6.เพิ่มเว็บไซต์ที่อนุญาติให้ Pop-up ได้\n6.1ในกรณีที่ท่านเป็นนักศึกษาใส่ “https://sinfo.kmutt.ac.th/NewAcis” ลงในช่อง\n6.2ในกรณีที่ท่านเป็นบุคลากรใส่ “https://studentacademic.kmutt.ac.th/NewAcis” ลงในช่อง\n7.คลิกที่ Add\n\n---\n\nGoogle Chrome\n1.เข้า Google Chrome และ  เลือกด้านบนขวา\n2.เลือก Setting\n\n---",
+      "section": "Microsoft Edge",
+      "page": 1
+    },
+    {
+      "chunk_id": "popup_blocker_setup_guide#0003",
+      "content": "[การลงทะเบียนเรียน | popup blocker setup guide | Microsoft Edge]\n3.ในช่องค้นหา ค้นหาคำว่า \"Pop-ups\" ด้านบน\n4.เลือกตัวเลือกที่ถูกไฮไลทดังรูป\n5.เลื่อนหาตัวเลือก Pop-up and redirects ดังรูป\n\n---\n\n6. ในแถวด้วย Allowed to send pop-ups and use redirects เลือก Add\n\n7. เพิ่มเว็บไซต์ที่อนุญาตให้ Pop-up ได้\n7.1 ในกรณีที่เป็นนักศึกษาใส่ \"https://sinfo.kmutt.ac.th/NewAcis\" ลงในช่อง\n7.2 ในกรณีที่ปืนบุคลากรใส่ \"https://studentacademic.kmutt.ac.th/NewAcis\" ลงในช่อง\n\n8. เลือก Add\n\n---\n\nFirefox\n1.เปิดFirefoxเลือก\n2.เลือก Setting\nที่ด้านบนขวา\n\n# 3.ในช่องค้นหา ค้นหาคำว่า \"Pop-up\"\n\n## 4.เลือก Exceptions ดังรูป\n\n---",
+      "section": "Microsoft Edge",
+      "page": 5
+    },
+    {
+      "chunk_id": "popup_blocker_setup_guide#0004",
+      "content": "[การลงทะเบียนเรียน | popup blocker setup guide | 3.ในช่องค้นหา ค้นหาคำว่า \"Pop-up\" > 4.เลือก Exceptions ดังรูป]\n5.เพิ่มเว็บไซต์ที่อนุญาตให้ Pop-up ได้\n5.1ในกรณีที่เป็นนักศึกษาใส่ \"https://sininfo.kmutt.ac.th/NewAcis\" ลงในช่อง\n5.2ในกรณีที่เป็นบุคลากรใส่ \"https://studentacademi.c.kmutt.ac.th/NewAcis\" ลงในช่อง\n\n6.เลือก Allow\n7.จากนั้นเลือก Save changes",
+      "section": "3.ในช่องค้นหา ค้นหาคำว่า \"Pop-up\" > 4.เลือก Exceptions ดังรูป",
+      "page": 8
+    }
+  ]
+}
