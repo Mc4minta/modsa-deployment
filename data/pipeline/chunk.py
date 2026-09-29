@@ -90,7 +90,13 @@ def load_sources_raw() -> dict:
     """Human-edited metadata sidecar (title/department/source_url/contact)."""
     if not SOURCES_FILE.exists():
         return {"_README": DEFAULT_SOURCES_README, "docs": {}}
-    return json.loads(SOURCES_FILE.read_text(encoding="utf-8"))
+    raw = SOURCES_FILE.read_text(encoding="utf-8").strip()
+    if not raw:
+        return {"_README": DEFAULT_SOURCES_README, "docs": {}}
+    loaded = json.loads(raw)
+    if not isinstance(loaded, dict):
+        raise ValueError(f"{SOURCES_FILE} must contain a JSON object")
+    return loaded
 
 
 SOURCES_RAW = load_sources_raw()
