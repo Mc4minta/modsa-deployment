@@ -2,7 +2,7 @@
 name: modsa-backend
 description: >-
   Architecture and coding rules for the MOD-SA FastAPI RAG backend
-  (backend_new). Use when changing API routes, RAG/ingestion services,
+  (backend). Use when changing API routes, RAG/ingestion services,
   Chroma indexing, prompts, config, Docker, or KMUTT Student Affairs
   chat retrieval behavior.
 ---
@@ -13,8 +13,9 @@ description: >-
 
 Development rules and architectural constraints for the MOD-SA RAG backend.
 
-Active code lives in `backend_new/`. `backend_old/` is legacy reference plus
-prepared knowledge under `backend_old/chunks/`.
+Active code lives in `backend/`; source knowledge lives in `data/chunks/`.
+Graph build/check/load tooling lives in `graph/` (see `graph/QUICKSTART.md`).
+Do not recreate legacy backend folders; the ignored research archive is optional.
 
 The backend is a Retrieval-Augmented Generation chatbot for KMUTT Student Affairs.
 
@@ -22,7 +23,7 @@ The backend is a Retrieval-Augmented Generation chatbot for KMUTT Student Affair
 
 Stack:
 
-* FastAPI (`backend_new/main.py`)
+* FastAPI (`backend/main.py`)
 * LangChain orchestration
 * ChromaDB vector store
 * OpenAI-compatible LLM (Typhoon / OpenAI / Ollama `/v1`)
@@ -41,7 +42,7 @@ Responsibilities:
 # Current Layout
 
 ```
-backend_new/
+backend/
 ├── main.py                 # FastAPI app, CORS, lifespan ingest
 ├── config.py               # Settings from env
 ├── requirements.txt
@@ -136,12 +137,12 @@ Centralize in `config.py` / env. Important keys:
 * `LLM_BASE_URL`, `LLM_API_KEY`, `LLM_MODEL`
 * `EMBEDDING_BASE_URL`, `EMBEDDING_API_KEY`, `EMBEDDING_MODEL`
 * `CHROMA_DIR`, `CHROMA_COLLECTION`
-* `RAG_SOURCE_PATHS` (comma-separated; local default often `../backend_old/chunks`)
+* `RAG_SOURCE_PATHS` (comma-separated; local default often `../data/chunks`)
 * `CHUNK_SIZE`, `CHUNK_OVERLAP`, `RETRIEVAL_K`
 * `CORS_ORIGINS`
-* `ADMIN_API_KEY` (optional)
+* `ADMIN_API_KEY` (required for reindex)
 
-Ollama embeddings auto-detect when embedding host is localhost/`127.0.0.1` port `11434`.
+Choose EMBEDDING_PROVIDER explicitly. Docker endpoints use DOCKER_LLM_BASE_URL and DOCKER_EMBEDDING_BASE_URL rather than host-local localhost URLs.
 
 ---
 
@@ -168,7 +169,7 @@ Ingestion notes:
 2. Reuse `rag_service` / `ingestion_service`.
 3. Keep API thin.
 4. Keep config centralized in `config.py`.
-5. Preserve behavior from `backend_old` unless the change is intentional.
+5. Preserve the existing Vector API unless an intentional change is requested.
 6. Prefer working deployment over new abstractions.
 
 Do not replace LangChain unless necessary.
@@ -180,9 +181,15 @@ Do not introduce Redis/auth frameworks/extra services before demo needs them.
 
 After changes:
 
-* `python -c "import main"` succeeds from `backend_new/`
-* `GET /health` returns `status: ok`
+* `python -c "import main"` succeeds from `backend/`
+* `GET /health` returns 200 only after nonempty ingestion; 503 when unready
 * Startup or `POST /admin/reindex` indexes sources
 * `POST /chat/ask` returns answer + sources for a known topic
 * Empty question → 422
 * Empty index → no-verified-info fallback, `sources: []`
+
+## Graph handoff checks
+
+New documents use `graph/run.py expand` (see `graph/EXPANSION.md`), not the frozen pilot `build`. Reuse the fixed schema; no pilot question list is required. Check is offline; extraction needs an explicit API call budget; loading keeps PENDING/retrieval disabled and isolates each document graph version. Never infer policy approval from validation success.
+
+Use `python graph/run.py check` for offline validation and `build` to replay the frozen pilot. Build stages outputs before publishing; it must preserve previous outputs on failure. Do not call LLMs, start Neo4j, reindex Chroma or enable Hybrid merely to run offline checks. Run `graph/tests` with backend dependencies for runtime integration tests. Changes to source/schema still need explicit revalidation; unrelated corpus inventory is not a new pilot identity.

@@ -1,0 +1,38 @@
+{
+  "schema_version": "modsa-pilot-v1",
+  "status": "FROZEN_FOR_PILOT_NOT_POLICY_APPROVAL",
+  "fingerprint": "9ad654928d5879bb61628659a3598800344b97f945d6f20a45180a27f568cdeb",
+  "node_types": [
+    {"label":"SourceDocument","description":"Stable source identity from existing doc_id; created by code","properties":[{"name":"source_id","type":"STRING"},{"name":"title","type":"STRING"},{"name":"review_status","type":"STRING"},{"name":"retrieval_enabled","type":"BOOLEAN"}]},
+    {"label":"DocumentVersion","description":"Source content edition; dates and currency may remain unknown","properties":[{"name":"version_id","type":"STRING"},{"name":"content_hash","type":"STRING"},{"name":"published_at","type":"DATE"},{"name":"effective_from","type":"DATE"},{"name":"document_status","type":"STRING"},{"name":"verification_status","type":"STRING"},{"name":"review_status","type":"STRING"},{"name":"retrieval_enabled","type":"BOOLEAN"}]},
+    {"label":"Chunk","description":"Original prepared text and legacy chunk_id; created by code","properties":[{"name":"chunk_id","type":"STRING"},{"name":"content","type":"STRING"},{"name":"page","type":"INTEGER"},{"name":"review_status","type":"STRING"},{"name":"retrieval_enabled","type":"BOOLEAN"}]},
+    {"label":"Entity","description":"Named domain entity; kind and scope are part of identity","properties":[{"name":"kind","type":"STRING"},{"name":"name","type":"STRING"},{"name":"scope_text","type":"STRING"},{"name":"review_status","type":"STRING"},{"name":"retrieval_enabled","type":"BOOLEAN"}]},
+    {"label":"Offering","description":"Scholarship opening scoped by explicit year, round and degree","properties":[{"name":"academic_year_be","type":"INTEGER"},{"name":"round","type":"STRING"},{"name":"degree","type":"STRING"},{"name":"review_status","type":"STRING"},{"name":"retrieval_enabled","type":"BOOLEAN"}]},
+    {"label":"Fact","description":"Evidence-backed fact or textual rule; no executable condition tree","properties":[{"name":"kind","type":"STRING"},{"name":"predicate","type":"STRING"},{"name":"raw_text","type":"STRING"},{"name":"value_number","type":"FLOAT"},{"name":"value_text","type":"STRING"},{"name":"value_lower","type":"FLOAT"},{"name":"value_upper","type":"FLOAT"},{"name":"lower_inclusive","type":"BOOLEAN"},{"name":"upper_inclusive","type":"BOOLEAN"},{"name":"operator","type":"STRING"},{"name":"unit","type":"STRING"},{"name":"scope_text","type":"STRING"},{"name":"is_approximate","type":"BOOLEAN"},{"name":"review_status","type":"STRING"},{"name":"retrieval_enabled","type":"BOOLEAN"}]}
+  ],
+  "relationship_types": [
+    {"label":"HAS_VERSION","description":"Source document has a content edition"},
+    {"label":"HAS_CHUNK","description":"Edition contains the original prepared chunk"},
+    {"label":"NEXT_CHUNK","description":"Original adjacency only; do not bridge omitted chunks"},
+    {"label":"MENTIONED_IN","description":"Identity and scope are supported by this chunk"},
+    {"label":"SUPPORTED_BY","description":"Fact cites an exact source quote","properties":[{"name":"quote","type":"STRING"}]},
+    {"label":"ABOUT","description":"Fact concerns this explicitly scoped subject"},
+    {"label":"HAS_OFFERING","description":"A scholarship entity has a scoped offering"},
+    {"label":"HAS_TRACK","description":"Offering has a scholarship track, not a study-language track","properties":[{"name":"chunk_id","type":"STRING"},{"name":"quote","type":"STRING"}]},
+    {"label":"RELATED_TO","description":"Evidence-backed retrieval connection, never an unconditional eligibility claim","properties":[{"name":"relation_kind","type":"STRING"},{"name":"raw_text","type":"STRING"},{"name":"evidence_chunk_id","type":"STRING"}]}
+  ],
+  "patterns": [
+    ["SourceDocument","HAS_VERSION","DocumentVersion"],
+    ["DocumentVersion","HAS_CHUNK","Chunk"],
+    ["Chunk","NEXT_CHUNK","Chunk"],
+    ["Entity","MENTIONED_IN","Chunk"],
+    ["Offering","MENTIONED_IN","Chunk"],
+    ["Fact","SUPPORTED_BY","Chunk"],
+    ["Fact","ABOUT","Entity"],
+    ["Fact","ABOUT","Offering"],
+    ["Entity","HAS_OFFERING","Offering"],
+    ["Offering","HAS_TRACK","Entity"],
+    ["Entity","RELATED_TO","Entity"]
+  ],
+  "additional_node_types": false
+}

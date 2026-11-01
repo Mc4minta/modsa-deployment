@@ -1,0 +1,9 @@
+{
+  "alias_version":"modsa-pilot-v1",
+  "status":"FROZEN_FOR_PILOT_NOT_POLICY_APPROVAL",
+  "fingerprint":"80d31fafd6d47c2bd2b804ff9d2b49088a99a184a4c5949e0fcdeffe3ccfb3bb",
+  "entries":[
+    {"kind":"scholarship","scope":"KMUTT scholarship scheme; year/round/degree belong to Offering","canonical_name":"ทุนเพชรพระจอมเกล้า","aliases":["ทุนการศึกษาเพชรพระจอมเกล้า"],"evidence":[{"pilot_id":"p01","quote":"ทุนเพชรพระจอมเกล้า"},{"pilot_id":"p07","quote":"โครงการทุนการศึกษาเพชรพระจอมเกล้า"}],"review_status":"SOURCE_CHECKED_BY_AI","notes":"Only source-backed names are enabled for the pilot. The proposed short alias ทุนเพชรฯ is excluded. Annual titles are not timeless aliases; no global merge or policy approval."},
+    {"kind":"office","scope":"KMUTT Registrar's Office","canonical_name":"สำนักงานทะเบียนนักศึกษา","aliases":["Registrar's Office"],"evidence":[{"pilot_id":"p25","quote":"สำนักงานทะเบียนนักศึกษา\nRegistrar's Office"}],"review_status":"SOURCE_CHECKED_BY_AI","notes":"The bilingual identity is adjacent in source evidence. Kind/scope guards remain; no global merge, guessed phone prefixes or policy approval."}
+  ]
+}

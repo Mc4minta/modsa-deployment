@@ -1,5 +1,7 @@
 .env
+.graph-pilot.env
 .venv/
+.venv-graph/
 __pycache__/
 *.py[cod]
 .pytest_cache/
@@ -8,6 +10,13 @@ __pycache__/
 
 chroma_db/
 *.log
+
+# Local research archive; never required by the graph build commands.
+/.local/graph-rag-research/
+/graph/data/cache/
+/graph/expansions/
+/graph/transfers/
+/graph/.build-*/
 
 # data/raw/
 # chunks/

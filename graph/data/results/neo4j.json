@@ -1,0 +1,42 @@
+{
+  "status": "LOADED_TWICE_VERIFIED_NOT_FOR_RETRIEVAL",
+  "run_id": "modsa-pilot-v1:d4bee5f6490501f9de5d791bec12a1866425e6d8143a39431bb3b76ff42e6e1e",
+  "graph_hash": "65db141a8b0b53e557d848442560597a04bed6af1cf77eebd80d4a35b73b05d9",
+  "snapshot_hash": "397b7ddf339f52e5604a386e096e0628e6931cb4c46e45f508b7c64b2b3e71da",
+  "schema_hash": "a8743f900d09b7637145d1076667df19e9b4117d069ebf491f06990a10285b76",
+  "schema_version": "modsa-pilot-v1",
+  "verified_at": "2026-10-31T14:37:24.544310+00:00",
+  "counts": {
+    "nodes": 134,
+    "edges": 231
+  },
+  "first_load": {
+    "nodes_created": 0,
+    "relationships_created": 0,
+    "content_hash": "7ff7b31a44b43064fd020cc9bf94b1cf0b7c249718f0fce2337402f0b30709a3",
+    "unrelated_graph": {
+      "nodes": 446,
+      "edges": 590,
+      "fingerprint": "ba94ed5db6ae11deb12adc04687b3660e7ff15a623d2b5f62114f693cfeab7e9"
+    }
+  },
+  "second_load": {
+    "nodes_created": 0,
+    "relationships_created": 0,
+    "content_hash": "7ff7b31a44b43064fd020cc9bf94b1cf0b7c249718f0fce2337402f0b30709a3",
+    "unrelated_graph": {
+      "nodes": 446,
+      "edges": 590,
+      "fingerprint": "ba94ed5db6ae11deb12adc04687b3660e7ff15a623d2b5f62114f693cfeab7e9"
+    }
+  },
+  "version_probe": {
+    "status": "PASSED_AND_ROLLED_BACK",
+    "same_source_identity": true,
+    "old_run_unchanged": true,
+    "date_and_between_roundtrip": true,
+    "probe_nodes_remaining": 0,
+    "probe_edges_remaining": 0
+  },
+  "server": "Neo4j/5.26.32"
+}

@@ -3,7 +3,7 @@
 ## Local Development
 
 ```bash
-cd backend_new
+cd backend
 python -m venv .venv
 # Windows: .venv\Scripts\activate
 # macOS/Linux: source .venv/bin/activate
@@ -33,7 +33,7 @@ curl -X POST http://127.0.0.1:8000/admin/reindex \
 
 # Environment Configuration
 
-Copy from `backend_new/.env.example` (or repo root `.env.example`).
+Copy from `backend/.env.example` (or repo root `.env.example`).
 
 ```env
 LLM_BASE_URL=http://localhost:11434/v1
@@ -46,7 +46,7 @@ EMBEDDING_MODEL=bge-m3:latest
 
 CHROMA_DIR=chroma_db
 CHROMA_COLLECTION=modsa_kmutt
-RAG_SOURCE_PATHS=../backend_old/chunks
+RAG_SOURCE_PATHS=../data/chunks
 CHUNK_SIZE=1000
 CHUNK_OVERLAP=150
 RETRIEVAL_K=4
@@ -59,8 +59,8 @@ CORS_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
 
 Notes:
 
-* Local default sources point at prepared JSON under `backend_old/chunks`.
-* Ollama embeddings are used automatically when embedding URL host is localhost/`127.0.0.1` and port `11434`.
+* Local default sources point at prepared JSON under `data/chunks`.
+* Set `EMBEDDING_PROVIDER=ollama` explicitly for local embeddings.
 * Large index runs embed in batches; first startup may take minutes.
 
 ---
@@ -74,7 +74,7 @@ cp .env.example .env
 docker compose up --build
 ```
 
-Compose mounts `backend_old/chunks` → `/app/storage/chunks` and persists Chroma in volume `chroma_data`. Host Ollama is reached via `host.docker.internal`.
+Compose mounts `data/chunks` → `/app/storage/chunks` and persists Chroma in volume `chroma_data`. Host Ollama is reached via `host.docker.internal`. Override using `DOCKER_LLM_BASE_URL` / `DOCKER_EMBEDDING_BASE_URL`; host-local `LLM_BASE_URL` is not reused inside Docker.
 
 ---
 
@@ -87,7 +87,7 @@ Raw Documents
 Chunk preparation (external data pipeline)
       |
       v
-backend_old/chunks   (or path in RAG_SOURCE_PATHS)
+data/chunks   (or path in RAG_SOURCE_PATHS)
       |
       v
 POST /admin/reindex   (or restart API for lifespan ingest)
@@ -114,9 +114,9 @@ Keep LLM / Chroma / loaders out of `api/`.
 
 | Method | Path | Purpose |
 |--------|------|---------|
-| GET | `/health` | Liveness + last ingestion status |
+| GET | `/health` | Readiness + last ingestion status (200 ready, 503 unready) |
 | POST | `/chat/ask` | RAG answer `{answer, sources}` |
-| POST | `/admin/reindex` | Force reindex (`X-Admin-Key` if configured) |
+| POST | `/admin/reindex` | Force reindex (requires configured ADMIN_API_KEY and matching X-Admin-Key) |
 
 ---
 

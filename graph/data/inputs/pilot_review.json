@@ -1,0 +1,586 @@
+{
+  "reviewer": "AI_SOURCE_REVIEW_NOT_POLICY_APPROVAL",
+  "snapshot_hash": "397b7ddf339f52e5604a386e096e0628e6931cb4c46e45f508b7c64b2b3e71da",
+  "checked_records": [
+    {
+      "pilot_id": "p02",
+      "cache_key": "756c24ddc8472753c4ed713219d7a82371af9a0a55a4c4d116d8b03dd9546aa3",
+      "notes": "EQ 20 เป็นจำนวนทุนความสามารถเฉพาะด้านรวมทุกคณะ ไม่ใช่สิทธิได้รับทุน แนบดุลยพินิจคณะกรรมการประกอบไว้ ระดับปริญญาตรีมีหลักฐานจาก context p01"
+    },
+    {
+      "pilot_id": "p03",
+      "cache_key": "046390171f75d65c4e41dcfe81d4795608d244fd6b6a6b4f17ea4f7b56207082",
+      "notes": "ม.6 เป็นวุฒิผู้สมัครคณิตศาสตร์ คณะวิทยาศาสตร์ ไม่ใช่ Offering.degree ใช้หลักฐานตารางสามบรรทัดต่อเนื่องรองรับ raw_text เดิม และแนบหลักฐานระดับปริญญาตรีจาก context"
+    },
+    {
+      "pilot_id": "p05",
+      "cache_key": "c1157ece74852b4410c488cc2916718d266b162fc01fd4b087e3f7b609b23f05",
+      "notes": "GPA ภาษาต่างประเทศ GTE 2.75 รองรับโดยหัวขั้นต่ำและแถวตารางวิชาการดีเด่นหน้า 9 เปลี่ยนคณะวิทยาศาสตร์จาก program เป็น faculty เท่านั้น ไม่อนุมานใช้กับทุกหลักสูตรหรือผูกจุลชีววิทยา/อาหารเป็นรายหลักสูตร"
+    },
+    {
+      "pilot_id": "p06",
+      "cache_key": "be0957f88586a50d0a0fcab63a1ee1007f682563856ec18422cb1b8877558222",
+      "notes": "GPAX GTE 3.50 รองรับโดยตารางความสามารถพิเศษหน้า 9 ลบ scholarship ที่โมเดลตั้งจากชื่อไฟล์ พร้อม Offering/tracklink ที่พึ่งตัวตนผิด เหลือ Fact ผูกกับ track จริงและมีหลักฐาน context รองรับ scope ยังไม่มี Offering ที่ผูกทุน จึงเป็น partial extraction อย่างอนุรักษ์นิยม ไม่สรุปหลักสูตรรายตัว"
+    },
+    {
+      "pilot_id": "p07",
+      "cache_key": "d56e0310ee6c99818557171682c71c580f7400434f174c00b7d378dad81ba4da",
+      "notes": "คงข้อเท็จจริงปีการศึกษา 2568 และระดับปริญญาตรี ตัดระดับการศึกษาที่ถูกสร้างเป็น program_track และกฎ eligible_levels ที่ตีความข้อความวัตถุประสงค์ภาพรวมเกินขอบเขตประกาศ ไม่ใช้วันประชุมเป็นวันประกาศ"
+    },
+    {
+      "pilot_id": "p08",
+      "cache_key": "28bb80cf9c8ad785aa6eecc21baba17cd1bd0004a9d7afab64b1fa966352d855",
+      "notes": "LTE 15 ถูกต้อง ไม่ใช่ EQ 15 เก็บเงื่อนไขเมื่อจำนวนผู้มีสิทธิแต่ละคณะน้อยกว่าโควตาและดุลยพินิจเกลี่ยทุนครบย่อหน้า ไม่แปลงเป็นสิทธิอัตโนมัติหรือเดารอบรับสมัคร"
+    },
+    {
+      "pilot_id": "p09",
+      "cache_key": "8916fa6bb290e6df9a57c9cfd5dcb85f0560704a15aabcdd4580b45d771cc115",
+      "status": "SOURCE_CHECKED_BY_AI",
+      "notes": "ตัวเลข 211550 เป็นประมาณการของวิศวกรรมเคมีแผนไทย วศ.บ. 4 ปี; หน่วยบาทไม่มีข้อความชัดใน chunk จึงล้าง unit เป็น null โดยไม่เปลี่ยนตัวเลข ไม่ใช้ชื่อไฟล์แทนปีหรือสถานะปัจจุบัน"
+    },
+    {
+      "pilot_id": "p10",
+      "cache_key": "43b6d262dc0327372ec14d9fbd472c60aeac0fcec2a0622fc43fe17540fbb69b",
+      "status": "SOURCE_CHECKED_BY_AI",
+      "notes": "ค่าประมาณ 209600 ตรงแถววิศวกรรมสิ่งแวดล้อมแผนไทย ไม่ใช่แผนอังกฤษ 392000; unit=null คงตามหลักฐาน ข้อความอ้างอิงยาวแต่ตรงต้นทางหลังซ่อมเฉพาะ whitespace ไม่อนุมานว่าค่ายืนยันสิทธิ์ 26850 รวมอยู่ในยอดประมาณการ"
+    },
+    {
+      "pilot_id": "p12",
+      "cache_key": "8ead1e1f9ed3be3300982b3b2414931df6b0dce987731864db580fbd5ba96952",
+      "status": "SOURCE_CHECKED_BY_AI",
+      "notes": "ค่าประมาณ 211550 ตรงแถววิศวกรรมไฟฟ้าปกติ ไม่ใช่แขนงระบบไฟฟ้าที่เหมาจ่ายและมีค่าประมาณ 360000; วันที่ 12 มีนาคม 2569 เป็นข้อมูล ณ วันที่ ไม่ใช่วันประกาศหรือวันมีผลทางนโยบาย"
+    },
+    {
+      "pilot_id": "p13",
+      "cache_key": "1ea02bf8a29b5ec52818be9b5d461894c55c2fa57cb7989d727d8e7271396efd",
+      "status": "SOURCE_CHECKED_BY_AI",
+      "notes": "ข้อยกเว้นเฉพาะนักศึกษาระดับบัณฑิตศึกษา คณะเทคโนโลยีสารสนเทศ ไม่ใช่นักศึกษา SIT ทุกระดับ; raw_text หลัง model repair เก็บย่อหน้าและข้อยกเว้นครบ ชื่อประกาศปฏิทินจัดเป็น policy ไม่ใช่ตัวภาคการศึกษา"
+    },
+    {
+      "pilot_id": "p14",
+      "cache_key": "9f6017f7d603ca5aa36de58d9eec30036a637f8a0aec9b3d9024ffc2be3d16cb",
+      "status": "SOURCE_CHECKED_BY_AI",
+      "notes": "วันแรกยื่นขอคืนสภาพเป็นวันที่ 15 มิถุนายน 2569 ไม่ใช่วันยื่นลาพัก 22 มิถุนายน; ภาค 1/2569 มีหลักฐานใน primary และประชากรพร้อมข้อยกเว้น SIT มีหลักฐานจาก context p13 หลังเพิ่ม evidence"
+    },
+    {
+      "pilot_id": "p15",
+      "cache_key": "bf1a1a66cac351bc0484614a9782e1cb8b5d58d7f281a36d0aab69285e35f7a6",
+      "status": "SOURCE_CHECKED_BY_AI",
+      "notes": "นักศึกษาใหม่ปริญญาตรีรหัส 69 ลงทะเบียน 20–22 กรกฎาคม 2569 คงช่วงวันที่เป็นข้อความและคง semester unresolved; กำหนดเทียบโอน 10 กรกฎาคมเป็นแถวทั่วไป ไม่ผูกเฉพาะนักศึกษาใหม่หลังถอด E1 จาก subject_refs ของ F2"
+    },
+    {
+      "pilot_id": "p17",
+      "cache_key": "88b2d11779e045c5c189a0f9da98e66960dc985e846ad51d40f1cbd070671360",
+      "notes": "เก็บวันมีผลเป็นข้อความวันถัดจากวันประกาศ ไม่ใช้วันประชุม 4 ตุลาคมแทนวันประกาศ; ลด scope ของ Entity เป็นชื่อข้อบังคับตรงต้นทาง ไม่อนุมานการใช้แทนฉบับเก่าจากคำนำ; การลอง 10000 tokens แยกจาก response แรกที่ถูกตัด"
+    },
+    {
+      "pilot_id": "p18",
+      "cache_key": "dbb0c7125bf3da7ac2cd77c0a7c1e8ea7b3bb97539e32f59d15c3415119b639a",
+      "notes": "ข้อบังคับ 2566 ยกเลิกฉบับ 2546 ไม่ใช่ยกเลิกตัวเอง; ไม่ตั้งวันมีผลหรือสถานะปัจจุบันเอง"
+    },
+    {
+      "pilot_id": "p19",
+      "cache_key": "ae1681fb67068917a835a423fab8f06093d57533ffc75f3275dfb769f9b04fee",
+      "notes": "ข้อ 7 ครอบคลุมทั้งนักศึกษาและผู้เรียนรู้; F1 เก็บข้อความห้ามทุจริตครบ ไม่อนุมานโทษ"
+    },
+    {
+      "pilot_id": "p20",
+      "cache_key": "0f6037562dd20c5fc5a1d4eb275ac9314cc63166e285015e0e1ce154a9343b13",
+      "notes": "นิยามนักศึกษาครอบคลุมผู้เรียนข้ามมหาวิทยาลัย; เปลี่ยน scope ของกลุ่มย่อยเป็นชื่อระเบียบสอบ พ.ศ.2560 ที่คัดตรงจากต้นทาง พร้อมหลักฐานนิยาม ไม่ใช้ scope ขาดตอนและไม่เปิด global merge"
+    },
+    {
+      "pilot_id": "p22",
+      "cache_key": "5a78d4143517b8c602e4d2a64b379fe8edc0bd80058e9022dd46867383cc8497",
+      "notes": "New ACIS ผูก undergraduate ตามข้อความ; ไม่ใช้กฎ probation จาก context ไปบังคับทุกคน; credentials เป็นขั้นตอน login ไม่ใช่ระบบแยก"
+    },
+    {
+      "pilot_id": "p23",
+      "cache_key": "d7f3ca3c76b357d58c76a3a4f682b43dcc0dc487565b1e4588e220cc52c88bdd",
+      "notes": "แยก fixed/unfixed sections; Section Selection จำกัดวิชาที่ไม่ fix กลุ่ม ไม่สรุปว่าทุกวิชาเลือกกลุ่มเองได้; ชื่อเมนูเป็น workflow ไม่ใช่หลายระบบ"
+    },
+    {
+      "pilot_id": "p25",
+      "cache_key": "89639b13eff23c82a0ac0e1d57ec8e8bb67f48719df455dea7582939068b34d9",
+      "notes": "email และเบอร์กลุ่มลงทะเบียนตรงต้นทาง 0-2470-8154, 8340, 8350 ไม่เดา prefix หรือเบอร์ส่วนตัว; วันที่ capture ไม่ใช่วันมีผลนโยบาย"
+    }
+  ],
+  "edits": [
+    {
+      "pilot_id": "p02",
+      "cache_key": "756c24ddc8472753c4ed713219d7a82371af9a0a55a4c4d116d8b03dd9546aa3",
+      "collection": "entities",
+      "ref": "scholarship_phetchaklao",
+      "changes": {
+        "evidence": [
+          {
+            "chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0001",
+            "quote": "โครงการคัดเลือกตรงความสามารถพิเศษและ\nทุนเพชรพระจอมเกล้า"
+          },
+          {
+            "chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0001",
+            "quote": "จำนวนทุนการศึกษาเพชรพระจอมเกล้า ระดับปริญญาตรี แบ่งเป็น 2 ประเภท"
+          }
+        ]
+      },
+      "reason": "เพิ่มหลักฐานระดับปริญญาตรีจาก context ที่อนุญาต ไม่เปลี่ยนชื่อหรือ scope"
+    },
+    {
+      "pilot_id": "p02",
+      "cache_key": "756c24ddc8472753c4ed713219d7a82371af9a0a55a4c4d116d8b03dd9546aa3",
+      "collection": "facts",
+      "ref": "fact_total_talent_scholarships",
+      "changes": {
+        "evidence": [
+          {
+            "chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0002",
+            "quote": "2. ทุนส่งเสริมความสามารถเฉพาะด้าน จำนวน 20 ทุน (รวมทุกคณะ) รายละเอียดดังนี้"
+          },
+          {
+            "chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0002",
+            "quote": "การพิจารณาขึ้นอยู่ในดุลยพินิจของคณะกรรมการทุนฯ และ คณะกรรมการประจำหลักสูตร"
+          }
+        ]
+      },
+      "reason": "เก็บดุลยพินิจประกอบตัวเลขโควตา ไม่แปลจำนวนทุนเป็นสิทธิได้รับทุน"
+    },
+    {
+      "pilot_id": "p03",
+      "cache_key": "046390171f75d65c4e41dcfe81d4795608d244fd6b6a6b4f17ea4f7b56207082",
+      "collection": "facts",
+      "ref": "F1",
+      "changes": {
+        "evidence": [
+          {
+            "chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0012",
+            "quote": "| คุณสมบัติเบื้องต้น/เกณฑ์การรับสมัคร สาขาวิชา | วุฒิการศึกษาที่รับ |\n| :--- | :--- |\n| คณิตศาสตร์ | ม.6 |"
+          }
+        ]
+      },
+      "reason": "raw_text รวมตารางสามบรรทัดโดยยุบ whitespace; ใช้หลักฐานตารางต่อเนื่องครบช่วงเดิม ไม่แก้ข้อความหรือวุฒิ"
+    },
+    {
+      "pilot_id": "p03",
+      "cache_key": "046390171f75d65c4e41dcfe81d4795608d244fd6b6a6b4f17ea4f7b56207082",
+      "collection": "entities",
+      "ref": "E3",
+      "changes": {
+        "evidence": [
+          {
+            "chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0012",
+            "quote": "ทุนเพชรพระจอมเกล้า"
+          },
+          {
+            "chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0001",
+            "quote": "จำนวนทุนการศึกษาเพชรพระจอมเกล้า ระดับปริญญาตรี แบ่งเป็น 2 ประเภท"
+          }
+        ]
+      },
+      "reason": "scope ระดับปริญญาตรีมีใน context p01 จึงแนบหลักฐาน scope เพิ่ม; ม.6 ยังเป็นวุฒิผู้สมัครไม่ใช่ degree"
+    },
+    {
+      "pilot_id": "p05",
+      "cache_key": "c1157ece74852b4410c488cc2916718d266b162fc01fd4b087e3f7b609b23f05",
+      "collection": "entities",
+      "ref": "e_program",
+      "changes": {
+        "kind": "faculty"
+      },
+      "reason": "คณะวิทยาศาสตร์เป็น faculty ไม่ใช่ program; ไม่ผูกเกณฑ์หน้า 9 ให้ทุกหลักสูตร"
+    },
+    {
+      "pilot_id": "p06",
+      "cache_key": "be0957f88586a50d0a0fcab63a1ee1007f682563856ec18422cb1b8877558222",
+      "collection": "entities",
+      "ref": "scholarship",
+      "action": "remove",
+      "reason": "ชื่อไฟล์ใน breadcrumb ไม่ใช่ชื่อโครงการทุนจริง ไม่สร้าง Entity scholarship จากชื่อเอกสาร"
+    },
+    {
+      "pilot_id": "p06",
+      "cache_key": "be0957f88586a50d0a0fcab63a1ee1007f682563856ec18422cb1b8877558222",
+      "collection": "offerings",
+      "ref": "offering_r1_2569",
+      "action": "remove",
+      "reason": "ลบ Offering ที่ผูก scholarship ชื่อไฟล์ซึ่งไม่รองรับ; ไม่แก้ชื่อทุนหรือ degree โดยเดา"
+    },
+    {
+      "pilot_id": "p06",
+      "cache_key": "be0957f88586a50d0a0fcab63a1ee1007f682563856ec18422cb1b8877558222",
+      "collection": "has_tracks",
+      "ref": "offering_r1_2569->track_special",
+      "action": "remove",
+      "reason": "ลบเส้นที่อ้าง Offering ที่ถูกตัดออก เหลือหลักฐาน track และ Fact ต้นทาง"
+    },
+    {
+      "pilot_id": "p06",
+      "cache_key": "be0957f88586a50d0a0fcab63a1ee1007f682563856ec18422cb1b8877558222",
+      "collection": "facts",
+      "ref": "fact_gpax_min",
+      "changes": {
+        "subject_refs": [
+          "track_special"
+        ]
+      },
+      "reason": "ผูก GPAX ขั้นต่ำกับ track ที่มีชื่อจริงในตาราง ไม่ผูก Offering ที่มี identity ผิด"
+    },
+    {
+      "pilot_id": "p06",
+      "cache_key": "be0957f88586a50d0a0fcab63a1ee1007f682563856ec18422cb1b8877558222",
+      "collection": "entities",
+      "ref": "track_special",
+      "changes": {
+        "evidence": [
+          {
+            "chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0027",
+            "quote": "| ด้านความสามารถพิเศษ | | | |"
+          },
+          {
+            "chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0027",
+            "quote": "| (กีฬา, ความเป็นผู้นำ, ศิลปวัฒนธรรม, ความคิดสร้างสรรค์และนวัตกรรม) | | | |"
+          },
+          {
+            "chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0024",
+            "quote": "โครงการคัดเลือกตรงความสามารถพิเศษและ\nทุนเพชรพระจอมเกล้า"
+          },
+          {
+            "chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0024",
+            "quote": "รอบที่ 1 (ปีการศึกษา 2569)"
+          },
+          {
+            "chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0024",
+            "quote": "คณะวิทยาศาสตร์ (ต่อ)"
+          }
+        ]
+      },
+      "reason": "แนบหลักฐาน context รองรับ scope โครงการ/คณะ/ปี/รอบ; ไม่อนุมานสาขาที่ใช้เกณฑ์"
+    },
+    {
+      "pilot_id": "p07",
+      "cache_key": "d56e0310ee6c99818557171682c71c580f7400434f174c00b7d378dad81ba4da",
+      "collection": "facts",
+      "ref": "f3",
+      "action": "remove",
+      "reason": "วัตถุประสงค์ภาพรวมทั้งปริญญาตรี/บัณฑิตศึกษาไม่ใช่กฎ eligible_levels ของประกาศปริญญาตรี 2568"
+    },
+    {
+      "pilot_id": "p07",
+      "cache_key": "d56e0310ee6c99818557171682c71c580f7400434f174c00b7d378dad81ba4da",
+      "collection": "entities",
+      "ref": "e3",
+      "action": "remove",
+      "reason": "บัณฑิตศึกษาเป็นระดับการศึกษาในข้อความพื้นหลัง ไม่ใช่ program_track ของ Offering นี้"
+    },
+    {
+      "pilot_id": "p07",
+      "cache_key": "d56e0310ee6c99818557171682c71c580f7400434f174c00b7d378dad81ba4da",
+      "collection": "entities",
+      "ref": "e2",
+      "action": "remove",
+      "reason": "ระดับปริญญาตรีไม่ใช่ program_track; มี degree บน Offering และ Fact อยู่แล้ว"
+    },
+    {
+      "pilot_id": "p07",
+      "cache_key": "d56e0310ee6c99818557171682c71c580f7400434f174c00b7d378dad81ba4da",
+      "collection": "facts",
+      "ref": "f1",
+      "changes": {
+        "subject_refs": [
+          "e1",
+          "o1"
+        ]
+      },
+      "reason": "ให้ปีการศึกษาผูกทุนและ Offering ไม่ใช้ระดับการศึกษาเป็น program_track"
+    },
+    {
+      "pilot_id": "p07",
+      "cache_key": "d56e0310ee6c99818557171682c71c580f7400434f174c00b7d378dad81ba4da",
+      "collection": "facts",
+      "ref": "f2",
+      "changes": {
+        "subject_refs": [
+          "e1",
+          "o1"
+        ]
+      },
+      "reason": "ให้ degree ผูกทุนและ Offering ไม่ใช้ระดับการศึกษาเป็น program_track"
+    },
+    {
+      "pilot_id": "p08",
+      "cache_key": "28bb80cf9c8ad785aa6eecc21baba17cd1bd0004a9d7afab64b1fa966352d855",
+      "collection": "facts",
+      "ref": "fact_2",
+      "changes": {
+        "evidence": [
+          {
+            "chunk_id": "ประกาศทุนเพชรฯป.ตรี-และเงื่อนไข-68#0003",
+            "quote": "การพิจารณาผู้มีสิทธิได้รับทุนการศึกษา ตามที่ระบุไว้ตามข้อ 5.1 หากทุนส่งเสริมความสามารถด้านวิชาการดีเด่น พิจารณาแล้วผู้มีสิทธิได้รับทุนในแต่ละคณะ มีจำนวนน้อยกว่าที่ระบุไว้ ผู้ให้ทุนขอสงวนสิทธิพิจารณาเกลี่ยจำนวนทุนการศึกษาเพิ่มให้แต่ละคณะหรือไม่ก็ได้ตามความเหมาะสม แต่รวมทุกคณะแล้วไม่เกิน 15 ทุน"
+          }
+        ]
+      },
+      "reason": "เก็บเงื่อนไขตั้งต้นของการเกลี่ยทุนและดุลยพินิจครบย่อหน้า ไม่ตัดเฉพาะเพดานจำนวน"
+    },
+    {
+      "pilot_id": "p13",
+      "cache_key": "1ea02bf8a29b5ec52818be9b5d461894c55c2fa57cb7989d727d8e7271396efd",
+      "collection": "entities",
+      "ref": "E1",
+      "changes": {
+        "kind": "policy"
+      },
+      "reason": "ชื่อเป็นประกาศปฏิทินการศึกษา ไม่ใช่ตัวภาคการศึกษา แยกชนิด policy โดยคงชื่อและขอบเขตเดิม"
+    },
+    {
+      "pilot_id": "p14",
+      "cache_key": "9f6017f7d603ca5aa36de58d9eec30036a637f8a0aec9b3d9024ffc2be3d16cb",
+      "collection": "entities",
+      "ref": "entity_reinstatement_request",
+      "changes": {
+        "evidence": [
+          {
+            "chunk_id": "AcademicCalendar2026-2569TH2#0002",
+            "quote": "วันแรกของการยื่นคำร้องขอคืนสภาพการเป็นนักศึกษาเพื่อขออนุมัติจากคณะ"
+          },
+          {
+            "chunk_id": "AcademicCalendar2026-2569TH2#0001",
+            "quote": "สำหรับนักศึกษาระดับปริญญาตรี และระดับบัณฑิตศึกษา (ยกเว้น ระดับบัณฑิตศึกษา คณะเทคโนโลยีสารสนเทศ)"
+          }
+        ]
+      },
+      "reason": "ขอบเขตเดิมอ้างประชากรและข้อยกเว้น SIT แต่มีเพียงหลักฐานแถวกิจกรรม เพิ่ม quote จาก context p13 ที่อนุญาตไว้แล้ว"
+    },
+    {
+      "pilot_id": "p15",
+      "cache_key": "bf1a1a66cac351bc0484614a9782e1cb8b5d58d7f281a36d0aab69285e35f7a6",
+      "collection": "entities",
+      "ref": "E2",
+      "changes": {
+        "evidence": [
+          {
+            "chunk_id": "AcademicCalendar2026-2569TH2#0001",
+            "quote": "ปฏิทินการศึกษา ประจำปีการศึกษา 2569"
+          },
+          {
+            "chunk_id": "AcademicCalendar2026-2569TH2#0001",
+            "quote": "สำหรับนักศึกษาระดับปริญญาตรี และระดับบัณฑิตศึกษา (ยกเว้น ระดับบัณฑิตศึกษา คณะเทคโนโลยีสารสนเทศ)"
+          }
+        ]
+      },
+      "reason": "เพิ่มหลักฐานกลุ่มนักศึกษาและข้อยกเว้น SIT ให้ตรง scope_text เดิม ไม่เปลี่ยนปีหรืออนุมานภาคการศึกษา"
+    },
+    {
+      "pilot_id": "p15",
+      "cache_key": "bf1a1a66cac351bc0484614a9782e1cb8b5d58d7f281a36d0aab69285e35f7a6",
+      "collection": "facts",
+      "ref": "F2",
+      "changes": {
+        "subject_refs": [
+          "E2"
+        ]
+      },
+      "reason": "แถวกำหนดยื่นคำร้องเทียบโอนไม่ระบุเฉพาะนักศึกษาใหม่ปริญญาตรี จึงถอดการผูกกับ E1 และคงปีการศึกษาที่ E2"
+    },
+    {
+      "pilot_id": "p18",
+      "cache_key": "dbb0c7125bf3da7ac2cd77c0a7c1e8ea7b3bb97539e32f59d15c3415119b639a",
+      "collection": "entities",
+      "ref": "e1",
+      "changes": {
+        "kind": "policy"
+      },
+      "reason": "ชื่อข้อบังคับวินัย 2566 เป็น policy ไม่ใช่ role"
+    },
+    {
+      "pilot_id": "p18",
+      "cache_key": "dbb0c7125bf3da7ac2cd77c0a7c1e8ea7b3bb97539e32f59d15c3415119b639a",
+      "collection": "entities",
+      "ref": "e2",
+      "action": "remove",
+      "reason": "scope_text เป็นเพียง : ไม่พอระบุตัวตน ไม่แก้ scope เงียบ ๆ; ชื่อฉบับ2546ยังอยู่ครบใน raw_text/value_text ของ f1"
+    },
+    {
+      "pilot_id": "p18",
+      "cache_key": "dbb0c7125bf3da7ac2cd77c0a7c1e8ea7b3bb97539e32f59d15c3415119b639a",
+      "collection": "entities",
+      "ref": "e3",
+      "action": "remove",
+      "reason": "มหาวิทยาลัยไม่ใช่ role และไม่เพิ่ม institution นอก schema; ไม่ต้องมี node นี้เพื่อเก็บกฎยกเลิก"
+    },
+    {
+      "pilot_id": "p18",
+      "cache_key": "dbb0c7125bf3da7ac2cd77c0a7c1e8ea7b3bb97539e32f59d15c3415119b639a",
+      "collection": "facts",
+      "ref": "f1",
+      "changes": {
+        "subject_refs": [
+          "e1"
+        ]
+      },
+      "reason": "ผูกกฎกับฉบับ2566ผู้ยกเลิก; เป้าหมาย2546คงอยู่ใน value/raw ไม่ใช่ยกเลิกตัวเอง"
+    },
+    {
+      "pilot_id": "p18",
+      "cache_key": "dbb0c7125bf3da7ac2cd77c0a7c1e8ea7b3bb97539e32f59d15c3415119b639a",
+      "collection": "facts",
+      "ref": "f2",
+      "changes": {
+        "subject_refs": [
+          "e1"
+        ]
+      },
+      "reason": "กฎใช้ฉบับนี้แทนข้อความที่ขัดกันผูก policy2566 ไม่ผูกมหาวิทยาลัยเป็น role"
+    },
+    {
+      "pilot_id": "p19",
+      "cache_key": "ae1681fb67068917a835a423fab8f06093d57533ffc75f3275dfb769f9b04fee",
+      "collection": "facts",
+      "ref": "F2",
+      "action": "remove",
+      "reason": "F1 เก็บข้อ7ครบและผูกทั้งสองกลุ่มแล้ว ไม่เก็บกฎซ้ำที่ตัดต้นประโยคจนคำห้ามทุจริตหาย"
+    },
+    {
+      "pilot_id": "p20",
+      "cache_key": "0f6037562dd20c5fc5a1d4eb275ac9314cc63166e285015e0e1ce154a9343b13",
+      "collection": "facts",
+      "ref": "F2",
+      "action": "remove",
+      "reason": "ข้อความนิยามมหาวิทยาลัยแต่ ABOUT นักศึกษา และ predicate ไม่สมบูรณ์; F1 เก็บนิยามนักศึกษาครบแล้ว"
+    },
+    {
+      "pilot_id": "p22",
+      "cache_key": "5a78d4143517b8c602e4d2a64b379fe8edc0bd80058e9022dd46867383cc8497",
+      "collection": "entities",
+      "ref": "e2",
+      "action": "remove",
+      "reason": "User name and Password เป็น credentials ไม่ใช่ system; คงข้อความขั้นตอนใน f2"
+    },
+    {
+      "pilot_id": "p22",
+      "cache_key": "5a78d4143517b8c602e4d2a64b379fe8edc0bd80058e9022dd46867383cc8497",
+      "collection": "facts",
+      "ref": "f2",
+      "changes": {
+        "subject_refs": [
+          "e1"
+        ]
+      },
+      "reason": "ขั้นตอน login เกี่ยวกับ New ACIS ไม่สร้าง credentials เป็นระบบแยก"
+    },
+    {
+      "pilot_id": "p23",
+      "cache_key": "d7f3ca3c76b357d58c76a3a4f682b43dcc0dc487565b1e4588e220cc52c88bdd",
+      "collection": "entities",
+      "ref": "e1",
+      "changes": {
+        "kind": "procedure"
+      },
+      "reason": "Course Registration เป็นเมนู/ขั้นตอน ไม่ใช่ระบบแยก"
+    },
+    {
+      "pilot_id": "p23",
+      "cache_key": "d7f3ca3c76b357d58c76a3a4f682b43dcc0dc487565b1e4588e220cc52c88bdd",
+      "collection": "entities",
+      "ref": "e2",
+      "changes": {
+        "kind": "procedure"
+      },
+      "reason": "Section Selection เป็นขั้นตอนเลือกกลุ่ม ไม่ใช่ระบบแยก"
+    },
+    {
+      "pilot_id": "p23",
+      "cache_key": "d7f3ca3c76b357d58c76a3a4f682b43dcc0dc487565b1e4588e220cc52c88bdd",
+      "collection": "entities",
+      "ref": "e3",
+      "changes": {
+        "kind": "procedure"
+      },
+      "reason": "Group Selection เป็นขั้นตอน ไม่ใช่ระบบแยก"
+    },
+    {
+      "pilot_id": "p25",
+      "cache_key": "89639b13eff23c82a0ac0e1d57ec8e8bb67f48719df455dea7582939068b34d9",
+      "collection": "entities",
+      "ref": "e3",
+      "changes": {
+        "kind": "procedure"
+      },
+      "reason": "ลงทะเบียนเรียน/ตารางเรียน-ตารางสอบเป็นหมวดบริการติดต่อ ไม่ใช่ program_track"
+    },
+    {
+      "pilot_id": "p25",
+      "cache_key": "89639b13eff23c82a0ac0e1d57ec8e8bb67f48719df455dea7582939068b34d9",
+      "collection": "entities",
+      "ref": "e2",
+      "action": "remove",
+      "reason": "ชื่อสำนักงานจากท้ายหน้าซ้ำกับ e1 และไม่มี Fact ผูก; ตัด node ส่วนเกินโดยไม่เปิด global alias merge"
+    },
+    {
+      "pilot_id": "p25",
+      "cache_key": "89639b13eff23c82a0ac0e1d57ec8e8bb67f48719df455dea7582939068b34d9",
+      "collection": "facts",
+      "ref": "f2",
+      "changes": {
+        "evidence": [
+          {
+            "chunk_id": "ติดต่อสำนักงานทะเบียน#0001",
+            "quote": "– ลงทะเบียนเรียน / ตารางเรียน-ตารางสอบ\nโทรศัพท์ 0-2470-8154, 8340, 8350"
+          }
+        ]
+      },
+      "reason": "ใช้หลักฐานหมวดบริการและเบอร์ที่ติดกันใน quote เดียว ไม่จับเบอร์คนละหมวดหรือขยาย prefix"
+    },
+    {
+      "pilot_id": "p09",
+      "cache_key": "8916fa6bb290e6df9a57c9cfd5dcb85f0560704a15aabcdd4580b45d771cc115",
+      "collection": "facts",
+      "ref": "fact_total_cost_chem_thai",
+      "action": "clear_unit",
+      "changes": {
+        "unit": null
+      },
+      "reason": "ไม่พบหน่วยบาทระบุชัดใน chunk ที่เลือก จึงล้างหน่วยที่ไม่ยืนยัน ไม่เติม THB หรือเปลี่ยนตัวเลขย้อนหลัง"
+    },
+    {
+      "pilot_id": "p17",
+      "cache_key": "88b2d11779e045c5c189a0f9da98e66960dc985e846ad51d40f1cbd070671360",
+      "collection": "entities",
+      "ref": "E1",
+      "action": "source_scope",
+      "changes": {
+        "scope_text": "ว่าด้วย วินัยนักศึกษาและผู้เรียนรู้\nพ.ศ. 2566",
+        "evidence": [
+          {
+            "chunk_id": "discipline2566#0001",
+            "quote": "ข้อบังคับมหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี\nว่าด้วย วินัยนักศึกษาและผู้เรียนรู้\nพ.ศ. 2566"
+          }
+        ]
+      },
+      "reason": "ใช้ scope ที่คัดตรงจากชื่อข้อบังคับแทนถ้อยคำใช้แทนฉบับ2546ที่เกินหลักฐานใน PRIMARY; ไม่แก้ raw response หรือ Facts"
+    },
+    {
+      "pilot_id": "p20",
+      "cache_key": "0f6037562dd20c5fc5a1d4eb275ac9314cc63166e285015e0e1ce154a9343b13",
+      "collection": "entities",
+      "ref": "E2",
+      "action": "source_scope",
+      "changes": {
+        "scope_text": "ระเบียบมหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี ว่าด้วย การสอบของนักศึกษา พ.ศ. 2560",
+        "evidence": [
+          {
+            "chunk_id": "rule_exam2560#0002",
+            "quote": "“นักศึกษา” หมายความว่า นักศึกษามหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี รวมถึงนักศึกษาที่เรียนข้ามมหาวิทยาลัย"
+          },
+          {
+            "chunk_id": "rule_exam2560#0002",
+            "quote": "ข้อ 1 ระเบียบนี้เรียกว่า “ระเบียบมหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี ว่าด้วย การสอบของนักศึกษา พ.ศ. 2560”"
+          }
+        ]
+      },
+      "reason": "แทน scope ที่ขาดตอนด้วยชื่อระเบียบตรงต้นทางและแนบหลักฐานนิยาม; ไม่เปลี่ยนชื่อกลุ่มหรือเนื้อหากฎ"
+    }
+  ],
+  "known_limits": [
+    "p06 คง partial extraction ไม่มี Offering แทนชื่อทุนที่เดาจากชื่อไฟล์",
+    "ยังไม่ใช้ global alias merge; ตัวตนผูก version/scope",
+    "unresolved ไม่ใช่ข้อมูลที่เติมโดยเดา และการทวนนี้ไม่ใช่ gold หรือ precision/recall"
+  ]
+}

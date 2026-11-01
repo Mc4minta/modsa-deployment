@@ -4,8 +4,8 @@
 
 MOD-SA is a FastAPI RAG chatbot backend for KMUTT Student Affairs knowledge retrieval.
 
-Active implementation: **`backend_new/`**.  
-Legacy reference + prepared chunks: **`backend_old/`** (especially `backend_old/chunks/`).
+Active implementation: **`backend/`**.
+Prepared knowledge: **`data/chunks/`**. Graph tooling: **`graph/`**. There are no legacy backend folders to recreate.
 
 Stack: FastAPI, LangChain, ChromaDB, OpenAI-compatible LLM/embeddings (including Ollama).
 
@@ -14,7 +14,7 @@ Stack: FastAPI, LangChain, ChromaDB, OpenAI-compatible LLM/embeddings (including
 # Directory Structure
 
 ```
-backend_new/
+backend/
 ├── main.py                      # App entry, CORS, lifespan ingest
 ├── config.py                    # pydantic-settings from .env
 ├── requirements.txt
@@ -50,7 +50,7 @@ backend_new/
 
 Not used (do not recreate unless needed): `utils/`, `database/`, `models/`, `retrieval_service.py`.
 
-Repo-level Docker: root `docker-compose.yml` builds `backend_new`, mounts `backend_old/chunks` read-only, persists Chroma volume.
+Repo-level Docker: root `docker-compose.yml` builds `backend`, mounts `data/chunks` read-only, persists Chroma volume.
 
 ---
 
@@ -69,9 +69,9 @@ HTTP only. No LLM/Chroma/prompt logic.
 
 | Method | Path | Body / headers | Response |
 |--------|------|----------------|----------|
-| GET | `/health` | — | `{ "status": "ok", "ingestion": {...} }` |
+| GET | `/health` | — | 200/ok after nonempty ingestion; 503/not_ready otherwise |
 | POST | `/chat/ask` | `{ "question": "..." }` | `{ "answer", "sources" }` |
-| POST | `/admin/reindex` | optional `X-Admin-Key` | ingest result dict |
+| POST | `/admin/reindex` | required `X-Admin-Key` | ingest result dict |
 
 ## Services
 
@@ -86,10 +86,10 @@ Empty retrieval → Thai/English no-verified-info message, `sources: []`.
 ### Ingestion (`ingestion_service.py`)
 
 ```
-RAG_SOURCE_PATHS → loaders → chunking → batched Chroma add → save manifest
+RAG_SOURCE_PATHS → loaders → chunking → staging Chroma collection → verify count → atomic active-manifest publication
 ```
 
-Skips rebuild when source fingerprints unchanged (unless `force=True`).
+Skips rebuild only when source/config fingerprints and the active collection's expected chunk count match (unless `force=True`). `pipeline/manifest.py` fingerprints source files; `core/vectorstore.py` reads/writes the active manifest and follows its collection pointer. Rebuild failures do not replace the serving collection. Previous successful collections are retained for in-flight readers; see backend/README.md for maintenance and single-writer limits.
 
 ## Core
 
@@ -141,17 +141,17 @@ services/rag_service
 
 # Configuration
 
-Driven by environment (see `backend_new/.env.example`):
+Driven by environment (see `backend/.env.example`):
 
 | Variable | Role |
 |----------|------|
 | `LLM_*` | Chat model (OpenAI-compatible) |
-| `EMBEDDING_*` | Embedding model; Ollama auto if host:11434 |
+| `EMBEDDING_*` | Embedding model; choose EMBEDDING_PROVIDER explicitly |
 | `CHROMA_DIR`, `CHROMA_COLLECTION` | Vector persistence |
 | `RAG_SOURCE_PATHS` | Comma-separated source dirs/files |
 | `CHUNK_SIZE`, `CHUNK_OVERLAP`, `RETRIEVAL_K` | Chunk/retrieve params |
 | `CORS_ORIGINS` | Browser frontend origins |
-| `ADMIN_API_KEY` | Optional lock on `/admin/reindex` |
+| `ADMIN_API_KEY` | Required secret for `/admin/reindex` |
 
 ---
 

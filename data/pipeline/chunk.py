@@ -20,7 +20,7 @@ Writes: chunks/<category>/<name>.json         (schema เดิม — app ฝ�
 
     {
       "doc_id": "...",
-      "metadata": { category, source_name, language, last_updated, ... },
+      "metadata": { category, source_name, language, ingested_at, ... },
       "chunks": [ { chunk_id, content, page, section } ]
     }
 
@@ -53,7 +53,7 @@ CHUNK_SIZE = 1000   # เป้าหมายต่อ chunk (ตัวอั�
 CHUNK_MIN = 200     # chunk เล็กกว่านี้จะถูกรวมเข้ากับ chunk ก่อนหน้า
 CHUNK_MAX = 1600    # เพดาน: block เดี่ยวที่ใหญ่กว่านี้ถึงจะโดน fallback split
 
-PAGE_RE = re.compile(r"<!--\sPage\s(\d+)")  # รวม variant (OCR FAILED)
+PAGE_RE = re.compile(r"<!--\s*page(?:\s*:\s*|\s+)(\d+)(?:\s*\([^)]*\))?\s*-->", re.IGNORECASE)
 PAGE_TAG_RE = re.compile(r"<page_number>[^<]*</page_number>")
 FOOTER_RE = re.compile(r"^\s*(หน้า\s*\d+|\d+\s*/\s*\d+)\s*$")  # เลขหน้าที่ OCR ติดมา
 HEADING_RE = re.compile(r"^(#{1,6})\s+(.+)$")
@@ -453,9 +453,13 @@ def build_document(md_path: Path) -> dict:
         "contact": overrides.get("contact", ""),
         "source_name": md_path.stem,
         "language": detect_language(text),
-        "last_updated": date.today().isoformat(),
+        # Processing date, at day precision; never a policy publication/effective date.
+        "ingested_at": date.today().isoformat(),
         "verified": overrides.get("verified", False),
     }
+    for key in ("published_at", "effective_from", "effective_until", "document_status", "verification_status"):
+        if key in overrides:
+            metadata[key] = overrides[key]
     return {"doc_id": doc_id, "metadata": metadata, "chunks": chunks}
 
 

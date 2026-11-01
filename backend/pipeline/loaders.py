@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import logging
+import math
 from pathlib import Path
 from typing import Iterable
 
@@ -56,11 +57,25 @@ def load_json_documents(path: Path) -> list[Document]:
             "title",
             "department",
             "source_url",
+            "source_uri",
+            "source_id",
+            "version_id",
+            "content_hash",
+            "content_type",
             "language",
+            "contact",
+            "verified",
+            "verification_status",
+            "document_status",
+            "published_at",
+            "effective_from",
+            "effective_until",
+            "ingested_at",
+            # Read compatibility only; do not reinterpret this as a policy date.
             "last_updated",
         ):
             value = doc_meta.get(key)
-            if value:
+            if isinstance(value, (str, bool, int, float)) and value != "" and (not isinstance(value, float) or math.isfinite(value)):
                 metadata[key] = value
         if chunk.get("section"):
             metadata["section"] = chunk["section"]

@@ -1,6 +1,12 @@
 # Evaluation Data
 
-This folder contains all dataset files for the evaluation benchmark.
+This folder contains the existing evaluation benchmark and a separate experimental GraphRAG development set.
+
+## Graph files moved
+
+ชุดสร้างกราฟอยู่ [graph/](../../graph/README.md) แล้ว. ผลทดลอง schema/โมเดล/คำตอบเดิมเก็บเฉพาะเครื่องที่ `.local/graph-rag-research/data/` และไม่เข้า Git. โฟลเดอร์นี้คงเฉพาะ benchmark เดิม
+
+Sections below describe the existing benchmark (`raw/`, `merged_raw/`, `final/`), not the GraphRAG pilot schema.
 
 ## Structure
 
@@ -46,7 +52,7 @@ evaluation/
 
 ## Question Schema
 
-Every question across all files follows this schema:
+Every question in the existing benchmark follows this schema; `../../graph/data/inputs/questions.json` uses its own evidence-backed development schema:
 
 ```json
 {
@@ -74,7 +80,7 @@ Every question across all files follows this schema:
 
 ## Cautions for Evaluators
 
-1. **Use `final/` only** — The other folders are intermediate/audit. Do not evaluate against `merged_raw/` or `raw/`.
+1. **Use `final/` for the existing benchmark** — Do not evaluate against `merged_raw/` or `raw/`. The local archived GraphRAG pilot is for development, not an approved replacement benchmark.
 2. **Thai language** — All questions and answers are in Thai. Ensure your evaluation pipeline handles Thai text correctly.
 3. **`answer_must_contain` is a list** — A correct answer should contain ALL listed phrases, not just one.
 4. **`gold_chunk` overlap** — Some questions from both annotators target the same chunk. Both are valid — different wording, possibly different intent.

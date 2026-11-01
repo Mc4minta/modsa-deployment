@@ -110,6 +110,15 @@ Block ที่ใหญ่ผิดปกติ (เกิน 1,600 ตัว�
 3. ⚠️ **วรรณยุกต์ที่หาย** (เช่น `คาใชจาย` → `ค่าใช้จ่าย`) `clean` ซ่อมไม่ได้ ต้องแก้มือใน `data/processed/`
 4. ฝั่ง RAG อ่าน `chunks/` อยู่แล้ว (`.env`: `RAG_SOURCE_PATHS="chunks"`) → รีสตาร์ทแอปเพื่อ re-index (หรือยิง `POST /reindex`)
 
+## ส่งต่อให้ GraphRAG pilot
+
+- GraphRAG ทดลองอ่านไฟล์ที่เตรียมพร้อมแล้วใน `data/chunks/`; คง `doc_id` / `chunk_id` ต้นทาง ไม่ต้อง normalize, chunk ใหม่ หรือ reindex Chroma เพื่อทดลองกราฟ.
+- รหัสรุ่น/hash และ data contract เก็บเป็น sidecar แยกจากต้นทาง; การทำ pilot ไม่เขียนทับไฟล์ทีม Data.
+- วันประกาศ/วันมีผล/สถานะให้ดึงจากข้อความในเอกสารพร้อม chunk/page/quote ไม่ต้องรอทีม Data ยืนยันทุกไฟล์; ไม่ชัดคง `null` / `UNKNOWN` และไม่ตั้ง `VERIFIED` หรือ `ACTIVE` อัตโนมัติ. การเติม metadata จากเนื้อหายังไม่ได้ทำครบ.
+- โค้ดรองรับ page marker ทั้งเก่าและใหม่แล้ว; การสร้าง chunks ครั้งต่อไปเก็บ `ingested_at` แยกจากวันประกาศ/วันมีผล และยังอ่าน `last_updated` เก่าได้ โดยไม่ต้องสร้างข้อมูลเดิมใหม่.
+
+ดู [คู่มือ GraphRAG และคำสั่ง offline](../../graph/README.md) และ [ผลตรวจ contract ทั้งคลัง](../../graph/data/review/contracts.md).
+
 ## หมายเหตุ
 
 - จุดส่งต่อระหว่าง 2 ฝั่งคือ **`chunks/` เท่านั้น** (ฝั่ง RAG ไม่ยุ่งกับ `data/`)

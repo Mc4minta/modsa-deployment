@@ -1,0 +1,166 @@
+{
+  "chunks": [
+    {
+      "pilot_id": "p01",
+      "source_path": "scholarship/R1-เกณฑ์การรับ-ทุนเพรชฯ-69.json",
+      "chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0001",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p02",
+      "source_path": "scholarship/R1-เกณฑ์การรับ-ทุนเพรชฯ-69.json",
+      "chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0002",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p03",
+      "source_path": "scholarship/R1-เกณฑ์การรับ-ทุนเพรชฯ-69.json",
+      "chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0012",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p04",
+      "source_path": "scholarship/R1-เกณฑ์การรับ-ทุนเพรชฯ-69.json",
+      "chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0014",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p05",
+      "source_path": "scholarship/R1-เกณฑ์การรับ-ทุนเพรชฯ-69.json",
+      "chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0026",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p06",
+      "source_path": "scholarship/R1-เกณฑ์การรับ-ทุนเพรชฯ-69.json",
+      "chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0027",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p07",
+      "source_path": "scholarship/ประกาศทุนเพชรฯป.ตรี-และเงื่อนไข-68.json",
+      "chunk_id": "ประกาศทุนเพชรฯป.ตรี-และเงื่อนไข-68#0001",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p08",
+      "source_path": "scholarship/ประกาศทุนเพชรฯป.ตรี-และเงื่อนไข-68.json",
+      "chunk_id": "ประกาศทุนเพชรฯป.ตรี-และเงื่อนไข-68#0003",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p09",
+      "source_path": "fees/20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69.json",
+      "chunk_id": "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0001",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p10",
+      "source_path": "fees/20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69.json",
+      "chunk_id": "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0002",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p11",
+      "source_path": "fees/20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69.json",
+      "chunk_id": "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0003",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p12",
+      "source_path": "fees/20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69.json",
+      "chunk_id": "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0004",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p13",
+      "source_path": "academic_calendar/AcademicCalendar2026-2569TH2.json",
+      "chunk_id": "AcademicCalendar2026-2569TH2#0001",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p14",
+      "source_path": "academic_calendar/AcademicCalendar2026-2569TH2.json",
+      "chunk_id": "AcademicCalendar2026-2569TH2#0002",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p15",
+      "source_path": "academic_calendar/AcademicCalendar2026-2569TH2.json",
+      "chunk_id": "AcademicCalendar2026-2569TH2#0003",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p16",
+      "source_path": "academic_calendar/AcademicCalendar2026-2569TH2.json",
+      "chunk_id": "AcademicCalendar2026-2569TH2#0004",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p17",
+      "source_path": "academic_rules/discipline2566.json",
+      "chunk_id": "discipline2566#0001",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p18",
+      "source_path": "academic_rules/discipline2566.json",
+      "chunk_id": "discipline2566#0002",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p19",
+      "source_path": "academic_rules/discipline2566.json",
+      "chunk_id": "discipline2566#0003",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p20",
+      "source_path": "academic_rules/rule_exam2560.json",
+      "chunk_id": "rule_exam2560#0002",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p21",
+      "source_path": "registration/The_Student’s_Internet_Registration_Manual (fixed).json",
+      "chunk_id": "The_Student’s_Internet_Registration_Manual_(fixed)#0002",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p22",
+      "source_path": "registration/The_Student’s_Internet_Registration_Manual (fixed).json",
+      "chunk_id": "The_Student’s_Internet_Registration_Manual_(fixed)#0004",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p23",
+      "source_path": "registration/The_Student’s_Internet_Registration_Manual (fixed).json",
+      "chunk_id": "The_Student’s_Internet_Registration_Manual_(fixed)#0005",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p24",
+      "source_path": "others/ขั้นตอนการทำบัตรนักศึกษา.json",
+      "chunk_id": "ขั้นตอนการทำบัตรนักศึกษา#0001",
+      "role": "vector_only"
+    },
+    {
+      "pilot_id": "p25",
+      "source_path": "others/ติดต่อสำนักงานทะเบียน.json",
+      "chunk_id": "ติดต่อสำนักงานทะเบียน#0001",
+      "role": "primary"
+    },
+    {
+      "pilot_id": "p26",
+      "source_path": "scholarship/R1-เกณฑ์การรับ-ทุนเพรชฯ-69.json",
+      "chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0024",
+      "role": "context"
+    },
+    {
+      "pilot_id": "p27",
+      "source_path": "scholarship/R1-เกณฑ์การรับ-ทุนเพรชฯ-69.json",
+      "chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0025",
+      "role": "context"
+    }
+  ]
+}

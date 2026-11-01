@@ -6,18 +6,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 MOD-SA: KMUTT Student Affairs RAG chatbot.
 
-- `backend_new/` — **active** backend. FastAPI + LangChain + ChromaDB, OpenAI-compatible LLM/embeddings (Ollama supported locally).
-- `backend_old/` — legacy monolithic backend, reference only. Its `backend_old/chunks/` is still the default prepared knowledge source consumed by `backend_new/` (via `RAG_SOURCE_PATHS`) — do not delete/move it, but don't add new logic there.
-- `frontend/` — empty scaffold (`src/hooks`, `src/pages`, `src/router` dirs only, no `package.json`, no framework chosen yet).
-- `datasets/` — raw/processed/eval data backing the knowledge base.
-- `.agents/skills/modsa-backend/SKILL.md` and `docs/backend-structure.md` — deeper architecture/rules reference for backend work; read these before non-trivial backend changes. `docs/architecture.md` (referenced from README) is currently empty — ignore it, the real doc is `docs/backend-structure.md`.
+- `backend/` — **active** backend. FastAPI + LangChain + ChromaDB, OpenAI-compatible LLM/embeddings (Ollama supported locally).
+- `frontend/` — active React + TypeScript + Vite client with Vitest tests. See `frontend/README.md`.
+- `data/` — raw/processed/chunks/evaluation data; `data/chunks/` is the source of truth.
+- `graph/` — frozen GraphRAG pilot build/check/load; start at `graph/QUICKSTART.md`. `/chat/ask` remains Vector-only. No automatic schema discovery/full-corpus graph build.
+- `.agents/skills/modsa-backend/SKILL.md` and `docs/backend-structure.md` — backend rules/reference; `docs/architecture.md` gives the overview and `graph/QUICKSTART.md` is the graph handoff entrypoint.
 
 ## Commands
 
-No CI, no linter config, no automated test suite exists — verification is manual (curl smoke checks + `scripts/test_rag.py`).
+For new-document graphs use `python graph/run.py expand --input data/chunks/<file-or-folder> --check`, then follow `graph/EXPANSION.md`. No pilot IDs/QAs required. `--extract` needs an explicitly approved document scope/API budget; `--load` is an explicit staging database write. Do not equate this with production approval or automatic update/delete.
+
+Automated checks exist: from root run `PYTHONPATH=backend python3 -m unittest discover -s backend/tests`, and similarly `-s graph/tests`. Graph-only users need only graph requirements for `python graph/run.py check`; runtime integration tests additionally need backend dependencies. Frontend: `cd frontend && npm ci && npm run check`.
 
 ```bash
-cd backend_new
+cd backend
 python -m venv .venv && pip install -r requirements.txt
 cp .env.example .env
 uvicorn main:app --reload --host 127.0.0.1 --port 8000
@@ -27,7 +29,7 @@ curl http://127.0.0.1:8000/health
 curl -X POST http://127.0.0.1:8000/chat/ask -H "Content-Type: application/json" -d '{"question":"..."}'
 curl -X POST http://127.0.0.1:8000/admin/reindex   # add -H "X-Admin-Key: ..." if ADMIN_API_KEY set
 
-python -c "import main"   # import sanity check after changes, run from backend_new/
+python -c "import main"   # import sanity check after changes, run from backend/
 
 # docker (repo root)
 docker compose up --build
@@ -35,7 +37,7 @@ docker compose up --build
 
 ## Architecture
 
-Strict layered dependency direction (`backend_new/`):
+Strict layered dependency direction (`backend/`):
 
 ```
 api/ → services/ → core/ | pipeline/ → external systems
@@ -62,13 +64,13 @@ Do not add `utils/`, `database/`, or `models/` unless clearly needed. Do not put
 |---|---|---|---|
 | GET | `/health` | — | `{status, ingestion}` |
 | POST | `/chat/ask` | `{"question": "..."}` | `{answer, sources}` |
-| POST | `/admin/reindex` | optional `X-Admin-Key` | ingest result dict |
+| POST | `/admin/reindex` | required matching `X-Admin-Key` | ingest result dict |
 
 Startup lifespan in `main.py` runs `ingest_sources` (skips rebuild if source manifest fingerprint unchanged, unless `force=True`).
 
 ## Config
 
-Centralized in `backend_new/config.py` via `pydantic-settings`, read from `.env`. Key vars: `LLM_BASE_URL`/`LLM_API_KEY`/`LLM_MODEL`, `EMBEDDING_BASE_URL`/`EMBEDDING_API_KEY`/`EMBEDDING_MODEL`, `CHROMA_DIR`, `CHROMA_COLLECTION`, `RAG_SOURCE_PATHS` (comma-separated), `CHUNK_SIZE`, `CHUNK_OVERLAP`, `RETRIEVAL_K`, `CORS_ORIGINS`, `ADMIN_API_KEY` (optional). Embeddings auto-switch to Ollama mode when the embedding host is `localhost`/`127.0.0.1` port `11434`.
+Centralized in `backend/config.py` via `pydantic-settings`, read from `.env`. Key vars: `LLM_*`, `EMBEDDING_*`, `CHROMA_DIR`, `CHROMA_COLLECTION`, `RAG_SOURCE_PATHS`, `CHUNK_SIZE`, `CHUNK_OVERLAP`, `RETRIEVAL_K`, `CORS_ORIGINS`. `ADMIN_API_KEY` is required for reindex. Choose `EMBEDDING_PROVIDER` explicitly; Docker URLs use separate `DOCKER_LLM_BASE_URL`/`DOCKER_EMBEDDING_BASE_URL` overrides.
 
 ## RAG behavior rules
 
@@ -84,12 +86,12 @@ Centralized in `backend_new/config.py` via `pydantic-settings`, read from `.env`
 - Reuse `rag_service` / `ingestion_service` rather than adding parallel workflows.
 - Keep `api/` thin — no business logic there.
 - Don't replace LangChain unless necessary; don't introduce Redis, auth frameworks, or extra services before the demo actually needs them.
-- Preserve `backend_old` behavior unless a change is intentional (it's the behavioral reference, even though it's not actively maintained).
+- Preserve the existing Vector API unless explicitly asked to enable Hybrid. Do not recreate nonexistent legacy backend folders.
 
 ## Testing checklist (after backend changes)
 
-- `python -c "import main"` succeeds from `backend_new/`
-- `GET /health` returns `status: ok`
+- `python -c "import main"` succeeds from `backend/`
+- `GET /health` returns 200/ok after nonempty ingestion, 503/not_ready otherwise
 - Startup or `POST /admin/reindex` indexes sources
 - `POST /chat/ask` returns answer + sources for a known topic
 - Empty question → 422

@@ -1,16 +1,30 @@
-# React + Vite
+# MOD-SA frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React + TypeScript + Vite chat client. This is an implemented application, not an empty scaffold.
+See [root README](../README.md) for the backend and [graph quick start](../graph/QUICKSTART.md) for graph-only work.
 
-Currently, two official plugins are available:
+## Local development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Use Node.js22 (22.17 tested) and npm. From this directory:
 
-## React Compiler
+```sh
+npm ci
+cp .env.example .env
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+On PowerShell replace the copy command with `Copy-Item .env.example .env`.
+Set `VITE_API_URL=http://localhost:8000`; start the backend separately. In production this must be the backend's HTTPS URL, not localhost. No secrets belong in VITE_* variables: they are bundled into the browser application.
 
-## Expanding the Oxlint configuration
+## Verification
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```sh
+npm run check
+```
+
+Runs Oxlint, TypeScript, Vitest and production build. Tests use *.test.ts and *.test.tsx.
+Production output is dist/. Check browser behavior at desktop/mobile widths separately; passing tests is not a visual or deployed end-to-end check.
+
+## Integration
+
+POST /chat/ask returns answer and sources. The deployed backend currently uses Vector RAG, not the standalone graph build. Set CORS_ORIGINS on the backend to the frontend origins. Configure the hosting service to build from frontend/ using npm run build and serve dist/. Do not assume an existing hosting deployment was updated by local code changes.

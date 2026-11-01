@@ -1,0 +1,84 @@
+{
+  "reviewer": "AI_SOURCE_REVIEW_NOT_POLICY_APPROVAL",
+  "snapshot_hash": "d24f788d4f0e0b25663d3dc4810c9758c2efa4ef9bc6d2e891a7b99728e71548",
+  "edits": [
+    {
+      "pilot_id": "p01",
+      "cache_key": "7ee7900999848382de60927cd9e451619da87388f0850dd3056fa1b0895ac05d",
+      "collection": "entities",
+      "ref": "e1",
+      "changes": {"evidence": [
+        {"chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0001", "quote": "ทุนเพชรพระจอมเกล้า"},
+        {"chunk_id": "R1-เกณฑ์การรับ-ทุนเพรชฯ-69#0001", "quote": "จำนวนทุนการศึกษาเพชรพระจอมเกล้า ระดับปริญญาตรี แบ่งเป็น 2 ประเภท"}
+      ]},
+      "reason": "ชื่อทุนตรงต้นทาง แต่โมเดลรวมข้อความข้ามบรรทัดโดยลบ newline; เปลี่ยนหลักฐานชื่อเป็นข้อความตรงต้นทาง ไม่เปลี่ยนชื่อหรือค่าข้อมูล"
+    },
+    {
+      "pilot_id": "p16",
+      "cache_key": "d01adbf66b0d592fb5efd7f8aea28f110d2cd2b5b0e49c0e67a7d9972ea3d3ee",
+      "collection": "entities",
+      "ref": "e_sem",
+      "changes": {"evidence": [
+        {"chunk_id": "AcademicCalendar2026-2569TH2#0004", "quote": "ค่าลงทะเบียนรักษาสถานภาพการเป็นนักศึกษา ภาคการศึกษาที่ 1/2569"},
+        {"chunk_id": "AcademicCalendar2026-2569TH2#0001", "quote": "สำหรับนักศึกษาระดับปริญญาตรี และระดับบัณฑิตศึกษา (ยกเว้น ระดับบัณฑิตศึกษา คณะเทคโนโลยีสารสนเทศ)"}
+      ]},
+      "reason": "เพิ่มหลักฐานขอบเขตประชากรจาก p13 ที่อนุญาตเป็น context อยู่แล้ว เพื่อให้ตรวจย้อนข้อยกเว้น SIT จากกราฟได้"
+    },
+    {
+      "pilot_id": "p16",
+      "cache_key": "d01adbf66b0d592fb5efd7f8aea28f110d2cd2b5b0e49c0e67a7d9972ea3d3ee",
+      "collection": "facts",
+      "ref": "f_cancel",
+      "changes": {"subject_refs": ["e_sem"]},
+      "reason": "กฎยกเลิกผูกกับภาคการศึกษา เก็บข้อยกเว้นทั้งประโยคใน raw_text ไม่แยกเป็น track หรืออนุมานกลุ่มสิทธิ์"
+    },
+    {
+      "pilot_id": "p16",
+      "cache_key": "d01adbf66b0d592fb5efd7f8aea28f110d2cd2b5b0e49c0e67a7d9972ea3d3ee",
+      "collection": "facts",
+      "ref": "f_exception",
+      "action": "remove",
+      "reason": "ข้อความข้อยกเว้นอยู่ครบใน f_cancel แล้ว ไม่สร้างกฎข้อยกเว้นซ้ำที่ขาดการกระทำและอาจถูกนำไปใช้ผิดบริบท"
+    },
+    {
+      "pilot_id": "p16",
+      "cache_key": "d01adbf66b0d592fb5efd7f8aea28f110d2cd2b5b0e49c0e67a7d9972ea3d3ee",
+      "collection": "entities",
+      "ref": "e_sch",
+      "action": "remove",
+      "reason": "นักศึกษาที่ได้รับทุนไม่ใช่ scholarship_track; ยังไม่แยกกลุ่มจากข้อความ AND/OR ที่ไม่ยืนยัน"
+    },
+    {
+      "pilot_id": "p16",
+      "cache_key": "d01adbf66b0d592fb5efd7f8aea28f110d2cd2b5b0e49c0e67a7d9972ea3d3ee",
+      "collection": "entities",
+      "ref": "e_def",
+      "action": "remove",
+      "reason": "ผ่อนผันไม่ใช่ program_track; เก็บเป็นส่วนของกฎต้นฉบับ ไม่สร้างตัวตนหรือสิทธิ์เพิ่มเอง"
+    },
+    {
+      "pilot_id": "p21",
+      "cache_key": "61f3bda9cbb9e28e4f4fce1f7ea1a1e6168a8727988c2e4eaa1dd28197b2eb35",
+      "collection": "entities",
+      "ref": "E2",
+      "changes": {"kind": "role"},
+      "reason": "academic advisors เป็นบทบาทบุคคล ไม่ใช่ academic_term; ชื่อและหลักฐานตรงต้นฉบับอยู่แล้ว"
+    },
+    {
+      "pilot_id": "p21",
+      "cache_key": "61f3bda9cbb9e28e4f4fce1f7ea1a1e6168a8727988c2e4eaa1dd28197b2eb35",
+      "collection": "entities",
+      "ref": "E3",
+      "changes": {"kind": "fee"},
+      "reason": "registration fee เป็นค่าธรรมเนียม ไม่ใช่ procedure; ขั้นตอนยังอยู่ใน Fact ของคู่มือ"
+    },
+    {
+      "pilot_id": "p21",
+      "cache_key": "61f3bda9cbb9e28e4f4fce1f7ea1a1e6168a8727988c2e4eaa1dd28197b2eb35",
+      "collection": "facts",
+      "ref": "F2",
+      "changes": {"subject_refs": ["E2", "E3"]},
+      "reason": "ขั้นตอนหลังอนุมัติในข้อ 4 ไม่ได้ระบุเฉพาะ probation จึงไม่ผูกกับกลุ่ม probation โดยอัตโนมัติ"
+    }
+  ]
+}
