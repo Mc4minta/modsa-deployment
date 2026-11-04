@@ -18,7 +18,7 @@ from common import DATA, ROOT, BASE_URL as MIMO_BASE_URL, api_key, fingerprint, 
 from contracts import adapt
 from extract import MODEL as MIMO_MODEL, PROMPT_VERSION, payload_for, stage as legacy_stage, export_graph
 from source_evidence import VERSION as EVIDENCE_VERSION, anchor_payload, catalog, materialize
-from load_graph import CONSTRAINT, connection_settings, make_plan, merge_run, other_content, assert_run
+from load_graph import CONSTRAINT, connection_settings, make_plan, merge_run, other_content, assert_run, batch_verification
 from prepare import check_schema
 
 OUTPUT = ROOT / "graph/expansions"
@@ -119,7 +119,8 @@ def finish_metrics(metrics, started):
     attempts = list(metrics["_attempts"].values())
     finished = [r for r in attempts if r["event"] == "finished"]
     http = [r for r in finished if r.get("api_attempted") is True]
-    uncertain = sum(r["event"] != "finished" or r.get("api_attempted") is None for r in attempts)
+    uncertain = sum(r["event"] != "finished" or r.get("api_attempted") is None
+                    or r.get("dispatch_unknown") is True for r in attempts)
     counters = ("prompt_tokens","completion_tokens","total_tokens")
     complete_usage = sum(all(k in r.get("usage",{}) for k in counters) for r in http)
     result = {k:v for k,v in metrics.items() if not k.startswith("_")}
@@ -461,6 +462,18 @@ def initial_marker(job):
     return marker
 
 
+def dispatch_unknown(record):
+    """A transport/read failure is not proof that the provider did no work."""
+    if not record or not record.get("error") or record.get("api_attempted") is False:
+        return False
+    if record.get("dispatch_unknown") is True:
+        return True
+    if record.get("raw_response") or isinstance(record.get("extraction"), dict) or record.get("finish_reason"):
+        return False
+    status = record.get("http_status")
+    return status is None or status >= 500 or 200 <= status < 300
+
+
 def extraction_plan(batch, repair_once=False):
     pending = []
     unresolved = []
@@ -471,7 +484,7 @@ def extraction_plan(batch, repair_once=False):
             if record is not None and not record.get("error"):
                 continue
             initial = initial_marker(job)
-            if initial is not None and initial.get("status") == "RESERVED":
+            if dispatch_unknown(record) or (initial is not None and initial.get("status") in {"RESERVED", "UNKNOWN"}):
                 unresolved.append(job["primary"]["chunk_id"])
                 continue
             if repair_marker(job) is not None:
@@ -501,7 +514,7 @@ def extract_attempt(job, schema, metrics, repair=None):
     marker_path = OUTPUT/"cache/repairs"/(job["key"]+".json")
     initial_path = OUTPUT/"cache/initial"/(job["key"]+".json")
     initial = initial_marker(job)
-    if initial is not None and initial.get("status") == "RESERVED":
+    if dispatch_unknown(cached(job)) or (initial is not None and initial.get("status") in {"RESERVED", "UNKNOWN"}):
         raise ValueError("Initial request outcome unknown; audit before any resend or repair")
     if repair is not None:
         if repair_marker(job) is not None:
@@ -533,6 +546,7 @@ def extract_attempt(job, schema, metrics, repair=None):
     except Exception as error:
         record["error"] = type(error).__name__
     record.update(identity,validator_profile=VALIDATOR_PROFILE)
+    record["dispatch_unknown"] = dispatch_unknown(record)
     if repair is not None:
         record.update(repair_version=REPAIR_VERSION,repair_prompt_version=REPAIR_PROMPT_VERSION,
                       initial_archive=original,source_cache_archive=source_archive)
@@ -542,13 +556,15 @@ def extract_attempt(job, schema, metrics, repair=None):
         "http_seconds":record.get("http_seconds"),"elapsed_seconds":time.perf_counter()-started,
         "http_status":record.get("http_status"),"error":record.get("error"),
         "transport_error_type":record.get("transport_error_type"),
+        "dispatch_unknown":record["dispatch_unknown"],
         "rejected_reasons":sorted({reason for r in rejected for reason in r.get("reasons",[r.get("reason","unknown")])})})
     archive = archive_record(job,record)
     save(OUTPUT/"cache"/(job["key"]+".json"),record)
+    status = "UNKNOWN" if record["dispatch_unknown"] else "FINISHED"
     if repair is not None:
-        save(marker_path,{**read(marker_path),"status":"FINISHED","result_archive":archive,"success":not bool(record.get("error"))})
+        save(marker_path,{**read(marker_path),"status":status,"result_archive":archive,"success":not bool(record.get("error"))})
     else:
-        save(initial_path,{**identity,"status":"FINISHED","result_archive":archive,
+        save(initial_path,{**identity,"status":status,"result_archive":archive,
                            "success":not bool(record.get("error"))})
     return record
 
@@ -634,12 +650,12 @@ def merge_batch(tx, plans):
     if any(a["content_hash"] != b["content_hash"] for a,b in zip(first,second)):
         raise ValueError("Readback changed; rollback batch")
     # Recheck the final state too: later imports must not alter earlier document runs.
-    for plan in plans:
-        assert_run(tx,plan)
+    content_hashes = {plan["run_id"]: assert_run(tx,plan) for plan in plans}
     if before != other_content(tx,run_ids):
         raise ValueError("Unrelated graph changed; rollback batch")
     return {"documents":len(plans),"nodes_created":sum(r["nodes_created"] for r in first),
-            "relationships_created":sum(r["relationships_created"] for r in first)}
+            "relationships_created":sum(r["relationships_created"] for r in first),
+            "target_content_hashes":content_hashes}
 
 
 def load(batch, output):
@@ -723,6 +739,10 @@ def main():
             finally:
                 metrics["phase_seconds"]["neo4j_load_and_readback"] = time.perf_counter()-phase_started
             save(path.parent/"load.json",{"batch_id":batch["batch_id"],"run_ids":[d["run_id"] for d in output["documents"]],**result})
+            verification_path = path.with_name("load_verification.json")
+            if verification_path.exists():
+                save(metrics["_folder"]/"previous_load_verification.json",read(verification_path))
+            save(verification_path,batch_verification(path,result["target_content_hashes"]))
             print(f"LOADED: {result['documents']} document versions; {result['nodes_created']} new nodes / {result['relationships_created']} new edges")
         else:
             save(path,output)

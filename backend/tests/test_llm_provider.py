@@ -44,6 +44,16 @@ class AnswerLLMProviderTests(unittest.TestCase):
             self.assertIs(llm.build_llm(settings), llm.build_llm(settings))
         client.assert_called_once()
 
+    def test_different_settings_never_reuse_the_previous_model_or_credentials(self):
+        first = self.settings()
+        for change in ({"llm_model":"qwen-test"}, {"llm_base_url":"http://localhost:9999/v1"},
+                       {"llm_api_key":"different-fake-key"}, {"llm_timeout":99}, {"llm_max_retries":2}):
+            with self.subTest(fields=list(change)), patch.object(llm,"_llm",None), \
+                 patch.object(llm,"ChatOpenAI",side_effect=[sentinel.first,sentinel.second]) as client:
+                self.assertIs(llm.build_llm(first),sentinel.first)
+                self.assertIs(llm.build_llm(first.model_copy(update=change)),sentinel.second)
+                self.assertEqual(client.call_count,2)
+
 
 if __name__ == "__main__":
     unittest.main()

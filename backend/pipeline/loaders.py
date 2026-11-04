@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import logging
 import math
 from pathlib import Path
@@ -40,17 +41,31 @@ def load_json_documents(path: Path) -> list[Document]:
     data = json.loads(path.read_text(encoding="utf-8"))
     doc_meta = data.get("metadata", {})
     doc_id = data.get("doc_id", path.stem)
+    # Bind the whole source version, not just the retrieved chunk, to the graph contract.
+    identity = [{key: chunk.get(key) for key in ("content", "page", "section")} for chunk in data.get("chunks", [])]
+    digest = hashlib.sha256(json.dumps(identity, ensure_ascii=False, sort_keys=True,
+                                      separators=(",", ":")).encode()).hexdigest()
+    version_id = f"{doc_id}@{digest[:16]}"
+    for key, expected in (("source_id", doc_id), ("version_id", version_id), ("content_hash", digest)):
+        if doc_meta.get(key) is not None and doc_meta[key] != expected:
+            raise ValueError(f"Prepared source has stale {key}")
 
     documents: list[Document] = []
-    for chunk in data.get("chunks", []):
-        content = (chunk.get("content") or "").strip()
-        if not content:
+    for index, chunk in enumerate(data.get("chunks", [])):
+        content = chunk.get("content") or ""
+        if not isinstance(content, str):
+            raise ValueError("Chunk content must be text")
+        if not content.strip():
             continue
         metadata: dict[str, object] = {
             "source": doc_meta.get("source_name") or doc_id,
             "doc_id": doc_id,
             "chunk_id": chunk.get("chunk_id", ""),
             "_prechunked": True,
+            "source_id": doc_id,
+            "version_id": version_id,
+            "content_hash": digest,
+            "source_index": index,
         }
         for key in (
             "category",

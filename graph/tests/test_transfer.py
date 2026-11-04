@@ -15,6 +15,28 @@ from common import fingerprint
 
 
 class GraphTransferTests(unittest.TestCase):
+    def test_readonly_batch_verify_writes_eval_evidence_and_refuses_overwrite(self):
+        from expand import expansion_schema,document_plan
+        from load_graph import expected_content
+        schema=expansion_schema(self.package["runs"][0]["schema"])
+        graph=self.package["runs"][0]["graph"]
+        plan=document_plan(graph,schema)
+        hashes={plan["run_id"]:fingerprint(expected_content(plan))}
+        with tempfile.TemporaryDirectory() as folder:
+            batch=Path(folder)/"graph.json";destination=Path(folder)/"load_verification.json"
+            batch.write_text(json.dumps({"status":"EXPANSION_VALIDATED_PENDING_NOT_PRODUCTION",
+                "batch_id":"fixture","schema_hash":fingerprint(schema),
+                "documents":[{"run_id":plan["run_id"],"graph":graph}]}))
+            with patch.object(transfer,"verify_database",return_value=hashes) as verify, \
+                 patch.object(transfer,"load_plans",side_effect=AssertionError("must not write DB")):
+                report=transfer.verify_batch(batch,destination)
+                verify.assert_called_once()
+                self.assertEqual(report["target_content_hashes"],hashes)
+                self.assertEqual((report["nodes"],report["edges"]),(134,231))
+                before=destination.read_bytes()
+                with self.assertRaises(ValueError):transfer.verify_batch(batch,destination)
+                self.assertEqual(destination.read_bytes(),before)
+
     @classmethod
     def setUpClass(cls):
         cls.package=transfer.package_for_export(True,None)

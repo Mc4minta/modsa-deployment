@@ -1,6 +1,7 @@
 """Offline regressions for source-page and metadata compatibility."""
 from datetime import date
 import json
+import hashlib
 from pathlib import Path
 import sys
 import tempfile
@@ -14,6 +15,21 @@ from data.pipeline import chunk
 
 
 class GraphRAGIngestionTests(unittest.TestCase):
+    def test_real_backend_documents_bridge_to_frozen_graph_without_eval_enrichment(self):
+        sys.path.insert(0,str(ROOT/"graph/build"))
+        from load_graph import prepare_import
+        from prepare import build
+        from backend.services.graph_service import PilotGraph
+        plan=prepare_import();bundle=build()
+        documents=[doc for source in bundle["sources"]
+                   for doc in load_json_documents(ROOT/"data/chunks"/source["source_path"])]
+        selected={c["chunk_id"] for c in bundle["pilot"]}
+        documents=[d for d in documents if d.metadata["chunk_id"] in selected]
+        graph=PilotGraph(plan["nodes"],plan["edges"],documents,allow_pending=True)
+        self.assertEqual(len(documents),27)
+        expected={c["chunk_id"] for c in bundle["pilot"] if c["role"]!="vector_only"}
+        self.assertEqual({doc.metadata["chunk_id"] for doc in documents if graph.anchor(doc) is not None},expected)
+
     def load_fixture(self, folder: str, metadata: dict) -> list:
         path = Path(folder) / "prepared.json"
         path.write_text(json.dumps({"doc_id": "source", "metadata": metadata,
@@ -57,10 +73,12 @@ class GraphRAGIngestionTests(unittest.TestCase):
             self.assertEqual(document["metadata"]["effective_from"], "2025-11-12")
 
     def test_loader_preserves_false_contact_and_explicit_scalar_contract_fields(self):
+        digest=hashlib.sha256(json.dumps([{"content":"Source evidence","page":2,"section":None}],
+            ensure_ascii=False,sort_keys=True,separators=(",",":")).encode()).hexdigest()
         meta = {"verified": False, "contact": "office@example.org", "ingested_at": "2026-10-29",
                 "published_at": "2025-11-11", "effective_from": "2025-11-12", "effective_until": None,
                 "document_status": "UNKNOWN", "verification_status": "UNVERIFIED", "source_id": "source",
-                "source_uri": "data/chunks/example.json", "version_id": "source@hash", "content_hash": "hash",
+                "source_uri": "data/chunks/example.json", "version_id": "source@"+digest[:16], "content_hash": digest,
                 "content_type": "application/json"}
         with tempfile.TemporaryDirectory() as folder:
             documents = self.load_fixture(folder, meta)
@@ -87,12 +105,34 @@ class GraphRAGIngestionTests(unittest.TestCase):
 
     def test_loader_does_not_forward_unknown_or_unsupported_metadata_values(self):
         meta = {"verified": False, "contact": {"email": "office@example.org"}, "published_at": None,
-                "source_uri": ["one", "two"], "ingested_at": "", "version_id": float("nan")}
+                "source_uri": ["one", "two"], "ingested_at": ""}
         with tempfile.TemporaryDirectory() as folder:
             loaded = self.load_fixture(folder, meta)[0]
         self.assertIs(loaded.metadata["verified"], False)
-        for key in ("contact", "published_at", "source_uri", "ingested_at", "version_id"):
+        for key in ("contact", "published_at", "source_uri", "ingested_at"):
             self.assertNotIn(key, loaded.metadata)
+
+    def test_loader_computes_whole_source_identity_and_preserves_exact_text(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/"source.json"
+            raw={"doc_id":"source","metadata":{},"chunks":[
+                {"chunk_id":"a","content":" first \n","page":1},
+                {"chunk_id":"b","content":"second","page":2}]}
+            path.write_text(json.dumps(raw))
+            first=load_json_documents(path)
+            self.assertEqual(first[0].page_content," first \n")
+            self.assertEqual(first[0].metadata["source_index"],0)
+            self.assertEqual(first[1].metadata["source_index"],1)
+            raw["chunks"][1]["content"]="changed elsewhere"
+            path.write_text(json.dumps(raw))
+            second=load_json_documents(path)
+            self.assertNotEqual(first[0].metadata["version_id"],second[0].metadata["version_id"])
+            self.assertEqual(first[0].page_content,second[0].page_content)
+
+    def test_stale_explicit_identity_is_rejected_not_silently_forwarded(self):
+        for metadata in ({"source_id":"other"},{"version_id":"source@stale"},{"content_hash":"wrong"}):
+            with self.subTest(fields=list(metadata)),tempfile.TemporaryDirectory() as folder:
+                with self.assertRaises(ValueError):self.load_fixture(folder,metadata)
 
 
 if __name__ == "__main__":

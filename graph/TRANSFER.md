@@ -1,5 +1,9 @@
 # ส่งสำเนากราฟให้เพื่อน — ไม่สกัดด้วย LLM ใหม่
 
+**ชุดส่งต่อเต็มล่าสุด4พ.ย.2026:** อ่าน [HANDOFF.md](HANDOFF.md) ก่อน. สำเนาเต็ม `graph/transfers/modsa-full-20261104.json` มี71runs/7911nodes/17004edges/1233chunks และถูกตรวจNeo4jแบบread-only. ตัวเลข134/231และZIPpilotด้านล่างเป็นชุดpilotเดิม ไม่ใช่สำเนาเต็มล่าสุด. ทุกชุดยังPENDING/retrievalปิด.
+
+ตรวจbatchหลังโหลดโดยไม่เขียนฐาน: `python graph/run.py transfer verify --batch <batch>/graph.json --out <batch>/load_verification.json`. ต้องเลือกoutputที่ยังไม่มี; สร้างSHA/contenthashreportสำหรับofflineeval ไม่อ่านLLMkey/ไม่ใช้cache และไม่อนุมัติsemanticquality.
+
 ส่งไฟล์ `graph/transfers/modsa-pilot-copy.json` พร้อม **source code โฟลเดอร์ graph/ รุ่นที่มีคำสั่ง transfer**. ไม่ส่ง `.env`, `.graph-pilot.env`, API key, cache หรือ Chroma disk. ถ้าเพื่อนมีโปรเจกต์อยู่แล้ว ต้องอัปเดตโค้ดคำสั่งนี้ก่อน (ไฟล์ที่ยังไม่commit/pushจะไม่ตามไปกับclone)
 
 ชุดที่เตรียมส่งครั้งนี้: `graph/transfers/modsa-graph-copy.zip` รวมเครื่องมือนำเข้า, requirements, คู่มือและJSONสำเนาไว้แล้ว เพื่อนแตกZIPในโฟลเดอร์ใหม่แล้วรันจากโฟลเดอร์ที่มี `graph/` ได้ ไม่ต้องcloneโปรเจกต์ทั้งชุดหรือรอcommit. ZIPนี้เป็นสำเนาตามเวลาที่สร้าง ไม่อัปเดตเองเมื่อโค้ด/กราฟเปลี่ยน

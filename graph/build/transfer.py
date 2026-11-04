@@ -7,7 +7,7 @@ from pathlib import Path
 
 from common import DATA, fingerprint
 from expand import document_plan, expansion_schema, load_plans, save
-from load_graph import assert_run, connection_settings, make_plan, prepare_import, read
+from load_graph import assert_run, connection_settings, make_plan, prepare_import, read, batch_verification
 
 FORMAT = "modsa-graph-transfer-v1"
 STATUS = "PENDING_NOT_FOR_RETRIEVAL"
@@ -61,7 +61,7 @@ def package_for_export(pilot: bool, batch_path: Path | None) -> dict:
     return package
 
 
-def verify_database(plans: list[dict]) -> None:
+def verify_database(plans: list[dict]) -> dict:
     """Read-only verification: export fails if a selected run is missing/changed."""
     from neo4j import GraphDatabase, READ_ACCESS
     uri,user,password,database = connection_settings()
@@ -69,9 +69,18 @@ def verify_database(plans: list[dict]) -> None:
         driver.verify_connectivity()
         with driver.session(database=database,default_access_mode=READ_ACCESS) as session:
             def verify(tx):
-                for plan in plans:
-                    assert_run(tx,plan)
-            session.execute_read(verify)
+                return {plan["run_id"]:assert_run(tx,plan) for plan in plans}
+            return session.execute_read(verify)
+
+
+def verify_batch(batch_path: Path, destination: Path) -> dict:
+    if destination.exists():
+        raise ValueError("Destination already exists; preserve prior readback report")
+    package = package_for_export(False,batch_path)
+    hashes = verify_database(validate(package))
+    report = batch_verification(batch_path,hashes)
+    save(destination,report)
+    return report
 
 
 def export(pilot: bool, batch_path: Path | None, destination: Path) -> dict:
@@ -95,11 +104,18 @@ def main():
     selection.add_argument("--pilot",action="store_true")
     selection.add_argument("--batch",type=Path,help="An expansion batch graph.json, not raw chunks")
     sender.add_argument("--out",type=Path,required=True)
+    verifier = commands.add_parser("verify",help="Read-only batch readback; write evidence for offline eval")
+    verifier.add_argument("--batch",type=Path,required=True)
+    verifier.add_argument("--out",type=Path,required=True)
     for name in ("check", "load"):
         receiver = commands.add_parser(name,help="Offline validation" if name == "check" else "Explicit Neo4j import")
         receiver.add_argument("--file",type=Path,required=True)
     args = parser.parse_args()
     try:
+        if args.command == "verify":
+            report = verify_batch(args.batch,args.out)
+            print(f"VERIFIED: {report['documents']} runs / {report['nodes']} nodes / {report['edges']} edges; no DB writes")
+            return
         if args.command == "export":
             package = export(args.pilot,args.batch,args.out)
             print(f"EXPORTED: {summary(validate(package))}; file {args.out}")

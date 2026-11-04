@@ -19,6 +19,31 @@ import common
 
 
 class ExpansionTests(unittest.TestCase):
+    def test_transport_unknown_is_blocked_on_resume_including_legacy_finished_marker(self):
+        with self.fixture((1,)) as (_,base):
+            batch=expand.prepare(base);job=batch["documents"][0]["jobs"][0]
+            with patch.object(expand,"call",return_value={"error":"TimeoutError","api_attempted":True,"usage":{}}) as call:
+                with self.assertRaises(ValueError):expand.extract_missing(batch,1)
+                self.assertEqual(expand.initial_marker(job)["status"],"UNKNOWN")
+                for repair_once in (False,True):
+                    with self.assertRaises(ValueError):expand.extract_missing(batch,2,repair_once=repair_once)
+                with self.assertRaisesRegex(ValueError,"outcome unknown"):
+                    expand.extract_attempt(job,batch["schema"],None)
+                self.assertEqual(call.call_count,1)
+            # Older versions marked this same transport outcome FINISHED; do not resend it either.
+            path=expand.OUTPUT/"cache"/(job["key"]+".json")
+            record=expand.read(path);record.pop("dispatch_unknown")
+            expand.save(path,record)
+            expand.save(expand.OUTPUT/"cache/initial"/(job["key"]+".json"),{"request_hash":job["key"],"status":"FINISHED"})
+            pending,unresolved,_=expand.extraction_plan(batch)
+            self.assertFalse(pending);self.assertEqual(unresolved,[job["primary"]["chunk_id"]])
+
+    def test_known_http_rejection_is_not_unknown_generation(self):
+        self.assertFalse(expand.dispatch_unknown({"error":"HTTPError","api_attempted":True,"http_status":429}))
+        self.assertFalse(expand.dispatch_unknown({"error":"RuntimeError","api_attempted":False}))
+        self.assertTrue(expand.dispatch_unknown({"error":"HTTPError","api_attempted":True,"http_status":504}))
+        self.assertFalse(expand.dispatch_unknown({"error":"JSONDecodeError","api_attempted":True,"raw_response":"not JSON"}))
+
     def write_review(self, job, record, action, changes=None):
         edit={"ref":"f","before_hash":expand.fingerprint(record["extraction"]["facts"][0]),
               "action":action,"reason":"Source interpretation pending; retain complete source and exceptions."}
@@ -462,10 +487,17 @@ class ExpansionTests(unittest.TestCase):
             path=expand.OUTPUT/"batches"/batch["batch_id"]/"graph.json"
             self.assertEqual(expand.read(path),expand.package(batch))
             self.assertTrue((path.parent/"README.md").exists())
+            doc=expand.read(path)["documents"][0]
+            from load_graph import expected_content
+            hashes={doc["run_id"]:expand.fingerprint(expected_content(expand.document_plan(doc["graph"],batch["schema"])))}
             with patch.object(sys,"argv",["expand.py","--input",str(base),"--load"]), \
-                 patch.object(expand,"load",return_value={"documents":1,"nodes_created":5,"relationships_created":5}) as load:
+                 patch.object(expand,"load",return_value={"documents":1,"nodes_created":5,"relationships_created":5,
+                                                         "target_content_hashes":hashes}) as load:
                 expand.main()
                 load.assert_called_once()
+                verified=expand.read(path.with_name("load_verification.json"))
+                self.assertEqual(verified["target_content_hashes"],hashes)
+                self.assertTrue(verified["all_nodes_pending_retrieval_disabled"])
 
     def test_failed_build_does_not_replace_previous_export(self):
         with self.fixture((1,)) as (_,base),patch.object(expand,"call",side_effect=self.record),redirect_stdout(io.StringIO()):
@@ -487,7 +519,9 @@ class ExpansionTests(unittest.TestCase):
             {"nodes_created":2,"relationships_created":1,"content_hash":"a"},{"nodes_created":3,"relationships_created":2,"content_hash":"b"},
             {"nodes_created":0,"relationships_created":0,"content_hash":"a"},{"nodes_created":0,"relationships_created":0,"content_hash":"b"}]) as merge:
             result=expand.merge_batch("transaction",plans)
-            self.assertEqual(result,{"documents":2,"nodes_created":5,"relationships_created":3})
+            self.assertEqual({k:result[k] for k in ("documents","nodes_created","relationships_created")},
+                             {"documents":2,"nodes_created":5,"relationships_created":3})
+            self.assertEqual(set(result["target_content_hashes"]),{"a","b"})
             self.assertTrue(all(c.args[0]=="transaction" for c in merge.call_args_list))
             self.assertTrue(all(c.kwargs=={"check_unrelated":False} for c in merge.call_args_list))
             self.assertEqual(outside.call_count,2)

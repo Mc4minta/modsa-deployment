@@ -1,5 +1,7 @@
 # Graph build
 
+**ส่งงานให้เพื่อน/AI ทำต่อ:** เริ่ม [HANDOFF.md](HANDOFF.md) — สำเนาเต็มทั้งคลัง, ขั้นload/verify/replay, การแก้ขั้นต่ำและงานค้าง. ยังเป็นstagingPENDING ไม่ใช่productionGraphRAGที่ผ่านคุณภาพ.
+
 **ข้อมูลใหม่ใช้ [EXPANSION](EXPANSION.md)**: `python graph/run.py expand --input data/chunks/<file-or-folder> --check` แล้วแยกอนุญาตการสกัด/โหลดจริง. ไม่ใช้pilot IDsหรือคำถามเดิม ไม่เปลี่ยนAPIหรืออนุมัติคุณภาพข้อมูลให้อัตโนมัติ
 
 ตัวสกัด `expand` ใช้OpenRouter Muse Spark 1.3 Contributor กับ `OPENROUTER_API_KEY`; frozen pilotยังMiMoเดิม. ถ้าจะใช้ผลMiMoที่ผ่านแล้วร่วมด้วยให้ระบุ `--reuse-mimo-cache` ตามคู่มือ (mixed-model build ตรวจหลักฐานซ้ำและเก็บที่มาทุกรายการ)

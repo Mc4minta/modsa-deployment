@@ -1,5 +1,9 @@
 # Phase12 — สร้างกราฟจาก chunks ชุดใหม่
 
+ส่งต่องานล่าสุดดู [HANDOFF](HANDOFF.md). ตัวรันกันtransport/read failuresที่ผลproviderยังไม่ทราบทั้งmarker `RESERVED`/`UNKNOWN` และlegacyfailedcache แม้เคยบันทึกFINISHED. ต้องauditก่อนส่งซ้ำ/repair; ยังไม่รองรับparallelwriters. ไม่เปลี่ยนrequestidentity/ตัวตรวจ/unitหรือกราฟเดิมจากการแก้runnerนี้.
+
+`--load` รุ่นส่งต่อสร้าง `load_verification.json` จากhashesที่ตรวจในtransactionด้วย; ถ้ามีรายงานเดิมเก็บสำเนาในofflineinvocationก่อนแทนที่. สำหรับกราฟที่โหลดแล้วใช้ `transfer verify --batch <batch>/graph.json --out <new-report>.json` อ่านฐานอย่างเดียวเพื่อสร้างหลักฐานโดยไม่โหลดซ้ำ. ไฟล์นี้รองรับofflineeval; ไม่ใช่semanticapproval.
+
 โหมดนี้ไม่ใช้รายการ27chunksหรือคำถาม50ข้อของpilot. ใช้ชนิดnode/เส้นเชื่อมจากschemaเดิม และเพิ่มmetadata profile `+source-metadata-v1` อัตโนมัติ รับJSONเอกสารหนึ่งไฟล์หรือdirectoryใต้ `data/chunks/` โดยแต่ละไฟล์คือเอกสารทั้งฉบับหนึ่งรุ่น
 
 Profileนี้เก็บ `source_uri`, `topic_tags`, `content_type`, `effective_until`, `ingested_at`, `supersedes` ลงกราฟด้วย โดยไม่แก้schema/ผลตรวจpilotเดิม. `supersedes` เป็นรายการIDรุ่นที่ต้นทางระบุ ไม่ใช่การสั่งลบ/ปิดรุ่นเก่า. ไม่มีการเดาวันหรือสถานะที่ขาด. Schema hash/cache key ของexpansionเปลี่ยนจากก่อนเพิ่มprofile จึงไม่แอบนำcacheคนละschemaมาใช้และไม่เรียกAPIทดแทนอัตโนมัติ

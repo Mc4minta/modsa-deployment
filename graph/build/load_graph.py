@@ -10,6 +10,7 @@ from collections import Counter, defaultdict
 from datetime import date, datetime, timezone
 import json
 import math
+import hashlib
 import os
 import re
 from urllib.parse import urlsplit
@@ -164,6 +165,23 @@ def expected_content(plan: dict) -> dict:
     clean = lambda props: {k: v for k, v in props.items() if v is not None}
     return {"nodes": {key: {"label": n["label"], "properties": clean(n["properties"])} for key, n in plan["nodes"].items()},
         "edges": {key: {**e, "properties": clean(e["properties"])} for key, e in plan["edges"].items()}}
+
+
+def batch_verification(path, content_hashes: dict) -> dict:
+    """Describe verified readback, independently of extraction caches or API calls."""
+    output = read(path)
+    run_ids = [document["run_id"] for document in output["documents"]]
+    if len(run_ids) != len(set(run_ids)) or set(run_ids) != set(content_hashes):
+        raise ValueError("Readback run set differs from the batch")
+    return {"status":"READBACK_VERIFIED_PENDING_NOT_FOR_RETRIEVAL", "batch_id":output["batch_id"],
+        "verified_at_utc":datetime.now(timezone.utc).isoformat(),
+        "graph_sha256":hashlib.sha256(path.read_bytes()).hexdigest(),
+        "documents":len(run_ids), "target_run_ids":run_ids, "target_content_hashes":content_hashes,
+        "nodes":sum(len(d["graph"]["nodes"]) for d in output["documents"]),
+        "edges":sum(len(d["graph"]["edges"]) for d in output["documents"]),
+        "all_nodes_pending_retrieval_disabled":all(n["properties"].get("review_status")=="PENDING"
+            and n["properties"].get("retrieval_enabled") is False for d in output["documents"] for n in d["graph"]["nodes"]),
+        "new_llm_api_calls":0, "semantic_accuracy_approved":False}
 
 
 def read_run(tx, run_id: str) -> dict:
