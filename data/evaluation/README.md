@@ -1,14 +1,24 @@
 # Evaluation Data
 
-This folder contains the existing evaluation benchmark and a separate experimental GraphRAG development set.
+This folder contains the shared Naive/Graph answer-quality benchmark and its legacy source datasets.
+
+## Active Naive vs Graph benchmark
+
+Use **`eval_311026.json`**, the same dataset used by the friend's Gemma baseline in `min_011126_202852/eval_runs/base/run.json`. Confirmed against that project's `data/evaluation/eval_311026.json`: parsed JSON is identical; no questions, answers, IDs or split assignments were changed.
+
+- 110 questions: 30 single-hop, 35 multi-hop, 20 global and 25 unanswerable.
+- Preserve the existing split: **dev 34 / test 76**. Develop on dev; use test only after freezing the setup.
+- Fields include `gold_chunk_ids`, `gold_answer`, `key_facts`, `exact_tokens`, `answerable`, `category` and `split`.
+- Do not substitute `eval.json`, `final/*.json` or `graph/data/inputs/questions.json`; those are different datasets/schemas.
+- The old Gemma outputs remain historical results. The planned CPE comparison must use the same benchmark for both Naive and Graph.
 
 ## Graph files moved
 
 ชุดสร้างกราฟอยู่ [graph/](../../graph/README.md) แล้ว. ผลทดลอง schema/โมเดล/คำตอบเดิมเก็บเฉพาะเครื่องที่ `.local/graph-rag-research/data/` และไม่เข้า Git. โฟลเดอร์นี้คงเฉพาะ benchmark เดิม
 
-Sections below describe the existing benchmark (`raw/`, `merged_raw/`, `final/`), not the GraphRAG pilot schema.
+Sections below describe the **legacy benchmark** (`raw/`, `merged_raw/`, `final/`), not the active 110-question benchmark or the GraphRAG pilot schema.
 
-## Structure
+## Legacy structure
 
 ```txt
 evaluation/
@@ -33,7 +43,7 @@ evaluation/
 │   ├── duplicate_report.json    ← Detected duplicate pairs
 │   └── gold_chunk_grouped.json  ← All questions sorted by gold_chunk
 │
-└── final/                       ← USE THIS for evaluation
+└── final/                       ← Legacy finalized dataset (not the active CPE benchmark)
     ├── evaluation_academic_calendar.json    (39 questions)
     ├── evaluation_academic_rules.json       (37 questions)
     ├── evaluation_fees.json                 (46 questions)
@@ -42,17 +52,17 @@ evaluation/
     └── evaluation_scholarship.json          (39 questions)
 ```
 
-## Which Folder to Use
+## Legacy folder roles
 
 | Folder        | When to use                                                                              |
 | ------------- | ---------------------------------------------------------------------------------------- |
-| `final/`      | **Evaluation benchmark.** Clean, deduplicated, renumbered. This is the standard dataset. |
+| `final/`      | Legacy clean, deduplicated dataset. Not the active Naive/Graph benchmark. |
 | `merged_raw/` | Audit/debug. See duplicates, gold_chunk overlaps, raw merged data.                       |
 | `raw/`        | Never edit. Original source files from annotators.                                       |
 
-## Question Schema
+## Legacy question schema
 
-Every question in the existing benchmark follows this schema; `../../graph/data/inputs/questions.json` uses its own evidence-backed development schema:
+Legacy questions follow this schema; the active `eval_311026.json` uses the fields listed above. `../../graph/data/inputs/questions.json` uses its own evidence-backed development schema:
 
 ```json
 {
@@ -78,11 +88,11 @@ Every question in the existing benchmark follows this schema; `../../graph/data/
 | `answer_must_contain` | Phrases that must appear in a correct answer.                                |
 | `answerable`          | `true` = question has a definite answer in the documents.                    |
 
-## Cautions for Evaluators
+## Cautions for legacy data
 
-1. **Use `final/` for the existing benchmark** — Do not evaluate against `merged_raw/` or `raw/`. The local archived GraphRAG pilot is for development, not an approved replacement benchmark.
+1. **For the current Naive/Graph comparison use `eval_311026.json`**, not these legacy folders. The local archived GraphRAG pilot is for development, not an approved replacement benchmark.
 2. **Thai language** — All questions and answers are in Thai. Ensure your evaluation pipeline handles Thai text correctly.
 3. **`answer_must_contain` is a list** — A correct answer should contain ALL listed phrases, not just one.
 4. **`gold_chunk` overlap** — Some questions from both annotators target the same chunk. Both are valid — different wording, possibly different intent.
 5. **No `question_id` in `merged_raw/`** — IDs are only generated in `final/`. The merged files intentionally strip them.
-6. **`answerable: false` not present** — All current questions are answerable. If future annotator rounds add unanswerable questions, they will appear here.
+6. **Legacy folders have no `answerable: false`** — The active `eval_311026.json` does include 25 unanswerable questions.
