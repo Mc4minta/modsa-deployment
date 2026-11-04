@@ -19,17 +19,17 @@ def fingerprint(value: object) -> str:
     return hashlib.sha256(canonical(value).encode()).hexdigest()
 
 
-def api_key() -> str:
-    key = os.environ.get("MIMO_API_KEY")
+def api_key(name: str = "MIMO_API_KEY") -> str:
+    key = os.environ.get(name)
     for path in (ROOT / ".env", ROOT / "backend/.env"):
         if key or not path.exists():
             continue
         for line in path.read_text().splitlines():
-            name, separator, value = line.strip().removeprefix("export ").partition("=")
-            if separator and name.strip() == "MIMO_API_KEY":
+            variable, separator, value = line.strip().removeprefix("export ").partition("=")
+            if separator and variable.strip() == name:
                 key = value.strip().strip("\"'")
     if not key:
-        raise RuntimeError("MIMO_API_KEY missing")
+        raise RuntimeError(f"{name} missing")
     return key
 
 

@@ -26,6 +26,7 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_valida
 from prepare import INPUT, OUTPUT, build, cell, fingerprint, check_schema_upgrade, neo4j_status
 from common import BASE_URL, api_key, restore_source_whitespace, ssl_context
 from contracts import NumericRange
+from source_evidence import exception_errors, layout_view, numeric_view, source_match
 
 RUN = OUTPUT
 MODEL = "mimo-v2.6-pro"
@@ -268,22 +269,55 @@ NUMBER = r"(?<![\d.,])[+-]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?(?![\d.,])"
 COMPARATOR = "|".join(re.escape(s).replace(r"\ ", r"[ \t]+") for s in sorted(COMPARATORS, key=len, reverse=True))
 
 
-def scalar_operators(fact: Fact) -> set[str]:
+def scalar_operators(fact: Fact, *, layout_scoped: bool = False) -> set[str]:
     """Bind each comparator to this number, not to unrelated evidence clauses."""
+    ambiguous_table = False
+    if layout_scoped:
+        raw,ambiguous = numeric_view(fact.raw_text)
+        rendered = [numeric_view(e.quote) for e in fact.evidence]
+        ambiguous_table = ambiguous or any(a for _,a in rendered)
+        fact = fact.model_copy(update={"raw_text":raw,"evidence":[
+            evidence.model_copy(update={"quote":text}) for evidence,(text,_) in zip(fact.evidence,rendered)]})
+    comparators = {**COMPARATORS, **({"ภายใน":"LTE", "within":"LTE", "สูงสุดไม่เกิน":"LTE",
+        "ไม่ต่ำกว่า":"GTE", "ไม่ถึง":"LT", "เกินกว่า":"GT", "not exceed":"LTE",
+        "not exceeding":"LTE", "maximum of":"LTE", "maximum duration of":"LTE",
+        "capped at":"LTE", "minimum of":"GTE"} if layout_scoped else {})}
+    pattern = "|".join((r"(?<![A-Za-z])" if layout_scoped and s[0].isalpha() and s[0].isascii() else "")
+        +re.escape(s).replace(r"\ ",r"\s+" if layout_scoped else r"[ \t]+")
+        for s in sorted(comparators,key=len,reverse=True))
     operators = set()
-    for match in re.finditer(NUMBER, fact.raw_text):
-        if Decimal(match[0].replace(",", "")) != Decimal(str(fact.value_number)):
-            continue
+    matches = [m for m in re.finditer(NUMBER,fact.raw_text)
+               if Decimal(m[0].replace(",","")) == Decimal(str(fact.value_number))]
+    if layout_scoped and fact.unit:
+        unit = re.sub(r"\s+","",fact.unit)
+        bound = [m for m in matches if
+            re.sub(r"\s+","",layout_view(fact.raw_text[m.end():])[0]).startswith(unit) or
+            re.sub(r"\s+","",layout_view(fact.raw_text[:m.start()])[0]).rstrip("()").endswith(unit)]
+        if bound:
+            matches = bound
+    for match in matches:
         prefix = fact.raw_text[:match.start()]
-        comparator = re.search(rf"({COMPARATOR})[ \t:：|]*$", prefix, re.IGNORECASE)
+        gap = r"[\s:：]*(?:(?:ร้อยละ|เดือนละ|ปีละ|ครั้งละ)\s*)?" if layout_scoped else r"[ \t:：|]*"
+        comparator = re.search(rf"({pattern}){gap}$", prefix, re.IGNORECASE)
+        if layout_scoped and comparator and re.search(r"(?:\bnot|ไม่ใช่|ไม่ได้)\s*$",prefix[:comparator.start()],re.I):
+            operators.add("NEGATED")
+            continue
+        if layout_scoped and re.match(r"\s*ขึ้นไป(?:\s|<|[|).,]|$)",fact.raw_text[match.end():]):
+            operators.add("GTE")
+            if comparator:
+                operators.add(comparators[re.sub(r"\s+"," ",comparator[1]).lower()])
+            continue
         if comparator:
-            operators.add(COMPARATORS[re.sub(r"[ \t]+", " ", comparator[1]).lower()])
+            operators.add(comparators[re.sub(r"\s+", " ", comparator[1]).lower()])
             continue
         # A table minimum/maximum must be cited in the same column as the value.
         line = fact.raw_text[prefix.rfind("\n") + 1:].split("\n", 1)[0]
         column = prefix[prefix.rfind("\n") + 1:].count("|")
         headers = set()
         if line.strip().startswith("|") and column:
+            if ambiguous_table:
+                operators.add("AMBIGUOUS_TABLE_LAYOUT")
+                continue
             for evidence in fact.evidence:
                 for header in evidence.quote.splitlines():
                     cells = header.split("|")
@@ -295,14 +329,77 @@ def scalar_operators(fact: Fact) -> set[str]:
     return operators
 
 
-def stage(primary: dict, contexts: list[dict], record: dict, schema: dict) -> dict:
+def approximation_required(fact: Fact, *, layout_scoped: bool = False) -> bool:
+    evidence = "\n".join(e.quote for e in fact.evidence)
+    if not layout_scoped:
+        return "ประมาณ" in evidence
+    if not fact.raw_text.lstrip().startswith("|"):
+        text = layout_view(fact.raw_text)[0]
+        values = [v for v in (fact.value_number,fact.value_lower,fact.value_upper) if v is not None]
+        for match in re.finditer(NUMBER,text):
+            if Decimal(match[0].replace(",","")) not in {Decimal(str(v)) for v in values}:
+                continue
+            # Approximation belongs to this quantity, not งบประมาณ or another quantity.
+            if re.search(r"(?<!งบ)(?:ประมาณ|approximately|about)\s*$",text[:match.start()],re.I):
+                return True
+            suffix = text[match.end():]
+            unit = re.escape(fact.unit or "")
+            if re.match(rf"\s*{unit}\s*โดยประมาณ(?:\s|[.,;]|$)",suffix):
+                return True
+        return False
+    if fact.value_number is None:
+        return "ประมาณ" in evidence
+    # Table qualifiers apply to their column, not to every number in the row.
+    for match in re.finditer(NUMBER,fact.raw_text):
+        if Decimal(match[0].replace(",","")) != Decimal(str(fact.value_number)):
+            continue
+        column = fact.raw_text[:match.start()].count("|")
+        for line in evidence.splitlines():
+            cells = line.split("|")
+            if line.lstrip().startswith("|") and column<len(cells) and "ประมาณ" in cells[column]:
+                return True
+    return False
+
+
+def supported_offering_scope(offering: Offering, field: str) -> bool:
+    text = layout_view("\n".join(e.quote for e in offering.evidence))[0]
+    value = getattr(offering,field)
+    if field == "degree":
+        degree = layout_view(value)[0]
+        return degree in text and bool(re.search(
+            r"ปริญญา(?:ตรี|โท|เอก)|(?:มหา|ดุษฎี)?บัณฑิต|(?:วศ|วท|ค\.อ|ทล|ศศ|ศล|บธ)\.(?:บ|ม|ด)\.|"
+            r"\b(?:bachelor|master|doctoral|doctorate)\b|\bPh\.?D\.?",degree,re.I))
+    if field == "academic_year_be":
+        return bool(re.search(rf"ปีการศึกษา\s*(?:พ\.?ศ\.?\s*)?{value}(?!\d)",text) or
+                    re.search(rf"\bacademic\s+year\s*(?:B\.?E\.?\s*)?(?:{value}|{value-543})(?!\d)",text,re.I))
+    number = re.fullmatch(r"(?:รอบ(?:ที่)?\s*|(?:round|intake)\s*)?(\d+)(?:(?:st|nd|rd|th)?\s+(?:intake|round))?",value,re.I)
+    return bool(number and re.search(rf"(?:รอบ(?:ที่)?\s*|(?:round|intake)\s*){number[1]}(?!\d)|"
+                 rf"\b{number[1]}(?:st|nd|rd|th)?\s+(?:intake|round)\b",text,re.I))
+
+
+def stage(primary: dict, contexts: list[dict], record: dict, schema: dict, *, source_layout: bool = False) -> dict:
     """Fail closed; passing these checks is NOT semantic approval or policy truth."""
     result = {"entities": [], "offerings": [], "facts": [], "has_tracks": [], "rejected": [], "unresolved": [], "repairs": []}
     if record.get("error"):
         result["rejected"].append({"kind": "response", "reason": record["error"]})
         return result
+    extraction = record.get("extraction")
+    if source_layout and isinstance(extraction,dict):
+        extraction = copy.deepcopy(extraction)
+        for fact in extraction.get("facts",[]) if isinstance(extraction.get("facts"),list) else []:
+            if (not isinstance(fact,dict) or type(fact.get("value_number")) not in (int,float)
+                    or fact.get("value_lower") is not None or fact.get("value_upper") is not None):
+                continue
+            equivalents = {"GTE":("lower_inclusive",True),"GT":("lower_inclusive",False),
+                           "LTE":("upper_inclusive",True),"LT":("upper_inclusive",False)}
+            pair = equivalents.get(fact.get("operator"))
+            if pair and fact.get(pair[0]) is pair[1] and fact.get(
+                    "upper_inclusive" if pair[0]=="lower_inclusive" else "lower_inclusive") is None:
+                result["repairs"].append({"field":pair[0],"ref":fact.get("ref"),"model_value":pair[1],
+                                          "source_value":None,"method":"redundant-scalar-bound-v1"})
+                fact[pair[0]] = None
     try:
-        parsed = Extraction.model_validate(record.get("extraction"))
+        parsed = Extraction.model_validate(extraction)
     except ValidationError as error:
         result["rejected"].append({"kind": "response", "reason": "invalid_output_contract", "fields": [list(e["loc"]) for e in error.errors()]})
         return result
@@ -314,8 +411,26 @@ def stage(primary: dict, contexts: list[dict], record: dict, schema: dict) -> di
         return result
 
     def evidence_errors(item: BaseModel) -> list[str]:
+        if source_layout:
+            for evidence in item.evidence:
+                source = allowed.get(evidence.chunk_id)
+                match = source_match(evidence.quote,source["content"]) if source else None
+                if match is not None and match != evidence.quote:
+                    result["repairs"].append({"field":"quote","chunk_id":evidence.chunk_id,
+                        "model_quote":evidence.quote,"source_quote":match,"method":"source-layout-v1"})
+                    evidence.quote = match
         result["repairs"].extend(restore_source_whitespace(item.evidence, allowed))
         return ["invalid_evidence"] if any(e.chunk_id not in allowed or e.quote not in allowed[e.chunk_id]["content"] for e in item.evidence) else []
+
+    def restore_field(item: BaseModel, field: str, sources: list[str]) -> None:
+        value = getattr(item,field)
+        if not source_layout or not isinstance(value,str):
+            return
+        match = next((m for text in sources if (m:=source_match(value,text,thai_spacing=field=="name")) is not None),None)
+        if match is not None and match != value:
+            result["repairs"].append({"field":field,"ref":item.ref,"model_text":value,
+                                      "source_text":match,"method":"source-layout-v1"})
+            setattr(item,field,match)
 
     def accept(kind: str, item: BaseModel, errors: list[str]) -> None:
         if errors:
@@ -330,27 +445,34 @@ def stage(primary: dict, contexts: list[dict], record: dict, schema: dict) -> di
 
     for entity in parsed.entities:
         errors = evidence_errors(entity)
+        restore_field(entity,"name",[e.quote for e in entity.evidence])
         if not any(entity.name in e.quote for e in entity.evidence):
             errors.append("name_not_in_identity_evidence")
+        if source_layout and entity.kind == "scholarship" and not re.search(
+                r"ทุน|scholarship|fellowship|bursary|grant", "\n".join(e.quote for e in entity.evidence),re.I):
+            errors.append("unsupported_scholarship_identity")
         accept("entities", entity, errors)
     entities = {e["ref"]: e for e in result["entities"]}
     for offering in parsed.offerings:
         errors = evidence_errors(offering)
+        restore_field(offering,"degree",[e.quote for e in offering.evidence])
         if entities.get(offering.scholarship_ref, {}).get("kind") != "scholarship":
             errors.append("offering_requires_scholarship")
         evidence_text = "\n".join(e.quote for e in offering.evidence)
-        if offering.academic_year_be is not None and not re.search(r"ปีการศึกษา\s*" + str(offering.academic_year_be) + r"(?!\d)", evidence_text):
+        if offering.academic_year_be is not None and not (supported_offering_scope(offering,"academic_year_be") if source_layout else re.search(r"ปีการศึกษา\s*" + str(offering.academic_year_be) + r"(?!\d)", evidence_text)):
             errors.append("unsupported_offering_year")
         if offering.round is not None:
             number = re.fullmatch(r"(?:รอบ(?:ที่)?\s*)?(\d+)", offering.round)
-            if not number or not re.search(r"รอบ(?:ที่)?\s*" + number[1] + r"(?!\d)", evidence_text):
+            if not (supported_offering_scope(offering,"round") if source_layout else number and re.search(r"รอบ(?:ที่)?\s*" + number[1] + r"(?!\d)", evidence_text)):
                 errors.append("unsupported_offering_round")
-        if offering.degree is not None and (offering.degree not in evidence_text or not re.search(r"ปริญญา(?:ตรี|โท|เอก)", offering.degree)):
+        if offering.degree is not None and not (supported_offering_scope(offering,"degree") if source_layout else offering.degree in evidence_text and re.search(r"ปริญญา(?:ตรี|โท|เอก)", offering.degree)):
             errors.append("unsupported_offering_degree")
         accept("offerings", offering, errors)
     subjects = {**entities, **{o["ref"]: o for o in result["offerings"]}}
     for fact in parsed.facts:
         errors = evidence_errors(fact)
+        restore_field(fact,"raw_text",[primary["content"]])
+        restore_field(fact,"value_text",[e.quote for e in fact.evidence])
         raw_evidence = Evidence(chunk_id=primary["chunk_id"], quote=fact.raw_text)
         raw_repairs = restore_source_whitespace([raw_evidence], {primary["chunk_id"]: primary})
         if raw_repairs:
@@ -366,10 +488,10 @@ def stage(primary: dict, contexts: list[dict], record: dict, schema: dict) -> di
         if fact.operator == "BETWEEN":
             if not supported_range(fact):
                 errors.append("unsupported_range_or_inclusivity")
-            if "ประมาณ" in evidence_text and not fact.is_approximate:
+            if approximation_required(fact,layout_scoped=source_layout) and not fact.is_approximate:
                 errors.append("lost_approximation")
         if fact.value_number is not None:
-            operators = scalar_operators(fact)
+            operators = scalar_operators(fact,layout_scoped=source_layout)
             if not operators:
                 errors.append("unsupported_number")
             if fact.operator is None or fact.value_text is not None:
@@ -378,14 +500,14 @@ def stage(primary: dict, contexts: list[dict], record: dict, schema: dict) -> di
                 errors.append("comparator_loses_bound")
             if operators != {fact.operator}:
                 errors.append("unsupported_comparator")
-            if "ประมาณ" in evidence_text and not fact.is_approximate:
+            if approximation_required(fact,layout_scoped=source_layout) and not fact.is_approximate:
                 errors.append("lost_approximation")
         if fact.kind == "rule":
             primary_quotes = "\n".join(e.quote for e in fact.evidence if e.chunk_id == primary["chunk_id"])
             if any(s in primary_quotes.lower() and s not in fact.raw_text.lower() for s in ("ยกเว้น", "unless")):
                 errors.append("lost_rule_exception")
             start = primary["content"].find(fact.raw_text)
-            if start >= 0:
+            if start >= 0 and not source_layout:
                 line_start = primary["content"].rfind("\n", 0, start) + 1
                 line_end = primary["content"].find("\n", start + len(fact.raw_text))
                 source_line = primary["content"][line_start:line_end if line_end >= 0 else None]
@@ -393,6 +515,8 @@ def stage(primary: dict, contexts: list[dict], record: dict, schema: dict) -> di
                     position = source_line.lower().find(marker)
                     if position >= 0 and source_line[position:].strip(" |") not in fact.raw_text:
                         errors.append("truncated_source_exception")
+        if source_layout:
+            errors.extend(exception_errors(primary["content"],fact.raw_text))
         accept("facts", fact, errors)
     for track in parsed.has_tracks:
         errors = evidence_errors(track)

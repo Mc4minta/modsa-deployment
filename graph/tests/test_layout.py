@@ -19,7 +19,7 @@ class GraphLayoutTests(unittest.TestCase):
 
     def test_only_build_entrypoints_and_no_archive_dependency(self):
         self.assertEqual({p.name for p in (ROOT/"graph/build").glob("*.py")},
-                         {"common.py","contracts.py","prepare.py","extract.py","load_graph.py","expand.py","transfer.py"})
+                         {"common.py","contracts.py","prepare.py","extract.py","load_graph.py","expand.py","transfer.py","source_evidence.py"})
         for path in (ROOT/"graph/build").glob("*.py"):
             self.assertNotIn(".local/graph-rag-research", path.read_text())
         self.assertEqual(prepare.DATA, ROOT/"graph/data")
