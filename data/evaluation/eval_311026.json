@@ -1,0 +1,2790 @@
+[
+  {
+    "question_id": "KMUTT-EVAL-001",
+    "question": "วันสุดท้ายของการชำระเงินค่าลงทะเบียนเรียน ภาค 1/2569 คือวันไหน?",
+    "category": "single_hop",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "AcademicCalendar2026-2569TH2#0004"
+    ],
+    "gold_docs": [
+      "AcademicCalendar2026-2569TH2"
+    ],
+    "cross_doc": false,
+    "gold_answer": "วันพฤหัสบดีที่ 23 กรกฎาคม 2569",
+    "key_facts": [
+      "23 กรกฎาคม 2569"
+    ],
+    "exact_tokens": [
+      "23",
+      "2569"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-002",
+    "question": "ลงทะเบียนเรียนล่าช้าหรือลงทะเบียนรักษาสภาพล่าช้า มีค่าปรับวันละกี่บาท?",
+    "category": "single_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "AcademicCalendar2026-2569TH2#0035"
+    ],
+    "gold_docs": [
+      "AcademicCalendar2026-2569TH2"
+    ],
+    "cross_doc": false,
+    "gold_answer": "วันละ 50 บาท (รวมวันหยุด) นับจากวันเปิดภาคการศึกษา",
+    "key_facts": [
+      "วันละ 50 บาท",
+      "รวมวันหยุด"
+    ],
+    "exact_tokens": [
+      "50"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-003",
+    "question": "วันประกาศผลสอบอย่างเป็นทางการของภาค 1/2569 คือวันไหน?",
+    "category": "single_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "AcademicCalendar2026-2569TH2#0014"
+    ],
+    "gold_docs": [
+      "AcademicCalendar2026-2569TH2"
+    ],
+    "cross_doc": false,
+    "gold_answer": "วันอังคารที่ 29 ธันวาคม 2569",
+    "key_facts": [
+      "29 ธันวาคม 2569"
+    ],
+    "exact_tokens": [
+      "29",
+      "2569"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-004",
+    "question": "วันสุดท้ายของการชำระเงินค่าลงทะเบียนเรียน ภาค 2/2569 คือวันไหน?",
+    "category": "single_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "AcademicCalendar2026-2569TH2#0017"
+    ],
+    "gold_docs": [
+      "AcademicCalendar2026-2569TH2"
+    ],
+    "cross_doc": false,
+    "gold_answer": "วันจันทร์ที่ 11 มกราคม 2570",
+    "key_facts": [
+      "11 มกราคม 2570"
+    ],
+    "exact_tokens": [
+      "11",
+      "2570"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-005",
+    "question": "ขอลดรายวิชาภายใน 2 สัปดาห์แรกของภาคปกติ ได้เงินคืนค่าหน่วยกิตร้อยละเท่าไหร่?",
+    "category": "single_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "AcademicCalendar2026-2569TH2#0005"
+    ],
+    "gold_docs": [
+      "AcademicCalendar2026-2569TH2"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ได้คืนร้อยละ 80 (ยกเว้นหลักสูตรที่คิดค่าเล่าเรียนแบบเหมาจ่าย)",
+    "key_facts": [
+      "ร้อยละ 80",
+      "ยกเว้นหลักสูตรเหมาจ่าย"
+    ],
+    "exact_tokens": [
+      "80"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-006",
+    "question": "วันเริ่มเปิดภาคการศึกษาที่ 1/2569 คือวันไหน?",
+    "category": "single_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "AcademicCalendar2026-2569TH2#0005"
+    ],
+    "gold_docs": [
+      "AcademicCalendar2026-2569TH2"
+    ],
+    "cross_doc": false,
+    "gold_answer": "วันจันทร์ที่ 3 สิงหาคม 2569",
+    "key_facts": [
+      "3 สิงหาคม 2569"
+    ],
+    "exact_tokens": [
+      "2569"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-007",
+    "question": "ทำข้อสอบเสร็จก่อนหมดเวลาสอบ ต้องปฏิบัติอย่างไรก่อนออกจากห้องสอบ?",
+    "category": "single_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "rule_exam2560#0007"
+    ],
+    "gold_docs": [
+      "rule_exam2560"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ยกมือขึ้นขออนุญาตออกนอกห้องสอบ และรอจนกว่ากรรมการคุมสอบมาเก็บข้อสอบ/กระดาษคำตอบเรียบร้อยก่อน",
+    "key_facts": [
+      "ยกมือขึ้นขออนุญาต",
+      "รอจนกว่ากรรมการคุมสอบมาเก็บข้อสอบ"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-008",
+    "question": "นำเครื่องคิดเลขเข้าห้องสอบได้กี่เครื่อง และต้องตรวจสอบที่ไหน?",
+    "category": "single_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "rule_exam2560#0005"
+    ],
+    "gold_docs": [
+      "rule_exam2560"
+    ],
+    "cross_doc": false,
+    "gold_answer": "นำเข้าได้คนละ 1 เครื่อง เฉพาะรุ่นที่มหาวิทยาลัยกำหนด และต้องนำไปให้สำนักงานทะเบียนนักศึกษาตรวจสอบติดสติกเกอร์",
+    "key_facts": [
+      "คนละ 1 เครื่อง",
+      "สำนักงานทะเบียนนักศึกษาตรวจสอบและติดสติกเกอร์"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-009",
+    "question": "ตามข้อบังคับวินัยนักศึกษาและผู้เรียนรู้ โทษทางวินัยมีทั้งหมดกี่สถาน?",
+    "category": "single_hop",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "discipline2566#0018"
+    ],
+    "gold_docs": [
+      "discipline2566"
+    ],
+    "cross_doc": false,
+    "gold_answer": "มี 7 สถาน: ตักเตือน, ตัดคะแนนความประพฤติ, บำเพ็ญประโยชน์, ภาคทัณฑ์, ตัดสิทธิเข้าสอบ, พักการศึกษา/ยับยั้งปริญญา และให้พ้นสภาพการเป็นนักศึกษา",
+    "key_facts": [
+      "7 สถาน",
+      "ตักเตือน",
+      "ตัดคะแนนความประพฤติ",
+      "พักการศึกษา",
+      "พ้นสภาพการเป็นนักศึกษา"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-010",
+    "question": "ก่อนเริ่มทำข้อสอบ ต้องเขียนข้อมูลอะไรบ้างลงบนกระดาษคำตอบ?",
+    "category": "single_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "rule_exam2560#0006"
+    ],
+    "gold_docs": [
+      "rule_exam2560"
+    ],
+    "cross_doc": false,
+    "gold_answer": "เขียนชื่อ นามสกุล เลขรหัสประจำตัวนักศึกษา และข้อความอื่นที่กำหนดลงบนกระดาษคำตอบให้ครบถ้วน",
+    "key_facts": [
+      "ชื่อ",
+      "นามสกุล",
+      "เลขรหัสประจำตัวนักศึกษา"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-011",
+    "question": "ใครเป็นประธานคณะกรรมการกลางพิจารณาลงโทษนักศึกษาที่ทุจริตในการสอบ?",
+    "category": "single_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "rule_exam2560#0008"
+    ],
+    "gold_docs": [
+      "rule_exam2560"
+    ],
+    "cross_doc": false,
+    "gold_answer": "รองอธิการบดีฝ่ายพัฒนานักศึกษา",
+    "key_facts": [
+      "รองอธิการบดีฝ่ายพัฒนานักศึกษา"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-012",
+    "question": "ตามข้อบังคับวินัย นักศึกษาต้องพกบัตรประจำตัวเพื่อแสดงตนเมื่อใด?",
+    "category": "single_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "discipline2566#0005"
+    ],
+    "gold_docs": [
+      "discipline2566"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ต้องพกเพื่อแสดงตนในการติดต่อขอรับบริการต่างๆ และพร้อมแสดงบัตรทันทีเมื่ออาจารย์หรือเจ้าหน้าที่ขอตรวจสอบ",
+    "key_facts": [
+      "พกบัตรประจำตัวเพื่อแสดงตน",
+      "ติดต่อขอรับบริการ",
+      "เมื่ออาจารย์หรือเจ้าหน้าที่ขอตรวจ"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-013",
+    "question": "วิศวกรรมเคมี แผนไทย ป.ตรี คิดค่าหน่วยกิตละกี่บาท และค่าบำรุงภาคละเท่าไหร่?",
+    "category": "single_hop",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0001"
+    ],
+    "gold_docs": [
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ค่าหน่วยกิตละ 650 บาท และค่าบำรุงการศึกษา 14,500 บาทต่อภาคการศึกษา",
+    "key_facts": [
+      "650 บาท",
+      "14,500 บาท"
+    ],
+    "exact_tokens": [
+      "650",
+      "14,500"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-014",
+    "question": "วิศวกรรมคอมพิวเตอร์ (หลักสูตรปกติ) ป.ตรี คิดค่าเล่าเรียนเหมาจ่ายภาคละกี่บาท?",
+    "category": "single_hop",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0001"
+    ],
+    "gold_docs": [
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69"
+    ],
+    "cross_doc": false,
+    "gold_answer": "เหมาจ่าย 30,000 บาทต่อภาคการศึกษา",
+    "key_facts": [
+      "เหมาจ่าย 30,000 บาทต่อภาคการศึกษา"
+    ],
+    "exact_tokens": [
+      "30,000"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-015",
+    "question": "วิทยาการคอมพิวเตอร์ประยุกต์ คณะวิทยาศาสตร์ คิดค่าหน่วยกิตละกี่บาท?",
+    "category": "single_hop",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0006"
+    ],
+    "gold_docs": [
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ค่าหน่วยกิตละ 1,000 บาท",
+    "key_facts": [
+      "1,000 บาท"
+    ],
+    "exact_tokens": [
+      "1,000"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-016",
+    "question": "วิทยาการคอมพิวเตอร์ (หลักสูตรภาษาอังกฤษ) คณะเทคโนโลยีสารสนเทศ คิดค่าใช้จ่ายภาคละเท่าไหร่?",
+    "category": "single_hop",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0015"
+    ],
+    "gold_docs": [
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69"
+    ],
+    "cross_doc": false,
+    "gold_answer": "เหมาจ่าย 57,000 บาทต่อภาคการศึกษา",
+    "key_facts": [
+      "เหมาจ่าย 57,000",
+      "ภาคการศึกษา"
+    ],
+    "exact_tokens": [
+      "57,000"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-017",
+    "question": "พิมพ์ใบเสร็จค่าลงทะเบียนผ่านระบบ New ACIS เบราว์เซอร์ที่รองรับมีอะไรบ้าง?",
+    "category": "single_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "ขั้นตอนการพิมพ์ใบเสร็จรับเงินค่าลงทะเบียนเรียนระบบNewACIS.md#0001"
+    ],
+    "gold_docs": [
+      "ขั้นตอนการพิมพ์ใบเสร็จรับเงินค่าลงทะเบียนเรียนระบบNewACIS.md"
+    ],
+    "cross_doc": false,
+    "gold_answer": "รองรับ Internet Explorer 8 และ Google Chrome",
+    "key_facts": [
+      "Internet Explorer 8",
+      "Google Chrome"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-018",
+    "question": "ค่ายืนยันสิทธิ์การเข้าศึกษาของ ป.ตรี คือค่าอะไรบ้าง?",
+    "category": "single_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0006"
+    ],
+    "gold_docs": [
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69"
+    ],
+    "cross_doc": false,
+    "gold_answer": "คือค่าลงทะเบียนในภาคเรียนที่ 1 ประกอบด้วยค่าบำรุงการศึกษาและค่าหน่วยกิตตามหลักสูตร",
+    "key_facts": [
+      "ค่าลงทะเบียนในภาคเรียนที่ 1",
+      "ค่าบำรุงการศึกษา",
+      "ค่าหน่วยกิต"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-019",
+    "question": "นักศึกษาเข้าใช้งานโปรแกรม Zoom ด้วยบัญชีรูปแบบใด?",
+    "category": "single_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "Manual-แนะนำบริการสารสนเทศ_ver2024#0012"
+    ],
+    "gold_docs": [
+      "Manual-แนะนำบริการสารสนเทศ_ver2024"
+    ],
+    "cross_doc": false,
+    "gold_answer": "เข้าใช้งานด้วย KMUTT Account รูปแบบ name.surname@kmutt.ac.th",
+    "key_facts": [
+      "KMUTT Account",
+      "@kmutt.ac.th"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-020",
+    "question": "อีเมลนักศึกษา มจธ. ส่งไฟล์แนบได้สูงสุดกี่ MB และมีพื้นที่กล่องจดหมายเท่าไหร่?",
+    "category": "single_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "Manual-แนะนำบริการสารสนเทศ_ver2024#0006"
+    ],
+    "gold_docs": [
+      "Manual-แนะนำบริการสารสนเทศ_ver2024"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ส่งไฟล์แนบได้ฉบับละไม่เกิน 25 MB และมีพื้นที่ Mailbox 10 GB",
+    "key_facts": [
+      "25 MB",
+      "10 GB"
+    ],
+    "exact_tokens": [
+      "25",
+      "10"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-021",
+    "question": "มีบัตร Be1st Smart เดิมและยังใช้ได้อยู่ จะสมัครบัตร Be1st Digital ได้ในรูปแบบใด?",
+    "category": "single_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "บัตรนักศึกษา-Digital-มจธ#0003"
+    ],
+    "gold_docs": [
+      "บัตรนักศึกษา-Digital-มจธ"
+    ],
+    "cross_doc": false,
+    "gold_answer": "สมัครได้เฉพาะรูปแบบ Virtual Card เท่านั้น",
+    "key_facts": [
+      "Virtual Card",
+      "เท่านั้น"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-022",
+    "question": "สำนักงานทะเบียนนักศึกษามีเบอร์โทรศัพท์และอีเมลติดต่ออะไรบ้าง?",
+    "category": "single_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "ติดต่อสำนักงานทะเบียน#0002"
+    ],
+    "gold_docs": [
+      "ติดต่อสำนักงานทะเบียน"
+    ],
+    "cross_doc": false,
+    "gold_answer": "โทรศัพท์ +66 (0)2 470 8147 และอีเมล regist@kmutt.ac.th",
+    "key_facts": [
+      "02 470 8147",
+      "regist@kmutt.ac.th"
+    ],
+    "exact_tokens": [
+      "66",
+      "470",
+      "8147"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-023",
+    "question": "ถอนรายวิชาแล้วหน่วยกิตรวมต่ำกว่าเกณฑ์ ป.ตรี ต้องยื่นคำร้องใด และเกณฑ์ขั้นต่ำคือกี่หน่วยกิต?",
+    "category": "single_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "ขั้นตอนการถอนใน_New_ACIS#0002"
+    ],
+    "gold_docs": [
+      "ขั้นตอนการถอนใน_New_ACIS"
+    ],
+    "cross_doc": false,
+    "gold_answer": "เกณฑ์ขั้นต่ำคือ 12 หน่วยกิต หากต่ำกว่าเกณฑ์ต้องยื่นคำร้อง สทบ.18 (ขอลงทะเบียนต่ำกว่า/เกินกว่าที่กำหนด)",
+    "key_facts": [
+      "12 หน่วยกิต",
+      "สทบ.18"
+    ],
+    "exact_tokens": [
+      "12",
+      "18"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-024",
+    "question": "ต้องการถอนรายวิชาที่เรียนทั้งหมดในภาคการศึกษา ต้องยื่นคำร้องใด?",
+    "category": "single_hop",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "ขั้นตอนการถอนใน_New_ACIS#0002"
+    ],
+    "gold_docs": [
+      "ขั้นตอนการถอนใน_New_ACIS"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ต้องยื่นคำร้อง สทบ.12 (ขอลาพักการศึกษาล่าช้า)",
+    "key_facts": [
+      "สทบ.12",
+      "ขอลาพักการศึกษาล่าช้า"
+    ],
+    "exact_tokens": [
+      "12"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-025",
+    "question": "สถานภาพ 'วิทยาทัณฑ์' ลงทะเบียนเรียนผ่านอินเทอร์เน็ตเองได้ทันทีไหม?",
+    "category": "single_hop",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0002"
+    ],
+    "gold_docs": [
+      "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ลงทะเบียนเองทันทีไม่ได้ ระบบจะไม่อนุญาตจนกว่าจะได้รับอนุญาตจากอาจารย์ที่ปรึกษาก่อน",
+    "key_facts": [
+      "ไม่อนุญาต",
+      "ได้รับอนุญาตจากอาจารย์ที่ปรึกษา"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-026",
+    "question": "ตามระเบียบ ป.ตรี คณะกรรมการประจำคณะอนุญาตให้ลาพักการศึกษาติดต่อกันได้ไม่เกินกี่ภาค?",
+    "category": "single_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)#0019"
+    ],
+    "gold_docs": [
+      "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ไม่เกินครั้งละ 2 ภาคการศึกษาปกติ",
+    "key_facts": [
+      "ไม่เกินครั้งละ 2 ภาคการศึกษาปกติ"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-027",
+    "question": "ถ้าเบราว์เซอร์บล็อก Pop-up ของ New ACIS นักศึกษาต้องระบุเว็บไซต์ใดในช่องอนุญาต?",
+    "category": "single_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "pop-up-blocker-disable#0006"
+    ],
+    "gold_docs": [
+      "pop-up-blocker-disable"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ต้องระบุ URL เว็บไซต์ระบบ New ACIS ของนักศึกษาลงในช่อง Allow Pop-ups",
+    "key_facts": [
+      "NewAcis",
+      "นักศึกษา"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-028",
+    "question": "ถ้าบัตรคนพิการหมดอายุ สมัครขอรับเงินอุดหนุนนักศึกษาพิการ ป.ตรี ได้ไหม?",
+    "category": "single_hop",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "kmutt_disabled_undergraduate_education_subsidy_application_2026_semester1_th#0002"
+    ],
+    "gold_docs": [
+      "kmutt_disabled_undergraduate_education_subsidy_application_2026_semester1_th"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ไม่ได้ เนื่องจากต้องมีบัตรประจำตัวคนพิการตามกฎหมายที่ยังไม่หมดอายุและแนบสำเนาประกอบการสมัคร",
+    "key_facts": [
+      "ไม่ได้",
+      "บัตรประจำตัวคนพิการตามกฎหมาย"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-029",
+    "question": "จะส่งหลักฐานจิตอาสา เช่น e-Learning ของ SET หรือบริจาคโลหิต ต้องส่งผ่านระบบใด?",
+    "category": "single_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "kmutt_vsf_volunteer_activity_submission_manual_th#0001"
+    ],
+    "gold_docs": [
+      "kmutt_vsf_volunteer_activity_submission_manual_th"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ส่งผ่านระบบ Volunteer Student Loan e-Filing (ระบบ VSF)",
+    "key_facts": [
+      "Volunteer Student Loan e-Filing",
+      "ระบบ VSF"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-030",
+    "question": "นักศึกษาใหม่ที่กู้ กยศ. ต้องสำรองจ่ายค่าเทอมหรือค่ายืนยันสิทธิ์ไปก่อนไหม?",
+    "category": "single_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "kmutt_student_loan_fund_new_student_faq_2026_th#0001"
+    ],
+    "gold_docs": [
+      "kmutt_student_loan_fund_new_student_faq_2026_th"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ต้องสำรองจ่ายค่าเทอมไปก่อน เมื่ออนุมัติและทำสัญญาเสร็จสิ้น มหาวิทยาลัยจะโอนคืนให้ภายหลังช่วง พ.ย. - ธ.ค.",
+    "key_facts": [
+      "ต้องสำรองจ่ายค่าเทอมไปก่อน",
+      "โอนเงินกู้ยืมคืนให้ภายหลัง"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-031",
+    "question": "นักศึกษา ป.ตรี สาขาวิชาวิศวกรรมเคมี (แผนการเรียน : นานาชาติ) ขอลดรายวิชาลง 1 วิชาภายใน 2 สัปดาห์แรกของภาค 1/2569 จะได้รับเงินคืนค่าหน่วยกิต 80% หรือไม่ เพราะเหตุใด?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "AcademicCalendar2026-2569TH2#0005",
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0001"
+    ],
+    "gold_docs": [
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69",
+      "AcademicCalendar2026-2569TH2"
+    ],
+    "cross_doc": true,
+    "gold_answer": "ไม่ได้รับเงินคืนค่าหน่วยกิต เนื่องจากหลักสูตรวิศวกรรมเคมี (นานาชาติ) จัดเก็บค่าธรรมเนียมการศึกษาแบบเหมาจ่าย 56,000 บาท/ภาคการศึกษา ซึ่งปฏิทินการศึกษาระบุข้อยกเว้นไว้ชัดเจนว่าจะไม่คืนเงินให้สำหรับหลักสูตรที่คิดค่าเล่าเรียนแบบเหมาจ่าย",
+    "key_facts": [
+      "ไม่ได้รับเงินคืนค่าหน่วยกิต",
+      "วิศวกรรมเคมี (นานาชาติ) เป็นหลักสูตรเหมาจ่าย",
+      "ยกเว้นหลักสูตรที่คิดค่าเล่าเรียนแบบเหมาจ่าย"
+    ],
+    "exact_tokens": [
+      "56,000"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-032",
+    "question": "นักศึกษาสาขานวัตกรรมบริการดิจิทัล คณะเทคโนโลยีสารสนเทศ กู้ยืมเงิน กยศ. ลักษณะ 1 วงเงินกู้จะครอบคลุมค่าเล่าเรียนตลอดปีการศึกษาหรือไม่ และจะต้องจ่ายส่วนต่างเองเท่าใดต่อปี?",
+    "category": "multi_hop",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0015",
+      "กยศ68#0005"
+    ],
+    "gold_docs": [
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69",
+      "กยศ68"
+    ],
+    "cross_doc": true,
+    "gold_answer": "วงเงินกู้ไม่ครอบคลุมค่าเล่าเรียนตลอดปี เนื่องจาก กยศ. ให้กู้สาขานี้ได้ไม่เกิน 50,000 บาทต่อปีการศึกษา แต่ค่าเล่าเรียนจริงจัดเก็บแบบเหมาจ่ายภาคละ 47,500 บาท (ปีละ 95,000 บาท) ทำให้นักศึกษาต้องจ่ายส่วนต่างเอง 45,000 บาทต่อปีการศึกษา",
+    "key_facts": [
+      "ไม่ครอบคลุมค่าเล่าเรียนตลอดปี",
+      "กยศ. ให้กู้ไม่เกิน 50,000 บาทต่อปี",
+      "ค่าเล่าเรียนจริงปีละ 95,000 บาท",
+      "ต้องจ่ายส่วนต่างเอง 45,000 บาทต่อปี"
+    ],
+    "exact_tokens": [
+      "50,000",
+      "47,500",
+      "95,000",
+      "45,000"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-033",
+    "question": "นักศึกษา ป.ตรี ชั้นปีที่ 1 ได้รับการอนุมัติเทียบโอนหน่วยกิตสะสมล่วงหน้าจนเหลือหน่วยกิตที่ต้องลงทะเบียนในภาค 1/2569 เพียง 9 หน่วยกิต จะต้องยื่นคำร้องใดเพิ่มเติมตามขั้นตอน และมีกำหนดวันสุดท้ายของการยื่นเทียบโอนเมื่อใด?",
+    "category": "multi_hop",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "AcademicCalendar2026-2569TH2#0007",
+      "ขั้นตอนการถอนใน_New_ACIS#0002"
+    ],
+    "gold_docs": [
+      "AcademicCalendar2026-2569TH2",
+      "ขั้นตอนการถอนใน_New_ACIS"
+    ],
+    "cross_doc": true,
+    "gold_answer": "ต้องยื่นคำร้อง สทบ.18 (ขอลงทะเบียนต่ำกว่า/เกินกว่าที่กำหนด) เนื่องจากจำนวนหน่วยกิตรวมต่ำกว่าเกณฑ์ขั้นต่ำของ ป.ตรี คือ 12 หน่วยกิต และต้องยื่นคำร้องขอเทียบโอนหน่วยกิตล่วงหน้าภายในวันศุกร์ที่ 14 สิงหาคม 2569",
+    "key_facts": [
+      "ยื่นคำร้อง สทบ.18",
+      "เกณฑ์ขั้นต่ำ ป.ตรี คือ 12 หน่วยกิต",
+      "วันสุดท้ายของการยื่นเทียบโอนคือ 14 สิงหาคม 2569"
+    ],
+    "exact_tokens": [
+      "18",
+      "12",
+      "14",
+      "2569"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-034",
+    "question": "ถ้านักศึกษาถูกตัดคะแนนความประพฤติรวม 25 คะแนนในระหว่างปีการศึกษา ในภาคการศึกษาถัดไปจะยังสามารถลงทะเบียนเรียนปกติได้หรือไม่ และจะต้องดำเนินการอย่างไรเกี่ยวกับสถานภาพนักศึกษาตามปฏิทินการศึกษา?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "discipline2566#0019",
+      "AcademicCalendar2026-2569TH2#0006"
+    ],
+    "gold_docs": [
+      "AcademicCalendar2026-2569TH2",
+      "discipline2566"
+    ],
+    "cross_doc": true,
+    "gold_answer": "ไม่สามารถลงทะเบียนเรียนปกติได้ เนื่องจากถูกลงโทษให้พักการศึกษาในภาคการศึกษาถัดไป (ตัดคะแนนเกิน 20 คะแนน) โดยนักศึกษาจะต้องไปดำเนินการลงทะเบียนรักษาสถานภาพการเป็นนักศึกษาตามช่วงเวลาที่กำหนดในปฏิทินการศึกษา",
+    "key_facts": [
+      "ไม่สามารถลงทะเบียนเรียนปกติได้",
+      "ถูกสั่งพักการศึกษาในภาคการศึกษาถัดไป",
+      "ต้องลงทะเบียนรักษาสถานภาพการเป็นนักศึกษา"
+    ],
+    "exact_tokens": [
+      "20"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-035",
+    "question": "หากนักศึกษาพกโทรศัพท์มือถือที่มีไฟล์ภาพสรุปเนื้อหาวิชาที่กำลังสอบเข้าไปในห้องสอบ แต่วางปิดเครื่องสนิทไว้ใต้เก้าอี้ จะถือว่ามีความผิดฐานทุจริตการสอบจนถูกปรับตก F หรือไม่ และมีความผิดอย่างไร?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "rule_exam2560#0010",
+      "rule_exam2560#0012"
+    ],
+    "gold_docs": [
+      "rule_exam2560"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ไม่ถือเป็นความผิดฐานทุจริตการสอบและจะไม่ถูกปรับตก F เนื่องจากระเบียบระบุว่าการมีข้อมูลในโทรศัพท์มือถือโดยไม่ได้เปิดเครื่องถือว่าไม่มีเจตนากระทำทุจริต แต่ถือว่ามีความผิดฐานไม่ปฏิบัติตามระเบียบมหาวิทยาลัยว่าด้วยการสอบ",
+    "key_facts": [
+      "ไม่ถือเป็นการทุจริตการสอบ",
+      "ไม่ถูกปรับตก F",
+      "ไม่ได้เปิดเครื่องถือว่าไม่มีเจตนากระทำทุจริต",
+      "ถือเป็นการไม่ปฏิบัติตามระเบียบมหาวิทยาลัยว่าด้วยการสอบ"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-036",
+    "question": "หากนักศึกษาถูกตัดสินลงโทษตามระเบียบการสอบ กับถูกตัดสินลงโทษตามข้อบังคับวินัยทั่วไป กำหนดเวลาในการยื่นอุทธรณ์และผู้รับการอุทธรณ์มีความแตกต่างกันอย่างไร?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "rule_exam2560#0014",
+      "discipline2566#0022"
+    ],
+    "gold_docs": [
+      "discipline2566",
+      "rule_exam2560"
+    ],
+    "cross_doc": true,
+    "gold_answer": "โทษการสอบต้องยื่นอุทธรณ์ต่ออธิการบดีภายใน 15 วัน นับแต่วันได้รับแจ้งคำสั่งลงโทษ ส่วนโทษวินัยทั่วไปต้องยื่นอุทธรณ์ต่อคณะกรรมการอุทธรณ์วินัยนักศึกษาและผู้เรียนรู้ ภายใน 30 วัน นับแต่วันทราบคำสั่งลงโทษ",
+    "key_facts": [
+      "โทษการสอบยื่นต่ออธิการบดีภายใน 15 วัน",
+      "โทษวินัยทั่วไปยื่นต่อคณะกรรมการอุทธรณ์วินัยนักศึกษาและผู้เรียนรู้ ภายใน 30 วัน"
+    ],
+    "exact_tokens": [
+      "15",
+      "30"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-037",
+    "question": "นักศึกษาที่ได้รับอนุมัติให้ลาพักการศึกษาในภาค 1/2569 ไว้ หากจะกลับเข้าศึกษาในภาค 2/2569 (ซึ่ง ป.ตรี เริ่มลงทะเบียน 4 ม.ค. 2570) จะต้องดำเนินการรายงานตัวต่อใครภายในช่วงเวลาใด?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)#0020",
+      "AcademicCalendar2026-2569TH2#0017"
+    ],
+    "gold_docs": [
+      "AcademicCalendar2026-2569TH2",
+      "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)"
+    ],
+    "cross_doc": true,
+    "gold_answer": "ต้องรายงานตัวต่อสำนักงานทะเบียนนักศึกษาผ่านการรับรองของอาจารย์ที่ปรึกษา ก่อนกำหนดวันลงทะเบียนไม่น้อยกว่า 2 สัปดาห์ ซึ่งวันลงทะเบียนเริ่ม 4 มกราคม 2570 จึงต้องรายงานตัวให้เสร็จสิ้นก่อนวันที่ 21 ธันวาคม 2569",
+    "key_facts": [
+      "รายงานตัวต่อสำนักงานทะเบียนนักศึกษา",
+      "ผ่านการรับรองของอาจารย์ที่ปรึกษา",
+      "ก่อนกำหนดวันลงทะเบียนไม่น้อยกว่า 2 สัปดาห์",
+      "วันลงทะเบียนเริ่ม 4 มกราคม 2570"
+    ],
+    "exact_tokens": [
+      "2570",
+      "21",
+      "2569"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-038",
+    "question": "หากนักศึกษาทำบัตรประจำตัวนักศึกษาหายในวันสอบและกำลังจะเข้าห้องสอบ จะต้องดำเนินการอย่างไรจึงจะได้รับอนุญาตให้เข้าห้องสอบ และต้องติดต่อหน่วยงานใดที่หมายเลขโทรศัพท์ใด?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "rule_exam2560#0004",
+      "ติดต่อสำนักงานทะเบียน#0002"
+    ],
+    "gold_docs": [
+      "rule_exam2560",
+      "ติดต่อสำนักงานทะเบียน"
+    ],
+    "cross_doc": true,
+    "gold_answer": "ต้องรีบไปติดต่อสำนักงานทะเบียนนักศึกษา (โทรศัพท์ +66 (0)2 470 8147) เพื่อขอออกใบแทนบัตรประจำตัวนักศึกษามาแสดงต่อกรรมการคุมสอบ เนื่องจากระเบียบระบุว่าหากไม่มีบัตรนักศึกษาหรือใบแทนบัตรจะไม่ได้รับอนุญาตให้เข้าห้องสอบ",
+    "key_facts": [
+      "ขอใบแทนบัตรประจำตัวนักศึกษา",
+      "ไม่มีบัตรหรือใบแทนบัตรจะไม่ได้รับอนุญาตให้เข้าห้องสอบ",
+      "สำนักงานทะเบียนนักศึกษา",
+      "02 470 8147"
+    ],
+    "exact_tokens": [
+      "66",
+      "470",
+      "8147"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-039",
+    "question": "หากนักศึกษาไม่ได้ทำแบบประเมินการสอนของอาจารย์ภาค 1/2569 ภายในวันที่ 27 พฤศจิกายน 2569 ในวันประกาศผลสอบ (29 ธันวาคม 2569) จะสามารถดูเกรดได้หรือไม่ เพราะเหตุใด?",
+    "category": "multi_hop",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "AcademicCalendar2026-2569TH2#0009",
+      "AcademicCalendar2026-2569TH2#0014"
+    ],
+    "gold_docs": [
+      "AcademicCalendar2026-2569TH2"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ไม่สามารถดูเกรดในวันประกาศผลสอบ (29 ธ.ค. 2569) ได้ เนื่องจากปฏิทินระบุว่ากรณีขาดการประเมินการสอนตามกำหนด จะถูกระงับการประกาศผลการเรียนชั่วคราว",
+    "key_facts": [
+      "ไม่สามารถดูเกรดได้",
+      "ถูกระงับการประกาศผลการเรียนชั่วคราว",
+      "วันประกาศผลสอบ 29 ธันวาคม 2569"
+    ],
+    "exact_tokens": [
+      "29",
+      "2569"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-040",
+    "question": "หากนักศึกษายังมีผลการเรียนของภาค 1/2569 ไม่ครบถ้วน จะสามารถลงทะเบียนเรียนในภาค 2/2569 ได้หรือไม่ และวันสุดท้ายที่อาจารย์สามารถส่งเรื่องแก้ไขผลสอบภาค 1/2569 คือวันใด?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "AcademicCalendar2026-2569TH2#0014",
+      "AcademicCalendar2026-2569TH2#0035"
+    ],
+    "gold_docs": [
+      "AcademicCalendar2026-2569TH2"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ไม่สามารถลงทะเบียนเรียนได้จนกว่าผลการเรียนจะครบถ้วนสมบูรณ์ โดยวันสุดท้ายที่อาจารย์สามารถดำเนินการส่งเรื่องแก้ไขผลสอบภาค 1/2569 ได้คือวันอังคารที่ 12 มกราคม 2570",
+    "key_facts": [
+      "ไม่สามารถลงทะเบียนเรียนได้",
+      "ผลการเรียนไม่ครบถ้วนในภาคก่อนหน้า",
+      "วันสุดท้ายของการแก้ไขผลสอบคือ 12 มกราคม 2570"
+    ],
+    "exact_tokens": [
+      "2569",
+      "12",
+      "2570"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-041",
+    "question": "ผู้มีสิทธิเข้าศึกษาระดับปริญญาโท สาขาวิชาวิศวกรรมเคมี (หลักสูตรนานาชาติ) ทักษะวิศวกรรมเคมี ที่ได้รับทุนการศึกษา จะต้องชำระค่ายืนยันสิทธิการเข้าศึกษาตามอัตราปกติ 30,100 บาทหรือไม่ เพราะเหตุใด?",
+    "category": "multi_hop",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "ปริญญาโท-ข้อมูลค่ายืนยันสิทธิ-และค่าใช้จ่ายตลอดหลักสูตร-2568#0006",
+      "ปริญญาโท-ข้อมูลค่ายืนยันสิทธิ-และค่าใช้จ่ายตลอดหลักสูตร-2568#0054"
+    ],
+    "gold_docs": [
+      "ปริญญาโท-ข้อมูลค่ายืนยันสิทธิ-และค่าใช้จ่ายตลอดหลักสูตร-2568"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ไม่ต้องชำระเงินค่ายืนยันสิทธิ 30,100 บาท เนื่องจากตามหมายเหตุระบุไว้ชัดเจนว่า ผู้มีสิทธิเข้าศึกษาในหลักสูตร วท.ม./วศ.ม. วิศวกรรมเคมี (นานาชาติ) ทักษะวิศวกรรมเคมี ที่เป็นผู้ได้รับทุนการศึกษา จะได้รับยกเว้นการเก็บค่ายืนยันสิทธิ",
+    "key_facts": [
+      "ไม่ต้องชำระเงิน 30,100 บาท",
+      "ผู้ได้รับทุนการศึกษาได้รับยกเว้นการเก็บค่ายืนยันสิทธิ"
+    ],
+    "exact_tokens": [
+      "30,100"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-042",
+    "question": "กรณีบัตรนักศึกษาเดิม (Be1st Smart) สูญหาย แล้วต้องการสมัครทำบัตร Be1st Digital แบบพลาสติก ต้องดำเนินการขั้นตอนแรกอย่างไร และเมื่อได้รับบัตรพลาสติกแล้วต้องใช้ข้อมูลใดในการเปิดใช้งานผ่านโมบายแบงก์กิ้ง?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "บัตรนักศึกษา-Digital-มจธ#0004",
+      "บัตรนักศึกษา-Digital-มจธ#0005"
+    ],
+    "gold_docs": [
+      "บัตรนักศึกษา-Digital-มจธ"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ขั้นตอนแรกต้องอายัด/ยกเลิกบัตรเดิมผ่านโมบายแบงก์กิ้งหรือสาขาธนาคารก่อน แล้วจึงเข้าแอป MOD LINK ขอออกบัตรใหม่ และเมื่อได้รับบัตรพลาสติกแล้ว จะต้องเปิดใช้งานในแอปโดยระบุหมายเลขอ้างอิงหลังบัตรเดบิต 14 หลัก",
+    "key_facts": [
+      "อายัดหรือยกเลิกบัตรเดิมเป็นขั้นตอนแรก",
+      "ขอออกบัตรผ่านแอป MOD LINK",
+      "เปิดใช้งานด้วยหมายเลขอ้างอิงหลังบัตรเดบิต 14 หลัก"
+    ],
+    "exact_tokens": [
+      "14"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-043",
+    "question": "หากนักศึกษา มจธ. เดินทางไปปฏิบัติงานทางวิชาการที่สถาบันอุดมศึกษาอื่นที่เป็นสมาชิกเครือข่าย จะสามารถเข้าใช้อินเทอร์เน็ตไร้สายได้หรือไม่ ต้องเชื่อมต่อชื่อสัญญาณใด และใช้บัญชีรูปแบบใดในการเข้าสู่ระบบ?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "Manual-แนะนำบริการสารสนเทศ_ver2024#0004",
+      "Manual-แนะนำบริการสารสนเทศ_ver2024#0007"
+    ],
+    "gold_docs": [
+      "Manual-แนะนำบริการสารสนเทศ_ver2024"
+    ],
+    "cross_doc": false,
+    "gold_answer": "สามารถใช้งานได้ โดยเชื่อมต่อเครือข่ายไร้สายชื่อ eduroam และเข้าสู่ระบบด้วย KMUTT Account ในรูปแบบ name.surname@kmutt.ac.th พร้อมรหัสผ่าน",
+    "key_facts": [
+      "ใช้งานได้",
+      "เครือข่ายไร้สาย eduroam",
+      "KMUTT Account รูปแบบ name.surname@kmutt.ac.th"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-044",
+    "question": "นักศึกษาที่เคยกู้ กยศ. จากสถานศึกษาเดิมแต่เข้าปี 1 ที่ มจธ. แล้วไม่ได้กู้ต่อ จะต้องยื่นรายงานสถานภาพการศึกษาเมื่อใด ใช้เอกสารใดติดต่อที่ไหน และเหตุใดจึงห้ามรายงานด้วยตนเองหากประสงค์จะกู้ยืมต่อที่ มจธ.?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "kmutt_student_loan_fund_education_status_reporting_guide_th#0001",
+      "kmutt_student_loan_fund_education_status_reporting_guide_th#0002"
+    ],
+    "gold_docs": [
+      "kmutt_student_loan_fund_education_status_reporting_guide_th"
+    ],
+    "cross_doc": false,
+    "gold_answer": "สามารถยื่นได้ในเทอม 2 โดยใช้แบบฟอร์ม กยศ.204 พร้อม Transcript และสำเนาบัตรประชาชน ยื่นที่ชั้น 2 อาคารสำนักงานอธิการบดี (N2) และหากประสงค์จะกู้ยืมต่อที่ มจธ. ห้ามรายงานด้วยตนเองในระบบ DSL เพราะจะทำให้ไม่สามารถเบิกเงินกู้ยืมภายหลังได้",
+    "key_facts": [
+      "ดำเนินการภายในปี 1 เทอม 2",
+      "แบบฟอร์ม กยศ.204, Transcript และสำเนาบัตรประชาชน",
+      "ยื่นชั้น 2 อาคารสำนักงานอธิการบดี (N2)",
+      "หากกู้ต่อห้ามรายงานเองเพราะจะไม่สามารถเบิกเงินกู้ยืมภายหลังได้"
+    ],
+    "exact_tokens": [
+      "204"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-045",
+    "question": "กลุ่มนักศึกษาที่รวมตัวกันทำโครงการพัฒนานวัตกรรมสามารถขอรับการสนับสนุนงบประมาณจากทุนเจียระไนเพชรได้สูงสุดเท่าใด และหากนำผลงานไปแข่งขันจนได้รับรางวัลระดับประเทศ จะได้รับเงินรางวัลสร้างขวัญกำลังใจเพิ่มอีกเท่าใด?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "kmutt_jeranai_petch_scholarship_2019_th#0004",
+      "kmutt_jeranai_petch_scholarship_2019_th#0007"
+    ],
+    "gold_docs": [
+      "kmutt_jeranai_petch_scholarship_2019_th"
+    ],
+    "cross_doc": false,
+    "gold_answer": "สามารถของบประมาณสนับสนุนกิจกรรมเฉพาะกลุ่มได้สูงสุดไม่เกิน 300,000 บาท และหากได้รับรางวัลจากการประกวดระดับประเทศ จะได้รับเกียรติบัตรและทุนการศึกษาเพิ่มอีกทุนละไม่เกิน 30,000 บาท",
+    "key_facts": [
+      "งบประมาณกิจกรรมเฉพาะกลุ่มไม่เกิน 300,000 บาท",
+      "รางวัลระดับประเทศได้รับทุนการศึกษาไม่เกิน 30,000 บาท"
+    ],
+    "exact_tokens": [
+      "300,000",
+      "30,000"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-046",
+    "question": "นักศึกษา ป.ตรี ชั้นปีที่ 3 พบว่ามี 2 รายวิชาที่ตนเองลงทะเบียนไว้มีกำหนดสอบวัดผลลัพธ์ตรงกันในช่วง 21-28 ต.ค. 2569 จะสามารถยื่นคำร้องขอสอบซ้อนในภาค 1/2569 ได้หรือไม่ เพราะเหตุใด?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "AcademicCalendar2026-2569TH2#0007",
+      "AcademicCalendar2026-2569TH2#0011"
+    ],
+    "gold_docs": [
+      "AcademicCalendar2026-2569TH2"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ไม่สามารถยื่นขอสอบซ้อนได้ เนื่องจากนักศึกษาอยู่ชั้นปีที่ 3 ซึ่งสิทธิ์การยื่นคำร้องขอสอบซ้อนในปฏิทินการศึกษาสงวนไว้เฉพาะนักศึกษาระดับปริญญาตรีชั้นปีสุดท้ายของหลักสูตรเท่านั้น",
+    "key_facts": [
+      "นักศึกษาปี 3 ยื่นขอสอบซ้อนไม่ได้",
+      "สงวนสิทธิ์เฉพาะระดับปริญญาตรี ชั้นปีสุดท้ายของหลักสูตรเท่านั้น"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-047",
+    "question": "หากนักศึกษาลืมเพิ่มรายวิชาในระบบ New ACIS จนพ้นกำหนดวันที่ 14 สิงหาคม 2569 ไปแล้ว จะยังสามารถขอลงทะเบียนเพิ่มวิชาในภาค 1/2569 ได้อีกหรือไม่ และต้องดำเนินการอย่างไรผ่านใครภายในวันใด?",
+    "category": "multi_hop",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "AcademicCalendar2026-2569TH2#0005",
+      "AcademicCalendar2026-2569TH2#0007"
+    ],
+    "gold_docs": [
+      "AcademicCalendar2026-2569TH2"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ยังสามารถขอลงทะเบียนเพิ่มได้ โดยต้องดำเนินการลงทะเบียนเรียนล่าช้าผ่านหัวหน้าภาควิชา ซึ่งเปิดให้ดำเนินการได้จนถึงวันอังคารที่ 1 กันยายน 2569",
+    "key_facts": [
+      "ยังลงทะเบียนได้",
+      "ลงทะเบียนเรียนล่าช้าผ่านหัวหน้าภาควิชา",
+      "ภายในวันอังคารที่ 1 กันยายน 2569"
+    ],
+    "exact_tokens": [
+      "2569"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-048",
+    "question": "หากนักศึกษามาลงทะเบียนเรียนภาค 1/2569 ในวันที่ 10 สิงหาคม 2569 จะยังสามารถกดยืนยันการลงทะเบียนด้วยตนเองผ่านระบบ New ACIS ตามขั้นตอนปกติได้หรือไม่ เพราะเหตุใด?",
+    "category": "multi_hop",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "AcademicCalendar2026-2569TH2#0005",
+      "The_Student’s_Internet_Registration_Manual_(fixed)#0053"
+    ],
+    "gold_docs": [
+      "AcademicCalendar2026-2569TH2",
+      "The_Student’s_Internet_Registration_Manual_(fixed)"
+    ],
+    "cross_doc": true,
+    "gold_answer": "ไม่สามารถกดยืนยันด้วยตนเองผ่านระบบ New ACIS ได้ เนื่องจากระบบ New ACIS เปิดให้ลงทะเบียนเรียนล่าช้าด้วยตนเองถึงวันที่ 7 สิงหาคม 2569 เท่านั้น ตั้งแต่วันที่ 8 สิงหาคม เป็นต้นไปต้องดำเนินการผ่านหัวหน้าภาควิชา",
+    "key_facts": [
+      "ไม่สามารถกดยืนยันด้วยตนเองผ่าน New ACIS ได้",
+      "New ACIS เปิดลงทะเบียนล่าช้าถึง 7 สิงหาคม 2569",
+      "ต้องดำเนินการผ่านหัวหน้าภาควิชา"
+    ],
+    "exact_tokens": [
+      "2569"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-049",
+    "question": "หากนักศึกษาเข้าระบบ New ACIS เพื่อลงทะเบียนรักษาสถานภาพแต่ระบบขึ้นเตือนว่า 'ไม่มีสิทธิ์ลงทะเบียนรักษาสถานภาพ' เกิดจากสาเหตุใด และหากพบว่าใบแจ้งชำระเงินหมดอายุแล้วต้องติดต่อใครที่เบอร์ใด?",
+    "category": "multi_hop",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)#0011",
+      "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)#0013"
+    ],
+    "gold_docs": [
+      "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)"
+    ],
+    "cross_doc": false,
+    "gold_answer": "เกิดจากคำร้องออนไลน์ยังไม่สมบูรณ์ (เช่น ยังไม่ได้รับอนุมัติ หรือยังไม่ได้กดเลือกการชำระเงิน) และหากใบแจ้งชำระเงินเกินกำหนด ต้องติดต่อสำนักงานทะเบียนนักศึกษา ที่หมายเลข 024708347",
+    "key_facts": [
+      "การยื่นคำร้องออนไลน์ยังไม่สมบูรณ์",
+      "ใบแจ้งชำระเงินเกินกำหนด",
+      "สำนักงานทะเบียนนักศึกษา",
+      "024708347"
+    ],
+    "exact_tokens": [
+      "024708347"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-050",
+    "question": "นักศึกษาที่ต้องการเข้าเรียน ป.ตรี สาขาวิศวกรรมคอมพิวเตอร์ หากเลือกเรียนหลักสูตรนานาชาติแทนหลักสูตรปกติ จะต้องจ่ายค่าเล่าเรียนตลอดหลักสูตร 4 ปี สูงกว่าหลักสูตรปกติเป็นจำนวนเงินเท่าใด?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0001",
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0002"
+    ],
+    "gold_docs": [
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ต้องจ่ายค่าเล่าเรียนสูงกว่าหลักสูตรปกติเป็นจำนวนเงิน 320,000 บาท (หลักสูตรปกติมีค่าใช้จ่ายตลอดหลักสูตร 240,000 บาท ส่วนหลักสูตรนานาชาติมีค่าใช้จ่ายตลอดหลักสูตร 560,000 บาท)",
+    "key_facts": [
+      "สูงกว่าหลักสูตรปกติ 320,000 บาท",
+      "หลักสูตรปกติ 240,000 บาท",
+      "หลักสูตรนานาชาติ 560,000 บาท"
+    ],
+    "exact_tokens": [
+      "320,000",
+      "240,000",
+      "560,000"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-051",
+    "question": "หากนักศึกษาลักลอบเจาะระบบคอมพิวเตอร์ของมหาวิทยาลัยเพื่อแก้ไขข้อมูลผลการเรียน จะถือว่ามีความผิดวินัยตามข้อใด และคณะกรรมการวินัยฯ ระดับมหาวิทยาลัยมีอำนาจสั่งลงโทษขั้นสูงสุดได้ถึงระดับใด?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "discipline2566#0006",
+      "discipline2566#0020"
+    ],
+    "gold_docs": [
+      "discipline2566"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ถือเป็นความผิดวินัยตามข้อ 17 ฐานเจาะระบบและแก้ไขข้อมูลคอมพิวเตอร์โดยมิชอบ และคณะกรรมการวินัยฯ ระดับมหาวิทยาลัยมีอำนาจสั่งลงโทษวินัยร้ายแรงสูงสุดถึงขั้น 'ให้พ้นสภาพการเป็นนักศึกษาและผู้เรียนรู้'",
+    "key_facts": [
+      "ผิดวินัยตามข้อ 17 เรื่องเจาะระบบและแก้ไขข้อมูลคอมพิวเตอร์",
+      "โทษร้ายแรงสูงสุดคือให้พ้นสภาพการเป็นนักศึกษาและผู้เรียนรู้"
+    ],
+    "exact_tokens": [
+      "17"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-052",
+    "question": "หากนักศึกษาถูกคณะกรรมการกลางพิจารณาลงโทษปรับตก F และติด W ทุกวิชาฐานทุจริตการสอบ หากเห็นว่าไม่ได้รับความเป็นธรรม จะต้องยื่นอุทธรณ์ต่อใครภายในกี่วัน?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "rule_exam2560#0011",
+      "rule_exam2560#0014"
+    ],
+    "gold_docs": [
+      "rule_exam2560"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ต้องทำหนังสือยื่นอุทธรณ์ต่ออธิการบดีภายใน 15 วัน นับแต่วันได้รับแจ้งคำสั่งลงโทษ และต้องเป็นการยื่นอุทธรณ์สำหรับตนเองเท่านั้น",
+    "key_facts": [
+      "ยื่นอุทธรณ์ต่ออธิการบดี",
+      "ภายใน 15 วัน นับแต่วันได้รับแจ้งคำสั่งลงโทษ",
+      "อุทธรณ์ด้วยตนเองเท่านั้น"
+    ],
+    "exact_tokens": [
+      "15"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-053",
+    "question": "หากนักศึกษาถูกคณะกรรมการวินัยฯ สั่งลงโทษพักการศึกษาเนื่องจากกระทำผิดวินัยอย่างร้ายแรง จะต้องยื่นอุทธรณ์ต่อหน่วยงานใดภายในกี่วัน และให้ผู้อื่นยื่นแทนได้หรือไม่?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "discipline2566#0020",
+      "discipline2566#0022"
+    ],
+    "gold_docs": [
+      "discipline2566"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ต้องยื่นอุทธรณ์ต่อคณะกรรมการอุทธรณ์วินัยนักศึกษาและผู้เรียนรู้ ภายใน 30 วันนับแต่วันทราบคำสั่งลงโทษ โดยต้องอุทธรณ์สำหรับตนเองเท่านั้น ไม่สามารถมอบหมายให้ผู้อื่นอุทธรณ์แทนได้",
+    "key_facts": [
+      "คณะกรรมการอุทธรณ์วินัยนักศึกษาและผู้เรียนรู้",
+      "ภายใน 30 วัน นับแต่วันทราบคำสั่งลงโทษ",
+      "ไม่อนุญาตให้อุทธรณ์แทนกัน"
+    ],
+    "exact_tokens": [
+      "30"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-054",
+    "question": "นักศึกษา ป.เอก ทุนเพชรฯ หลักสูตร 3 ปี กำลังศึกษาในภาค 3 แต่ยังสอบโครงร่างวิทยานิพนธ์ไม่ผ่าน จะมีคุณสมบัติสมัครทุนวิจัยระยะสั้นต่างประเทศได้หรือไม่ และหากสอบผ่านและได้รับอนุมัติไปญี่ปุ่น จะได้รับเงินค่าครองชีพเดือนละเท่าใด?",
+    "category": "multi_hop",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "kmutt_petchra_phd_short_term_research_abroad_funding_criteria_th#0004",
+      "kmutt_petchra_phd_short_term_research_abroad_funding_criteria_th#0010"
+    ],
+    "gold_docs": [
+      "kmutt_petchra_phd_short_term_research_abroad_funding_criteria_th"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ยังไม่มีคุณสมบัติในการสมัครเนื่องจากยังสอบโครงร่างวิทยานิพนธ์ไม่ผ่าน และหากสอบผ่านแล้วได้รับอนุมัติให้ไปวิจัยที่ประเทศญี่ปุ่น จะได้รับค่าครองชีพไม่เกินเดือนละ 30,000 บาท",
+    "key_facts": [
+      "ยังไม่มีคุณสมบัติสมัครเนื่องจากยังสอบโครงร่างไม่ผ่าน",
+      "ต้องสอบโครงร่างวิทยานิพนธ์ผ่านก่อน",
+      "ค่าครองชีพประเทศญี่ปุ่นไม่เกินเดือนละ 30,000 บาท"
+    ],
+    "exact_tokens": [
+      "30,000"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-055",
+    "question": "นักเรียนที่ผ่านการคัดเลือกทุน Active Recruitment ในสาขาวิศวกรรมเคมี (แผนการเรียน : ไทย) จะได้รับการสนับสนุนค่าใช้จ่ายในการลงทะเบียนภาคเรียนแรก (ค่ายืนยันสิทธิ) จากมหาวิทยาลัยเป็นมูลค่าเท่าใด?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "kmutt_active_recruitment_scholarship_th#0002",
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0001"
+    ],
+    "gold_docs": [
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69",
+      "kmutt_active_recruitment_scholarship_th"
+    ],
+    "cross_doc": true,
+    "gold_answer": "ได้รับการสนับสนุนค่าลงทะเบียนภาคเรียนแรก (ค่ายืนยันสิทธิ) เป็นมูลค่า 26,200 บาท (ประกอบด้วยค่าบำรุงการศึกษา 14,500 บาท และค่าหน่วยกิต 18 หน่วยกิต x 650 = 11,700 บาท)",
+    "key_facts": [
+      "ได้รับการสนับสนุนเป็นมูลค่า 26,200 บาท",
+      "ค่าบำรุงการศึกษา 14,500 บาท",
+      "ค่าหน่วยกิต 11,700 บาท"
+    ],
+    "exact_tokens": [
+      "26,200",
+      "14,500",
+      "18",
+      "650",
+      "11,700"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-056",
+    "question": "นักศึกษาพิการระดับ ป.ตรี ที่ได้รับเงินอุดหนุนทางการศึกษาสำหรับคนพิการจากรัฐบาลอยู่แล้ว จะสามารถสมัครขอรับทุนการศึกษาแสดเหลืองเรืองรุ่งได้หรือไม่ เพราะเหตุใด?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "kmutt_disabled_undergraduate_education_subsidy_application_2026_semester1_th#0002",
+      "kmutt_saed_lueang_rueang_rung_scholarship_2024_th#0010"
+    ],
+    "gold_docs": [
+      "kmutt_disabled_undergraduate_education_subsidy_application_2026_semester1_th",
+      "kmutt_saed_lueang_rueang_rung_scholarship_2024_th"
+    ],
+    "cross_doc": true,
+    "gold_answer": "ไม่สามารถสมัครรับทุนแสดเหลืองเรืองรุ่งได้ เนื่องจากเงินอุดหนุนคนพิการสนับสนุนค่าเล่าเรียนอยู่แล้ว และข้อบังคับทุนแสดเหลืองเรืองรุ่งมีเงื่อนไขห้ามรับทุนการศึกษาประเภทค่าเล่าเรียนซ้ำซ้อนกับทุนอื่น",
+    "key_facts": [
+      "ไม่สามารถสมัครได้",
+      "ห้ามรับทุนการศึกษาประเภทค่าเล่าเรียนซ้ำซ้อนกับทุนอื่น"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-057",
+    "question": "หากนักศึกษาประสบปัญหาทางการเงินในภาค 1/2569 และประสงค์จะขอผ่อนผันค่าบำรุงการศึกษา ต้องยื่นเรื่องวันสุดท้ายเมื่อใด และหากได้รับอนุมัติจะต้องชำระเงินค่าบำรุงการศึกษาภายในวันใด?",
+    "category": "multi_hop",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "AcademicCalendar2026-2569TH2#0005",
+      "AcademicCalendar2026-2569TH2#0009"
+    ],
+    "gold_docs": [
+      "AcademicCalendar2026-2569TH2"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ต้องยื่นคำร้องขอผ่อนผันค่าบำรุงการศึกษาวันสุดท้ายในวันศุกร์ที่ 14 สิงหาคม 2569 และเมื่อได้รับอนุมัติแล้วจะต้องชำระเงินค่าบำรุงการศึกษาภายในวันอังคารที่ 15 กันยายน 2569",
+    "key_facts": [
+      "ยื่นคำร้องวันสุดท้าย 14 สิงหาคม 2569",
+      "ชำระเงินภายใน 15 กันยายน 2569"
+    ],
+    "exact_tokens": [
+      "14",
+      "2569",
+      "15"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-058",
+    "question": "นักศึกษาที่ได้รับอนุมัติให้ลาพักการศึกษาในภาค 1/2569 เนื่องจากป่วยหนักเกินกว่าร้อยละ 20 ของเวลาเรียน ระยะเวลาที่ลาพักจะถูกนับรวมในระยะเวลาการศึกษาหรือไม่ และจะต้องชำระค่าใช้จ่ายใดเพื่อรักษาสถานภาพ?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)#0019",
+      "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)#0020"
+    ],
+    "gold_docs": [
+      "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ระยะเวลาที่ลาพักรักษาตัวจะถูกนับรวมในระยะเวลาการศึกษาของหลักสูตร และนักศึกษาจะต้องชำระค่ารักษาสถานภาพการเป็นนักศึกษาทุกภาคการศึกษา เว้นแต่ภาคที่ได้ชำระเงินค่าบำรุงหรือค่าธรรมเนียมการศึกษาแล้ว",
+    "key_facts": [
+      "นับระยะเวลาที่ลาพักอยู่ในระยะเวลาการศึกษา",
+      "ต้องชำระค่ารักษาสภาพการเป็นนักศึกษา"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-059",
+    "question": "นักศึกษา ป.ตรี ที่ลงทะเบียนไว้ 16 หน่วยกิต หากทำเรื่องถอนวิชา 3 หน่วยกิตออกไป 1 วิชา กับกรณีถอนออกไป 2 วิชา (รวม 6 หน่วยกิต) ในระบบ New ACIS จะมีขั้นตอนการส่งเอกสารคำร้องแตกต่างกันอย่างไร?",
+    "category": "multi_hop",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "ขั้นตอนการถอนใน_New_ACIS#0002",
+      "ขั้นตอนการถอนใน_New_ACIS#0003"
+    ],
+    "gold_docs": [
+      "ขั้นตอนการถอนใน_New_ACIS"
+    ],
+    "cross_doc": false,
+    "gold_answer": "กรณีถอน 1 วิชา เหลือ 13 หน่วยกิต (ไม่ต่ำกว่าเกณฑ์ 12 หน่วยกิต) สามารถยื่นคำร้องออนไลน์ได้ตามปกติโดยไม่ต้องส่งเอกสาร สทบ.18 ส่วนกรณีถอน 2 วิชา เหลือ 10 หน่วยกิต (ต่ำกว่าเกณฑ์ขั้นต่ำ 12 หน่วยกิต) หลังจากยื่นออนไลน์แล้วจะต้องส่งเอกสารคำร้อง สทบ.18 เพิ่มเติม",
+    "key_facts": [
+      "ถอน 1 วิชา เหลือ 13 หน่วยกิต ไม่ต้องส่ง สทบ.18",
+      "ถอน 2 วิชา เหลือ 10 หน่วยกิต ต่ำกว่า 12 หน่วยกิต ต้องส่ง สทบ.18"
+    ],
+    "exact_tokens": [
+      "13",
+      "12",
+      "18",
+      "10"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-060",
+    "question": "ในภาคการศึกษาที่ 1/2569 หากนักศึกษาประสงค์จะขอสอบโดยไม่เข้าเรียน (Audit Exam) สิทธิ์นี้สงวนไว้สำหรับนักศึกษากลุ่มใด และต้องยื่นคำร้องวันสุดท้ายเมื่อใด?",
+    "category": "multi_hop",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "AcademicCalendar2026-2569TH2#0005",
+      "AcademicCalendar2026-2569TH2#0007"
+    ],
+    "gold_docs": [
+      "AcademicCalendar2026-2569TH2"
+    ],
+    "cross_doc": false,
+    "gold_answer": "สงวนสิทธิ์ไว้เฉพาะนักศึกษาระดับปริญญาตรี ชั้นปีสุดท้ายของหลักสูตรเท่านั้น โดยมีกำหนดวันสุดท้ายของการยื่นคำร้องขอสอบโดยไม่เข้าเรียนในภาค 1/2569 คือวันศุกร์ที่ 14 สิงหาคม 2569",
+    "key_facts": [
+      "เฉพาะระดับปริญญาตรี ชั้นปีสุดท้ายของหลักสูตร",
+      "วันสุดท้ายของการยื่นคำร้องคือ 14 สิงหาคม 2569"
+    ],
+    "exact_tokens": [
+      "2569",
+      "14"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-061",
+    "question": "ในการเข้าห้องสอบวัดผลการศึกษา หากนักศึกษาแต่งกายชุดสุภาพที่ไม่ใช่ชุดนักศึกษา และนำเครื่องคิดเลขที่ยังไม่ได้ติดสติกเกอร์ตรวจสอบของสำนักงานทะเบียนฯ เข้าไป จะได้รับอนุญาตให้เข้าสอบและนำเครื่องคิดเลขเข้าใช้หรือไม่?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "rule_exam2560#0004",
+      "rule_exam2560#0005"
+    ],
+    "gold_docs": [
+      "rule_exam2560"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ไม่ได้รับอนุญาตทั้งสองกรณี เนื่องจากข้อ 7 บังคับต้องแต่งกายด้วยชุดนักศึกษาที่ถูกต้อง และข้อ 11 ไม่อนุญาตให้นำเครื่องคิดเลขเข้า เว้นแต่ได้รับอนุญาตและต้องผ่านการตรวจสอบติดสติกเกอร์จากสำนักงานทะเบียนนักศึกษาแล้วเท่านั้น",
+    "key_facts": [
+      "ไม่ได้รับอนุญาตให้เข้าสอบเพราะไม่แต่งชุดนักศึกษา",
+      "ไม่อนุญาตให้นำเครื่องคิดเลขเข้าหากไม่ติดสติกเกอร์ตรวจสอบ"
+    ],
+    "exact_tokens": [
+      "11"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-062",
+    "question": "นักศึกษาที่มีสถานภาพ 'วิทยาทัณฑ์' เมื่อเข้าระบบลงทะเบียนเรียนผ่านอินเทอร์เน็ต จะสามารถเลือกวิชาและยืนยันการลงทะเบียนใน Step 1 และ Step 2 ได้ทันทีหรือไม่ เพราะเหตุใด?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0002",
+      "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0032"
+    ],
+    "gold_docs": [
+      "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ไม่สามารถทำได้ทันที เนื่องจากระบบจะไม่อนุญาตให้นักศึกษาที่มีสถานภาพวิทยาทัณฑ์ลงทะเบียนรายวิชาได้ด้วยตนเอง จนกว่าจะได้รับอนุญาตจากอาจารย์ที่ปรึกษาในระบบก่อน",
+    "key_facts": [
+      "ไม่สามารถลงทะเบียนได้ทันที",
+      "สถานภาพวิทยาทัณฑ์ระบบไม่อนุญาตให้ลงทะเบียน",
+      "ต้องได้รับอนุญาตจากอาจารย์ที่ปรึกษาก่อน"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-063",
+    "question": "นักศึกษา ป.ตรี ที่ยืนยันการลงทะเบียนเรียนภาค 1/2569 ในช่วงเวลาปกติ จะต้องชำระเงินค่าลงทะเบียนภายในวันใด และหากไม่ชำระตามกำหนดแล้วมาลงทะเบียนล่าช้าในวันเปิดเทอมวันแรก (3 ส.ค. 2569) จะต้องชำระเงินค่าปรับและค่าลงทะเบียนภายในกี่วัน?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "AcademicCalendar2026-2569TH2#0004",
+      "AcademicCalendar2026-2569TH2#0005"
+    ],
+    "gold_docs": [
+      "AcademicCalendar2026-2569TH2"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ช่วงปกติต้องชำระเงินภายในวันพฤหัสบดีที่ 23 กรกฎาคม 2569 และหากมาลงทะเบียนล่าช้าในวันเปิดภาค (3 ส.ค. 2569) จะต้องเสียค่าปรับ 50 บาท (วันละ 50 บาท) และต้องชำระเงินไม่เกิน 1 วันหลังจากยืนยันการลงทะเบียน",
+    "key_facts": [
+      "ช่วงปกติต้องชำระภายใน 23 กรกฎาคม 2569",
+      "ลงทะเบียนล่าช้าเสียค่าปรับ 50 บาท",
+      "ต้องชำระเงินไม่เกิน 1 วันหลังยืนยันการลงทะเบียน"
+    ],
+    "exact_tokens": [
+      "23",
+      "2569",
+      "50"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-064",
+    "question": "ในภาคการศึกษาที่ 1/2569 มีวันหยุดราชการ 2 วันที่มหาวิทยาลัยกำหนดให้มีวันสอนชดเชยในวันเสาร์ ได้แก่วันหยุดใดบ้าง และต้องไปเรียนชดเชยในวันเสาร์ใด?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "AcademicCalendar2026-2569TH2#0007",
+      "AcademicCalendar2026-2569TH2#0008"
+    ],
+    "gold_docs": [
+      "AcademicCalendar2026-2569TH2"
+    ],
+    "cross_doc": false,
+    "gold_answer": "วันหยุดวันแม่แห่งชาติ (พุธ 12 ส.ค. 2569) ต้องไปเรียนชดเชยวันเสาร์ที่ 15 สิงหาคม 2569 และวันหยุดวันไหว้ครู (พฤหัสบดี 20 ส.ค. 2569) ต้องไปเรียนชดเชยวันเสาร์ที่ 22 สิงหาคม 2569",
+    "key_facts": [
+      "หยุดวันแม่แห่งชาติ (12 ส.ค.) สอนชดเชยวันเสาร์ที่ 15 สิงหาคม 2569",
+      "หยุดวันไหว้ครู (20 ส.ค.) สอนชดเชยวันเสาร์ที่ 22 สิงหาคม 2569"
+    ],
+    "exact_tokens": [
+      "12",
+      "2569",
+      "15",
+      "20",
+      "22"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-065",
+    "question": "ในภาคการศึกษาที่ 2/2569 วันสุดท้ายของการชำระเงินค่าลงทะเบียนเรียนของนักศึกษา ป.ตรี คือวันใด และวันเริ่มเปิดภาคการศึกษาที่ 2/2569 คือวันใด?",
+    "category": "multi_hop",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "AcademicCalendar2026-2569TH2#0017",
+      "AcademicCalendar2026-2569TH2#0018"
+    ],
+    "gold_docs": [
+      "AcademicCalendar2026-2569TH2"
+    ],
+    "cross_doc": false,
+    "gold_answer": "วันสุดท้ายของการชำระเงินค่าลงทะเบียนเรียน ภาค 2/2569 คือวันจันทร์ที่ 11 มกราคม 2570 และวันเริ่มเปิดภาคการศึกษาที่ 2/2569 คือวันจันทร์ที่ 18 มกราคม 2570",
+    "key_facts": [
+      "วันสุดท้ายชำระเงินคือ 11 มกราคม 2570",
+      "วันเปิดภาคการศึกษาคือ 18 มกราคม 2570"
+    ],
+    "exact_tokens": [
+      "2569",
+      "11",
+      "2570",
+      "18"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-066",
+    "question": "สรุปขั้นตอนหลักและช่วงเวลาสำคัญของวงจรการศึกษาในภาคเรียนที่ 1/2569 ตั้งแต่ก่อนเปิดเทอมจนถึงประกาศผลสอบมีอะไรบ้าง?",
+    "category": "global",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "AcademicCalendar2026-2569TH2#0004",
+      "AcademicCalendar2026-2569TH2#0005",
+      "AcademicCalendar2026-2569TH2#0011",
+      "AcademicCalendar2026-2569TH2#0013",
+      "AcademicCalendar2026-2569TH2#0014"
+    ],
+    "gold_docs": [
+      "AcademicCalendar2026-2569TH2"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ประกอบด้วย: ชำระค่าลงทะเบียน (23 ก.ค. 69), เริ่มเปิดภาคเรียน (3 ส.ค. 69), เพิ่ม-ลดรายวิชา (3-14 ส.ค. 69), สอบวัดผลลัพธ์ (21-28 ต.ค. 69), ส่งผลสอบ (25 ธ.ค. 69) และประกาศผลสอบ (29 ธ.ค. 69)",
+    "key_facts": [
+      "ชำระเงินค่าลงทะเบียน 23 ก.ค. 2569",
+      "วันเริ่มภาคการศึกษา 3 ส.ค. 2569",
+      "เพิ่ม-ลดรายวิชา 3-14 ส.ค. 2569",
+      "สอบวัดผลลัพธ์ 21-28 ต.ค. 2569",
+      "ประกาศผลสอบ 29 ธ.ค. 2569"
+    ],
+    "exact_tokens": [
+      "23",
+      "69",
+      "14",
+      "21",
+      "28",
+      "25",
+      "29"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-067",
+    "question": "โทษทางวินัยนักศึกษาตามข้อบังคับ มจธ. มีการแบ่งระดับความผิดอย่างไร และอำนาจการลงโทษแต่ละระดับเป็นของใคร?",
+    "category": "global",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "discipline2566#0018",
+      "discipline2566#0019",
+      "discipline2566#0020",
+      "rule_exam2560#0013"
+    ],
+    "gold_docs": [
+      "discipline2566",
+      "rule_exam2560"
+    ],
+    "cross_doc": true,
+    "gold_answer": "โทษไม่ร้ายแรง (ตักเตือน, ตัดคะแนนความประพฤติ, บำเพ็ญประโยชน์, ภาคทัณฑ์) สั่งโดยอาจารย์ผู้สอน, หัวหน้าภาค, คณบดี หรือกรรมการวินัยประจำคณะ; โทษร้ายแรง (ตัดสิทธิเข้าสอบ, พักการศึกษา, พ้นสภาพนักศึกษา) สั่งโดยคณะกรรมการวินัยนักศึกษาระดับมหาวิทยาลัย",
+    "key_facts": [
+      "โทษไม่ร้ายแรง (ตักเตือน, ตัดคะแนนความประพฤติ, บำเพ็ญประโยชน์, ภาคทัณฑ์)",
+      "อำนาจอาจารย์ผู้สอน หัวหน้าภาค คณบดี กรรมการวินัยคณะ",
+      "โทษร้ายแรง (ตัดสิทธิเข้าสอบ, พักการศึกษา, พ้นสภาพนักศึกษา)",
+      "อำนาจคณะกรรมการวินัยนักศึกษาระดับมหาวิทยาลัย"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-068",
+    "question": "เปรียบเทียบโครงสร้างค่าเล่าเรียน ป.ตรี คณะวิศวกรรมศาสตร์ แผนปกติกับหลักสูตรนานาชาติ/เหมาจ่าย แตกต่างกันอย่างไร?",
+    "category": "global",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0001",
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0002",
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0003"
+    ],
+    "gold_docs": [
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69"
+    ],
+    "cross_doc": false,
+    "gold_answer": "แผนปกติคิดค่าบำรุง 14,500 บาท/ภาค บวกค่าหน่วยกิตละ 650 บาท ส่วนหลักสูตรนานาชาติและภาษาอังกฤษส่วนใหญ่คิดแบบเหมาจ่ายรายภาค เช่น เคมีนานาชาติ 56,000 บาท, คอมพิวเตอร์นานาชาติ 70,000 บาท หรือคิดหน่วยกิตแพงขึ้น เช่น โยธานานาชาติ บำรุง 32,500 บาท และหน่วยกิตละ 1,950 บาท",
+    "key_facts": [
+      "แผนปกติคิดค่าบำรุง 14,500 บาท และค่าหน่วยกิตละ 650 บาท",
+      "หลักสูตรนานาชาติส่วนใหญ่คิดแบบเหมาจ่ายรายภาค",
+      "โยธานานาชาติคิดค่าบำรุง 32,500 บาท และหน่วยกิตละ 1,950 บาท"
+    ],
+    "exact_tokens": [
+      "14,500",
+      "650",
+      "56,000",
+      "70,000",
+      "32,500",
+      "1,950"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-069",
+    "question": "สรุปขั้นตอนและภาพรวมการกรอกระเบียนประวัตินักศึกษาใหม่ผ่านระบบ New ACIS มีหมวดข้อมูลหลักอะไรบ้าง?",
+    "category": "global",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "คู่มือบันทึกระเบียนประวัตินักศึกษา#0008",
+      "คู่มือบันทึกระเบียนประวัตินักศึกษา#0010",
+      "คู่มือบันทึกระเบียนประวัตินักศึกษา#0021",
+      "คู่มือบันทึกระเบียนประวัตินักศึกษา#0024",
+      "คู่มือบันทึกระเบียนประวัตินักศึกษา#0029"
+    ],
+    "gold_docs": [
+      "คู่มือบันทึกระเบียนประวัตินักศึกษา"
+    ],
+    "cross_doc": false,
+    "gold_answer": "มี 12 หมวดหลัก: หมวด 1 ประวัตินักศึกษา, หมวด 2 ที่อยู่ตามทะเบียนบ้าน, หมวด 3 ที่อยู่ปัจจุบัน, หมวด 4 ประวัติการศึกษา, หมวด 5 การเข้าศึกษา, หมวด 6 สุขภาพ, หมวด 7-8 บิดามารดา, หมวด 9 ผู้ปกครอง/ผู้ค้ำประกัน, หมวด 10 ข้อมูลการทำงาน, หมวด 11 กิจกรรม และหมวด 12 ทุนการศึกษา",
+    "key_facts": [
+      "ประวัตินักศึกษา",
+      "ที่อยู่ตามทะเบียนบ้านและที่อยู่ปัจจุบัน",
+      "ประวัติการศึกษาและการเข้าศึกษา",
+      "ข้อมูลสุขภาพ",
+      "บิดา มารดา และผู้ปกครอง/ผู้ค้ำประกัน",
+      "การทำงาน กิจกรรม และทุนการศึกษา"
+    ],
+    "exact_tokens": [
+      "12",
+      "10",
+      "11"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-070",
+    "question": "เปรียบเทียบระเบียบการลาพักการศึกษาระหว่างระดับปริญญาตรีกับระดับบัณฑิตศึกษา มีข้อกำหนดแตกต่างกันอย่างไร?",
+    "category": "global",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)#0019",
+      "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)#0020",
+      "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)#0021"
+    ],
+    "gold_docs": [
+      "วิธียื่นคำขอลาพักการศึกษา_การ_Drop_(fixed)"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ทั้งสองระดับลาพักกรณีเกณฑ์ทหารไม่นับเวลาในหลักสูตร; ป.ตรี ลาติดต่อกันได้ไม่เกินครั้งละ 2 ภาคปกติ; บัณฑิตศึกษา ลาได้ครั้งละ 1 ภาคปกติ ติดต่อกันไม่เกิน 2 ภาคปกติ; ด้านค่าใช้จ่าย หากจ่ายค่าเทอมแล้วไม่คืนเงินทุกกรณี และต้องชำระค่ารักษาสถานภาพนักศึกษา",
+    "key_facts": [
+      "เกณฑ์ทหารไม่นับระยะเวลาลาพักอยู่ในหลักสูตร",
+      "ป.ตรี ลาติดต่อกันได้ไม่เกินครั้งละ 2 ภาคปกติ",
+      "บัณฑิตศึกษา ลาได้ครั้งละ 1 ภาค ติดต่อกันไม่เกิน 2 ภาคปกติ",
+      "จ่ายค่าเทอมแล้วไม่คืนเงินทุกกรณี",
+      "ต้องชำระค่ารักษาสถานภาพนักศึกษา"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-071",
+    "question": "มหาวิทยาลัยมีบริการดิจิทัลและระบบสารสนเทศอะไรบ้างที่สนับสนุนนักศึกษา และแต่ละระบบใช้ทำอะไร?",
+    "category": "global",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "Manual-แนะนำบริการสารสนเทศ_ver2024#0004",
+      "Manual-แนะนำบริการสารสนเทศ_ver2024#0005",
+      "Manual-แนะนำบริการสารสนเทศ_ver2024#0007",
+      "Manual-แนะนำบริการสารสนเทศ_ver2024#0008",
+      "Manual-แนะนำบริการสารสนเทศ_ver2024#0012",
+      "บัตรนักศึกษา-Digital-มจธ#0002"
+    ],
+    "gold_docs": [
+      "Manual-แนะนำบริการสารสนเทศ_ver2024",
+      "บัตรนักศึกษา-Digital-มจธ"
+    ],
+    "cross_doc": true,
+    "gold_answer": "ครอบคลุม: KMUTT Account ยืนยันตัวตน, New ACIS ลงทะเบียนและประวัติ, เครือข่าย KMUTT-Secure และ eduroam ใช้อินเทอร์เน็ตข้ามสถาบัน, Microsoft 365/OneDrive จัดการเอกสารและคลาวด์, Teams และ Zoom เรียน/ประชุมออนไลน์ และบัตรนักศึกษาดิจิทัล Be1st Digital บนโมบายแบงก์กิ้ง",
+    "key_facts": [
+      "KMUTT Account",
+      "New ACIS",
+      "eduroam",
+      "Microsoft 365",
+      "Zoom",
+      "บัตรนักศึกษา Be1st Digital"
+    ],
+    "exact_tokens": [
+      "365"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-072",
+    "question": "สรุปช่องทางการสะสมและยื่นหลักฐานชั่วโมงจิตอาสาในระบบ VSF มีกิจกรรมประเภทใดบ้าง และมีเงื่อนไขอย่างไร?",
+    "category": "global",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "kmutt_vsf_volunteer_activity_submission_manual_th#0001",
+      "kmutt_vsf_volunteer_activity_submission_manual_th#0002",
+      "kmutt_vsf_volunteer_activity_submission_manual_th#0004",
+      "kmutt_vsf_volunteer_activity_submission_manual_th#0009"
+    ],
+    "gold_docs": [
+      "kmutt_vsf_volunteer_activity_submission_manual_th"
+    ],
+    "cross_doc": false,
+    "gold_answer": "มี 5 รูปแบบหลัก: e-Learning (เช่น SET ตรวจ QR code อัตโนมัติ), บริจาคโลหิต, ออมเงิน กอช. / โครงการ AOM YOUNG, ปลูกต้นไม้ (ต้นละ 2 ชม. ไม่เกิน 5 ต้น/ปี ยื่นได้ครั้งเดียวต่อปี) และการสร้างโครงการจิตอาสาใหม่ด้วยตนเอง",
+    "key_facts": [
+      "e-Learning (SET e-Learning)",
+      "บริจาคโลหิต",
+      "ออมเงิน กอช. / AOM YOUNG",
+      "ต้นไม้ล้านต้น ล้านความดี",
+      "สร้างโครงการใหม่เพื่อขอรับชั่วโมงจิตอาสา"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-073",
+    "question": "หากนักศึกษาประสบปัญหาขาดแคลนเงินกะทันหันหรือครอบครัวประสบภัย มจธ. มีทุนช่วยเหลือฉุกเฉินและบรรเทาทุกข์อะไรบ้าง?",
+    "category": "global",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "kmutt_paiboon_hangsapruek_emergency_scholarship_2025_th#0004",
+      "kmutt_paiboon_hangsapruek_emergency_scholarship_2025_th#0005",
+      "kmutt_disaster_relief_scholarship_2025_th#0003",
+      "kmutt_disaster_relief_scholarship_2025_th#0004"
+    ],
+    "gold_docs": [
+      "kmutt_disaster_relief_scholarship_2025_th",
+      "kmutt_paiboon_hangsapruek_emergency_scholarship_2025_th"
+    ],
+    "cross_doc": true,
+    "gold_answer": "มี 2 ทุนหลัก: 1. ทุนการศึกษาฉุกเฉิน (อาจารย์ไพบูลย์ หังสพฤกษ์) ช่วยเหลือนักศึกษา ป.ตรี ที่ผู้ปกครองประสบปัญหาฉับพลันหรือป่วยโรคร้ายแรง วงเงิน 5,000-10,000 บาท/ครั้ง (สูงสุด 2 ครั้ง/ปี) 2. ทุนผู้ประสบสาธารณภัย ช่วยเหลือกรณีอัคคีภัย วาตภัย อุทกภัย วงเงินไม่เกิน 3,000 - 5,000 บาท",
+    "key_facts": [
+      "ทุนการศึกษาฉุกเฉิน (อาจารย์ไพบูลย์ หังสพฤกษ์)",
+      "กรณีผู้ปกครองประสบปัญหาฉับพลัน",
+      "จำนวน 5,000 - 10,000 บาทต่อครั้ง",
+      "ทุนผู้ประสบสาธารณภัย (อัคคีภัย วาตภัย อุทกภัย)",
+      "จำนวนไม่เกิน 3,000 - 5,000 บาท"
+    ],
+    "exact_tokens": [
+      "5,000",
+      "10,000",
+      "3,000"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-074",
+    "question": "เปรียบเทียบบัตรนักศึกษาแบบเดิม (Be1st Smart) กับแบบใหม่ (Be1st Digital) แตกต่างกันอย่างไรทั้งรูปแบบและฟังก์ชัน?",
+    "category": "global",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "บัตรนักศึกษา-Digital-มจธ#0001",
+      "บัตรนักศึกษา-Digital-มจธ#0002",
+      "บัตรนักศึกษา-Digital-มจธ#0003",
+      "บัตรนักศึกษา-Digital-มจธ#0004"
+    ],
+    "gold_docs": [
+      "บัตรนักศึกษา-Digital-มจธ"
+    ],
+    "cross_doc": false,
+    "gold_answer": "แบบเดิม Be1st Smart เป็นบัตรพลาสติกเดบิตสำหรับรหัส 65 ลงไป ส่วนแบบใหม่ Be1st Digital สำหรับรหัส 66 ขึ้นไป ประกอบด้วย Virtual Card บนโมบายแบงก์กิ้งใช้จ่ายออนไลน์ และบัตรพลาสติกใช้แตะ/กดเงิน สมัครผ่านแอป MOD LINK และโมบายแบงก์กิ้ง",
+    "key_facts": [
+      "แบบเดิม Be1st Smart เป็นบัตรพลาสติกเดบิต",
+      "แบบใหม่ Be1st Digital สำหรับรหัส 66 ขึ้นไป",
+      "ประกอบด้วย Virtual Card และบัตรพลาสติก",
+      "สมัครผ่านแอป MOD LINK และโมบายแบงก์กิ้ง"
+    ],
+    "exact_tokens": [
+      "65",
+      "66"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-075",
+    "question": "สรุปประเภทและเงื่อนไขการให้ทุนเจียระไนเพชร มจธ. มีการแบ่งหมวดการให้ทุนอย่างไร และครอบคลุมผลงานใดบ้าง?",
+    "category": "global",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "kmutt_jeranai_petch_scholarship_2019_th#0003",
+      "kmutt_jeranai_petch_scholarship_2019_th#0004",
+      "kmutt_jeranai_petch_scholarship_2019_th#0005",
+      "kmutt_jeranai_petch_scholarship_2019_th#0007",
+      "kmutt_jeranai_petch_scholarship_2019_th#0008",
+      "kmutt_jeranai_petch_scholarship_2019_th#0009",
+      "kmutt_jeranai_petch_scholarship_2019_th#0010"
+    ],
+    "gold_docs": [
+      "kmutt_jeranai_petch_scholarship_2019_th"
+    ],
+    "cross_doc": false,
+    "gold_answer": "แบ่งเป็น 2 ส่วน: 1. ทุนสนับสนุนกิจกรรมนวัตกรรม (บุคคลไม่เกิน 50,000 บาท / กลุ่มไม่เกิน 300,000 บาท) 2. ทุนรางวัลสร้างขวัญกำลังใจ ได้แก่ เรียนดี (เกียรติบัตร), รางวัลแข่งขัน (นานาชาติไม่เกิน 40,000, ประเทศไม่เกิน 30,000, อุดมศึกษาไม่เกิน 20,000 บาท), ตีพิมพ์ Scopus Q1-Q3 (2,500-10,000 บาท) และสิทธิบัตรใน/ต่างประเทศ (7,000-15,000 บาท)",
+    "key_facts": [
+      "ทุนสนับสนุนกิจกรรมนวัตกรรม (บุคคล 50,000 / กลุ่ม 300,000 บาท)",
+      "รางวัลวิชาการดีเด่น",
+      "รางวัลการประกวดแข่งขัน",
+      "รางวัลตีพิมพ์ Scopus Q1 Q2 Q3",
+      "รางวัลการจดสิทธิบัตร"
+    ],
+    "exact_tokens": [
+      "50,000",
+      "300,000",
+      "40,000",
+      "30,000",
+      "20,000",
+      "2,500",
+      "10,000",
+      "7,000",
+      "15,000"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-076",
+    "question": "ข้อปฏิบัติและข้อห้ามสำคัญสำหรับนักศึกษาผู้เข้าสอบตามระเบียบการสอบ มจธ. มีอะไรบ้างตั้งแต่การแต่งกายจนถึงออกจากห้องสอบ?",
+    "category": "global",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "rule_exam2560#0004",
+      "rule_exam2560#0005",
+      "rule_exam2560#0006",
+      "rule_exam2560#0007"
+    ],
+    "gold_docs": [
+      "rule_exam2560"
+    ],
+    "cross_doc": false,
+    "gold_answer": "แต่งกายชุดนักศึกษาถูกต้อง, แสดงบัตรนักศึกษาหรือใบแทนบัตร, ห้ามเปิดเครื่องมือสื่อสาร/อุปกรณ์อิเล็กทรอนิกส์, ห้ามนำเอกสาร/สูตรเข้า, เครื่องคิดเลขต้องติดสติกเกอร์คนละ 1 เครื่อง, เขียนชื่อรหัสบนกระดาษคำตอบก่อนทำ, ห้ามนำข้อสอบออกนอกห้อง และเสร็จก่อนเวลาต้องยกมือขออนุญาตกรรมการคุมสอบ",
+    "key_facts": [
+      "แต่งกายชุดนักศึกษาถูกต้อง",
+      "แสดงบัตรนักศึกษาหรือใบแทนบัตร",
+      "ห้ามเปิดเครื่องมือสื่อสาร",
+      "เครื่องคิดเลขต้องผ่านการตรวจติดสติกเกอร์",
+      "เขียนชื่อรหัสบนกระดาษคำตอบ",
+      "เสร็จก่อนเวลาต้องยกมือขออนุญาต"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-077",
+    "question": "ภาพรวมขั้นตอนการกู้ยืมเงิน กยศ. สำหรับนักศึกษา มจธ. ตั้งแต่สมัครจนถึงได้รับเงินคืนค่าเทอมและค่าครองชีพมีขั้นตอนสำคัญอย่างไร?",
+    "category": "global",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "kmutt_student_loan_fund_new_student_faq_2026_th#0001",
+      "kmutt_student_loan_fund_disbursement_timeline_2026_th#0001",
+      "kmutt_student_loan_fund_disbursement_timeline_2026_th#0002",
+      "คำถามต้องการกู้ยืมเงินกยศ#0001"
+    ],
+    "gold_docs": [
+      "kmutt_student_loan_fund_disbursement_timeline_2026_th",
+      "kmutt_student_loan_fund_new_student_faq_2026_th",
+      "คำถามต้องการกู้ยืมเงินกยศ"
+    ],
+    "cross_doc": true,
+    "gold_answer": "1. สมัครกู้ยืมผ่าน Pre-Approve/DSL 2. สำรองจ่ายค่าเทอมล่วงหน้า 3. เซ็นสัญญาและแบบเบิกเงินกู้ยืม 4. ได้รับค่าครองชีพงวดแรกภายใน 7 วันหลังแจ้งเตือนในระบบ DSL 5. กองทุนโอนเงินค่าเทอมให้มหาวิทยาลัย 6. มหาวิทยาลัยโอนเงินค่าเทอมคืนเข้าบัญชีนักศึกษาตามที่ระบุใน New ACIS ภายใน 30 วัน",
+    "key_facts": [
+      "สมัครผ่านระบบ Pre-Approve/DSL",
+      "สำรองจ่ายค่าเทอมไปก่อน",
+      "เซ็นสัญญาและแบบเบิกเงินกู้ยืม",
+      "ค่าครองชีพงวดแรกได้ภายใน 7 วันหลังแจ้งเตือน",
+      "มหาวิทยาลัยโอนคืนค่าเทอมเข้าบัญชีภายใน 30 วัน",
+      "บันทึกเลขบัญชีในระบบ New ACIS"
+    ],
+    "exact_tokens": [
+      "30"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-078",
+    "question": "เปรียบเทียบเกรดเฉลี่ยสะสม (GPAX) และเกณฑ์การประเมินรับทุนต่อเนื่องของทุนเพชรพระจอมเกล้า ป.ตรี, ป.โท และ ป.เอก แตกต่างกันอย่างไร?",
+    "category": "global",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "ประกาศทุนเพชรฯป.ตรี-และเงื่อนไข-68#0020",
+      "kmutt_petchra_pra_jom_klao_master_scholarship_2026_th#0009",
+      "kmutt_petchra_pra_jom_klao_phd_research_scholarship_2026_th#0007"
+    ],
+    "gold_docs": [
+      "kmutt_petchra_pra_jom_klao_master_scholarship_2026_th",
+      "kmutt_petchra_pra_jom_klao_phd_research_scholarship_2026_th",
+      "ประกาศทุนเพชรฯป.ตรี-และเงื่อนไข-68"
+    ],
+    "cross_doc": true,
+    "gold_answer": "ป.ตรี (วิชาการดีเด่น) ต้องมี GPAX สิ้นปีไม่ต่ำกว่า 3.40; ป.โท ต้องมี GPAX สิ้นปีไม่ต่ำกว่า 3.25 หรือความก้าวหน้าวิจัยระดับดี พร้อมรายงานความก้าวหน้าทุกภาค; ป.เอก ต้องมี GPAX สิ้นปีไม่ต่ำกว่า 3.50 พร้อมนำเสนอรายงานความก้าวหน้าวิจัยทุกภาคการศึกษา",
+    "key_facts": [
+      "ป.ตรี (วิชาการดีเด่น) GPAX ไม่ต่ำกว่า 3.40",
+      "ป.โท GPAX ไม่ต่ำกว่า 3.25 และรายงานความก้าวหน้าวิจัย",
+      "ป.เอก GPAX ไม่ต่ำกว่า 3.50 และรายงานความก้าวหน้าวิจัย"
+    ],
+    "exact_tokens": [
+      "3.40",
+      "3.25",
+      "3.50"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-079",
+    "question": "เปรียบเทียบข้อกำหนดเรื่องการเข้าร่วมกิจกรรมและการช่วยเหลืองานมหาวิทยาลัยของนักศึกษาทุนเพชรฯ ป.ตรี ในแต่ละชั้นปี แตกต่างกันอย่างไร?",
+    "category": "global",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "kmutt_petchra_pra_jom_klao_undergraduate_scholarship_student_guide_th#0007",
+      "ประกาศทุนเพชรฯป.ตรี-และเงื่อนไข-68#0028",
+      "ประกาศทุนเพชรฯป.ตรี-และเงื่อนไข-68#0033"
+    ],
+    "gold_docs": [
+      "kmutt_petchra_pra_jom_klao_undergraduate_scholarship_student_guide_th",
+      "ประกาศทุนเพชรฯป.ตรี-และเงื่อนไข-68"
+    ],
+    "cross_doc": true,
+    "gold_answer": "ปี 1 เข้าร่วมทุกกิจกรรมและทำรายงานสรุปผล; ปี 2 ร่วมเป็นคณะทำงานระดับแกนนำ; ปี 3 ร่วมเป็นทีมทำงานหรือริเริ่มโครงการใหม่; ปี 4-5 เป็นผู้สร้างสรรค์กิจกรรมโครงการสัมมนานักศึกษาทุนเพื่อส่งต่อแรงบันดาลใจให้รุ่นน้อง หากทำไม่ได้ต้องทำจิตอาสาชดเชยไม่น้อยกว่า 32 ชม.",
+    "key_facts": [
+      "ปี 1 เข้าร่วมทุกกิจกรรมและทำรายงานสรุปผล",
+      "ปี 2 ร่วมเป็นคณะทำงานระดับแกนนำ",
+      "ปี 3 ร่วมเป็นทีมทำงานหรือริเริ่มโครงการ",
+      "ปี 4 หรือ 5 จัดโครงการสัมมนาส่งต่อแรงบันดาลใจให้รุ่นน้อง",
+      "ชดเชยจิตอาสาไม่น้อยกว่า 32 ชั่วโมง"
+    ],
+    "exact_tokens": [
+      "32"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-080",
+    "question": "เปรียบเทียบค่าใช้จ่ายตลอดหลักสูตรโดยประมาณของคณะเทคโนโลยีสารสนเทศ ระดับ ป.ตรี ทั้ง 3 สาขาวิชา แตกต่างกันอย่างไร?",
+    "category": "global",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69#0015"
+    ],
+    "gold_docs": [
+      "20Mar69-ค่าใช้จ่ายตลอดหลักสูตรปตรี-69"
+    ],
+    "cross_doc": false,
+    "gold_answer": "สาขาเทคโนโลยีสารสนเทศ คิดค่าบำรุง 14,500 บาทและหน่วยกิตละ 1,800 บาท ตลอดหลักสูตรประมาณ 346,400 บาท; สาขาวิทยาการคอมพิวเตอร์ (ภาษาอังกฤษ) เหมาจ่าย 57,000 บาท/ภาค ตลอดหลักสูตรประมาณ 456,000 บาท; สาขานวัตกรรมบริการดิจิทัล เหมาจ่าย 47,500 บาท/ภาค ตลอดหลักสูตรประมาณ 380,000 บาท",
+    "key_facts": [
+      "เทคโนโลยีสารสนเทศ ค่าบำรุง 14,500 หน่วยกิตละ 1,800 บาท ประมาณ 346,400 บาท",
+      "วิทยาการคอมพิวเตอร์ (ภาษาอังกฤษ) เหมาจ่าย 57,000 บาท/ภาค ประมาณ 456,000 บาท",
+      "นวัตกรรมบริการดิจิทัล เหมาจ่าย 47,500 บาท/ภาค ประมาณ 380,000 บาท"
+    ],
+    "exact_tokens": [
+      "14,500",
+      "1,800",
+      "346,400",
+      "57,000",
+      "456,000",
+      "47,500",
+      "380,000"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-081",
+    "question": "หากนักศึกษาต้องการถอนรายวิชา (ติด W) ในระบบ New ACIS มีเงื่อนไขและผลกระทบที่ต้องพิจารณาในแต่ละกรณีอย่างไร?",
+    "category": "global",
+    "split": "dev",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "ขั้นตอนการถอนใน_New_ACIS#0001",
+      "ขั้นตอนการถอนใน_New_ACIS#0002",
+      "ขั้นตอนการถอนใน_New_ACIS#0003"
+    ],
+    "gold_docs": [
+      "ขั้นตอนการถอนใน_New_ACIS"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ถอนแล้วไม่ต่ำกว่าเกณฑ์ขั้นต่ำ (ป.ตรี 12, บัณฑิตศึกษา 6 หน่วยกิต) ยื่นคำร้องออนไลน์ได้ตามปกติ; ถอนแล้วต่ำกว่าเกณฑ์ต้องยื่นคำร้อง สทบ.18 เพิ่มเติม; ถอนทุกวิชาในเทอมถือว่าไม่ได้ลงทะเบียนต้องยื่นคำร้อง สทบ.12 ขอลาพักการศึกษาล่าช้า; วิชาที่อนุมัติจะแสดงตัวอักษร W",
+    "key_facts": [
+      "เกณฑ์ขั้นต่ำ ป.ตรี 12 หน่วยกิต และบัณฑิตศึกษา 6 หน่วยกิต",
+      "ต่ำกว่าเกณฑ์ต้องยื่นคำร้อง สทบ.18",
+      "ถอนทุกวิชาต้องยื่นคำร้องขอลาพักการศึกษาล่าช้า (สทบ.12)",
+      "แสดงตัวอักษร W ท้ายชื่อวิชา"
+    ],
+    "exact_tokens": [
+      "12",
+      "18"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-082",
+    "question": "สรุปขั้นตอนการขอลาออกจากทุนเพชรพระจอมเกล้าและการคืนเงินทุนการศึกษา มีกระบวนการพิจารณาและการคืนเงินอย่างไร?",
+    "category": "global",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "kmutt_petchra_scholarship_resignation_and_repayment_request_form_th#0002",
+      "kmutt_petchra_scholarship_resignation_and_repayment_request_form_th#0004",
+      "kmutt_petchra_scholarship_resignation_and_repayment_request_form_th#0005"
+    ],
+    "gold_docs": [
+      "kmutt_petchra_scholarship_resignation_and_repayment_request_form_th"
+    ],
+    "cross_doc": false,
+    "gold_answer": "กรอกแบบฟอร์ม P.13 เสนออาจารย์ที่ปรึกษา หัวหน้าภาค และคณบดีส่งกลุ่มงานทุนเพื่อเสนอรองอธิการบดีอนุมัติ; หากเลือกคืนเต็มจำนวนต้องชำระคืนภายใน 30 วัน ไม่มีดอกเบี้ย; หากเลือกขอผ่อนชำระ เรื่องจะส่งไปสำนักงานนิติการเพื่อทำสัญญารับสภาพหนี้ ดอกเบี้ยร้อยละ 3 ต่อปี",
+    "key_facts": [
+      "กรอกแบบฟอร์ม P.13 เสนอผู้บริหารตามลำดับ",
+      "รองอธิการบดีฝ่ายพัฒนานักศึกษาอนุมัติ",
+      "คืนเต็มจำนวนภายใน 30 วัน ไม่มีดอกเบี้ย",
+      "ขอผ่อนชำระ ส่งสำนักงานนิติการทำสัญญารับสภาพหนี้ ดอกเบี้ยร้อยละ 3 ต่อปี"
+    ],
+    "exact_tokens": [
+      "13",
+      "30"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-083",
+    "question": "ภาพรวมสิทธิประโยชน์และเงื่อนไขการสนับสนุนการไปทำวิจัยระยะสั้นในต่างประเทศ สำหรับนักศึกษาทุนเพชรฯ ดุษฎีบัณฑิต (ป.เอก) มีอะไรบ้าง?",
+    "category": "global",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "kmutt_petchra_phd_short_term_research_abroad_funding_criteria_th#0008",
+      "kmutt_petchra_phd_short_term_research_abroad_funding_criteria_th#0009",
+      "kmutt_petchra_phd_short_term_research_abroad_funding_criteria_th#0011",
+      "kmutt_petchra_phd_short_term_research_abroad_funding_criteria_th#0014"
+    ],
+    "gold_docs": [
+      "kmutt_petchra_phd_short_term_research_abroad_funding_criteria_th"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ค่าครองชีพเหมาจ่ายไม่เกิน 6 เดือน (15,000 - 40,000 บาท/เดือน ตามทวีป/ประเทศ), ค่าตั๋วเครื่องบิน/วีซ่า/ประกันตามจริงไม่เกิน 65,000 บาท; หลังกลับมาต้องส่งรายงานวิจัยภายใน 1 เดือน และมีบทความวิจัย Full Paper ในฐานข้อมูล Web of Science เป็นชื่อแรก 1 เรื่องก่อนสำเร็จการศึกษา",
+    "key_facts": [
+      "ค่าครองชีพเหมาจ่ายไม่เกิน 6 เดือน (ไม่เกิน 15,000 - 40,000 บาท/เดือน)",
+      "ค่าตั๋วเครื่องบิน วีซ่า ประกันตามจริงไม่เกิน 65,000 บาท",
+      "ส่งรายงานวิจัยภายใน 1 เดือนหลังกลับมา",
+      "มีบทความวิจัย Full Paper ในฐานข้อมูล Web of Science เป็นชื่อแรก"
+    ],
+    "exact_tokens": [
+      "15,000",
+      "40,000",
+      "65,000"
+    ],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-084",
+    "question": "ในระบบ New ACIS การลงทะเบียนเรียนปกติมีขั้นตอนการทำงาน (Workflow Step 1 ถึง Step 5) อย่างไรบ้าง?",
+    "category": "global",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0002",
+      "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา#0032",
+      "The_Student’s_Internet_Registration_Manual_(fixed)#0053"
+    ],
+    "gold_docs": [
+      "The_Student’s_Internet_Registration_Manual_(fixed)",
+      "คู่มือลงทะเบียน_ผ่านระบบ_Internet_สำหรับนักศึกษา"
+    ],
+    "cross_doc": true,
+    "gold_answer": "Step 1 เลือกวิชาและเลือก Section, Step 2 ยืนยันการลงทะเบียน, Step 3 พบอาจารย์ที่ปรึกษา (ขออนุมัติการลงทะเบียน), Step 4 รับทราบผลการลงทะเบียนเรียน, และ Step 5 ชำระเงินค่าลงทะเบียนตามใบแจ้งหนี้",
+    "key_facts": [
+      "Step 1 เลือกวิชาและเลือก Section",
+      "Step 2 ยืนยันการลงทะเบียน",
+      "Step 3 พบอาจารย์ที่ปรึกษา",
+      "Step 4 รับทราบผลการลงทะเบียน",
+      "Step 5 ชำระเงิน"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-085",
+    "question": "ข้อบังคับวินัยนักศึกษาและผู้เรียนรู้ มจธ. หมวด 1 มีข้อกำหนดสำคัญเรื่องความประพฤติและการปฏิบัติตนอย่างไรบ้าง?",
+    "category": "global",
+    "split": "test",
+    "answerable": true,
+    "gold_chunk_ids": [
+      "discipline2566#0003",
+      "discipline2566#0004",
+      "discipline2566#0005"
+    ],
+    "gold_docs": [
+      "discipline2566"
+    ],
+    "cross_doc": false,
+    "gold_answer": "ยึดถือหลักเกียรติและศักดิ์ (Code of Honor) และปฏิบัติตามกฎระเบียบมหาวิทยาลัย, รักษาความสงบเรียบร้อยไม่วิวาท, ไม่ทำผิดกฎหมายอาญา/แพ่ง, แต่งกายสุภาพเรียบร้อย, ซื่อสัตย์สุจริตไม่แจ้งความเท็จหรือปลอมแปลงเอกสาร และพกบัตรประจำตัวเพื่อพร้อมแสดงตน",
+    "key_facts": [
+      "ยึดถือหลักเกียรติและศักดิ์ (Code of Honor)",
+      "รักษาความสงบเรียบร้อยและไม่ทำผิดกฎหมาย",
+      "แต่งกายสุภาพเรียบร้อย",
+      "มีความซื่อสัตย์ไม่ปลอมแปลงเอกสาร",
+      "พกบัตรประจำตัวเพื่อแสดงตน"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": null,
+    "nearest_source": null,
+    "why_unanswerable": null
+  },
+  {
+    "question_id": "KMUTT-EVAL-086",
+    "question": "เบอร์โทรศัพท์ต่อตรงถึงโต๊ะทำงานของผู้อำนวยการสำนักงานทะเบียนนักศึกษาคือเบอร์อะไร?",
+    "category": "unanswerable",
+    "split": "test",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลเรื่องเบอร์โทรศัพท์ต่อตรงถึงผู้อำนวยการสำนักงานทะเบียนนักศึกษาในเอกสาร (ในเอกสารมีเพียงเบอร์โทรศัพท์กลางของสำนักงานทะเบียนนักศึกษา 02-470-8147) แนะนำให้ติดต่อผ่านเบอร์กลางของสำนักงานทะเบียนนักศึกษา",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "near_miss",
+    "nearest_source": "others.txt",
+    "why_unanswerable": "เอกสารระบุเฉพาะเบอร์โทรศัพท์กลางของสำนักงานทะเบียนนักศึกษา ไม่ได้ระบุเบอร์โทรศัพท์ต่อตรงหรือเบอร์ภายในของผู้อำนวยการ"
+  },
+  {
+    "question_id": "KMUTT-EVAL-087",
+    "question": "การขอหนังสือรับรองสถานภาพนักศึกษาภาษาอังกฤษผ่าน New ACIS มีค่าธรรมเนียมฉบับละกี่บาท?",
+    "category": "unanswerable",
+    "split": "dev",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลเรื่องอัตราค่าธรรมเนียมการขอหนังสือรับรองสถานภาพนักศึกษาในเอกสาร (เอกสารคู่มือ New ACIS อธิบายเฉพาะขั้นตอนการลงทะเบียน บันทึกประวัติ และการพิมพ์ใบเสร็จ) แนะนำให้สอบถามสำนักงานทะเบียนนักศึกษา",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "near_miss",
+    "nearest_source": "registration.txt",
+    "why_unanswerable": "เอกสารคู่มือ New ACIS และระเบียบทะเบียนไม่ได้ระบุอัตราค่าธรรมเนียมการขอเอกสารหรือหนังสือรับรองการเป็นนักศึกษา"
+  },
+  {
+    "question_id": "KMUTT-EVAL-088",
+    "question": "เคาน์เตอร์บริการสำนักงานทะเบียนนักศึกษาตั้งอยู่ที่ชั้นไหนและห้องหมายเลขอะไรของอาคาร N2?",
+    "category": "unanswerable",
+    "split": "dev",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลเรื่องหมายเลขชั้นและหมายเลขห้องของสำนักงานทะเบียนนักศึกษาในเอกสาร (เอกสารระบุเพียงตั้งอยู่ที่อาคาร N2 สำนักงานอธิการบดี) แนะนำให้สอบถามประชาสัมพันธ์อาคาร N2",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "near_miss",
+    "nearest_source": "others.txt",
+    "why_unanswerable": "เอกสารระบุชื่ออาคารสำนักงานอธิการบดี (N2) แต่ไม่ได้ระบุหมายเลขชั้นหรือห้องเฉพาะของเคาน์เตอร์บริการสำนักงานทะเบียนนักศึกษา"
+  },
+  {
+    "question_id": "KMUTT-EVAL-089",
+    "question": "หากทำบัตรนักศึกษา Be1st Digital พลาสติกชำรุด การขอทำบัตรใหม่ทดแทนมีค่าธรรมเนียมกี่บาท?",
+    "category": "unanswerable",
+    "split": "test",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลเรื่องอัตราค่าธรรมเนียมการทำบัตรใหม่กรณีบัตรพลาสติกชำรุดในเอกสาร (เอกสารระบุเฉพาะขั้นตอนการอายัดและการขอออกบัตรผ่าน MOD LINK) แนะนำให้สอบถามธนาคารกรุงเทพ หรือกลุ่มงานช่วยเหลือทางการเงินฯ",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "near_miss",
+    "nearest_source": "others.txt",
+    "why_unanswerable": "เอกสารแนะนำขั้นตอนการขอออกบัตร Be1st Digital แต่ไม่ได้ระบุราคาหรืออัตราค่าธรรมเนียมในการออกบัตรใหม่กรณีบัตรชำรุด"
+  },
+  {
+    "question_id": "KMUTT-EVAL-090",
+    "question": "การสมัครขอรับทุนการศึกษาฉุกเฉินอาจารย์ไพบูลย์ หังสพฤกษ์ ต้องใช้รูปถ่ายบ้านของผู้สมัครจำนวนกี่รูป?",
+    "category": "unanswerable",
+    "split": "dev",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลเรื่องจำนวนรูปถ่ายบ้านที่ต้องใช้แนบสมัครในเอกสารประกาศทุนฉุกเฉินอาจารย์ไพบูลย์ หังสพฤกษ์ (เอกสารระบุเพียงคุณสมบัติ วงเงินทุน และขั้นตอนการยื่นคำร้อง) แนะนำให้สอบถามกลุ่มงานช่วยเหลือทางการเงินแก่นักศึกษา",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "near_miss",
+    "nearest_source": "scholarship.txt",
+    "why_unanswerable": "เอกสารประกาศทุนการศึกษาฉุกเฉินอาจารย์ไพบูลย์ หังสพฤกษ์ ไม่ได้ระบุเงื่อนไขการแนบรูปถ่ายบ้านหรือจำนวนรูปถ่าย"
+  },
+  {
+    "question_id": "KMUTT-EVAL-091",
+    "question": "ทุนส่งเสริมศักยภาพดิจิทัลแห่งอนาคต (KMUTT Digital Future Scholarship) มีเงื่อนไขการสมัครอย่างไร?",
+    "category": "unanswerable",
+    "split": "test",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลเกี่ยวกับ 'ทุนส่งเสริมศักยภาพดิจิทัลแห่งอนาคต' ในเอกสารทุนการศึกษาของมหาวิทยาลัย แนะนำให้ตรวจสอบชื่อทุนการศึกษาและติดต่อกลุ่มงานช่วยเหลือทางการเงินแก่นักศึกษา",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "nonexistent_entity",
+    "nearest_source": "scholarship.txt",
+    "why_unanswerable": "ชื่อทุน 'ทุนส่งเสริมศักยภาพดิจิทัลแห่งอนาคต (KMUTT Digital Future Scholarship)' ไม่มีอยู่ในเอกสารระบบทุนการศึกษาของ มจธ."
+  },
+  {
+    "question_id": "KMUTT-EVAL-092",
+    "question": "การขอรับสวัสดิการซอฟต์แวร์วิเคราะห์ข้อมูลขั้นสูงผ่านระบบ KMUTT Data Analytics Cloud ต้องยื่นเรื่องที่ไหน?",
+    "category": "unanswerable",
+    "split": "dev",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลเกี่ยวกับบริการหรือระบบ 'KMUTT Data Analytics Cloud' ในเอกสารบริการสารสนเทศ (ในเอกสารมีเพียงบริการ Microsoft 365, OneDrive, Zoom, eduroam) แนะนำให้ติดต่อสำนักคอมพิวเตอร์",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "nonexistent_entity",
+    "nearest_source": "others.txt",
+    "why_unanswerable": "ไม่มีระบบหรือบริการซอฟต์แวร์ชื่อ 'KMUTT Data Analytics Cloud' ในเอกสารคู่มือบริการสารสนเทศของมหาวิทยาลัย"
+  },
+  {
+    "question_id": "KMUTT-EVAL-093",
+    "question": "โครงการทุนนวัตกรรมเขียวเพื่อสิ่งแวดล้อม (KMUTT Green Innovation Fund) ให้เงินสนับสนุนคนละกี่บาท?",
+    "category": "unanswerable",
+    "split": "test",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลเกี่ยวกับ 'โครงการทุนนวัตกรรมเขียวเพื่อสิ่งแวดล้อม (KMUTT Green Innovation Fund)' ในเอกสารทุนการศึกษา แนะนำให้ติดต่อกลุ่มงานช่วยเหลือทางการเงินแก่นักศึกษา",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "nonexistent_entity",
+    "nearest_source": "scholarship.txt",
+    "why_unanswerable": "ชื่อทุน 'KMUTT Green Innovation Fund' หรือโครงการทุนนวัตกรรมเขียวเพื่อสิ่งแวดล้อม ไม่มีอยู่ในเอกสาร"
+  },
+  {
+    "question_id": "KMUTT-EVAL-094",
+    "question": "นักศึกษาที่มีคะแนนความประพฤติเต็มสามารถสมัครเข้าร่วมชมรม KMUTT Honor Student Club ได้อย่างไร?",
+    "category": "unanswerable",
+    "split": "test",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลเกี่ยวกับชมรมหรือองค์กรชื่อ 'KMUTT Honor Student Club' ในเอกสารวินัยและกิจกรรมนักศึกษา แนะนำให้สอบถามสำนักงานพัฒนานักศึกษา",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "nonexistent_entity",
+    "nearest_source": "academic_rules.txt",
+    "why_unanswerable": "ไม่พบชื่อชมรมหรือองค์กร 'KMUTT Honor Student Club' ในเอกสารข้อบังคับวินัยหรือระเบียบมหาวิทยาลัย"
+  },
+  {
+    "question_id": "KMUTT-EVAL-095",
+    "question": "ขั้นตอนการยื่นขอใช้ระบบสแกนใบหน้าเข้าห้องสอบ KMUTT Face Exam Check-in ต้องลงทะเบียนล่วงหน้ากี่วัน?",
+    "category": "unanswerable",
+    "split": "dev",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลเกี่ยวกับระบบ 'KMUTT Face Exam Check-in' ในเอกสารระเบียบการสอบ (ระเบียบการสอบระบุให้ใช้บัตรประจำตัวนักศึกษาหรือใบแทนบัตรเท่านั้น) แนะนำให้ตรวจสอบระเบียบการสอบของมหาวิทยาลัย",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "nonexistent_entity",
+    "nearest_source": "academic_rules.txt",
+    "why_unanswerable": "ไม่มีระบบการเข้าห้องสอบชื่อ 'KMUTT Face Exam Check-in' ในเอกสารระเบียบการสอบของมหาวิทยาลัย"
+  },
+  {
+    "question_id": "KMUTT-EVAL-096",
+    "question": "วันเปิดภาคการศึกษาและวันสุดท้ายของการลงทะเบียนเรียน ภาคการศึกษาที่ 3/2569 (ภาคฤดูร้อน) คือวันไหน?",
+    "category": "unanswerable",
+    "split": "test",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลกำหนดการของภาคการศึกษาที่ 3/2569 ในเอกสารปฏิทินการศึกษา (เอกสารปฏิทินการศึกษาปี 2569 มีเฉพาะภาคการศึกษาที่ 1 และ 2) แนะนำให้ติดตามประกาศปฏิทินการศึกษาภาคฤดูร้อนเพิ่มเติมจากสำนักงานทะเบียนนักศึกษา",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "out_of_period",
+    "nearest_source": "academic_calendar.txt",
+    "why_unanswerable": "เอกสารปฏิทินการศึกษา 2569 ครอบคลุมเฉพาะภาคการศึกษาที่ 1 และภาคการศึกษาที่ 2 เท่านั้น ไม่มีข้อมูลของภาคการศึกษาที่ 3 (ภาคฤดูร้อน)"
+  },
+  {
+    "question_id": "KMUTT-EVAL-097",
+    "question": "กำหนดการชำระเงินค่าลงทะเบียนเรียน ภาคการศึกษาที่ 1 ปีการศึกษา 2572 ต้องชำระภายในวันไหน?",
+    "category": "unanswerable",
+    "split": "test",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลกำหนดการชำระเงินของปีการศึกษา 2572 ในเอกสาร (เอกสารปฏิทินการศึกษาครอบคลุมถึงปีการศึกษา 2569 เท่านั้น) แนะนำให้ติดตามประกาศปฏิทินการศึกษาของปีการศึกษานั้นๆ",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "out_of_period",
+    "nearest_source": "academic_calendar.txt",
+    "why_unanswerable": "เอกสารปฏิทินการศึกษาครอบคลุมถึงปีการศึกษา 2569 ไม่ครอบคลุมถึงปีการศึกษา 2572"
+  },
+  {
+    "question_id": "KMUTT-EVAL-098",
+    "question": "วันสุดท้ายของการขอลดรายวิชาในปฏิทินการศึกษาภาคการศึกษาที่ 2 ปีการศึกษา 2564 คือวันไหน?",
+    "category": "unanswerable",
+    "split": "test",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลกำหนดการของภาคการศึกษาที่ 2/2564 ในเอกสารปฏิทินการศึกษา (เอกสารปฏิทินการศึกษาระบุเฉพาะปีการศึกษา 2569) แนะนำให้ตรวจสอบปฏิทินการศึกษาย้อนหลังของปี 2564",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "out_of_period",
+    "nearest_source": "academic_calendar.txt",
+    "why_unanswerable": "เอกสารปฏิทินการศึกษาในชุดข้อมูลมีเฉพาะของปีการศึกษา 2569 ไม่มีข้อมูลย้อนหลังของปีการศึกษา 2564"
+  },
+  {
+    "question_id": "KMUTT-EVAL-099",
+    "question": "การยื่นใบสมัครรับทุนเพชรพระจอมเกล้า ปริญญาตรี รอบที่ 1 ประจำปีการศึกษา 2575 เปิดรับสมัครช่วงเดือนไหน?",
+    "category": "unanswerable",
+    "split": "test",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลกำหนดการรับสมัครทุนเพชรพระจอมเกล้าของปีการศึกษา 2575 ในเอกสาร (เอกสารมีข้อมูลเกณฑ์รับสมัครถึงปีการศึกษา 2569) แนะนำให้ติดตามประกาศรับสมัครทุนประจำปี 2575 จากกลุ่มงานช่วยเหลือทางการเงินฯ",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "out_of_period",
+    "nearest_source": "scholarship.txt",
+    "why_unanswerable": "เอกสารประกาศทุนมีข้อมูลถึงปีการศึกษา 2569 ไม่ครอบคลุมกำหนดการของปีการศึกษา 2575"
+  },
+  {
+    "question_id": "KMUTT-EVAL-100",
+    "question": "กำหนดการรายงานตัวและทำสัญญาเงินกู้ยืม กยศ. สำหรับนักศึกษาใหม่ ประจำปีการศึกษา 2562 คือวันไหน?",
+    "category": "unanswerable",
+    "split": "test",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลกำหนดการกู้ยืม กยศ. ของปีการศึกษา 2562 ในเอกสาร (เอกสารมีข้อมูลกำหนดการกู้ยืม กยศ. ประจำปีการศึกษา 2568 และ 2569) แนะนำให้ติดต่อกลุ่มงานช่วยเหลือทางการเงินแก่นักศึกษา",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "out_of_period",
+    "nearest_source": "scholarship.txt",
+    "why_unanswerable": "เอกสารกำหนดการ กยศ. ในชุดข้อมูลระบุเฉพาะปีการศึกษา 2568 และ 2569 ไม่มีข้อมูลย้อนหลังของปีการศึกษา 2562"
+  },
+  {
+    "question_id": "KMUTT-EVAL-101",
+    "question": "นักศึกษา มจธ. สามารถเทียบโอนวิชาศึกษาทั่วไป (GE) ไปเรียนที่มหาวิทยาลัยธรรมศาสตร์ได้กี่หน่วยกิต?",
+    "category": "unanswerable",
+    "split": "dev",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลเรื่องเกณฑ์การเทียบโอนวิชาไปเรียนที่มหาวิทยาลัยธรรมศาสตร์ในเอกสาร แนะนำให้สอบถามสำนักงานทะเบียนนักศึกษา หรือกลุ่มงานวิชาการของคณะ",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "out_of_scope",
+    "nearest_source": "academic_rules.txt",
+    "why_unanswerable": "เอกสารครอบคลุมเฉพาะระเบียบภายใน มจธ. ไม่มีข้อกำหนดเกี่ยวกับการเทียบโอนรายวิชาไปข้ามมหาวิทยาลัยยังมหาวิทยาลัยธรรมศาสตร์"
+  },
+  {
+    "question_id": "KMUTT-EVAL-102",
+    "question": "อัตราค่าเช่าหอพักนักศึกษาของมหาวิทยาลัยเกษตรศาสตร์ บางเขน สำหรับนักศึกษาแลกเปลี่ยนคิดเดือนละกี่บาท?",
+    "category": "unanswerable",
+    "split": "dev",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลเกี่ยวกับหอพักของมหาวิทยาลัยเกษตรศาสตร์ในเอกสาร เนื่องจากเอกสารชุดนี้เป็นข้อมูลบริการและระเบียบของ มจธ. เท่านั้น",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "out_of_scope",
+    "nearest_source": "others.txt",
+    "why_unanswerable": "คำถามเกี่ยวกับสถาบันอื่น (มหาวิทยาลัยเกษตรศาสตร์) ซึ่งอยู่นอกเหนือขอบเขตเอกสารของ มจธ."
+  },
+  {
+    "question_id": "KMUTT-EVAL-103",
+    "question": "การขอทำบัตรประจำตัวประชาชนใหม่กรณีสูญหายที่สำนักงานเขตทุ่งครุ ต้องใช้เอกสารอะไรบ้าง?",
+    "category": "unanswerable",
+    "split": "test",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลเรื่องขั้นตอนการทำบัตรประชาชนที่สำนักงานเขตทุ่งครุในเอกสาร (เอกสารมีเฉพาะเรื่องบัตรนักศึกษา มจธ.) แนะนำให้สอบถามสำนักงานเขตทุ่งครุโดยตรง",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "out_of_scope",
+    "nearest_source": "others.txt",
+    "why_unanswerable": "คำถามเกี่ยวกับการรับบริการภาครัฐภายนอกมหาวิทยาลัย (สำนักงานเขตทุ่งครุ) ซึ่งไม่ได้อยู่ในเอกสาร มจธ."
+  },
+  {
+    "question_id": "KMUTT-EVAL-104",
+    "question": "นักศึกษาที่ต้องการสอบใบขับขี่รถยนต์ส่วนบุคคล สามารถนำใบรับรองนักศึกษา มจธ. ไปยื่นที่กรมการขนส่งทางบกได้หรือไม่?",
+    "category": "unanswerable",
+    "split": "dev",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลเรื่องการใช้ใบรับรองนักศึกษาในการทำใบขับขี่ที่กรมการขนส่งทางบกในเอกสาร แนะนำให้สอบถามกรมการขนส่งทางบกโดยตรง",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "out_of_scope",
+    "nearest_source": "others.txt",
+    "why_unanswerable": "คำถามเกี่ยวกับหลักเกณฑ์ของหน่วยงานภายนอก (กรมการขนส่งทางบก) ซึ่งไม่อยู่ในขอบเขตเอกสาร มจธ."
+  },
+  {
+    "question_id": "KMUTT-EVAL-105",
+    "question": "ตารางสายและเวลาวิ่งของรถประจำทางขสมก. สาย 21 ที่ผ่านหน้า มจธ. บางมด มีรถคันแรกกี่โมง?",
+    "category": "unanswerable",
+    "split": "test",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลตารางเวลารถประจำทาง ขสมก. สาย 21 ในเอกสารบริการนักศึกษา แนะนำให้ตรวจสอบข้อมูลจากองค์การขนส่งมวลชนกรุงเทพ (ขสมก.)",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "out_of_scope",
+    "nearest_source": "others.txt",
+    "why_unanswerable": "เอกสารไม่มีข้อมูลตารางเวลาของระบบขนส่งสาธารณะภายนอกมหาวิทยาลัย (รถประจำทาง ขสมก.)"
+  },
+  {
+    "question_id": "KMUTT-EVAL-106",
+    "question": "หากลงทะเบียนเรียนวิชาเลือกแล้วได้เกรด F สามารถยื่นคำร้องขอยกเว้นไม่ให้นำเกรด F มาคำนวณ GPAX โดยไม่ต้องเรียนซ้ำได้หรือไม่?",
+    "category": "unanswerable",
+    "split": "test",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลเกี่ยวกับสิทธิ์การขอยกเว้นไม่นำเกรด F มาคำนวณ GPAX โดยไม่ต้องเรียนซ้ำในเอกสาร (ระเบียบการศึกษาไม่ได้กำหนดให้สามารถถอนหรือลบเกรด F ออกจาก GPAX ได้โดยไม่เรียนซ้ำ) แนะนำให้สอบถามสำนักงานทะเบียนนักศึกษา",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "false_premise",
+    "nearest_source": "academic_rules.txt",
+    "why_unanswerable": "สมมติฐานผิด ระเบียบมหาวิทยาลัยไม่ได้มีช่องทางให้ขอลบหรือยกเว้นเกรด F ออกจากการคำนวณ GPAX โดยไม่ลงเรียนซ้ำ"
+  },
+  {
+    "question_id": "KMUTT-EVAL-107",
+    "question": "หากขอยกเลิกการเรียนและถอนรายวิชาในสัปดาห์ที่ 12 ของภาคการศึกษา จะขอรับเงินคืนค่าธรรมเนียมการศึกษา 50% ได้อย่างไร?",
+    "category": "unanswerable",
+    "split": "test",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลเกี่ยวกับสิทธิ์การขอรับเงินคืนค่าธรรมเนียมการศึกษา 50% เมื่อถอนรายวิชาในสัปดาห์ที่ 12 ในเอกสาร (เอกสารปฏิทินการศึกษาระบุว่าการขอลดรายวิชาที่จะได้เงินคืน 80% ต้องทำภายใน 2 สัปดาห์แรกเท่านั้น) แนะนำให้ตรวจสอบปฏิทินการศึกษา",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "false_premise",
+    "nearest_source": "academic_calendar.txt",
+    "why_unanswerable": "สมมติฐานผิด การขอลดรายวิชาในสัปดาห์ที่ 12 ไม่มีการคืนเงินค่าธรรมเนียมการศึกษา (การคืนเงิน 80% กำหนดเฉพาะภายใน 2 สัปดาห์แรก)"
+  },
+  {
+    "question_id": "KMUTT-EVAL-108",
+    "question": "นักศึกษาทุนเพชรพระจอมเกล้าที่ทำเกรดเฉลี่ยสะสมได้ 1.95 สามารถยื่นขออนุมัติรับเงินสนับสนุนค่าครองชีพรายเดือนครึ่งหนึ่งได้ด้วยวิธีใด?",
+    "category": "unanswerable",
+    "split": "test",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลเกี่ยวกับสิทธิ์การขอรับเงินค่าครองชีพครึ่งหนึ่งกรณี GPAX ต่ำกว่าเกณฑ์ในเอกสาร (ระเบียบทุนระบุว่าผู้รับทุนต้องรักษา GPAX ตามเกณฑ์ที่กำหนด หากต่ำกว่าเกณฑ์จะถูกระงับหรือยุติทุน ไม่มีนโยบายจ่ายเงินครึ่งหนึ่ง) แนะนำให้ติดต่อกลุ่มงานช่วยเหลือทางการเงินแก่นักศึกษา",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "false_premise",
+    "nearest_source": "scholarship.txt",
+    "why_unanswerable": "สมมติฐานผิด ระเบียบทุนเพชรฯ ไม่มีข้อยกเว้นการจ่ายเงินค่าครองชีพครึ่งหนึ่งหากเกรดตกเหลือ 1.95"
+  },
+  {
+    "question_id": "KMUTT-EVAL-109",
+    "question": "หากสอบทุจริตแล้วถูกสั่งลงโทษปรับตก F ในวิชานั้น สามารถยื่นเรื่องขอลงทะเบียนสอบแก้ตัวในภาคการศึกษาเดียวกันได้หรือไม่?",
+    "category": "unanswerable",
+    "split": "test",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลสิทธิ์การขอสอบแก้ตัวกรณีถูกลงโทษทุจริตการสอบในเอกสาร (ระเบียบการสอบระบุว่าการทุจริตจะถูกปรับตก F และอาจถูกพักการศึกษา ไม่มีเกณฑ์อนุญาตให้สอบแก้ตัวในภาคเรียนเดียวกัน) แนะนำให้ตรวจสอบระเบียบการสอบ",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "false_premise",
+    "nearest_source": "academic_rules.txt",
+    "why_unanswerable": "สมมติฐานผิด ระเบียบการสอบ มจธ. ไม่มีระบบการยื่นขอสอบแก้ตัวสำหรับวิชาที่ถูกปรับตก F จากการทุจริต"
+  },
+  {
+    "question_id": "KMUTT-EVAL-110",
+    "question": "นักศึกษาที่ขาดสอบวัดผลลัพธ์โดยไม่มีเหตุจำเป็น สามารถชำระค่าธรรมเนียมขอจัดสอบรอบพิเศษย้อนหลังได้กี่บาท?",
+    "category": "unanswerable",
+    "split": "test",
+    "answerable": false,
+    "gold_chunk_ids": [],
+    "gold_docs": [],
+    "cross_doc": null,
+    "gold_answer": "ไม่พบข้อมูลเกี่ยวกับค่าธรรมเนียมหรือเกณฑ์การขอจัดสอบรอบพิเศษย้อนหลังสำหรับผู้ขาดสอบโดยไม่มีเหตุจำเป็นในเอกสาร (ระเบียบระบุว่าผู้ขาดสอบโดยไม่มีเหตุอันสมควรจะไม่ได้คะแนนในส่วนนั้น) แนะนำให้ติดต่ออาจารย์ผู้สอนหรือสำนักงานทะเบียนนักศึกษา",
+    "key_facts": [
+      "ไม่พบข้อมูล"
+    ],
+    "exact_tokens": [],
+    "unanswerable_type": "false_premise",
+    "nearest_source": "academic_rules.txt",
+    "why_unanswerable": "สมมติฐานผิด เอกสารระเบียบการสอบไม่ได้มีเกณฑ์ให้ชำระเงินเพื่อขอสอบรอบพิเศษย้อนหลังกรณีขาดสอบโดยไม่มีเหตุจำเป็น"
+  }
+]
