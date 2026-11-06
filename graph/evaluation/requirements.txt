@@ -1,2 +1,0 @@
-# Optional offline lexical experiment only; backend dependencies are also required.
-scikit-learn==1.8.0

@@ -1,15 +1,18 @@
 """Full corpus sidecar validation and explicit numeric-range semantics."""
 import copy
+from contextlib import redirect_stdout
+import io
 import json
 from pathlib import Path
 import sys
 import unittest
+import tempfile
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "graph/build"))
-from contracts import Chunk, DocumentVersion, NumericRange, ROOT, SourceNotes, adapt, build_contracts, render_report
-import prepare as prep
-from prepare import fingerprint
+from contracts import Chunk, DocumentVersion, NumericRange, ROOT, SourceNotes, adapt, build_contracts
+import contracts
+from common import fingerprint
 
 
 class KnowledgeContractTests(unittest.TestCase):
@@ -56,14 +59,15 @@ class KnowledgeContractTests(unittest.TestCase):
         ids = [c["chunk_id"] for r in result["records"] for c in r["chunks"]]
         self.assertEqual(len(ids), len(set(ids)))
 
-    def test_report_keeps_owner_audit_without_making_it_a_pilot_gate(self):
+    def test_check_needs_no_saved_json_markdown_or_writes(self):
         result = build_contracts()
-        original = copy.deepcopy(result)
-        report = render_report(result)
-        self.assertIn("ไม่ใช่เงื่อนไขรอทีม Data", report)
-        self.assertIn("ไม่ใช่ field บังคับหรือเงื่อนไขหยุด pilot", report)
-        self.assertIn("ยังไม่ได้สกัดวันที่/สถานะจากเนื้อหาครบทั้งคลัง", report)
-        self.assertEqual(result, original)
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder)
+            with patch.object(contracts,"DATA",root),patch.object(contracts,"build_contracts",return_value=result), \
+                 patch.object(sys,"argv",["contracts.py","--check"]), \
+                 patch.object(Path,"write_text",side_effect=AssertionError("check must not write")),redirect_stdout(io.StringIO()):
+                contracts.main()
+            self.assertFalse(list(root.rglob("*.md")))
 
     def test_explicit_source_uri_is_preserved(self):
         record, missing = adapt(self.path, self.document, {"source_uri": "https://example.org/original.pdf", "content_type": "application/pdf"})
@@ -79,16 +83,6 @@ class KnowledgeContractTests(unittest.TestCase):
                 DocumentVersion(**common, published_at=value)
             with self.subTest(note=value), self.assertRaises(ValueError):
                 SourceNotes(published_at=value)
-
-    def test_pilot_projection_accepts_full_contract_notes_without_rewriting_ids(self):
-        original = prep.read
-        source_id = prep.build()["sources"][0]["source_id"]
-        notes = {source_id: {"effective_until": "2027-01-01", "supersedes": [], "source_uri": "https://example.org/source.pdf", "verified": True}}
-        with patch.object(prep, "read", side_effect=lambda p: notes if p.name == "source_notes.json" else original(p)), patch.object(Path, "exists", return_value=True):
-            bundle = prep.build()
-        self.assertEqual(bundle["sources"][0]["verification_status"], "VERIFIED")
-        self.assertEqual(bundle["sources"][0]["source_id"], source_id)
-        self.assertEqual(len(bundle["pilot"]), 27)
 
 
 if __name__ == "__main__":

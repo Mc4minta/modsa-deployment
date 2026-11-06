@@ -1,4 +1,4 @@
-"""Offline safety checks for the small six-label extraction experiment."""
+"""Synthetic extraction/evidence/numeric guards, independent of pilot files."""
 import contextlib
 import copy
 import io
@@ -12,10 +12,8 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "graph/build"))
 from common import restore_source_whitespace
-from extract import Evidence, apply_review, export_graph, stage, check_response_schema, selected_jobs, payload_for, JOBS
+from extract import Evidence, export_graph, stage
 from common import fingerprint
-from prepare import build
-import extract as extraction_cli
 
 
 class GraphSmokeTests(unittest.TestCase):
@@ -50,157 +48,6 @@ class GraphSmokeTests(unittest.TestCase):
         self.assertTrue(all(n["properties"]["review_status"] == "PENDING" for n in graph["nodes"]))
         self.assertTrue(all(n["properties"]["retrieval_enabled"] is False for n in graph["nodes"]))
         self.assertTrue(any(e["type"] == "SUPPORTED_BY" for e in graph["edges"]))
-
-    def test_pilot_jobs_select_only_primary_and_preserve_smoke_contexts(self):
-        bundle = build()
-        original = copy.deepcopy(bundle)
-        jobs = selected_jobs(bundle, "pilot")
-        by_id = {primary["pilot_id"]: supporting for primary, supporting in jobs}
-        self.assertEqual(len(jobs), 24)
-        self.assertEqual(set(by_id), {c["pilot_id"] for c in bundle["pilot"] if c["role"] == "primary"})
-        self.assertTrue(all(primary["role"] == "primary" for primary, _ in jobs))
-        self.assertTrue({"p24", "p26", "p27"}.isdisjoint(by_id))
-        self.assertEqual({p["pilot_id"]: [c["pilot_id"] for c in contexts] for p, contexts in selected_jobs(bundle)}, JOBS)
-        self.assertTrue(all([c["pilot_id"] for c in by_id[pid]] == contexts for pid, contexts in JOBS.items()))
-        self.assertEqual([c["pilot_id"] for c in by_id["p05"]], ["p26", "p27"])
-        self.assertEqual(bundle, original)
-
-    def test_new_pilot_focus_uses_question_without_answers_or_gold(self):
-        bundle = build()
-        for question in bundle["questions"]:
-            question["answer"] = "ANSWER_LEAK_SENTINEL"
-            question["claims"] = [{"text": "GOLD_LEAK_SENTINEL"}]
-            question["evidence_sets"] = [["EVIDENCE_LEAK_SENTINEL"]]
-        primary, contexts = next(job for job in selected_jobs(bundle, "pilot") if job[0]["pilot_id"] == "p02")
-        payload = payload_for(primary, contexts, bundle["schema"])
-        content = payload["messages"][1]["content"]
-        self.assertEqual(json.loads(content)["focus"], next(q["question"] for q in bundle["questions"] if q["id"] == "p02"))
-        self.assertNotIn("LEAK_SENTINEL", content)
-
-    def test_pilot_selection_rejects_unknown_scope_or_cross_version_context(self):
-        bundle = build()
-        with self.assertRaisesRegex(ValueError, "scope"):
-            selected_jobs(bundle, "all")
-        next(c for c in bundle["pilot"] if c["pilot_id"] == "p26")["version_id"] = "different-version"
-        with self.assertRaisesRegex(ValueError, "same source version"):
-            selected_jobs(bundle, "pilot")
-
-    def saved_pilot_run(self, complete=False):
-        bundle = build()
-        jobs = selected_jobs(bundle, "pilot")
-        hashes = {p["pilot_id"]: fingerprint({"payload": payload_for(p, c, bundle["schema"]),
-                  "prompt_version": extraction_cli.PROMPT_VERSION}) for p, c in jobs}
-        ids = list(hashes) if complete else list(JOBS)
-        saved = {"snapshot_hash": bundle["snapshot_hash"], "records": {
-            pid: {"schema_hash": fingerprint(bundle["schema"]), "cache_key": "response-" + pid} for pid in ids}}
-        if complete:
-            saved.update(scope="pilot", job_hashes=hashes)
-        return bundle, saved
-
-    def run_pilot_check(self, bundle, saved):
-        with tempfile.TemporaryDirectory() as folder:
-            root = Path(folder)
-            (root / "results").mkdir()
-            (root / "results/extraction.json").write_text(json.dumps(saved), encoding="utf-8")
-            files = lambda: {p.relative_to(root): (p.read_bytes(), p.stat().st_mtime_ns) for p in root.rglob("*") if p.is_file()}
-            before, output = files(), io.StringIO()
-            with contextlib.ExitStack() as stack:
-                stack.enter_context(patch.object(extraction_cli, "RUN", root))
-                stack.enter_context(patch.object(extraction_cli, "build", return_value=bundle))
-                stack.enter_context(patch.object(sys, "argv", ["extract.py", "--pilot", "--check"]))
-                stack.enter_context(contextlib.redirect_stdout(output))
-                stack.enter_context(contextlib.redirect_stderr(io.StringIO()))
-                forbidden = [stack.enter_context(patch.object(extraction_cli, name, side_effect=AssertionError("check must not call " + name)))
-                             for name in ("api_key", "call_model", "write_reports")]
-                stack.enter_context(patch.object(Path, "write_text", side_effect=AssertionError("check must not write files")))
-                extraction_cli.main()
-                for operation in forbidden:
-                    operation.assert_not_called()
-            self.assertEqual(before, files())
-            return output.getvalue()
-
-    def test_pilot_check_reuses_five_and_plans_nineteen_without_side_effects(self):
-        bundle, saved = self.saved_pilot_run()
-        output = self.run_pilot_check(bundle, saved)
-        self.assertIn("24 primary jobs; 5 saved responses reusable; 19 initial requests pending", output)
-        self.assertIn("no credentials, API, file or database writes", output)
-
-    def test_pilot_check_reuses_complete_current_job_identities(self):
-        bundle, saved = self.saved_pilot_run(complete=True)
-        output = self.run_pilot_check(bundle, saved)
-        self.assertIn("24 primary jobs; 24 saved responses reusable; 0 initial requests pending", output)
-        self.assertIn("Pending IDs: none", output)
-
-    def test_pilot_check_preserves_explicit_token_limit_without_api(self):
-        bundle, saved = self.saved_pilot_run(complete=True)
-        primary, contexts = next((p, c) for p, c in selected_jobs(bundle, "pilot") if p["pilot_id"] == "p17")
-        saved["token_limits"] = {"p17": 10000}
-        saved["job_hashes"]["p17"] = fingerprint({"payload": payload_for({**primary, "_max_tokens": 10000}, contexts, bundle["schema"]), "prompt_version": extraction_cli.PROMPT_VERSION})
-        self.assertIn("0 initial requests pending", self.run_pilot_check(bundle, saved))
-        for limit in (True, 30000, "10000"):
-            saved["token_limits"] = {"p17": limit}
-            with self.subTest(limit=limit), self.assertRaises(SystemExit):
-                self.run_pilot_check(bundle, saved)
-
-    def test_truncated_retry_only_calls_missing_job_and_preserves_failed_provenance(self):
-        bundle, saved = self.saved_pilot_run(complete=True)
-        saved["records"]["p17"].update(error="incomplete_generation", finish_reason="length")
-        response = {"cache_key": "new-response", "schema_hash": fingerprint(bundle["schema"]),
-            "prompt_version": extraction_cli.PROMPT_VERSION, "extraction": copy.deepcopy(self.record["extraction"])}
-        staged = {"entities": [], "offerings": [], "facts": [{}], "has_tracks": [], "rejected": [], "unresolved": [], "repairs": []}
-        with tempfile.TemporaryDirectory() as folder:
-            root = Path(folder)
-            (root / "results").mkdir()
-            (root / "results/extraction.json").write_text(json.dumps(saved), encoding="utf-8")
-            with patch.object(extraction_cli, "RUN", root), patch.object(extraction_cli, "INPUT", root), \
-                 patch.object(extraction_cli, "build", return_value=bundle), \
-                 patch.object(extraction_cli, "call_model", return_value=response) as model, \
-                 patch.object(extraction_cli, "stage", return_value=staged), \
-                 patch.object(extraction_cli, "export_graph", return_value={}), \
-                 patch.object(extraction_cli, "write_reports") as writer, \
-                 patch.object(extraction_cli, "api_key", side_effect=AssertionError("no credentials in test")), \
-                 patch.object(sys, "argv", ["extract.py", "--pilot", "--extract"]), \
-                 contextlib.redirect_stdout(io.StringIO()):
-                extraction_cli.main()
-                model.assert_called_once()
-                self.assertEqual(model.call_args.args[0]["pilot_id"], "p17")
-                self.assertEqual(model.call_args.args[0]["_max_tokens"], 10000)
-                self.assertEqual(writer.call_args.args[2]["p17"]["failed_attempts"][0]["finish_reason"], "length")
-                self.assertEqual(writer.call_args.args[8]["token_limits"], {"p17": 10000})
-
-    def test_pilot_check_rejects_stale_missing_or_malformed_job_identities(self):
-        bundle, saved = self.saved_pilot_run(complete=True)
-        _, baseline = self.saved_pilot_run()
-        cases = [{**run, "job_hashes": value} for run in (saved, baseline) for value in (None, [], "not-a-mapping")]
-        stale = copy.deepcopy(saved)
-        stale["job_hashes"]["p02"] = "stale-hash"
-        cases.append(stale)
-        missing = copy.deepcopy(saved)
-        missing["job_hashes"].pop("p02")
-        cases.append(missing)
-        for index, invalid in enumerate(cases):
-            with self.subTest(case=index), self.assertRaises(SystemExit) as error:
-                self.run_pilot_check(bundle, invalid)
-            self.assertEqual(error.exception.code, 2)
-
-    def test_checked_review_ids_requires_matching_snapshot_and_response(self):
-        records = {"p02": {"cache_key": "response-p02"}}
-        review = {"snapshot_hash": "current", "checked_records": [{"pilot_id": "p02", "cache_key": "response-p02"}]}
-        self.assertEqual(extraction_cli.checked_review_ids(review, records, "current"), {"p02"})
-        with self.assertRaisesRegex(ValueError, "different snapshot"):
-            extraction_cli.checked_review_ids(review, records, "changed")
-        for checked in ([{"pilot_id": "p02", "cache_key": "other-response"}],
-                        [{"pilot_id": "missing", "cache_key": "response-p02"}],
-                        review["checked_records"] * 2):
-            with self.subTest(checked=checked), self.assertRaisesRegex(ValueError, "duplicate, missing or belongs"):
-                extraction_cli.checked_review_ids({**review, "checked_records": checked}, records, "current")
-
-    def test_saved_response_schema_including_initial_attempt_is_preserved(self):
-        record = {"schema_hash": fingerprint(self.schema), "initial_attempt": {"schema_hash": fingerprint(self.schema)}}
-        check_response_schema({"p01": record}, self.schema)
-        record["initial_attempt"]["schema_hash"] = "another-schema"
-        with self.assertRaisesRegex(ValueError, "original preparation"):
-            check_response_schema({"p01": record}, self.schema)
 
     def test_export_rejects_properties_outside_frozen_schema(self):
         result = stage(self.primary, [], self.record, self.schema)
@@ -426,61 +273,6 @@ class GraphSmokeTests(unittest.TestCase):
         result = stage(primary, [], record, self.schema)
         self.assertFalse(result["has_tracks"])
         self.assertTrue(result["rejected"])
-
-    def test_source_review_curates_a_copy_without_mutating_raw_response(self):
-        records = {"p01": {"cache_key": "cache-1", **copy.deepcopy(self.record)}}
-        original = copy.deepcopy(records)
-        review = {"snapshot_hash": "snapshot-1", "edits": [
-            {"pilot_id": "p01", "cache_key": "cache-1", "collection": "entities", "ref": "s",
-             "changes": {"evidence": [{"chunk_id": "doc#0001", "quote": "ทุน X"}]}},
-            {"pilot_id": "p01", "cache_key": "cache-1", "collection": "facts", "ref": "f", "action": "remove"}]}
-        curated = apply_review(records, review, "snapshot-1")
-        self.assertEqual(records, original)
-        self.assertEqual(curated["p01"]["extraction"]["entities"][0]["evidence"][0]["quote"], "ทุน X")
-        self.assertFalse(curated["p01"]["extraction"]["facts"])
-
-    def test_review_can_only_remove_unsupported_offering_and_track_link(self):
-        records = {"p01": {"cache_key": "cache-1", **copy.deepcopy(self.record)}}
-        records["p01"]["extraction"]["offerings"] = [{"ref": "o", "scholarship_ref": "s"}]
-        records["p01"]["extraction"]["has_tracks"] = [{"offering_ref": "o", "track_ref": "t"}]
-        review = {"snapshot_hash": "snapshot-1", "edits": [
-            {"pilot_id": "p01", "cache_key": "cache-1", "collection": "has_tracks", "ref": "o->t", "action": "remove"},
-            {"pilot_id": "p01", "cache_key": "cache-1", "collection": "offerings", "ref": "o", "action": "remove"}]}
-        curated = apply_review(records, review, "snapshot-1")
-        self.assertFalse(curated["p01"]["extraction"]["offerings"])
-        self.assertFalse(curated["p01"]["extraction"]["has_tracks"])
-        self.assertTrue(records["p01"]["extraction"]["offerings"])
-        review["edits"] = [{"pilot_id": "p01", "cache_key": "cache-1", "collection": "offerings", "ref": "o", "changes": {"degree": "ปริญญาตรี"}}]
-        with self.assertRaisesRegex(ValueError, "only remove"):
-            apply_review(records, review, "snapshot-1")
-
-    def test_explicit_scope_review_requires_verbatim_evidence_and_unit_can_only_be_cleared(self):
-        records = {"p01": {"cache_key": "cache-1", **copy.deepcopy(self.record)}}
-        scope = {"pilot_id": "p01", "cache_key": "cache-1", "collection": "entities", "ref": "s", "action": "source_scope",
-            "changes": {"scope_text": "ทุน X", "evidence": [{"chunk_id": "doc#0001", "quote": "ทุน X"}]}}
-        unit = {"pilot_id": "p01", "cache_key": "cache-1", "collection": "facts", "ref": "f", "action": "clear_unit", "changes": {"unit": None}}
-        review = {"snapshot_hash": "snapshot-1", "edits": [scope, unit]}
-        curated = apply_review(records, review, "snapshot-1")
-        self.assertEqual(curated["p01"]["extraction"]["entities"][0]["scope_text"], "ทุน X")
-        self.assertIsNone(curated["p01"]["extraction"]["facts"][0]["unit"])
-        self.assertEqual(records["p01"]["extraction"]["facts"][0]["unit"], "ทุน")
-        scope["changes"]["scope_text"] = "ข้ออ้างที่ไม่ได้อยู่ในหลักฐาน"
-        with self.assertRaisesRegex(ValueError, "verbatim scope"):
-            apply_review(records, review, "snapshot-1")
-        review["edits"] = [{**unit, "changes": {"unit": "THB"}}]
-        with self.assertRaisesRegex(ValueError, "only be cleared"):
-            apply_review(records, review, "snapshot-1")
-
-    def test_source_review_requires_matching_inputs_and_forbids_value_or_scope_edits(self):
-        records = {"p01": {"cache_key": "cache-1", **copy.deepcopy(self.record)}}
-        edit = {"pilot_id": "p01", "cache_key": "cache-1", "collection": "facts", "ref": "f", "changes": {"kind": "fact"}}
-        with self.assertRaisesRegex(ValueError, "snapshot"):
-            apply_review(records, {"snapshot_hash": "different", "edits": [edit]}, "snapshot-1")
-        with self.assertRaisesRegex(ValueError, "different response"):
-            apply_review(records, {"snapshot_hash": "snapshot-1", "edits": [{**edit, "cache_key": "different"}]}, "snapshot-1")
-        for field, value in (("value_number", 999), ("scope_text", "ปี 9999")):
-            with self.subTest(field=field), self.assertRaisesRegex(ValueError, "values or scope"):
-                apply_review(records, {"snapshot_hash": "snapshot-1", "edits": [{**edit, "changes": {field: value}}]}, "snapshot-1")
 
     def test_chunk_identity_is_version_scoped_and_adjacency_never_skips(self):
         first = copy.deepcopy(self.primary)

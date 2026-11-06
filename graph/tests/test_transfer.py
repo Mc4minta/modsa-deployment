@@ -12,6 +12,8 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/"graph/build"))
 import transfer
 from common import fingerprint
+import test_graph_rag_store as fixtures
+from load_graph import make_plan,read,DATA
 
 
 class GraphTransferTests(unittest.TestCase):
@@ -32,22 +34,27 @@ class GraphTransferTests(unittest.TestCase):
                 report=transfer.verify_batch(batch,destination)
                 verify.assert_called_once()
                 self.assertEqual(report["target_content_hashes"],hashes)
-                self.assertEqual((report["nodes"],report["edges"]),(134,231))
+                self.assertEqual((report["nodes"],report["edges"]),(5,5))
                 before=destination.read_bytes()
                 with self.assertRaises(ValueError):transfer.verify_batch(batch,destination)
                 self.assertEqual(destination.read_bytes(),before)
 
     @classmethod
     def setUpClass(cls):
-        cls.package=transfer.package_for_export(True,None)
+        schema=read(DATA/"inputs/schema.json")
+        graph=fixtures.GraphStoreTests.small_graph(None)
+        plan=make_plan(graph,schema)
+        body={"format":transfer.FORMAT,"status":transfer.STATUS,"runs":[
+            {"namespace":"pilot","run_id":plan["run_id"],"schema":schema,"graph":graph}]}
+        cls.package={**body,"checksum":fingerprint(body)}
 
     def resign(self, package):
         package["checksum"]=fingerprint({k:v for k,v in package.items() if k != "checksum"})
         return package
 
-    def test_frozen_pilot_copy_contains_full_graph_and_no_provider_records(self):
+    def test_legacy_import_namespace_needs_no_pilot_files_or_provider_records(self):
         plans=transfer.validate(self.package)
-        self.assertEqual((len(plans),len(plans[0]["nodes"]),len(plans[0]["edges"])),(1,134,231))
+        self.assertEqual((len(plans),len(plans[0]["nodes"]),len(plans[0]["edges"])),(1,5,5))
         self.assertEqual(set(self.package),{"format","status","runs","checksum"})
         encoded=json.dumps(self.package)
         for secret in ("MIMO_API_KEY","NEO4J_AUTH","raw_response","initial_attempt"):
@@ -82,10 +89,9 @@ class GraphTransferTests(unittest.TestCase):
             for command in ("check","load"):
                 with self.subTest(command=command), \
                      patch.object(sys,"argv",["transfer.py",command,"--file",str(file)]), \
-                     patch.object(transfer,"prepare_import",side_effect=AssertionError("sources")), \
                      patch.object(transfer,"package_for_export",side_effect=AssertionError("cache")), \
                      patch.object(transfer,"verify_database",side_effect=AssertionError("export verification")), \
-                     patch.object(transfer,"load_plans",return_value={"nodes_created":134,"relationships_created":231}) as load, \
+                     patch.object(transfer,"load_plans",return_value={"nodes_created":5,"relationships_created":5}) as load, \
                      contextlib.redirect_stdout(io.StringIO()):
                     transfer.main()
                     self.assertEqual(load.call_count,1 if command=="load" else 0)
@@ -93,15 +99,23 @@ class GraphTransferTests(unittest.TestCase):
     def test_export_verifies_db_before_writing_and_never_overwrites(self):
         with tempfile.TemporaryDirectory() as folder:
             path=Path(folder)/"copy.json"
+            from expand import document_plan,expansion_schema
+            schema=expansion_schema(self.package["runs"][0]["schema"])
+            graph=self.package["runs"][0]["graph"]
+            plan=document_plan(graph,schema)
+            batch=Path(folder)/"graph.json"
+            batch.write_text(json.dumps({"status":"EXPANSION_VALIDATED_PENDING_NOT_PRODUCTION",
+                "batch_id":"fixture","schema_hash":fingerprint(schema),"documents":[
+                    {"run_id":plan["run_id"],"graph":graph}]}))
             with patch.object(transfer,"verify_database",side_effect=ValueError("DB drift")):
-                with self.assertRaises(ValueError):transfer.export(True,None,path)
+                with self.assertRaises(ValueError):transfer.export(batch,path)
                 self.assertFalse(path.exists())
             with patch.object(transfer,"verify_database") as verify:
-                transfer.export(True,None,path)
+                transfer.export(batch,path)
                 verify.assert_called_once()
-                self.assertEqual(transfer.validate(transfer.read(path))[0]["run_id"],self.package["runs"][0]["run_id"])
+                self.assertEqual(transfer.validate(transfer.read(path))[0]["run_id"],plan["run_id"])
                 before=path.read_bytes()
-                with self.assertRaisesRegex(ValueError,"already exists"):transfer.export(True,None,path)
+                with self.assertRaisesRegex(ValueError,"already exists"):transfer.export(batch,path)
                 self.assertEqual(path.read_bytes(),before)
 
     def test_bad_file_is_rejected_before_database_or_file_writes(self):

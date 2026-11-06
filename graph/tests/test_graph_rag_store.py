@@ -20,9 +20,10 @@ from common import fingerprint
 class GraphStoreTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.plan = store.prepare_import()
-        cls.schema = cls.plan["schema"]
-        cls.graph = store.read(store.DATA / "results/graph.json")
+        cls.schema = store.read(store.DATA / "inputs/schema.json")
+        cls.graph = cls.small_graph(None)
+        cls.graph["edges"].append({"source":"f","type":"SUPPORTED_BY","target":"c","properties":{"quote":"15 ทุน"}})
+        cls.plan = store.make_plan(cls.graph, cls.schema)
 
     def small_graph(self, range_value=False):
         state = {"review_status": "PENDING", "retrieval_enabled": False}
@@ -35,7 +36,8 @@ class GraphStoreTests(unittest.TestCase):
             fact.update(value_lower=6501, value_upper=12500, lower_inclusive=None, upper_inclusive=None)
         nodes = [
             {"id": "s", "label": "SourceDocument", "properties": {**state, "source_id": "synthetic", "title": "Fixture"}},
-            {"id": "v", "label": "DocumentVersion", "properties": {**state, "version_id": "synthetic@v1", "content_hash": "a" * 64,
+            {"id": "v", "label": "DocumentVersion", "properties": {**state, "version_id": "synthetic@" + fingerprint([{"content":text,"page":1,"section":None}])[:16],
+                "content_hash": fingerprint([{"content":text,"page":1,"section":None}]),
                 "published_at": "2026-10-31", "effective_from": None, "document_status": "UNKNOWN", "verification_status": "UNVERIFIED"}},
             {"id": "c", "label": "Chunk", "properties": {**state, "chunk_id": "synthetic#0001", "content": text, "page": 1}},
             {"id": "e", "label": "Entity", "properties": {**state, "kind": "scholarship", "name": "ทุน X", "scope_text": "synthetic fixture"}},
@@ -58,11 +60,11 @@ class GraphStoreTests(unittest.TestCase):
         return tx, nodes, edges
 
     def test_current_reviewed_export_has_full_counts_and_distinct_quote_edges(self):
-        self.assertEqual(len(self.plan["nodes"]), 134)
-        self.assertEqual(len(self.plan["edges"]), 231)
+        self.assertEqual(len(self.plan["nodes"]), 5)
+        self.assertEqual(len(self.plan["edges"]), 6)
         triples = {(e["source"], e["type"], e["target"]) for e in self.plan["edges"].values()}
-        self.assertEqual(len(triples), 224)
-        self.assertEqual(sum(e["type"] == "SUPPORTED_BY" for e in self.plan["edges"].values()), 47)
+        self.assertEqual(len(triples), 5)
+        self.assertEqual(sum(e["type"] == "SUPPORTED_BY" for e in self.plan["edges"].values()), 2)
         self.assertTrue(all(n["properties"]["retrieval_enabled"] is False for n in self.plan["nodes"].values()))
 
     def test_namespace_changes_with_reviewed_content_not_just_snapshot(self):
@@ -220,64 +222,6 @@ class GraphStoreTests(unittest.TestCase):
              self.assertRaisesRegex(ValueError, "rollback"):
             store.merge_run(tx, plan)
 
-    def probe_session(self, upper=12500):
-        session, tx = Mock(), MagicMock()
-        tx.__enter__.return_value = tx
-        tx.__exit__.return_value = False
-        session.begin_transaction.return_value = tx
-        session.execute_read.side_effect = lambda callback, *args: (
-            {"nodes": 134, "edges": 231, "fingerprint": "unchanged"} if callback is store.other_content else
-            {"nodes": {}, "edges": {}})
-        tx.run.return_value.single.return_value = {"published": SimpleNamespace(to_native=lambda: date(2026, 10, 31)),
-            "lower": 6501, "upper": upper, "inclusive": None, "enabled": False}
-        return session, tx
-
-    def test_second_edition_probe_uses_same_source_identity_and_rolls_back(self):
-        session, tx = self.probe_session()
-        original = copy.deepcopy(self.plan)
-        with patch.object(store, "merge_run") as merge, patch.object(store, "assert_run") as check:
-            result = store.version_probe(session, self.plan)
-        probe = merge.call_args.args[1]
-        source = next(n for n in self.plan["nodes"].values() if n["label"] == "SourceDocument")
-        self.assertIn(source["id"], probe["nodes"])
-        self.assertEqual(probe["nodes"][source["id"]], source)
-        self.assertNotEqual(probe["run_id"], self.plan["run_id"])
-        self.assertNotEqual(probe["nodes"]["probe-version"]["properties"]["version_id"],
-            next(n["properties"]["version_id"] for n in self.plan["nodes"].values() if n["label"] == "DocumentVersion"))
-        self.assertEqual(probe["nodes"]["probe-fact"]["properties"]["operator"], "BETWEEN")
-        check.assert_called_once_with(tx, self.plan)
-        tx.rollback.assert_called_once_with()
-        tx.commit.assert_not_called()
-        self.assertEqual(result["status"], "PASSED_AND_ROLLED_BACK")
-        self.assertEqual((result["probe_nodes_remaining"], result["probe_edges_remaining"]), (0, 0))
-        self.assertEqual(self.plan, original)
-
-    def test_second_edition_probe_refuses_wrong_db_range_without_committing(self):
-        session, tx = self.probe_session(upper=6000)
-        with patch.object(store, "merge_run"), patch.object(store, "assert_run"), \
-             self.assertRaisesRegex(ValueError, "roundtrip failed"):
-            store.version_probe(session, self.plan)
-        tx.commit.assert_not_called()
-        self.assertIs(tx.__exit__.call_args.args[0], ValueError)
-
-    def test_offline_check_never_reads_credentials_imports_driver_or_writes(self):
-        original_import = builtins.__import__
-
-        def import_without_driver(name, *args, **kwargs):
-            if name == "neo4j" or name.startswith("neo4j."):
-                raise AssertionError("offline check must not import driver")
-            return original_import(name, *args, **kwargs)
-
-        output = io.StringIO()
-        with patch.object(sys, "argv", ["load_graph.py", "--check"]), \
-             patch.object(store, "connection_settings", side_effect=AssertionError("no credentials")), \
-             patch.object(Path, "write_text", side_effect=AssertionError("no writes")), \
-             patch.object(builtins, "__import__", side_effect=import_without_driver), \
-             contextlib.redirect_stdout(output):
-            store.main()
-        self.assertIn("134 nodes / 231 edges", output.getvalue())
-        self.assertIn("no credentials, network or writes", output.getvalue())
-
     def test_connection_settings_are_local_only_and_do_not_read_real_env_file(self):
         with tempfile.TemporaryDirectory() as folder, patch.object(store, "ROOT", Path(folder)):
             for uri in ("bolt://127.0.0.1:17687", "bolt://localhost:17687", "bolt://[::1]:17687"):
@@ -287,17 +231,6 @@ class GraphStoreTests(unittest.TestCase):
                         "bolt://user:secret@localhost:17687", "bolt://localhost:17687/path", "bolt://localhost:17687?x=y"):
                 with self.subTest(uri=uri), patch.dict(store.os.environ, {"NEO4J_AUTH": "tester/test-password", "NEO4J_URI": uri}, clear=True), self.assertRaises(ValueError):
                     store.connection_settings()
-
-    def test_live_failure_message_redacts_password_before_output(self):
-        password = "TEST_PASSWORD_NOT_REAL"
-        fake = SimpleNamespace(GraphDatabase=SimpleNamespace(driver=Mock(side_effect=RuntimeError("error with " + password))))
-        output = io.StringIO()
-        with patch.object(sys, "argv", ["load_graph.py", "--inspect"]), patch.object(store, "prepare_import", return_value=self.plan), \
-             patch.object(store, "connection_settings", return_value=("bolt://127.0.0.1:17687", "tester", password, "neo4j")), \
-             patch.dict(sys.modules, {"neo4j": fake}), contextlib.redirect_stderr(output), self.assertRaises(SystemExit):
-            store.main()
-        self.assertNotIn(password, output.getvalue())
-        self.assertIn("[REDACTED]", output.getvalue())
 
 
 if __name__ == "__main__":

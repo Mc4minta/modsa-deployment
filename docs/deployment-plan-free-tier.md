@@ -6,7 +6,7 @@ The filename is historical. This document no longer promises a free plan, fixed 
 
 - [Backend configuration](../backend/README.md), [Dockerfile](../backend/Dockerfile), [Render configuration](../render.yml)
 - [Frontend setup](../frontend/README.md)
-- [Graph-only setup](../graph/QUICKSTART.md)
+- [Graph-only setup](../graph/README.md)
 
 ## Backend
 

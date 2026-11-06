@@ -6,7 +6,6 @@ Unknown publication/effective dates stay null; no API or database operations.
 from __future__ import annotations
 
 import argparse
-from collections import Counter
 from datetime import date
 import json
 import re
@@ -198,49 +197,20 @@ def build_contracts() -> dict:
         "records": records, "metadata_gaps": gaps, "errors": errors}
 
 
-def render_report(result: dict) -> str:
-    counts = result["counts"]
-    missing = Counter(field for record in result["metadata_gaps"] for field in record["missing"])
-    lines = ["# ผลตรวจ data contract ทั้งคลัง", "", "[กลับคู่มือสร้างกราฟ](../../README.md)", "",
-        f"ตรวจ {counts['files']} ไฟล์ · ผ่านโครงสร้าง {counts['valid']} · {counts['chunks']} chunks · ข้อผิดพลาด {counts['errors']}", "",
-        "นี่คือ sidecar ที่เพิ่มสัญญาข้อมูล ไม่เขียนทับ chunks และไม่รับรองว่านโยบายยัง ACTIVE.",
-        "SourceDocument แยกจาก DocumentVersion และ Chunk; canonical chunk_id ผูก version+ลำดับ ส่วน legacy_chunk_id คง ID ที่ Vector RAG ใช้อยู่.",
-        "ingested_at มีความละเอียดระดับวัน; legacy last_updated จาก chunk generator ถูกระบุ origin ไว้ ไม่ใช้เป็น published_at/effective_from.",
-        "source_uri ใช้ URL ที่ระบุไว้ หรือ path ของ JSON ที่เตรียมแล้ว; content_type=application/json ไม่ได้อ้างว่าเป็นชนิดไฟล์ต้นฉบับ PDF.", "",
-        "## Metadata ที่ยังไม่บันทึก — ไม่ใช่เงื่อนไขรอทีม Data", "",
-        "ตัวเลขด้านล่างตรวจ metadata ที่บันทึกไว้เท่านั้น ไม่ได้บอกว่าข้อมูลไม่มีในเอกสาร และยังไม่ได้สกัดวันที่/สถานะจากเนื้อหาครบทั้งคลัง.",
-        "ให้ดึงข้อมูลที่ระบุชัดจากเอกสารพร้อม chunk/page/quote; ไม่พบหรือขัดกันคง null/UNKNOWN และตรวจเฉพาะจุด โดยเดินหน้ากราฟทดลองได้.",
-        "owner_verification เป็นชื่อรายการ audit เดิม หมายถึงยังไม่มีการรับรองที่บันทึกไว้ ไม่ใช่ field บังคับหรือเงื่อนไขหยุด pilot; ไม่เปลี่ยน VERIFIED เพียงเพราะสกัดจากเอกสาร.",
-        "ไม่อนุมาน ACTIVE จากวันประกาศ และไม่ใช้ปีการศึกษา วัน ingest หรือชื่อไฟล์แทนวันประกาศ/วันมีผล.", "",
-        "| Field / รายการ audit | เอกสารที่ยังไม่บันทึก |", "| --- | ---: |"]
-    lines.extend(f"| {field} | {count} |" for field, count in sorted(missing.items()))
-    lines.extend(["", "## แยกตามเอกสาร", "", "| เอกสาร | ยังไม่บันทึก / รายการ audit | Chunks ไม่ทราบหน้า |", "| --- | --- | ---: |"])
-    lines.extend(f"| {r['source_id']} | {', '.join(r['missing']) or 'ไม่มี'} | {r['missing_page_chunks']} |" for r in result["metadata_gaps"])
-    if result["errors"]:
-        lines.extend(["", "## ข้อผิดพลาด", "", "```json", json.dumps(result["errors"], ensure_ascii=False, indent=2, default=str), "```"])
-    lines.extend(["", "ผลละเอียด: [contracts.json](../results/contracts.json)", "",
-        "ยังไม่ได้ทำ workflow upsert/supersede/delete ในฐานข้อมูล และไม่ต้องรอส่งรายงานให้ทีม Data ก่อนทดลองกราฟ การขาดวันที่ไม่ถูกเติมด้วยการเดา."])
-    return "\n".join(lines) + "\n"
-
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--check", action="store_true", help="Compare saved sidecar/review without writes")
+    parser.add_argument("--check", action="store_true", help="Validate source contracts without writes")
     args = parser.parse_args()
     result = build_contracts()
-    outputs = {"results/contracts.json": json.dumps(result, ensure_ascii=False, indent=2, default=str) + "\n",
-               "review/contracts.md": render_report(result)}
+    outputs = {} if args.check else {"contracts.json": json.dumps(result, ensure_ascii=False, indent=2, default=str) + "\n"}
     for relative, content in outputs.items():
-        path = DATA / relative
-        if args.check:
-            if not path.exists() or path.read_text(encoding="utf-8") != content:
-                parser.error(f"Contract output drift: {relative}; regenerate first")
-        else:
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text(content, encoding="utf-8")
+        path = ROOT / "graph/expansions" / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(content, encoding="utf-8")
     print(f"Contracts: {result['counts']}; no source/API/database writes")
     if result["errors"]:
-        parser.exit(1, "Source contract errors; see review/contracts.md\n")
+        parser.exit(1, "Source contract errors; run contracts.py without --check for JSON details\n")
 
 
 if __name__ == "__main__":

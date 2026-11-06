@@ -7,7 +7,7 @@ from pathlib import Path
 
 from common import DATA, fingerprint
 from expand import document_plan, expansion_schema, load_plans, save
-from load_graph import assert_run, connection_settings, make_plan, prepare_import, read, batch_verification
+from load_graph import assert_run, connection_settings, make_plan, read, batch_verification
 
 FORMAT = "modsa-graph-transfer-v1"
 STATUS = "PENDING_NOT_FOR_RETRIEVAL"
@@ -43,18 +43,13 @@ def validate(package: dict) -> list[dict]:
     return plans
 
 
-def package_for_export(pilot: bool, batch_path: Path | None) -> dict:
-    if pilot:
-        plan = prepare_import()
-        runs = [{"namespace":"pilot", "run_id":plan["run_id"], "schema":plan["schema"],
-                 "graph":read(DATA/"results/graph.json")}]
-    else:
-        output = read(batch_path)
-        schema = expansion_schema(read(DATA/"inputs/schema.json"))
-        if output.get("status") != "EXPANSION_VALIDATED_PENDING_NOT_PRODUCTION" or output.get("schema_hash") != fingerprint(schema):
-            raise ValueError("Batch schema/status differs from the supported expansion schema")
-        runs = [{"namespace":"expansion", "run_id":d["run_id"], "schema":schema, "graph":d["graph"]}
-                for d in output["documents"]]
+def package_for_export(batch_path: Path) -> dict:
+    output = read(batch_path)
+    schema = expansion_schema(read(DATA/"inputs/schema.json"))
+    if output.get("status") != "EXPANSION_VALIDATED_PENDING_NOT_PRODUCTION" or output.get("schema_hash") != fingerprint(schema):
+        raise ValueError("Batch schema/status differs from the supported expansion schema")
+    runs = [{"namespace":"expansion", "run_id":d["run_id"], "schema":schema, "graph":d["graph"]}
+            for d in output["documents"]]
     body = {"format":FORMAT, "status":STATUS, "runs":runs}
     package = {**body, "checksum":fingerprint(body)}
     validate(package)
@@ -76,17 +71,17 @@ def verify_database(plans: list[dict]) -> dict:
 def verify_batch(batch_path: Path, destination: Path) -> dict:
     if destination.exists():
         raise ValueError("Destination already exists; preserve prior readback report")
-    package = package_for_export(False,batch_path)
+    package = package_for_export(batch_path)
     hashes = verify_database(validate(package))
     report = batch_verification(batch_path,hashes)
     save(destination,report)
     return report
 
 
-def export(pilot: bool, batch_path: Path | None, destination: Path) -> dict:
+def export(batch_path: Path, destination: Path) -> dict:
     if destination.exists():
         raise ValueError("Destination already exists; choose a new filename, not an overwrite")
-    package = package_for_export(pilot,batch_path)
+    package = package_for_export(batch_path)
     verify_database(validate(package))
     save(destination,package)
     return package
@@ -100,9 +95,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command",required=True)
     sender = commands.add_parser("export",help="Read-only Neo4j verification, then write one portable JSON")
-    selection = sender.add_mutually_exclusive_group(required=True)
-    selection.add_argument("--pilot",action="store_true")
-    selection.add_argument("--batch",type=Path,help="An expansion batch graph.json, not raw chunks")
+    sender.add_argument("--batch",type=Path,required=True,help="An expansion batch graph.json, not raw chunks")
     sender.add_argument("--out",type=Path,required=True)
     verifier = commands.add_parser("verify",help="Read-only batch readback; write evidence for offline eval")
     verifier.add_argument("--batch",type=Path,required=True)
@@ -117,7 +110,7 @@ def main():
             print(f"VERIFIED: {report['documents']} runs / {report['nodes']} nodes / {report['edges']} edges; no DB writes")
             return
         if args.command == "export":
-            package = export(args.pilot,args.batch,args.out)
+            package = export(args.batch,args.out)
             print(f"EXPORTED: {summary(validate(package))}; file {args.out}")
             print("Includes source text/quotes. Share only with authorized recipients; no credentials or LLM cache included.")
         else:

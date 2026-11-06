@@ -15,20 +15,22 @@ from data.pipeline import chunk
 
 
 class GraphRAGIngestionTests(unittest.TestCase):
-    def test_real_backend_documents_bridge_to_frozen_graph_without_eval_enrichment(self):
+    def test_real_backend_documents_bridge_to_synthetic_graph_without_eval_enrichment(self):
         sys.path.insert(0,str(ROOT/"graph/build"))
-        from load_graph import prepare_import
-        from prepare import build
+        from load_graph import make_plan,read,DATA
+        from test_graph_rag_store import GraphStoreTests
         from backend.services.graph_service import PilotGraph
-        plan=prepare_import();bundle=build()
-        documents=[doc for source in bundle["sources"]
-                   for doc in load_json_documents(ROOT/"data/chunks"/source["source_path"])]
-        selected={c["chunk_id"] for c in bundle["pilot"]}
-        documents=[d for d in documents if d.metadata["chunk_id"] in selected]
+        raw=GraphStoreTests.small_graph(None)
+        plan=make_plan(raw,read(DATA/"inputs/schema.json"))
+        chunk_node=plan["nodes"]["c"]["properties"]
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/"source.json"
+            path.write_text(json.dumps({"doc_id":"synthetic","metadata":{},"chunks":[
+                {"chunk_id":chunk_node["chunk_id"],"content":chunk_node["content"],"page":1}]}))
+            documents=load_json_documents(path)
         graph=PilotGraph(plan["nodes"],plan["edges"],documents,allow_pending=True)
-        self.assertEqual(len(documents),27)
-        expected={c["chunk_id"] for c in bundle["pilot"] if c["role"]!="vector_only"}
-        self.assertEqual({doc.metadata["chunk_id"] for doc in documents if graph.anchor(doc) is not None},expected)
+        self.assertEqual(len(documents),1)
+        self.assertIsNotNone(graph.anchor(documents[0]))
 
     def load_fixture(self, folder: str, metadata: dict) -> list:
         path = Path(folder) / "prepared.json"

@@ -1,3 +1,4 @@
+"""CLI forwarding and private credential initialization; no legacy pilot fixtures."""
 import contextlib
 import importlib.util
 import io
@@ -15,25 +16,40 @@ spec.loader.exec_module(runner)
 
 
 class GraphRunnerTests(unittest.TestCase):
-    def test_expansion_help_and_arguments_are_forwarded(self):
-        with patch.object(sys,"argv",["run.py","expand","--help"]), \
-             patch.object(runner.subprocess,"run") as run:
+    def forward(self, arguments):
+        with patch.object(sys,"argv",["run.py",*arguments]), patch.object(runner.subprocess,"run") as run:
             run.return_value.returncode=0
             with self.assertRaises(SystemExit) as error:
                 runner.main()
             self.assertEqual(error.exception.code,0)
-            self.assertEqual(run.call_args.args[0][-1],"--help")
-            self.assertTrue(run.call_args.args[0][1].endswith("expand.py"))
+            return run.call_args.args[0]
 
-    def test_transfer_dispatch_does_not_require_local_chunks(self):
-        with tempfile.TemporaryDirectory() as folder,patch.object(runner,"ROOT",Path(folder)), \
-             patch.object(sys,"argv",["run.py","transfer","check","--file","copy.json"]), \
-             patch.object(runner.subprocess,"run") as run:
-            run.return_value.returncode=0
-            with self.assertRaises(SystemExit) as error:runner.main()
-            self.assertEqual(error.exception.code,0)
-            self.assertTrue(run.call_args.args[0][1].endswith("transfer.py"))
-            self.assertEqual(run.call_args.args[0][2:],["check","--file","copy.json"])
+    def test_expand_arguments_are_forwarded(self):
+        command=self.forward(["expand","--help"])
+        self.assertTrue(command[1].endswith("expand.py"))
+        self.assertEqual(command[2:],["--help"])
+
+    def test_check_defaults_to_current_chunks_without_api_or_pilot_files(self):
+        command=self.forward(["check"])
+        self.assertEqual(command[2:],["--check","--input","data/chunks"])
+
+    def test_build_and_load_use_expansion_not_pilot_replay(self):
+        for name in ("build","load"):
+            with self.subTest(command=name):
+                command=self.forward([name,"--input","data/chunks/example.json","--reuse-mimo-cache"])
+                self.assertTrue(command[1].endswith("expand.py"))
+                self.assertEqual(command[2:],["--"+name,"--input","data/chunks/example.json","--reuse-mimo-cache"])
+                self.assertNotIn("--extract",command)
+
+    def test_equals_style_input_is_not_replaced_by_default(self):
+        command=self.forward(["check","--input=data/chunks/example.json"])
+        self.assertEqual(command[2:],["--check","--input=data/chunks/example.json"])
+
+    def test_transfer_does_not_require_source_files(self):
+        with tempfile.TemporaryDirectory() as folder,patch.object(runner,"ROOT",Path(folder)):
+            command=self.forward(["transfer","check","--file","copy.json"])
+            self.assertTrue(command[1].endswith("transfer.py"))
+            self.assertEqual(command[2:],["check","--file","copy.json"])
 
     def test_init_creates_private_credentials_without_disclosure_or_overwrite(self):
         with tempfile.TemporaryDirectory() as folder, contextlib.redirect_stdout(io.StringIO()) as output:
@@ -47,69 +63,20 @@ class GraphRunnerTests(unittest.TestCase):
             if os.name != "nt":
                 self.assertEqual(path.stat().st_mode & 0o777, 0o600)
 
-    def test_build_uses_same_python_no_api_and_no_database_load(self):
-        with tempfile.TemporaryDirectory() as folder, \
-             patch.object(runner,"ROOT",Path(folder)), \
-             patch.object(sys,"argv",["run.py","build"]), \
-             patch.object(runner.subprocess,"run") as run, contextlib.redirect_stdout(io.StringIO()):
-            (Path(folder)/"data/chunks").mkdir(parents=True)
-            (Path(folder)/"graph/data").mkdir(parents=True)
-            run.return_value.returncode = 0
-            runner.main()
-        self.assertEqual(run.call_count,4)
-        self.assertTrue(all(c.args[0][0] == sys.executable for c in run.call_args_list))
-        arguments = [c.args[0] for c in run.call_args_list]
-        self.assertTrue(any("--offline" in a for a in arguments))
-        self.assertFalse(any("--extract" in a or "--load" in a for a in arguments))
 
-    def test_failed_build_preserves_outputs_and_caches(self):
-        with tempfile.TemporaryDirectory() as folder:
-            root = Path(folder)
-            (root/"data/chunks").mkdir(parents=True)
-            data = root/"graph/data"
-            (data/"results").mkdir(parents=True)
-            (data/"cache").mkdir()
-            (data/"results/bundle.json").write_text("original")
-            (data/"cache/saved.json").write_text("cache")
-
-            def step(command, *, cwd, env):
-                staging = Path(env["MODSA_GRAPH_DATA_DIR"])
-                self.assertNotEqual(staging,data)
-                (staging/"results/bundle.json").write_text("new")
-                return type("Result",(),{"returncode":2})()
-
-            with patch.object(runner,"ROOT",root), patch.object(sys,"argv",["run.py","build"]), \
-                 patch.object(runner.subprocess,"run",side_effect=step), \
-                 contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
-                with self.assertRaises(SystemExit):
-                    runner.main()
-            self.assertEqual((data/"results/bundle.json").read_text(),"original")
-            self.assertEqual((data/"cache/saved.json").read_text(),"cache")
-            self.assertEqual(list((root/"graph").glob(".build-*")),[])
-
-    def test_successful_build_publishes_staged_data_and_preserves_cache(self):
-        with tempfile.TemporaryDirectory() as folder:
-            root = Path(folder)
-            (root/"data/chunks").mkdir(parents=True)
-            (root/"graph/data/cache").mkdir(parents=True)
-            (root/"graph/data/cache/keep").write_text("keep")
-            def step(command, *, cwd, env):
-                (Path(env["MODSA_GRAPH_DATA_DIR"])/"new-output").write_text("new")
-                return type("Result",(),{"returncode":0})()
-            with patch.object(runner,"ROOT",root), patch.object(sys,"argv",["run.py","build"]), \
-                 patch.object(runner.subprocess,"run",side_effect=step), contextlib.redirect_stdout(io.StringIO()):
+    def test_failure_exit_code_is_preserved_without_retry(self):
+        with patch.object(sys,"argv",["run.py","build"]),patch.object(runner.subprocess,"run") as run:
+            run.return_value.returncode=2
+            with self.assertRaises(SystemExit) as error:
                 runner.main()
-            self.assertEqual((root/"graph/data/new-output").read_text(),"new")
-            self.assertEqual((root/"graph/data/cache/keep").read_text(),"keep")
+            self.assertEqual(error.exception.code,2)
+            run.assert_called_once()
 
-    def test_failed_step_stops_pipeline(self):
-        with patch.object(sys,"argv",["run.py","check"]), \
-             patch.object(runner.subprocess,"run") as run, contextlib.redirect_stdout(io.StringIO()), \
-             contextlib.redirect_stderr(io.StringIO()):
-            run.return_value.returncode = 1
+    def test_unsupported_legacy_inspect_stops_without_any_service_call(self):
+        with patch.object(sys,"argv",["run.py","inspect"]),patch.object(runner.subprocess,"run") as run,contextlib.redirect_stderr(io.StringIO()):
             with self.assertRaises(SystemExit):
                 runner.main()
-        self.assertEqual(run.call_count,1)
+            run.assert_not_called()
 
 
 if __name__ == "__main__":

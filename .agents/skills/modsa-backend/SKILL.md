@@ -14,7 +14,7 @@ description: >-
 Development rules and architectural constraints for the MOD-SA RAG backend.
 
 Active code lives in `backend/`; source knowledge lives in `data/chunks/`.
-Graph build/check/load tooling lives in `graph/` (see `graph/QUICKSTART.md`).
+Graph build/check/load tooling lives in `graph/` (see `graph/README.md`).
 Do not recreate legacy backend folders; the ignored research archive is optional.
 
 The backend is a Retrieval-Augmented Generation chatbot for KMUTT Student Affairs.
@@ -190,6 +190,6 @@ After changes:
 
 ## Graph handoff checks
 
-New documents use `graph/run.py expand` (see `graph/EXPANSION.md`), not the frozen pilot `build`. Reuse the fixed schema; no pilot question list is required. Check is offline; extraction needs an explicit API call budget; loading keeps PENDING/retrieval disabled and isolates each document graph version. Never infer policy approval from validation success.
+Graph construction uses `graph/run.py expand` (see `graph/README.md`). The `check/build/load` aliases also use this pipeline, not a frozen pilot. Reuse the fixed schema; no pilot question list is required. Check is offline; extraction needs an explicit API call budget; loading keeps PENDING/retrieval disabled and isolates each document graph version. Never infer policy approval from validation success.
 
-Use `python graph/run.py check` for offline validation and `build` to replay the frozen pilot. Build stages outputs before publishing; it must preserve previous outputs on failure. Do not call LLMs, start Neo4j, reindex Chroma or enable Hybrid merely to run offline checks. Run `graph/tests` with backend dependencies for runtime integration tests. Changes to source/schema still need explicit revalidation; unrelated corpus inventory is not a new pilot identity.
+Use `python graph/run.py check` for an offline plan of current chunks. `build --input <file-or-folder>` requires matching extraction caches; missing caches must never trigger LLM calls. Build validates all selected graphs before atomic publication and must preserve previous exports on failure. Only schema.json is distributed as graph configuration; tests use synthetic Python fixtures. Do not call LLMs, start Neo4j, reindex Chroma or enable Hybrid merely to run offline checks. Run `graph/tests` with backend dependencies for runtime integration tests. Changes to source/schema still need explicit revalidation.

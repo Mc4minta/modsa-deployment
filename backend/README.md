@@ -4,9 +4,9 @@ KMUTT Student Affairs RAG chatbot API. FastAPI + LangChain + ChromaDB. See root 
 
 ## Graph integration
 
-ส่งต่องาน/สำเนากราฟเต็มเริ่มที่ [HANDOFF](../graph/HANDOFF.md). Prepared-JSON loaderคำนวณsource/version/hashจากเอกสารเต็มและรักษาexactcontentเพื่อbridgeกับกราฟ; metadataเดิมที่ขัดidentityจะถูกปฏิเสธ. Chromaที่สร้างก่อนแก้loaderยังไม่มีfieldsใหม่ ต้องreindexโดยตั้งใจหลังอนุมัติembeddingbudget ไม่ได้แก้indexเดิมอัตโนมัติ. Offlinegraphreplayไม่ต้องเปิดbackend.
+ส่งต่องาน/สำเนากราฟเต็มเริ่มที่ [คู่มือกราฟ](../graph/README.md). Prepared-JSON loaderคำนวณsource/version/hashจากเอกสารเต็มและรักษาexactcontentเพื่อbridgeกับกราฟ; metadataเดิมที่ขัดidentityจะถูกปฏิเสธ. Chromaที่สร้างก่อนแก้loaderยังไม่มีfieldsใหม่ ต้องreindexโดยตั้งใจหลังอนุมัติembeddingbudget ไม่ได้แก้indexเดิมอัตโนมัติ. คำสั่งgraphcheck/buildไม่ต้องเปิดbackend.
 
-New-document graph building is available via [expansion CLI](../graph/EXPANSION.md), independent of pilot IDs/QAs. It writes staging namespaces only when `--load` is selected and does not change this API's Vector retrieval.
+New-document graph building is available via [expansion CLI](../graph/README.md), independent of pilot IDs/QAs. It writes staging namespaces only when `--load` is selected and does not change this API's Vector retrieval.
 
 `/chat/ask` ยังเป็น Vector RAG เดิม. ชุดสร้างกราฟและ tests แยกที่ [graph/](../graph/README.md); ไม่ต้องเปิด backend/reindex เพื่อใช้คำสั่ง build/check
 

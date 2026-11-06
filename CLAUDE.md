@@ -9,12 +9,12 @@ MOD-SA: KMUTT Student Affairs RAG chatbot.
 - `backend/` — **active** backend. FastAPI + LangChain + ChromaDB, OpenAI-compatible LLM/embeddings (Ollama supported locally).
 - `frontend/` — active React + TypeScript + Vite client with Vitest tests. See `frontend/README.md`.
 - `data/` — raw/processed/chunks/evaluation data; `data/chunks/` is the source of truth.
-- `graph/` — frozen GraphRAG pilot build/check/load; start at `graph/QUICKSTART.md`. `/chat/ask` remains Vector-only. No automatic schema discovery/full-corpus graph build.
-- `.agents/skills/modsa-backend/SKILL.md` and `docs/backend-structure.md` — backend rules/reference; `docs/architecture.md` gives the overview and `graph/QUICKSTART.md` is the graph handoff entrypoint.
+- `graph/` — general GraphRAG extraction/build/check/load; start at `graph/README.md`. Only schema JSON is distributed; no pilot/replay files are needed. `/chat/ask` remains Vector-only. Missing caches never authorize API calls.
+- `.agents/skills/modsa-backend/SKILL.md` and `docs/backend-structure.md` — backend rules/reference; `docs/architecture.md` gives the overview and `graph/README.md` is the graph handoff entrypoint.
 
 ## Commands
 
-For new-document graphs use `python graph/run.py expand --input data/chunks/<file-or-folder> --check`, then follow `graph/EXPANSION.md`. No pilot IDs/QAs required. `--extract` needs an explicitly approved document scope/API budget; `--load` is an explicit staging database write. Do not equate this with production approval or automatic update/delete.
+For new-document graphs use `python graph/run.py expand --input data/chunks/<file-or-folder> --check`, then follow `graph/README.md`. No pilot IDs/QAs required. `--extract` needs an explicitly approved document scope/API budget; `--load` is an explicit staging database write. Do not equate this with production approval or automatic update/delete.
 
 Automated checks exist: from root run `PYTHONPATH=backend python3 -m unittest discover -s backend/tests`, and similarly `-s graph/tests`. Graph-only users need only graph requirements for `python graph/run.py check`; runtime integration tests additionally need backend dependencies. Frontend: `cd frontend && npm ci && npm run check`.
 

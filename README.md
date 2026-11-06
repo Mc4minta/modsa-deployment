@@ -12,9 +12,9 @@ KMUTT Student Affairs RAG chatbot.
 
 ## Graph build
 
-สร้างกราฟจากเอกสารใหม่: [Phase12 expansion CLI](graph/EXPANSION.md) — รับfile/directoryใต้data/chunks ใช้schemaเดิม มีงบAPIแบบexplicit/cacheและโหลดNeo4jแบบแยกnamespaceต่อรุ่นเอกสาร ยังไม่เปิดใช้ในAPI
+สร้างกราฟจากเอกสารใหม่: [Phase12 expansion CLI](graph/README.md) — รับfile/directoryใต้data/chunks ใช้schemaเดิม มีงบAPIแบบexplicit/cacheและโหลดNeo4jแบบแยกnamespaceต่อรุ่นเอกสาร ยังไม่เปิดใช้ในAPI
 
-สำหรับเครื่องใหม่: [ติดตั้งและสร้างกราฟ](graph/QUICKSTART.md) ใช้ `python graph/run.py build`; สร้างexportเดิมได้โดยไม่ใช้API key และมีComposeแยกสำหรับNeo4j
+สำหรับเครื่องใหม่: [ติดตั้งและสร้างกราฟ](graph/README.md) ใช้ `python graph/run.py check` วางแผนก่อน; `build --input ...` ใช้cacheที่มีอยู่โดยไม่เรียกAPI. Cloneโค้ดอย่างเดียวไม่มีผลสกัดทั้งคลัง ต้องอนุมัติการสกัดใหม่พร้อมงบ หรือรับสำเนากราฟผ่านtransfer. มีComposeแยกสำหรับNeo4j
 
 ชุดสร้างกราฟแยกอยู่ [graph/](graph/README.md): `build/` สำหรับคำสั่ง, `data/` สำหรับ schema/input/export, `tests/` สำหรับทดสอบ. อ่าน chunks เดิมใน `data/chunks/` และไม่เปลี่ยน `/chat/ask` ซึ่งยังใช้ Vector RAG
 

@@ -147,19 +147,6 @@ def finish_metrics(metrics, started):
                            for k in counters}} for kind in ("initial","repair")}
     folder = metrics["_folder"]
     save(folder/"stats.json",result)
-    lines = ["# Offline run", "", f"Status: {result['status']} · mode: {result['mode']}", "",
-        f"Documents/chunks: {result['documents']}/{result['chunks']}",
-        f"Cache hits at start: {result['cache_hits_at_start']} (not new API work)",
-        f"Process seconds: {result['process_seconds']:.3f}",
-        f"Confirmed HTTP attempts: {len(http)}; uncertain dispatch: {uncertain}",
-        f"Successful/failed tasks: {result['successful_tasks']}/{result['failed_tasks']}",
-        f"Provider-reported tokens only: {result['reported_tokens']}",
-        f"Token accounting complete: {result['usage_complete']}; requests missing usage: {len(http)-complete_usage}", "",
-        "Missing usage is UNKNOWN, not zero tokens or zero cost. Intent-only records may have reached the provider.",
-        "No pricing/GPU-seconds estimates. Process time includes measurement I/O, excludes earlier runs and idle time between resumes.",
-        "Each invocation has a separate folder; add all attempts across invocations when accounting for retries.",
-        "See stats.json for phase timing and failures; requests.jsonl for durable per-attempt events.", ""]
-    (folder/"README.md").write_text("\n".join(lines),encoding="utf-8")
     print(f"OFFLINE STATS: {folder.relative_to(ROOT)}/stats.json",flush=True)
 
 
@@ -746,14 +733,6 @@ def main():
             print(f"LOADED: {result['documents']} document versions; {result['nodes_created']} new nodes / {result['relationships_created']} new edges")
         else:
             save(path,output)
-            lines = ["# Expansion batch", "", f"Batch: `{batch['batch_id']}`", "",
-                "Evidence validation passed; semantic correctness/current policy is NOT approved. All nodes remain PENDING with retrieval disabled.", "",
-                "| Source | Version | Nodes | Edges | Facts | Unresolved notes |", "| --- | --- | ---: | ---: | ---: | ---: |"]
-            for doc in output["documents"]:
-                graph = doc["graph"]
-                lines.append(f"| {doc['source']['source_id'].replace('|',' ')} | {doc['source']['version_id'].replace('|',' ')} | {len(graph['nodes'])} | {len(graph['edges'])} | {sum(n['label']=='Fact' for n in graph['nodes'])} | {sum(len(r['notes']) for r in doc['unresolved'])} |")
-            lines.extend(["", "See graph.json for source quotes, unresolved notes and exact run IDs. No records are silently marked ACTIVE/VERIFIED.", ""])
-            (path.parent/"README.md").write_text("\n".join(lines),encoding="utf-8")
             print(f"BUILT: {path.relative_to(ROOT)}; pending only, no DB writes")
         metrics["status"] = "SUCCEEDED"
     except Exception as error:

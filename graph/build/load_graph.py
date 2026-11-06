@@ -1,12 +1,7 @@
-"""Load only the reviewed pilot into a content-addressed local Neo4j namespace.
-
---check is offline; --inspect only reads Neo4j; --load imports twice and verifies.
-No LLM, Chroma, policy activation, deletion or cross-run entity merging.
-"""
+"""Validated, content-addressed Neo4j import/readback primitives; no CLI side effects."""
 from __future__ import annotations
 
-import argparse
-from collections import Counter, defaultdict
+from collections import defaultdict
 from datetime import date, datetime, timezone
 import json
 import math
@@ -17,8 +12,7 @@ from urllib.parse import urlsplit
 
 from common import DATA, ROOT, fingerprint
 from contracts import NumericRange
-from extract import JOBS, apply_review, checked_review_ids, export_graph, selected_jobs, stage
-from prepare import build, check_schema, extraction_status
+from prepare import check_schema
 
 LABEL = "MODSAPilot"
 CONSTRAINT = "CREATE CONSTRAINT modsa_pilot_identity IF NOT EXISTS FOR (n:MODSAPilot) REQUIRE (n.run_id, n.node_id) IS UNIQUE"
@@ -106,24 +100,6 @@ def make_plan(graph: dict, schema: dict) -> dict:
     return {"run_id": run_id, "graph_hash": graph_hash, "snapshot_hash": graph["snapshot_hash"],
         "schema_hash": fingerprint(schema), "schema_version": schema["schema_version"], "schema": schema,
         "nodes": nodes, "edges": edges, "declarations": declarations}
-
-
-def prepare_import() -> dict:
-    bundle = build()
-    saved, graph = read(DATA / "results/extraction.json"), read(DATA / "results/graph.json")
-    if saved.get("scope") != "pilot" or not extraction_status(bundle, saved, graph)["ready"]:
-        raise ValueError("Complete pilot source review is required before staging")
-    review, pilot_review = read(DATA / "inputs/smoke_review.json"), read(DATA / "inputs/pilot_review.json")
-    checked = set(JOBS) | checked_review_ids(pilot_review, saved["records"], bundle["snapshot_hash"])
-    if sorted(checked) != saved["source_checked_ids"] or review != saved["review"] or pilot_review != saved["pilot_review"]:
-        raise ValueError("Source review changed; replay extraction offline before staging")
-    curated = apply_review(saved["records"], review, saved.get("review_snapshot_hash", bundle["snapshot_hash"]))
-    curated = apply_review(curated, pilot_review, bundle["snapshot_hash"])
-    jobs = selected_jobs(bundle, "pilot")
-    staged = {p["pilot_id"]: stage(p, c, curated[p["pilot_id"]], bundle["schema"]) for p, c in jobs}
-    if any(s["rejected"] or not s["facts"] for s in staged.values()) or staged != saved["staged"] or export_graph(bundle, jobs, staged) != graph:
-        raise ValueError("Graph/source validation drift; replay and review before staging")
-    return make_plan(graph, bundle["schema"])
 
 
 def connection_settings() -> tuple[str, str, str, str]:
@@ -250,122 +226,3 @@ def merge_run(tx, plan: dict, *, check_unrelated: bool = True) -> dict:
     if check_unrelated and before != other_content(tx, plan["run_id"]):
         raise ValueError("Unrelated graph changed; rollback pilot import")
     return {**counters, "content_hash": content_hash, "unrelated_graph": before}
-
-
-def version_probe(session, current: dict) -> dict:
-    """Exercise a second edition with the same source identity, then rollback."""
-    state = {"review_status": "PENDING", "retrieval_enabled": False}
-    source = next(n for n in current["nodes"].values() if n["label"] == "SourceDocument")
-    text = "Rollback probe รายได้ 6,501-12,500 บาท"
-    digest = fingerprint(text)
-    version = source["properties"]["source_id"] + "@" + digest[:16]
-    graph = {"status": "EXPERIMENTAL_NOT_FOR_RETRIEVAL", "snapshot_hash": "SYNTHETIC_ROLLBACK_ONLY",
-        "nodes": [source,
-            {"id": "probe-version", "label": "DocumentVersion", "properties": {**state, "version_id": version,
-                "content_hash": digest, "published_at": "2026-10-31", "effective_from": None,
-                "document_status": "UNKNOWN", "verification_status": "UNVERIFIED"}},
-            {"id": "probe-chunk", "label": "Chunk", "properties": {**state, "chunk_id": "rollback#0001", "content": text, "page": 1}},
-            {"id": "probe-entity", "label": "Entity", "properties": {**state, "kind": "procedure", "name": "Rollback probe", "scope_text": "Synthetic only"}},
-            {"id": "probe-fact", "label": "Fact", "properties": {**state, "kind": "fact", "predicate": "synthetic_income",
-                "raw_text": text, "value_number": None, "value_text": None, "operator": "BETWEEN", "unit": "บาท",
-                "scope_text": "Synthetic only", "is_approximate": False, "value_lower": 6501, "value_upper": 12500,
-                "lower_inclusive": None, "upper_inclusive": None}}],
-        "edges": [{"source": a, "type": relation, "target": b, "properties": props} for a, relation, b, props in [
-            (source["id"], "HAS_VERSION", "probe-version", {}), ("probe-version", "HAS_CHUNK", "probe-chunk", {}),
-            ("probe-entity", "MENTIONED_IN", "probe-chunk", {}), ("probe-fact", "ABOUT", "probe-entity", {}),
-            ("probe-fact", "SUPPORTED_BY", "probe-chunk", {"quote": text})]]}
-    probe = make_plan(graph, current["schema"])
-    if probe["run_id"] == current["run_id"]:
-        raise ValueError("New edition did not receive an isolated namespace")
-    before = session.execute_read(other_content, probe["run_id"])
-    existing = session.execute_read(read_run, probe["run_id"])
-    if existing["nodes"] or existing["edges"]:
-        raise ValueError("Synthetic probe namespace already exists; refusing to alter it")
-    with session.begin_transaction() as tx:
-        merge_run(tx, probe)
-        assert_run(tx, current)
-        row = tx.run("""MATCH (v:MODSAPilot {run_id:$run_id,node_id:'probe-version'}),
-            (f:MODSAPilot {run_id:$run_id,node_id:'probe-fact'})
-            RETURN v.published_at AS published, f.value_lower AS lower, f.value_upper AS upper,
-                   properties(f)['lower_inclusive'] AS inclusive, f.retrieval_enabled AS enabled""", run_id=probe["run_id"]).single()
-        if row["published"].to_native() != date(2026, 10, 31) or (row["lower"], row["upper"], row["inclusive"], row["enabled"]) != (6501, 12500, None, False):
-            raise ValueError("Synthetic date/range/null/False roundtrip failed")
-        tx.rollback()
-    remaining = session.execute_read(read_run, probe["run_id"])
-    if remaining["nodes"] or remaining["edges"] or before != session.execute_read(other_content, probe["run_id"]):
-        raise ValueError("Synthetic rollback changed persistent data")
-    return {"status": "PASSED_AND_ROLLED_BACK", "same_source_identity": True, "old_run_unchanged": True,
-        "date_and_between_roundtrip": True, "probe_nodes_remaining": 0, "probe_edges_remaining": 0}
-
-
-def write_report(plan: dict, result: dict) -> None:
-    output = {"status": "LOADED_TWICE_VERIFIED_NOT_FOR_RETRIEVAL", "run_id": plan["run_id"],
-        "graph_hash": plan["graph_hash"], "snapshot_hash": plan["snapshot_hash"], "schema_hash": plan["schema_hash"],
-        "schema_version": plan["schema_version"], "verified_at": datetime.now(timezone.utc).isoformat(),
-        "counts": {"nodes": len(plan["nodes"]), "edges": len(plan["edges"])}, **result}
-    (DATA / "results/neo4j.json").write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    lines = ["# Phase 9 — Neo4j pilot", "", "[กลับหน้าหลัก](../README.md)", "",
-        f"โหลดและตรวจชุดปัจจุบันแล้ว: {len(plan['nodes'])} nodes / {len(plan['edges'])} edges. ทุก node ยัง PENDING และปิด retrieval.", "",
-        "| ตรวจอะไร | ผล |", "| --- | --- |", "| รอบแรก | ตรวจ node/edge/property sets ตรง export ทั้งชุด |",
-        f"| รันซ้ำ | สร้างเพิ่ม {result['second_load']['nodes_created']} nodes / {result['second_load']['relationships_created']} edges; เนื้อหาเดิมไม่เปลี่ยน |",
-        "| หลักฐาน | เก็บหลาย quote ต่อคู่ node ได้ครบ ไม่รวม evidence จนหาย |",
-        "| ข้อมูลเดิมนอก run | fingerprint ของ nodes/edges/properties ก่อน–หลังตรงกัน |",
-        "| รุ่นใหม่และชนิดข้อมูลจำลอง | SourceDocument ID เดิมอยู่ได้คนละ run; DATE/BETWEEN/null/False ตรวจใน DB จริงแล้ว rollback ไม่เหลือข้อมูลทดสอบ |", "",
-        f"Schema `{plan['schema_version']}` · run `{plan['run_id']}`", "",
-        "ขอบเขต: แยกด้วย label MODSAPilot และ run_id; ไม่มีการลบกราฟเก่า, เปิด ACTIVE, เรียก LLM หรือแก้ Chroma.",
-        "ค่านโยบายที่ไม่ทราบยังไม่ทราบ; null เก็บเป็น property ที่ไม่มีค่าใน Neo4j ไม่ใช่สตริง 'null'.", "",
-        "ยังไม่ทดสอบ workflow update/supersede/delete หรือ retrieval/evaluation; DATE/BETWEEN ทดสอบด้วยข้อมูลจำลองเท่านั้น ไม่ใช่วันที่หรือเกณฑ์ใหม่ของเอกสารจริง.", "",
-        "## ตรวจซ้ำแบบไม่เขียนฐานข้อมูล", "", "```sh", ".venv/bin/python graph/build/load_graph.py --inspect", "```", "",
-        "## ดูกราฟใน Neo4j Browser", "", "เปิด [Neo4j Browser](http://127.0.0.1:17474) แล้วใช้รหัสผ่านใน .graph-pilot.env (อย่าเผยแพร่ไฟล์นี้).", "", "```cypher",
-        f"MATCH (a:MODSAPilot {{run_id:'{plan['run_id']}'}})-[r]->(b:MODSAPilot)", "RETURN a,r,b LIMIT 80;", "```", "",
-        "[ผล JSON สำหรับโปรแกรม](../results/neo4j.json)", ""]
-    (DATA / "review/neo4j.md").write_text("\n".join(lines), encoding="utf-8")
-
-
-def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
-    mode = parser.add_mutually_exclusive_group(required=True)
-    mode.add_argument("--check", action="store_true")
-    mode.add_argument("--inspect", action="store_true")
-    mode.add_argument("--load", action="store_true")
-    args = parser.parse_args()
-    password = ""
-    try:
-        plan = prepare_import()
-        if args.check:
-            print(f"CHECK OK: {len(plan['nodes'])} nodes / {len(plan['edges'])} edges; no credentials, network or writes")
-            return
-        uri, user, password, database = connection_settings()
-        from neo4j import GraphDatabase
-        with GraphDatabase.driver(uri, auth=(user, password), connection_timeout=10,
-                connection_acquisition_timeout=10, max_transaction_retry_time=10) as driver:
-            driver.verify_connectivity()
-            with driver.session(database=database) as session:
-                if args.inspect:
-                    existing = session.execute_read(read_run, plan["run_id"])
-                    if existing["nodes"] or existing["edges"]:
-                        session.execute_read(assert_run, plan)
-                    outside = session.execute_read(other_content, plan["run_id"])
-                    print(f"INSPECT: {len(existing['nodes'])}/{len(plan['nodes'])} nodes; {len(existing['edges'])}/{len(plan['edges'])} edges; unrelated {outside['nodes']}/{outside['edges']}; no writes")
-                    return
-                session.run(CONSTRAINT).consume()
-                constraints = list(session.run("SHOW CONSTRAINTS YIELD type, labelsOrTypes, properties RETURN type, labelsOrTypes, properties"))
-                if not any("UNIQUENESS" in row["type"] and row["labelsOrTypes"] == [LABEL] and row["properties"] == ["run_id", "node_id"] for row in constraints):
-                    raise ValueError("Pilot identity uniqueness constraint is missing")
-                first = session.execute_write(merge_run, plan)
-                second = session.execute_write(merge_run, plan)
-                if second["nodes_created"] or second["relationships_created"] or first["content_hash"] != second["content_hash"] or first["unrelated_graph"] != second["unrelated_graph"]:
-                    raise ValueError("Idempotency verification failed")
-                probe = version_probe(session, plan)
-                result = {"first_load": first, "second_load": second, "version_probe": probe, "server": driver.get_server_info().agent}
-        write_report(plan, result)
-        print(f"VERIFIED: {len(plan['nodes'])} nodes / {len(plan['edges'])} edges; second load created 0/0; no retrieval activation")
-    except ImportError:
-        parser.exit(1, "Install graph/build/requirements.txt into .venv before live Neo4j checks\n")
-    except Exception as error:
-        message = str(error).replace(password, "[REDACTED]") if password else str(error)
-        parser.exit(1, f"Neo4j pilot failed ({type(error).__name__}): {message[:400]}\n")
-
-
-if __name__ == "__main__":
-    main()

@@ -1,4 +1,4 @@
-"""The distributed graph build must not require the ignored research archive."""
+"""Only the schema is distributed as graph data; no pilot/archive dependency."""
 from pathlib import Path
 import sys
 import unittest
@@ -10,19 +10,22 @@ import load_graph
 
 
 class GraphLayoutTests(unittest.TestCase):
-    def test_frozen_build_and_export_still_match(self):
-        bundle = prepare.build()
-        self.assertEqual(bundle, prepare.read(prepare.DATA / "results/bundle.json"))
-        plan = load_graph.prepare_import()
-        content = load_graph.expected_content(plan)
-        self.assertEqual((len(content["nodes"]), len(content["edges"])), (134, 231))
+    def test_only_schema_json_is_needed_under_graph_data(self):
+        paths={str(p.relative_to(ROOT/"graph/data")) for p in (ROOT/"graph/data").rglob("*.json")
+               if "cache" not in p.relative_to(ROOT/"graph/data").parts}
+        self.assertEqual(paths,{"inputs/schema.json"})
+        prepare.check_schema(load_graph.read(ROOT/"graph/data/inputs/schema.json"))
 
-    def test_only_build_entrypoints_and_no_archive_dependency(self):
+    def test_build_modules_do_not_reference_pilot_or_archive_files(self):
         self.assertEqual({p.name for p in (ROOT/"graph/build").glob("*.py")},
                          {"common.py","contracts.py","prepare.py","extract.py","load_graph.py","expand.py","transfer.py","source_evidence.py"})
+        forbidden=(".local/graph-rag-research","inputs/pilot.json","inputs/questions.json",
+                   "inputs/aliases.json","results/bundle.json","results/extraction.json")
         for path in (ROOT/"graph/build").glob("*.py"):
-            self.assertNotIn(".local/graph-rag-research", path.read_text())
-        self.assertEqual(prepare.DATA, ROOT/"graph/data")
+            text=path.read_text()
+            for value in forbidden:
+                with self.subTest(path=path.name,dependency=value):
+                    self.assertNotIn(value,text)
 
 
 if __name__ == "__main__":

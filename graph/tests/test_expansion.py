@@ -486,7 +486,7 @@ class ExpansionTests(unittest.TestCase):
             batch=expand.prepare(base)
             path=expand.OUTPUT/"batches"/batch["batch_id"]/"graph.json"
             self.assertEqual(expand.read(path),expand.package(batch))
-            self.assertTrue((path.parent/"README.md").exists())
+            self.assertFalse(list(path.parent.rglob("*.md")))
             doc=expand.read(path)["documents"][0]
             from load_graph import expected_content
             hashes={doc["run_id"]:expand.fingerprint(expected_content(expand.document_plan(doc["graph"],batch["schema"])))}

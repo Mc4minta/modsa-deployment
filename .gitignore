@@ -17,6 +17,14 @@ chroma_db/
 /graph/expansions/
 /graph/transfers/
 /graph/.build-*/
+/graph/evaluation/
+/graph/data/review/
+/graph/data/details/
+/graph/data/results/
+/graph/data/inputs/*.json
+!/graph/data/inputs/schema.json
+/graph/**/*.md
+!/graph/README.md
 
 # data/raw/
 # chunks/

@@ -2,11 +2,11 @@
 
 ## Project Structure & Module Organization
 
-`backend/` contains the FastAPI RAG service: HTTP validation in `api/`, workflows in `services/`, clients in `core/`, ingestion in `pipeline/`, prompts in `prompts/`, and Pydantic contracts in `schemas/`. Dependencies flow `api -> services -> core/pipeline`; keep routes thin. `frontend/src/` holds React components, API services, i18n, utilities, and assets. Knowledge preparation lives under `data/`: source documents in `raw/`, normalized Markdown in `processed/`, retrieval JSON in `chunks/`, and review sets in `evaluation/`. Graph build code/data/tests live in `graph/`; start at `graph/QUICKSTART.md`. The ignored `.local/graph-rag-research/` archive is not a dependency. See `docs/` and component READMEs for details.
+`backend/` contains the FastAPI RAG service: HTTP validation in `api/`, workflows in `services/`, clients in `core/`, ingestion in `pipeline/`, prompts in `prompts/`, and Pydantic contracts in `schemas/`. Dependencies flow `api -> services -> core/pipeline`; keep routes thin. `frontend/src/` holds React components, API services, i18n, utilities, and assets. Knowledge preparation lives under `data/`: source documents in `raw/`, normalized Markdown in `processed/`, retrieval JSON in `chunks/`, and review sets in `evaluation/`. Graph build code/data/tests live in `graph/`; start at `graph/README.md`. The ignored `.local/graph-rag-research/` archive is not a dependency. See `docs/` and component READMEs for details.
 
 ## Build, Test, and Development Commands
 
-- Graph pilot replay: `python graph/run.py check` / `build`; new documents: `python graph/run.py expand --input data/chunks/<file-or-folder> --check`. Read `graph/EXPANSION.md` before `--extract` (explicit API budget) or `--load` (database writes). Neither enables Hybrid in the API or approves policy.
+- Graph plan: `python graph/run.py check`; build from matching caches: `python graph/run.py build --input data/chunks/<file-or-folder>`. These aliases use the same general pipeline as `expand`, not a frozen pilot. Read `graph/README.md` before `--extract` (explicit API budget) or `--load` (database writes). Neither enables Hybrid in the API or approves policy.
 
 - `cd backend; python -m venv .venv; .\.venv\Scripts\Activate.ps1; pip install -r requirements.txt` prepares the API environment.
 - In `backend/`, run `Copy-Item ..\.env.example .env` once, then `uvicorn main:app --reload --port 8000`.

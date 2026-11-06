@@ -8,4 +8,4 @@
 
 The graph build does not start the API, reindex Chroma, or enable Hybrid automatically. The ignored research archive is not required.
 
-Start at [root README](../README.md), [backend architecture](backend-structure.md), or [graph quick start](../graph/QUICKSTART.md).
+Start at [root README](../README.md), [backend architecture](backend-structure.md), or [graph quick start](../graph/README.md).
