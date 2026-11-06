@@ -26,4 +26,5 @@ def build_embeddings(settings: Settings) -> Embeddings:
         base_url=settings.embedding_base_url,
         timeout=settings.embedding_timeout,
         max_retries=settings.embedding_max_retries,
+        check_embedding_ctx_length=False,
     )
