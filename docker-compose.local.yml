@@ -1,0 +1,7 @@
+# Local testing override: publishes Nginx port 80 to 127.0.0.1:8080 for testing over VPN
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.local.yml up -d
+services:
+  nginx:
+    ports:
+      - "127.0.0.1:8080:80"

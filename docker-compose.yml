@@ -1,26 +1,131 @@
 services:
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
-    ports:
-      - "${APP_PORT:-8000}:8000"
+      context: .
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
     env_file:
       - .env
     environment:
       CHROMA_DIR: /app/chroma_db
-      RAG_SOURCE_PATHS: /app/storage/chunks
+      CHROMA_COLLECTION: ${CHROMA_COLLECTION:-modsa_kmutt}
+      RAG_SOURCE_PATHS: /app/data/chunks
       APP_HOST: 0.0.0.0
-      # Inside Docker, host Ollama is reachable via host.docker.internal on Desktop
-      LLM_BASE_URL: ${LLM_BASE_URL:-http://host.docker.internal:11434/v1}
-      EMBEDDING_PROVIDER: ${EMBEDDING_PROVIDER:-ollama}
-      EMBEDDING_BASE_URL: ${EMBEDDING_BASE_URL:-http://host.docker.internal:11434/v1}
+      APP_PORT: 8000
     volumes:
-      - chroma_data:/app/chroma_db
-      - ./data/chunks:/app/storage/chunks:ro
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    restart: unless-stopped
+      # Persistent bind mount for ChromaDB SQLite & vector index
+      # Host directory ./data/chroma must be owned by UID:GID 10001:10001 (appuser)
+      - ./data/chroma:/app/chroma_db
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      # 600s startup window: first boot builds Chroma index for ~253 chunks via external embeddings
+      start_period: 600s
+    networks:
+      - modsa_net
+    deploy:
+      resources:
+        limits:
+          cpus: "4.0"
+          memory: 4096M
+        reservations:
+          cpus: "1.0"
+          memory: 1024M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
-volumes:
-  chroma_data:
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+      args:
+        VITE_API_URL: /api
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:80/nginx-health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks:
+      - modsa_net
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 1024M
+        reservations:
+          cpus: "0.25"
+          memory: 128M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Cloudflare Quick Tunnel (ephemeral URL on trycloudflare.com for testing/preview)
+  # Launch with: docker compose --profile quick up -d --build
+  # Read assigned URL with: docker compose logs cloudflared
+  cloudflared:
+    image: cloudflare/cloudflared:2025.2.0
+    restart: unless-stopped
+    profiles:
+      - quick
+    command: tunnel --no-autoupdate --url http://nginx:80
+    depends_on:
+      nginx:
+        condition: service_healthy
+    networks:
+      - modsa_net
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Cloudflare Named Tunnel (persistent custom domain, production)
+  # Launch with: docker compose --profile named up -d --build
+  cloudflared-named:
+    image: cloudflare/cloudflared:2025.2.0
+    restart: unless-stopped
+    profiles:
+      - named
+    command: tunnel --no-autoupdate run
+    environment:
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN:-}
+    depends_on:
+      nginx:
+        condition: service_healthy
+    networks:
+      - modsa_net
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  modsa_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16

@@ -1,16 +1,33 @@
+# Environment and secrets
 .env
+.env.*
+!.env.example
+*.env
+
+# Virtual environments
 .venv/
+**/.venv/
+
+# Python caches
 __pycache__/
 *.py[cod]
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
 
+# Local databases, Chroma persistence, backups, logs
 chroma_db/
+**/chroma_db/
+data/chroma/
+backups/
+logs/
 *.log
 
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Raw data pipeline artifacts (commented in repo history)
 # data/raw/
 # chunks/
 # data/processed/
-
-.DS_Store
