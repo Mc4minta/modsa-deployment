@@ -1,0 +1,62 @@
+# Version control
+.git
+.gitignore
+
+# Environment files and secrets (exclude all .env variants, including examples)
+**/.env
+**/.env.*
+.env*
+*.env
+
+# Local data, Chroma DB, backups, and logs
+chroma_db
+chroma_db/
+**/chroma_db
+**/chroma_db/**
+data/chroma
+data/chroma/
+backups
+backups/
+logs
+logs/
+*.log
+
+# Heavy or unneeded data directories (only data/chunks is needed by backend image)
+data/raw
+data/raw/
+data/processed
+data/processed/
+data/evaluation
+data/evaluation/
+data/*.zip
+
+# Virtual environments and Python/build caches
+.venv
+.venv/
+**/.venv
+**/.venv/**
+__pycache__
+__pycache__/
+**/__pycache__
+**/__pycache__/**
+*.py[cod]
+.pytest_cache
+.pytest_cache/
+.mypy_cache
+.mypy_cache/
+.ruff_cache
+.ruff_cache/
+
+# Node and frontend artifacts
+**/node_modules
+**/node_modules/**
+node_modules
+node_modules/
+frontend/dist
+frontend/dist/
+
+# Documentation and agent files
+docs/
+.agents/
+.DS_Store
+Thumbs.db
