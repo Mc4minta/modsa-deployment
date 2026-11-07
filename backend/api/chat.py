@@ -1,9 +1,12 @@
+import logging
+
 from fastapi import APIRouter, HTTPException
 
 from schemas.chat import AskRequest, AskResponse
 from config import get_settings
 from services.rag_service import answer_question
 
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/chat")
 
@@ -17,8 +20,11 @@ def ask(request: AskRequest):
             request.question
         )
 
-    except Exception as exc:
+    except HTTPException:
+        raise
+    except Exception:
+        logger.exception("Failed to process chat question")
         raise HTTPException(
             status_code=500,
-            detail=str(exc)
+            detail="Internal server error"
         )
