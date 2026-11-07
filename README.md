@@ -6,12 +6,14 @@ KMUTT Student Affairs RAG chatbot.
 
 - `backend/`: FastAPI RAG backend (active)
 - `backend_old/`: previous monolithic backend, reference only
-- `datasets/chunks/`: prepared knowledge source consumed by `backend/`
-- `frontend/`: Web client
-- `docs/`: Architecture + development guides (`backend-structure.md`, `development-guide.md`)
+- `data/chunks/`: prepared knowledge source consumed by `backend/`
+- `frontend/`: Web client (React + Vite)
+- `nginx/`: Reverse proxy, rate limiting, and static SPA serving
+- `scripts/`: Operations scripts (backup, restore, reindex, freeze dependencies)
+- `docs/`: Architecture, inspection findings, and deployment guides
 - `.agents/skills/modsa-backend/`: Agent skill for backend work
 
-## Quick Start (local)
+## Quick Start (local dev)
 
 ```bash
 cd backend
@@ -29,15 +31,22 @@ API:
 - `POST /chat/ask` — body `{"question":"..."}`
 - `POST /admin/reindex` — requires header `X-Admin-Key` matching `ADMIN_API_KEY`
 
-Default `RAG_SOURCE_PATHS` points at `../datasets/chunks`.
+## Single-VM Production Deployment
 
-## Docker
+For full deployment on an Ubuntu 24.04 VM using Docker Compose, Nginx, and Cloudflare Tunnel, follow the complete runbook:
 
-From repo root (requires `.env`):
+- **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)**
+
+Quick preview with Docker Compose:
 
 ```bash
+# 1. Configure environment
 cp .env.example .env
-docker compose up --build
-```
+nano .env
 
-Chroma persists in the `chroma_data` volume. Chunks mount from `datasets/chunks`.
+# 2. Start stack with ephemeral Cloudflare Quick Tunnel
+docker compose --profile quick up -d --build
+
+# 3. Read generated public URL
+docker compose logs cloudflared
+```
