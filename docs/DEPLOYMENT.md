@@ -41,7 +41,7 @@ backend:8000  (FastAPI + bind-mounted Chroma)
   domain as `<assigned-static-dev-domain>` and set `NGROK_DOMAIN` to that value.
 - [ ] In the dashboard open **Your Authtoken**, copy it directly into the VM
   `.env`; never paste it into chat or commit it.
-- [ ] Verify the chosen `ngrok/ngrok:3.18.0` image and `nginx:1.27.3-alpine`
+- [ ] Verify the chosen `ngrok/ngrok:latest` image and `nginx:1.27.3-alpine`
   tag on Docker Hub before production use. The Compose command uses ngrok's
   `http --url=https://DOMAIN nginx:80` syntax; confirm it against the current
   image help output.
@@ -94,6 +94,54 @@ backend:8000  (FastAPI + bind-mounted Chroma)
   response includes `Access-Control-Allow-Origin: *`.
 - [ ] Inspect `docker compose logs backend`; startup success is logged as
   `Startup ingestion: ...`, failure as `Startup ingestion failed`.
+
+## LLM timeouts and reasoning models
+
+The chat gateway can spend the whole token budget on hidden reasoning. Symptoms
+include `{"detail":"Request timed out."}` or a response with null content, an
+Nginx log with `upstream=30.0x` and status 500, and a backend log showing a
+successful `/embeddings` call but no chat completion. The backend now returns
+the generic `{"detail":"Internal server error"}` for unexpected failures and
+logs the exception server-side.
+
+Run diagnostics inside the backend container so the container's own environment
+variables and network are used:
+
+```bash
+docker compose exec backend sh -lc '
+  curl -fsS "$LLM_BASE_URL/models" -H "Authorization: Bearer $LLM_API_KEY";
+  time curl -fsS "$LLM_BASE_URL/chat/completions" \
+    -H "Authorization: Bearer $LLM_API_KEY" \
+    -H "Content-Type: application/json" \
+    -d "{\"model\":\"$LLM_MODEL\",\"messages\":[{\"role\":\"user\",\"content\":\"ตอบสั้น ๆ ว่า สวัสดี\"}],\"max_tokens\":20}";
+  time curl -fsS "$LLM_BASE_URL/chat/completions" \
+    -H "Authorization: Bearer $LLM_API_KEY" \
+    -H "Content-Type: application/json" \
+    -d "{\"model\":\"$LLM_MODEL\",\"messages\":[{\"role\":\"user\",\"content\":\"ตอบสั้น ๆ ว่า สวัสดี\"}],\"max_tokens\":20,\"chat_template_kwargs\":{\"enable_thinking\":false}}"
+'
+```
+
+Set `LLM_ENABLE_THINKING=false` for the recommended `LLM_MODEL=qwen3.8-27b`
+gateway configuration. `LLM_MAX_TOKENS=800` is a reasonable starting cap;
+lower values reduce latency but can truncate Thai answers. Both variables are
+optional and unset values preserve the existing request behavior. After
+changing `.env`, run `docker compose up -d` (not `restart`) so Compose
+recreates the backend with the new environment, followed by
+`docker compose restart nginx` if the backend was recreated.
+
+### Reading the live logs
+
+Follow backend logs without the noisy health checks:
+
+```bash
+docker compose logs -f --tail 100 backend | grep --line-buffered -v 'GET /health'
+```
+
+Each chat request logs a line like
+`Chat request outcome=ok elapsed=5.012s answer_length=123 source_count=4`,
+or an error line with `outcome=error`, elapsed seconds, and the exception class.
+Nginx access fields are client IP, `forwarded=`, request time, `upstream=`, and
+status. Status 499 means the client closed the connection first.
 
 ## Switch to steady state
 
@@ -205,7 +253,7 @@ must remain below 45 seconds.
 | CORS failure | Exact origin, no trailing slash, allowed request headers, and no ngrok interstitial |
 | 429 | Nginx per-IP/global limits; campus NAT can share one IP |
 | 413 | Request exceeds the 16 KiB Nginx body limit |
-| 502/504 | Backend health, gateway latency, Nginx logs; frontend receives a readable JSON server error |
+| 500/502/504 | Backend health, gateway latency, Nginx/backend logs; frontend receives a generic JSON server error for backend failures |
 | Stale backend address | `docker compose restart nginx` after backend recreation |
 | Healthy but empty index | Inspect `/api/health` ingestion fields and backend logs |
 | Chroma permission denied | `sudo chown 10001:10001 data/chroma` and mode 750 |
