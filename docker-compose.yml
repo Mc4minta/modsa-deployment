@@ -53,7 +53,7 @@ services:
       - modsa
 
   ngrok:
-    image: ngrok/ngrok:3.18.0
+    image: ngrok/ngrok:latest
     profiles: ["tunnel"]
     command: ["http", "--url=https://${NGROK_DOMAIN:-}", "nginx:80"]
     environment:
