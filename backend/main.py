@@ -48,7 +48,8 @@ app.add_middleware(
     allow_origins=settings.resolved_cors_origins,
     allow_credentials=False,
     allow_methods=["GET", "POST"],
-    allow_headers=["Content-Type", "X-Admin-Key"],
+    allow_headers=["Content-Type", "X-Admin-Key", "ngrok-skip-browser-warning"],
+    max_age=7200,
 )
 
 app.include_router(chat_router)
