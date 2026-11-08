@@ -29,15 +29,13 @@ API:
 - `POST /chat/ask` — body `{"question":"..."}`
 - `POST /admin/reindex` — requires header `X-Admin-Key` matching `ADMIN_API_KEY`
 
+VM/ngrok + Vercel deployment: see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
+
 Default `RAG_SOURCE_PATHS` points at `../datasets/chunks`.
 
 ## Docker
 
-From repo root (requires `.env`):
-
-```bash
-cp .env.example .env
-docker compose up --build
-```
-
-Chroma persists in the `chroma_data` volume. Chunks mount from `datasets/chunks`.
+For the VM/ngrok stack, follow [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) and
+copy [.env.vm.example](.env.vm.example) to `.env`. The Compose stack uses the
+bind-mounted `data/chroma` directory and does not use the local-dev Docker
+instructions from `.env.example`.
