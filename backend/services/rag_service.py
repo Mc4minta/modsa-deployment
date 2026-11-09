@@ -1,7 +1,11 @@
+import logging
+
 from langchain_core.messages import (
     SystemMessage,
     HumanMessage
 )
+
+logger = logging.getLogger(__name__)
 
 from core.llm import build_llm
 from core.vectorstore import get_vector_store
@@ -187,8 +191,17 @@ def answer_question(settings, question):
         ]
     )
 
+    answer = response.content
+    if not answer:
+        response_metadata = getattr(response, "response_metadata", {})
+        finish_reason = response_metadata.get("finish_reason")
+        logger.warning(
+            "LLM returned empty content; finish_reason=%s",
+            finish_reason,
+        )
+        answer = no_verified_info_response(question)
 
     return {
-        "answer": response.content,
+        "answer": answer,
         "sources": source_summary(docs)
     }

@@ -30,6 +30,15 @@ class Settings(BaseSettings):
     llm_model: str = Field(default="gpt-4o-mini", alias="LLM_MODEL")
     llm_timeout: float = Field(default=30.0, alias="LLM_TIMEOUT")
     llm_max_retries: int = Field(default=2, alias="LLM_MAX_RETRIES")
+    llm_enable_thinking: bool | None = Field(
+        default=None,
+        alias="LLM_ENABLE_THINKING",
+    )
+    llm_max_tokens: int | None = Field(
+        default=None,
+        gt=0,
+        alias="LLM_MAX_TOKENS",
+    )
 
     embedding_provider: Literal["ollama", "huggingface", "openai"] = Field(
         default="ollama",
