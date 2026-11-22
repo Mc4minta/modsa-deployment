@@ -8,10 +8,9 @@
 import type { AskQuestionResponse, Source } from "../types";
 
 const configuredApiUrl = (import.meta.env.VITE_API_URL || "").replace(/\/+$/, "");
-const API_URL = configuredApiUrl || (import.meta.env.DEV ? "http://localhost:8000" : "");
+const API_URL = configuredApiUrl || (import.meta.env.DEV ? "http://localhost:8000" : "/api");
 const DEFAULT_TIMEOUT_MS = 45_000;
 const MAX_ANSWER_LENGTH = 100_000;
-const NGROK_SKIP_BROWSER_WARNING = import.meta.env.VITE_NGROK_SKIP_BROWSER_WARNING === "true";
 
 export type ApiErrorCode =
   | "UNKNOWN"
@@ -202,11 +201,9 @@ export async function askQuestion(
   try {
     let response: Response;
     try {
-      const headers: Record<string, string> = { "Content-Type": "application/json" };
-      if (NGROK_SKIP_BROWSER_WARNING) headers["ngrok-skip-browser-warning"] = "1";
       response = await fetch(`${API_URL}/chat/ask`, {
         method: "POST",
-        headers,
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: question.trim() }),
         signal: composed.signal,
       });
@@ -255,9 +252,7 @@ export function cancelRequest(): boolean {
 export async function checkHealth({ signal, timeoutMs = 10_000 }: AskQuestionOptions = {}): Promise<boolean> {
   const composed = composeAbortSignal(signal, timeoutMs);
   try {
-    const headers: Record<string, string> = {};
-    if (NGROK_SKIP_BROWSER_WARNING) headers["ngrok-skip-browser-warning"] = "1";
-    const response = await fetch(`${API_URL}/health`, { headers, signal: composed.signal });
+    const response = await fetch(`${API_URL}/health`, { signal: composed.signal });
     return response.ok;
   } catch {
     return false;
