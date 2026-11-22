@@ -1,0 +1,7 @@
+# Production override: publish Nginx on host port 80 (static frontend + /api).
+# TODO(owner): confirm how modsa.project.cpe.kmutt.ac.th reaches this port and
+# where TLS terminates.
+services:
+  nginx:
+    ports:
+      - "80:80"

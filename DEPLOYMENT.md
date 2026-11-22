@@ -220,6 +220,17 @@ frontend limit is the binding one.)
 - [ ] If you recreate the backend container later, run
   `docker compose restart nginx` (Nginx resolves `backend` only at start).
 
+## 9b. Production start
+
+Production publishes port 80 with the prod override (the local override binds
+`127.0.0.1:8080` for testing only):
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+```
+
+Rate-limited requests return 429 (`limit_req_status 429`).
+
 ## 10. Legacy fallback: ngrok + Vercel
 
 No longer the main path. The `ngrok` service is kept in `docker-compose.yml`
