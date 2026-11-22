@@ -6,18 +6,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 MOD-SA: KMUTT Student Affairs RAG chatbot.
 
-- `backend_new/` — **active** backend. FastAPI + LangChain + ChromaDB, OpenAI-compatible LLM/embeddings (Ollama supported locally).
-- `backend_old/` — legacy monolithic backend, reference only. Its `backend_old/chunks/` is still the default prepared knowledge source consumed by `backend_new/` (via `RAG_SOURCE_PATHS`) — do not delete/move it, but don't add new logic there.
-- `frontend/` — empty scaffold (`src/hooks`, `src/pages`, `src/router` dirs only, no `package.json`, no framework chosen yet).
+- `backend/` — **active** backend. FastAPI + LangChain + ChromaDB, OpenAI-compatible LLM/embeddings (Ollama supported locally).
+- `backend_old/` — legacy backend; no longer in the tree (reference only, do not recreate). Prepared chunks live in `data/chunks/` (compose sets `RAG_SOURCE_PATHS=/app/data/chunks`).
+- `frontend/` — React + TypeScript + Vite client (`npm run check` = lint, typecheck, tests, build).
+- `nginx/` — `nginx.conf` (static frontend, `/api` allowlist, rate limits) and `Dockerfile` (builds the frontend into the Nginx image).
 - `datasets/` — raw/processed/eval data backing the knowledge base.
-- `.agents/skills/modsa-backend/SKILL.md` and `docs/backend-structure.md` — deeper architecture/rules reference for backend work; read these before non-trivial backend changes. `docs/architecture.md` (referenced from README) is currently empty — ignore it, the real doc is `docs/backend-structure.md`.
+- `.agents/skills/modsa-backend/SKILL.md` and `docs/backend-structure.md` — deeper architecture/rules reference for backend work; read these before non-trivial backend changes. Deployment runbook: root `DEPLOYMENT.md`.
 
 ## Commands
 
 No CI, no linter config, no automated test suite exists — verification is manual (curl smoke checks + `scripts/test_rag.py`).
 
 ```bash
-cd backend_new
+cd backend
 python -m venv .venv && pip install -r requirements.txt
 cp .env.example .env
 uvicorn main:app --reload --host 127.0.0.1 --port 8000
@@ -27,7 +28,7 @@ curl http://127.0.0.1:8000/health
 curl -X POST http://127.0.0.1:8000/chat/ask -H "Content-Type: application/json" -d '{"question":"..."}'
 curl -X POST http://127.0.0.1:8000/admin/reindex   # add -H "X-Admin-Key: ..." if ADMIN_API_KEY set
 
-python -c "import main"   # import sanity check after changes, run from backend_new/
+python -c "import main"   # import sanity check after changes, run from backend/
 
 # docker (repo root)
 docker compose up --build
@@ -35,7 +36,7 @@ docker compose up --build
 
 ## Architecture
 
-Strict layered dependency direction (`backend_new/`):
+Strict layered dependency direction (`backend/`):
 
 ```
 api/ → services/ → core/ | pipeline/ → external systems
@@ -68,7 +69,7 @@ Startup lifespan in `main.py` runs `ingest_sources` (skips rebuild if source man
 
 ## Config
 
-Centralized in `backend_new/config.py` via `pydantic-settings`, read from `.env`. Key vars: `LLM_BASE_URL`/`LLM_API_KEY`/`LLM_MODEL`, `EMBEDDING_BASE_URL`/`EMBEDDING_API_KEY`/`EMBEDDING_MODEL`, `CHROMA_DIR`, `CHROMA_COLLECTION`, `RAG_SOURCE_PATHS` (comma-separated), `CHUNK_SIZE`, `CHUNK_OVERLAP`, `RETRIEVAL_K`, `CORS_ORIGINS`, `ADMIN_API_KEY` (optional). Embeddings auto-switch to Ollama mode when the embedding host is `localhost`/`127.0.0.1` port `11434`.
+Centralized in `backend/config.py` via `pydantic-settings`, read from `.env`. Key vars: `LLM_BASE_URL`/`LLM_API_KEY`/`LLM_MODEL`, `EMBEDDING_BASE_URL`/`EMBEDDING_API_KEY`/`EMBEDDING_MODEL`, `CHROMA_DIR`, `CHROMA_COLLECTION`, `RAG_SOURCE_PATHS` (comma-separated), `CHUNK_SIZE`, `CHUNK_OVERLAP`, `RETRIEVAL_K`, `CORS_ORIGINS`, `ADMIN_API_KEY` (optional). Embeddings auto-switch to Ollama mode when the embedding host is `localhost`/`127.0.0.1` port `11434`.
 
 ## RAG behavior rules
 
@@ -83,12 +84,12 @@ Centralized in `backend_new/config.py` via `pydantic-settings`, read from `.env`
 
 - Reuse `rag_service` / `ingestion_service` rather than adding parallel workflows.
 - Keep `api/` thin — no business logic there.
-- Don't replace LangChain unless necessary; don't introduce Redis, auth frameworks, or extra services before the demo actually needs them.
+- Don't replace LangChain unless necessary; don't introduce Redis or extra services before they are needed. KMUTT OAuth2 login is planned; do not implement it without an approved design.
 - Preserve `backend_old` behavior unless a change is intentional (it's the behavioral reference, even though it's not actively maintained).
 
 ## Testing checklist (after backend changes)
 
-- `python -c "import main"` succeeds from `backend_new/`
+- `python -c "import main"` succeeds from `backend/`
 - `GET /health` returns `status: ok`
 - Startup or `POST /admin/reindex` indexes sources
 - `POST /chat/ask` returns answer + sources for a known topic
