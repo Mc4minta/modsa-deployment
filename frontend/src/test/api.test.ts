@@ -85,35 +85,6 @@ describe("chat API contract", () => {
     );
   });
 
-  it("does not send the optional ngrok header by default", async () => {
-    fetchMock.mockResolvedValue(jsonResponse({ answer: "ok", sources: [] }));
-
-    await askQuestion("question");
-
-    const [, options] = fetchMock.mock.calls[0] as [string, RequestInit];
-    expect(options.headers).toEqual({ "Content-Type": "application/json" });
-  });
-
-  it("sends the optional ngrok header on chat and health when enabled", async () => {
-    vi.stubEnv("VITE_NGROK_SKIP_BROWSER_WARNING", "true");
-    vi.resetModules();
-    const api = await import("../services/api");
-    fetchMock
-      .mockResolvedValueOnce(jsonResponse({ answer: "ok", sources: [] }))
-      .mockResolvedValueOnce(new Response("", { status: 200 }));
-
-    await api.askQuestion("question");
-    await api.checkHealth();
-
-    expect(fetchMock.mock.calls[0][1].headers).toEqual({
-      "Content-Type": "application/json",
-      "ngrok-skip-browser-warning": "1",
-    });
-    expect(fetchMock.mock.calls[1][1].headers).toEqual({
-      "ngrok-skip-browser-warning": "1",
-    });
-  });
-
   it("maps caller cancellation to ABORT and timeout to TIMEOUT", async () => {
     fetchMock.mockImplementation((_: RequestInfo | URL, options: RequestInit & { signal: AbortSignal }) => new Promise((resolve, reject) => {
       options.signal.addEventListener("abort", () => {

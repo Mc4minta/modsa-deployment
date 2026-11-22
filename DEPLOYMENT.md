@@ -1,34 +1,30 @@
-# MOD-SA deployment runbook: VM backend + ngrok + Vercel frontend
+# MOD-SA deployment runbook: on-prem host, single Nginx site
 
-This runbook deploys the FastAPI backend and embedded ChromaDB on an Ubuntu
-24.04 VM with Docker Compose, publishes it through an ngrok static domain, and
-serves the frontend from Vercel. Nginx never serves frontend files.
+This runbook deploys the FastAPI backend, embedded ChromaDB and the built
+frontend with Docker Compose on the on-prem host. One Nginx container serves the
+React build at `/` and proxies `/api/*` to the backend, so the browser sees one
+site: `https://modsa.project.cpe.kmutt.ac.th/`.
 
 ```text
-Browser ─► Vercel (static React build)
-             │ HTTPS + CORS, absolute URL baked in at build time
-             ▼
-        ngrok static domain
-             ▼
-        nginx:80   (route allowlist, rate limits, preflight pass-through)
+Browser ─► https://modsa.project.cpe.kmutt.ac.th/
+             ▼   (TODO(owner): where TLS terminates, how traffic reaches nginx)
+        nginx:80   (static frontend, /api allowlist, rate limits)
              ▼
         backend:8000   (FastAPI + bind-mounted Chroma)
              ▼ outbound HTTPS
         CPE AI Gateway (LLM + embeddings)
 ```
 
-Tick the boxes as you go. Never paste `LLM_API_KEY`, `EMBEDDING_API_KEY`,
-`ADMIN_API_KEY` or `NGROK_AUTHTOKEN` into chat, Git, tickets or screenshots.
+Tick the boxes as you go. Never paste `LLM_API_KEY`, `EMBEDDING_API_KEY` or
+`ADMIN_API_KEY` into chat, Git, tickets or screenshots.
 
 ## 1. Prerequisites and approval gate
 
 - [ ] Written approval from KMUTT for: hosting a public service on this VM,
-  the outbound ngrok tunnel, the documents being served, and use of the
-  gateway key by a public application. Do not share the public URL before this.
-- [ ] Ubuntu 24.04 VM with sudo, outbound HTTPS to Docker Hub, GitHub, ngrok
-  (`*.ngrok.com`, `*.ngrok-free.dev`) and the gateway.
-- [ ] An ngrok account (ideally owned by a shared project address, not a
-  personal one) and a Vercel account with access to the repository.
+  the documents being served, and use of the gateway key by a public
+  application. Do not share the public URL before this.
+- [ ] Ubuntu 24.04 host with sudo, outbound HTTPS to Docker Hub, GitHub, the
+  npm registry (the Nginx image build runs `npm ci`) and the gateway.
 - [ ] Git and OpenSSL installed.
 
 ## 2. Install Docker and Compose
@@ -51,34 +47,22 @@ with a space).
   Docker group membership is effectively root on the VM; confirm it is allowed.
   Use one approach consistently.
 
-## 3. ngrok account, domain and image tag
+## 3. Image tags
 
-- [ ] In the ngrok dashboard open **Domains** and note the free static dev
-  domain assigned to the account. Use the bare domain (for example
-  `something.ngrok-free.dev`): no `https://`, no path.
-- [ ] In the dashboard open **Your Authtoken**. Copy it straight into the VM
-  `.env`; never paste it elsewhere.
-- [ ] `docker-compose.yml` pins an `ngrok/ngrok:<tag>` image. The tag `3.18.0`
-  does not exist on Docker Hub and fails with `not found`. Edit the `ngrok`
-  service image to a tag that exists (for example `ngrok/ngrok:latest` while
-  testing; pin a verified tag afterwards) and check it with
-  `docker run --rm ngrok/ngrok:<tag> --version`. ngrok may refuse very old
-  agent versions, so prefer a current one.
-- [ ] Keep the `nginx` and `python` tags pinned too, and re-check them against
-  Docker Hub before production.
+- [ ] Keep the `nginx`, `node` and `python` tags pinned and re-check them against
+  Docker Hub before production. The Nginx image is built locally
+  (`nginx/Dockerfile`, tag `modsa-nginx:1.27.3-web`).
 
 ## 4. First-time setup on the VM
 
-- [ ] `git clone -b modsa-vm <repository-url> modsa-deployment && cd modsa-deployment`
+- [ ] `git clone -b main <repository-url> modsa-deployment && cd modsa-deployment`
 - [ ] `cp .env.vm.example .env && chmod 600 .env`
 - [ ] Fill in every placeholder:
   - gateway: `LLM_BASE_URL`, `LLM_API_KEY`, `LLM_MODEL`, and the `EMBEDDING_*`
     values (`EMBEDDING_PROVIDER=openai`);
-  - `CORS_ORIGINS`: exact origins, comma-separated, no trailing slash (add your
-    Vercel origins later, see section 10);
+  - `CORS_ORIGINS`: not needed for same-origin use; keep only for other origins;
   - `ADMIN_API_KEY`: generate in the shell with `openssl rand -hex 32` and paste
     the result. Compose does not evaluate `$(...)` inside `.env`;
-  - `NGROK_AUTHTOKEN` and `NGROK_DOMAIN` (can wait until section 8).
 - [ ] Use the **FIRST BOOT / INDEXING** embedding values (tolerant: for example
   `EMBEDDING_TIMEOUT=60`, `EMBEDDING_MAX_RETRIES=3`), because the first boot
   embeds all chunks through the gateway.
@@ -88,7 +72,7 @@ with a space).
 
 ## 5. First boot and health gate
 
-- [ ] Start the backend and Nginx (no tunnel yet):
+- [ ] Start the backend and Nginx (the first build also compiles the frontend):
   `docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --build backend nginx`
   This builds the image and then **waits for the backend health check**
   (`depends_on: service_healthy`). On a first boot with an empty index it can
@@ -118,16 +102,20 @@ Run from the VM (`B=http://127.0.0.1:8080`):
   curl -s -w '\nHTTP %{http_code}  %{time_total}s\n' -X POST $B/api/chat/ask \
     -H 'Content-Type: application/json' -d '{"question":"มีทุนการศึกษาอะไรบ้าง"}' | head -c 2000
   ```
-- [ ] Allowlist: each of `/`, `/api/docs`, `/api/openapi.json`,
-  `/api/admin/reindex` returns **404**, and `POST /api/health` returns 404.
-  Swagger/ReDoc are intentionally unreachable; they exist only inside the
-  container. `HEAD` requests also return 404 (use GET for uptime monitors).
-- [ ] Preflight with an allowed origin returns `access-control-allow-origin`
+- [ ] Frontend: `curl -i $B/` returns 200 with `Content-Type: text/html`; the
+  `/assets/*.js` and `*.css` files referenced by `index.html` return
+  `text/javascript` and `text/css`; `$B/some/deep/route` returns `index.html`.
+- [ ] Allowlist: each of `/api/docs`, `/api/openapi.json`, `/api/admin/reindex`
+  returns a JSON **404**, and `POST /api/health` returns 404. Only unknown
+  `/api/*` paths return the JSON 404; `/` serves the app. Swagger/ReDoc are
+  intentionally unreachable; they exist only inside the container.
+- [ ] (Only if a cross-origin client is still used; same-origin needs no CORS.)
+  Preflight with an allowed origin returns `access-control-allow-origin`
   with that origin and `access-control-max-age: 7200`:
   ```bash
   curl -i -X OPTIONS $B/api/chat/ask -H 'Origin: https://<allowed-origin>' \
     -H 'Access-Control-Request-Method: POST' \
-    -H 'Access-Control-Request-Headers: content-type,ngrok-skip-browser-warning'
+    -H 'Access-Control-Request-Headers: content-type'
   ```
   A random origin must not get `access-control-allow-origin`.
 - [ ] An oversized body (over 16 KiB) returns 413 as JSON with
@@ -191,8 +179,8 @@ The worst-case time of one chat request is:
 EMBEDDING_TIMEOUT x (EMBEDDING_MAX_RETRIES + 1)  +  LLM_TIMEOUT x (LLM_MAX_RETRIES + 1)
 ```
 
-It must stay below the frontend's 45 s limit. (Nginx waits up to 60 s and ngrok
-free endpoints have no idle timeout, so the frontend limit is the binding one.)
+It must stay below the frontend's 45 s limit. (Nginx waits up to 150 s, so the
+frontend limit is the binding one.)
 
 | Profile | Embedding | Emb. retries | LLM | LLM retries | Worst case |
 |---|---|---|---|---|---|
@@ -217,60 +205,49 @@ free endpoints have no idle timeout, so the frontend limit is the binding one.)
 | 4 | | | |
 | 5 | | | |
 
-## 9. Start and verify the tunnel
+## 9. Public access and client IP
 
-- [ ] Put `NGROK_AUTHTOKEN` and the bare `NGROK_DOMAIN` in `.env`, then run
-  `docker compose --profile tunnel up -d` (ngrok waits for Nginx to be healthy).
-- [ ] `docker compose logs ngrok --tail 20` shows the tunnel started. Common
-  errors: invalid authtoken; domain not found (must match the dashboard exactly,
-  no scheme); another session already using the free endpoint.
-- [ ] `curl -i https://<NGROK_DOMAIN>/api/health` returns 200. Repeat from a
-  different network, such as a phone on mobile data.
-- [ ] **Real-IP spoof test** (do not skip):
-  ```bash
-  curl -s -o /dev/null https://<NGROK_DOMAIN>/api/health -H 'X-Forwarded-For: 1.2.3.4'
-  docker compose logs nginx --tail 5
-  ```
-  The log format is `<client ip> forwarded=<header> <time> upstream=... <status> "<request>"`.
-  The first field must be the caller's real public address. If it is `1.2.3.4`
-  the per-IP limit can be bypassed: run `docker compose stop ngrok` and
-  investigate before exposing the URL. If it is a `172.28.x.x` address, all
-  users would share one rate-limit bucket and real-IP trust is not working.
+- [ ] TODO(owner): record how `https://modsa.project.cpe.kmutt.ac.th/` reaches
+  the Nginx container (published port, reverse proxy, load balancer) and where
+  TLS terminates. `docker-compose.yml` publishes no port for Nginx.
+- [ ] TODO(owner): `nginx/nginx.conf` currently trusts `X-Forwarded-For` from
+  `172.28.0.0/16` (the Compose network). Set `set_real_ip_from` to the real
+  front proxy address. Test from outside:
+  `curl -s -o /dev/null https://modsa.project.cpe.kmutt.ac.th/api/health -H 'X-Forwarded-For: 1.2.3.4'`
+  then `docker compose logs nginx --tail 5`: the first field must be the
+  caller's real address, not `1.2.3.4` (spoofable) and not one shared proxy
+  address (all users share one rate-limit bucket).
 - [ ] If you recreate the backend container later, run
   `docker compose restart nginx` (Nginx resolves `backend` only at start).
 
-## 10. Vercel
+## 9b. Production start
 
-Roll out to **Preview first**, then Production.
+Production publishes port 80 with the prod override (the local override binds
+`127.0.0.1:8080` for testing only):
 
-- [ ] Import the repository in Vercel. Root Directory `frontend`, Vite preset,
-  build `npm run build`, output `dist`. Choose a Node version supported by the
-  installed Vite release in the project settings.
-- [ ] For the **Preview** environment only, set
-  `VITE_API_URL=https://<NGROK_DOMAIN>/api` and
-  `VITE_NGROK_SKIP_BROWSER_WARNING=true`. Both are build-time variables: redeploy
-  after changing them.
-- [ ] Deploy the `modsa-vm` branch. Use the stable branch-alias URL (it contains
-  `-git-modsa-vm-`), not the per-deployment URL.
-- [ ] On the VM add that exact origin to `CORS_ORIGINS` (no trailing slash,
-  comma-separated list), then `docker compose up -d`.
-- [ ] Check the preflight through the tunnel with the alias as `Origin`, then
-  open the preview in a browser, ask a Thai question and watch DevTools →
-  Network for CORS errors.
-- [ ] Only after the preview answers real questions: add the same two variables
-  to **Production**, add the production origin to `CORS_ORIGINS`, run
-  `docker compose up -d`, and redeploy. Note that the ngrok-header change lives
-  on `modsa-vm`; merge it before building Production from another branch.
-- [ ] Rollback: restore the previous `VITE_API_URL` in Vercel and redeploy.
-  Keep the Render deployment available until the new path is proven.
+```bash
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+```
+
+Rate-limited requests return 429 (`limit_req_status 429`).
+
+## 10. Legacy fallback: ngrok + Vercel
+
+No longer the main path. The `ngrok` service is kept in `docker-compose.yml`
+under profile `tunnel` (`docker compose --profile tunnel up -d`, needs
+`NGROK_AUTHTOKEN` and `NGROK_DOMAIN` in `.env`). A Vercel-hosted frontend would
+need `VITE_API_URL=https://<NGROK_DOMAIN>/api` at build time and its origin in
+`CORS_ORIGINS`. The frontend no longer sends the ngrok browser-warning header,
+so ngrok's interstitial page may break browser calls on that path.
 
 ## 11. Operations
 
-- Logs: `docker compose logs -f backend`, `docker compose logs nginx --tail 50`,
-  `docker compose logs ngrok --tail 20`.
-- Update: `git pull`, then `docker compose up -d --build` (add
-  `--profile tunnel` if the tunnel should be (re)created). Then
+- Logs: `docker compose logs -f backend`, `docker compose logs nginx --tail 50`.
+- Update: `git pull`, then `docker compose up -d --build nginx` (frontend or
+  Nginx changes) or `docker compose up -d --build` (everything). Then
   `docker compose restart nginx` if the backend was recreated.
+- Rollback: `git checkout <previous-commit>`, then
+  `docker compose up -d --build nginx` (rebuilds the frontend from that commit).
 - Config changes: edit `.env`, then `docker compose up -d`. Never rely on
   `restart` for env changes.
 - Backup: `bash scripts/backup.sh` stops the backend briefly, archives
@@ -286,10 +263,6 @@ Roll out to **Preview first**, then Production.
   failure mid-way leaves a partial index. It re-embeds with the current
   `EMBEDDING_*` values: switch to the tolerant first-boot values and run
   `docker compose up -d` first, then back to steady state afterwards.
-- ngrok usage: watch the dashboard Usage page. Nginx limits protect the backend
-  and the gateway quota, not ngrok's monthly request cap (each chat is a
-  preflight plus a POST unless the browser caches the preflight for 2 hours).
-- Quick Tunnel-style restarts are not an issue here: the ngrok domain is static.
 
 ## 12. Troubleshooting
 
@@ -297,8 +270,6 @@ Roll out to **Preview first**, then Production.
 |---|---|
 | `unknown shorthand flag: 'f' in -f` / `unknown command: docker compose` | Compose v2 plugin missing. Install `docker-compose-v2` (section 2). |
 | `permission denied ... /var/run/docker.sock` | User not in the `docker` group. Use `sudo` or add the group (section 2). |
-| `ngrok/ngrok:<tag>: not found` | The pinned tag does not exist. Change the image tag (section 3). |
-| ngrok exits immediately | Check `docker compose logs ngrok`: bad authtoken, wrong `NGROK_DOMAIN` (bare domain only), or endpoint already online elsewhere. |
 | `{"detail":"Request timed out."}` (500) after about `LLM_TIMEOUT` s | Slow or reasoning model. See section 7. |
 | Health 200 but answers are generic and `sources` is empty | Startup ingestion failed or the index was built with a different embedding model. Check logs, fix `.env`, run the reindex. |
 | Browser shows a CORS error | Origin missing or has a trailing slash in `CORS_ORIGINS`; `.env` changed without `docker compose up -d`; request header not allowed; Nginx error responses are CORS-enabled, so a plain network error usually means the tunnel or backend is down. |
@@ -307,26 +278,29 @@ Roll out to **Preview first**, then Production.
 | 502 / 504 from Nginx | Backend down or slow. Nginx returns status 502 with a JSON body for both upstream failure and timeout. After recreating the backend run `docker compose restart nginx`. |
 | `permission denied` / `unable to open database file` for Chroma | `sudo chown -R 10001:10001 data/chroma && sudo chmod 750 data/chroma`. |
 | `up -d` seems stuck on first boot | It is waiting for the backend health check (up to about 10 minutes). Watch `docker compose logs -f backend`. |
-| `/docs` returns 404 | Intentional. Nginx blocks Swagger/ReDoc/OpenAPI and `/admin`. |
+| `/api/docs` returns 404 | Intentional. Nginx blocks Swagger/ReDoc/OpenAPI and `/admin`. |
+| `/` serves nothing useful | Stale Nginx image without the frontend. Run `docker compose up -d --build nginx`. |
+| `npm ci` fails during the build | Check outbound access to the npm registry and that `.dockerignore` does not exclude `frontend/`. |
 | Container OOM-killed or restarting | Backend memory limit is 4 GB; check `docker stats` and the logs. |
 
 ## 13. Security summary
 
-- Public surface: only `GET /api/health` and `POST /api/chat/ask` (plus
-  `OPTIONS`) through Nginx. Everything else returns a JSON 404.
+- Public surface: the static frontend, plus `GET /api/health` and
+  `POST /api/chat/ask` (plus `OPTIONS`). Any other `/api/*` path returns a JSON 404.
 - The backend and Chroma have no published ports. `/admin/reindex` is reachable
   only from inside the container through `scripts/reindex.sh`.
 - Nginx limits: per-IP chat 30 requests/minute (burst 10), global chat
   60/minute (burst 20), health 60/minute (burst 20), body limit 16 KiB, proxy
-  timeouts 5 s connect / 60 s read-send. Client IPs are taken from
-  `X-Forwarded-For` only when the request comes from the Compose network.
+  timeouts 10 s connect / 150 s read-send. Client IPs come from
+  `X-Forwarded-For` only from the trusted range in `nginx.conf` (TODO(owner), section 9).
 - Nginx-generated errors (404, 413, 429, 502, 503, 504) carry
   `Access-Control-Allow-Origin: *` so the browser can show a readable error; the
   backend enforces the exact allowed origins for real responses.
-- Keep `.env` at mode 600, rotate keys through the gateway and ngrok dashboards,
+- Keep `.env` at mode 600, rotate keys through the gateway,
   and keep keys out of Git, chat and screenshots.
-- The app has no user accounts. If restricted documents are added later, put
-  authentication in front of the API.
+- The app has no user accounts. KMUTT OAuth2 login is planned and not
+  implemented. If restricted documents are added later, put authentication in
+  front of the API.
 
 ## 14. Later improvements
 
@@ -337,5 +311,4 @@ Roll out to **Preview first**, then Production.
   when the OpenAI provider is used.
 - Raise or make configurable the frontend's 45 s timeout and add user-friendly
   messages for 429, timeouts and network errors.
-- Move from the free ngrok dev domain to a university domain or a named tunnel
-  once approved, then update `VITE_API_URL` and `CORS_ORIGINS`.
+- Add KMUTT OAuth2 login (needs an approved design first).

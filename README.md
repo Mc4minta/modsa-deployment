@@ -7,13 +7,11 @@ documents.
 ## Architecture (production)
 
 ```text
-Browser ──► Vercel (React/Vite static build)
-              │  HTTPS; absolute API URL baked in at build time (VITE_API_URL)
+Browser ──► https://modsa.project.cpe.kmutt.ac.th/
               ▼
-          ngrok static domain
-              ▼
- ┌──────────── Ubuntu VM (Docker Compose) ────────────┐
- │  ngrok ─► nginx (route allowlist, rate limits)      │
+ ┌──────────── On-prem host (Docker Compose) ─────────┐
+ │  nginx: static React build  +  /api/* proxy        │
+ │         (route allowlist, rate limits)              │
  │              ▼                                      │
  │          FastAPI backend ─► ChromaDB (data/chroma)  │
  └──────────────┬──────────────────────────────────────┘
@@ -21,8 +19,12 @@ Browser ──► Vercel (React/Vite static build)
    KMUTT CPE AI Gateway (LLM + embeddings, OpenAI-compatible)
 ```
 
-Only Nginx is reachable through the tunnel, and it forwards just two routes.
-The backend has no published port. Full runbook: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
+The browser sees one site: Nginx serves the built frontend at `/` and proxies
+only `GET /api/health` and `POST /api/chat/ask` to the backend. The backend has
+no published port. Full runbook: [DEPLOYMENT.md](DEPLOYMENT.md).
+
+TODO(owner): document where TLS terminates and how traffic reaches the Nginx
+container (compose publishes no port for it in `docker-compose.yml`).
 
 ## Structure
 
@@ -31,8 +33,9 @@ The backend has no published port. Full runbook: [docs/DEPLOYMENT.md](docs/DEPLO
 - `frontend/`: React + TypeScript + Vite web client
 - `data/chunks/`: prepared knowledge source (JSON chunks, baked into the backend image)
 - `data/`: other pipeline data (raw, processed, evaluation)
-- `nginx/nginx.conf`: public route allowlist, rate limits, CORS for Nginx-generated errors
-- `docker-compose.yml`: VM stack (`backend`, `nginx`, `ngrok` under profile `tunnel`)
+- `nginx/nginx.conf`: static frontend + SPA fallback, `/api` route allowlist, rate limits
+- `nginx/Dockerfile`: builds the frontend and bakes it into the Nginx image
+- `docker-compose.yml`: VM stack (`backend`, `nginx`; legacy `ngrok` under profile `tunnel`)
 - `docker-compose.local.yml`: publishes Nginx on `127.0.0.1:8080` for local testing
 - `scripts/`: `backup.sh`, `restore.sh`, `reindex.sh`
 - `docs/`: deployment runbook and development guides
@@ -85,23 +88,23 @@ Backend routes (direct, local development):
 
 In production, Nginx exposes only `GET /api/health` and `POST /api/chat/ask`
 (plus CORS `OPTIONS` preflights). Everything else, including `/admin/*`,
-`/docs`, `/redoc` and `/openapi.json`, returns a JSON 404.
+`/docs`, `/redoc` and `/openapi.json`, returns a JSON 404. `/` and other
+non-`/api` paths serve the frontend (`index.html` fallback).
 
 ## Deployment
 
-The backend runs on an Ubuntu VM with Docker Compose; the frontend is built and
-hosted by Vercel and calls the backend through an ngrok static domain.
+The on-prem host runs Docker Compose. The Nginx image builds the frontend
+(`nginx/Dockerfile`, `VITE_API_URL=/api`) and serves it next to the API proxy.
 
-1. Prepare the VM and `.env` from [.env.vm.example](.env.vm.example).
+1. Prepare `.env` from [.env.vm.example](.env.vm.example).
 2. Start and verify locally:
    `docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --build backend nginx`
-3. Start the tunnel: `docker compose --profile tunnel up -d`
-4. In Vercel (Root Directory `frontend`), set `VITE_API_URL=https://<ngrok-domain>/api`
-   and `VITE_NGROK_SKIP_BROWSER_WARNING=true`, then redeploy.
-5. Add the Vercel origin to `CORS_ORIGINS` on the VM and run `docker compose up -d`.
+   (site and API on `http://127.0.0.1:8080`).
+3. Production: `git pull` then `docker compose up -d --build nginx`.
+   TODO(owner): how the public HTTPS name reaches the Nginx container.
 
-Follow [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for the details, checks and
-troubleshooting. The Render configuration (`render.yml`) is kept as a fallback.
+Follow [DEPLOYMENT.md](DEPLOYMENT.md) for the details, checks and rollback.
+ngrok and Vercel are a legacy fallback only; `render.yml` is kept as a fallback.
 
 ## Key configuration
 
@@ -111,11 +114,10 @@ troubleshooting. The Render configuration (`render.yml`) is kept as a fallback.
 | `LLM_TIMEOUT`, `LLM_MAX_RETRIES` | VM `.env` | Per-attempt timeout and retries for the LLM call |
 | `EMBEDDING_PROVIDER`, `EMBEDDING_BASE_URL`, `EMBEDDING_API_KEY`, `EMBEDDING_MODEL` | VM `.env` | Embeddings (`openai` provider for the gateway) |
 | `EMBEDDING_TIMEOUT`, `EMBEDDING_MAX_RETRIES` | VM `.env` | Also used while indexing; use tolerant values on first boot |
-| `CORS_ORIGINS` | VM `.env` | Exact browser origins, comma-separated, no trailing slash |
+| `CORS_ORIGINS` | VM `.env` | Exact browser origins; not needed for same-origin use, only for legacy/other origins |
 | `ADMIN_API_KEY` | VM `.env` | Protects `/admin/reindex` (used only inside the container) |
-| `NGROK_AUTHTOKEN`, `NGROK_DOMAIN` | VM `.env` | Tunnel credentials; the domain has no `https://` |
-| `VITE_API_URL` | Vercel (build time) | Absolute backend URL ending in `/api` |
-| `VITE_NGROK_SKIP_BROWSER_WARNING` | Vercel (build time) | `true` adds the ngrok header that skips its browser warning page |
+| `VITE_API_URL` | Docker build arg (`nginx/Dockerfile`) | Defaults to `/api` (same origin); unset in `npm run dev` = `http://localhost:8000` |
+| `NGROK_AUTHTOKEN`, `NGROK_DOMAIN` | VM `.env` | Legacy tunnel only |
 
 Never commit `.env` files or paste keys into issues or chat.
 
@@ -124,7 +126,7 @@ Never commit `.env` files or paste keys into issues or chat.
 ```bash
 docker compose ps                         # add -f docker-compose.local.yml if you used it to start
 docker compose logs -f backend            # startup ingestion, errors
-docker compose logs nginx --tail 50       # access log with real client IPs
+docker compose logs nginx --tail 50       # access log (client IPs depend on the TODO(owner) in nginx.conf)
 docker compose up -d                      # applies .env changes (restart does NOT re-read .env)
 docker compose restart nginx              # after the backend container is recreated
 bash scripts/backup.sh                    # stops the backend briefly; archives data/chroma
@@ -137,6 +139,6 @@ bash scripts/reindex.sh                   # re-embeds all chunks (see runbook fi
   latency (embedding + LLM, including retries) must stay below that.
 - Reasoning ("thinking") models on the gateway can exceed the LLM timeout.
   See the LLM section of the runbook.
-- ngrok's free plan has monthly request and bandwidth caps and one
-  automatically assigned domain; check the ngrok dashboard Usage page.
+- Client IP for rate limits depends on the proxy in front of Nginx; see the
+  TODO(owner) in `nginx/nginx.conf`.
 - Dependencies in `backend/requirements.txt` are not pinned.
